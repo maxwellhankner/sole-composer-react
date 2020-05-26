@@ -1,18 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Design from './components/design/design.js'
+import Landing from './pages/Landing/Landing.js'
+import Designer from './pages/Designer/Designer.js'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <Design />
-      </header>
+    <div className="app-container">
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Landing} />
+          <Route exact path="/designer" component={Designer} />
+        </Switch>
+      </Router>
     </div>
   );
 }
