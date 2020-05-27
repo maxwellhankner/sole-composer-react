@@ -1,11 +1,16 @@
 import React  from 'react';
 import './Interface.css';
 
-function Interface() {
+function Interface({setColor}) {
+
+  const handleUpdate = () => {
+    setColor(document.getElementById('color-input').value)
+  }
 
   return (
     <div className="interface-container">
-      Interface
+      <input id='color-input'/>
+      <button onClick={() => handleUpdate()}>Set Color</button>
     </div>
   );
 }
