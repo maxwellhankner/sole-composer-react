@@ -4,28 +4,30 @@ import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
-const createCanvas = (color) => {
-    var ctx = document.createElement("canvas").getContext('2d');
-    ctx.canvas.width = 4096;
-    ctx.canvas.height = 4096;
-    ctx.fillStyle = color;
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    return ctx
-}
 
-const createMaterial = (texture) => {
-    var aoimg = new Image();
-    aoimg.src = 'assets/images/ao_diffuse.png';
-    var ao = new THREE.CanvasTexture(aoimg);
-    ao.flipY = false;
-
-    return new THREE.MeshStandardMaterial({
-        map: texture,
-        aoMap: ao
-    })
-}
 
 function Scene({ color }) {
+
+    const createCanvas = (color) => {
+        var ctx = document.createElement("canvas").getContext('2d');
+        ctx.canvas.width = 4096;
+        ctx.canvas.height = 4096;
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        return ctx
+    }
+    
+    const createMaterial = (texture) => {
+        var aoimg = new Image();
+        aoimg.src = 'assets/images/ao_diffuse.png';
+        var ao = new THREE.CanvasTexture(aoimg);
+        ao.flipY = false;
+    
+        return new THREE.MeshStandardMaterial({
+            map: texture,
+            aoMap: ao
+        })
+    }
 
     const createTexture = () => {
         var texture = new THREE.CanvasTexture(textureCanvas.canvas);
@@ -33,16 +35,6 @@ function Scene({ color }) {
     
         return texture;
     }
-
-    const canvasRef = useRef(null);
-
-    const [renderer, setRenderer] = useState(new THREE.WebGLRenderer());
-
-    const [textureCanvas, setTextureCanvas] = useState(createCanvas(color));
-
-    const [texture, setTexture] = useState(createTexture());
-
-    const [newMaterial, setNewMaterial] = useState(createMaterial(texture));
 
     const updateMaterial = (color) => {
         var ctx = document.createElement("canvas").getContext('2d');
@@ -56,6 +48,16 @@ function Scene({ color }) {
         texture.needsUpdate = true;
 
     }
+
+    const canvasRef = useRef(null);
+
+    const [renderer, setRenderer] = useState(new THREE.WebGLRenderer());
+
+    const [textureCanvas, setTextureCanvas] = useState(createCanvas(color));
+
+    const [texture, setTexture] = useState(createTexture());
+
+    const [newMaterial, setNewMaterial] = useState(createMaterial(texture));
 
     useEffect(() => {
         const width = canvasRef.current.clientWidth;
