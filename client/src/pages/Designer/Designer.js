@@ -6,7 +6,7 @@ import Interface from '../../components/Interface/Interface.js'
 
 function Designer() {
 
-  const [color, setColor] = useState('#ffff00');
+  const [color, setColor] = useState('#ffffff');
 
   console.log(color);
 

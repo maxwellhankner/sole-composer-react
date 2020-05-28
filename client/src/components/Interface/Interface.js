@@ -5,6 +5,7 @@ function Interface({setColor}) {
 
   const handleUpdate = () => {
     setColor(document.getElementById('color-input').value)
+    console.log('setColor')
   }
 
   return (
