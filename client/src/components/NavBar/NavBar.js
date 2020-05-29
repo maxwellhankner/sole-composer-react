@@ -6,12 +6,12 @@ function NavBar() {
 
   return (
     <div className="navbar-container">
-        <Link to="/">
-            Home
-        </Link>
-        <Link to="/designer">
-            Designer
-        </Link>
+      <Link to="/">
+        <p>Home</p>
+      </Link>
+      <Link to="/designer">
+        <p>Designer</p>
+      </Link>
     </div>
   );
 }

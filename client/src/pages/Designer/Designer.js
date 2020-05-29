@@ -8,8 +8,6 @@ function Designer() {
 
   const [color, setColor] = useState('#ffffff');
 
-  console.log(color);
-
   return (
     <div className="designer-container">
         <NavBar />

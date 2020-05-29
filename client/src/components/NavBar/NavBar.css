@@ -3,3 +3,15 @@
     top: 0;
     right: 0;
 }
+
+.navbar-container a {
+    text-decoration: none;
+}
+
+.navbar-container p {
+    display: inline;
+    margin: 0;
+    padding: 3px;
+    color: #333;
+
+}

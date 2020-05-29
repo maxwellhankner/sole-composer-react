@@ -16,13 +16,13 @@ function Scene({ color }) {
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         return ctx
     }
-    
+
     const createMaterial = (texture) => {
         var aoimg = new Image();
         aoimg.src = 'assets/images/ao_diffuse.png';
         var ao = new THREE.CanvasTexture(aoimg);
         ao.flipY = false;
-    
+
         return new THREE.MeshStandardMaterial({
             map: texture,
             aoMap: ao
@@ -32,40 +32,37 @@ function Scene({ color }) {
     const createTexture = () => {
         var texture = new THREE.CanvasTexture(textureCanvas.canvas);
         texture.flipY = false;
-    
+
         return texture;
-    }
-
-    const updateMaterial = (color) => {
-        var ctx = document.createElement("canvas").getContext('2d');
-        ctx.canvas.width = 4096;
-        ctx.canvas.height = 4096;
-        ctx.fillStyle = color;
-        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        var tempCanvas = textureCanvas;
-        tempCanvas.drawImage(ctx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
-        setTextureCanvas(tempCanvas);
-        texture.needsUpdate = true;
-
     }
 
     const canvasRef = useRef(null);
 
-    const [renderer, setRenderer] = useState(new THREE.WebGLRenderer());
+    const [renderer] = useState(new THREE.WebGLRenderer());
 
     const [textureCanvas, setTextureCanvas] = useState(createCanvas(color));
 
-    const [texture, setTexture] = useState(createTexture());
+    const [texture] = useState(createTexture());
 
-    const [newMaterial, setNewMaterial] = useState(createMaterial(texture));
+    const [newMaterial] = useState(createMaterial(texture));
 
     useEffect(() => {
+        const scene = new THREE.Scene();
+
         const width = canvasRef.current.clientWidth;
         const height = canvasRef.current.clientHeight;
-        const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+        camera.position.z = 7;
+        camera.position.y = 0;
+
         const controls = new OrbitControls(camera, renderer.domElement);
+        controls.maxDistance = 9;
+        controls.minDistance = 3;
+        controls.minPolarAngle = Math.PI * (1 / 5);
+        controls.maxPolarAngle = Math.PI * (6 / 7);
+        controls.enablePan = false;
         controls.update();
+
         renderer.setSize(width * 2, height * 2);
         renderer.setClearColor('#eeeeee');
         const light = new THREE.AmbientLight(0xffffff, 1);
@@ -87,13 +84,26 @@ function Scene({ color }) {
             }
         );
 
-        camera.position.z = 7;
+        //===================================================== resize
+        window.addEventListener("resize", resizecanvas);
+
+        function resizecanvas() {
+            const canvas = renderer.domElement;
+            const width = canvas.clientWidth * 2;
+            const height = canvas.clientHeight * 2;
+            if (canvas.width !== width || canvas.height !== height) {
+                renderer.setSize(width, height, false);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            }
+        }
 
         canvasRef.current.appendChild(renderer.domElement);
 
         const render = () => {
             renderer.render(scene, camera);
             requestAnimationFrame(render);
+            resizecanvas();
             controls.update();
         }
 
@@ -104,11 +114,26 @@ function Scene({ color }) {
             controls.dispose();
         }
 
-    }, [])
+    }, [newMaterial, renderer])
+
+    
 
     useEffect(() => {
+        const updateMaterial = (color) => {
+            var ctx = document.createElement("canvas").getContext('2d');
+            ctx.canvas.width = 4096;
+            ctx.canvas.height = 4096;
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            var tempCanvas = textureCanvas;
+            tempCanvas.drawImage(ctx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
+            setTextureCanvas(tempCanvas);
+            texture.needsUpdate = true;
+    
+        }
+
         updateMaterial(color);
-    }, [color])
+    }, [color, texture.needsUpdate, textureCanvas])
 
     return (
         <div className="scene-container" ref={canvasRef} />
