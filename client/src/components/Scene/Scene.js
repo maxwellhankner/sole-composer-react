@@ -47,14 +47,20 @@ function Scene({ color }) {
     const [newMaterial] = useState(createMaterial(texture));
 
     useEffect(() => {
-        const scene = new THREE.Scene();
-
+        canvasRef.current.appendChild(renderer.domElement);
         const width = canvasRef.current.clientWidth;
         const height = canvasRef.current.clientHeight;
+
+        //===================================================== scene
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xf0f0f0);
+
+        //===================================================== camera
         const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
         camera.position.z = 7;
         camera.position.y = 0;
 
+        //===================================================== orbit controls
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.maxDistance = 9;
         controls.minDistance = 3;
@@ -63,8 +69,7 @@ function Scene({ color }) {
         controls.enablePan = false;
         controls.update();
 
-        renderer.setSize(width * 2, height * 2);
-        renderer.setClearColor('#eeeeee');
+        //===================================================== lights
         const light = new THREE.AmbientLight(0xffffff, 1);
         scene.add(light);
 
@@ -98,8 +103,7 @@ function Scene({ color }) {
             }
         }
 
-        canvasRef.current.appendChild(renderer.domElement);
-
+        //===================================================== animate
         const render = () => {
             renderer.render(scene, camera);
             requestAnimationFrame(render);
@@ -109,6 +113,7 @@ function Scene({ color }) {
 
         render()
 
+        //===================================================== cleanup
         return function cleanup() {
             cancelAnimationFrame(render);
             controls.dispose();
@@ -116,7 +121,7 @@ function Scene({ color }) {
 
     }, [newMaterial, renderer])
 
-    
+
 
     useEffect(() => {
         const updateMaterial = (color) => {
@@ -129,10 +134,11 @@ function Scene({ color }) {
             tempCanvas.drawImage(ctx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
             setTextureCanvas(tempCanvas);
             texture.needsUpdate = true;
-    
+
         }
 
         updateMaterial(color);
+        
     }, [color, texture.needsUpdate, textureCanvas])
 
     return (
