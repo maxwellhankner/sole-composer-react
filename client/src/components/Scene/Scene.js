@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
 
-function Scene({ color }) {
+function Scene({ color, design }) {
 
     const createCanvas = (color) => {
         var ctx = document.createElement("canvas").getContext('2d');
@@ -53,7 +53,7 @@ function Scene({ color }) {
 
         //===================================================== scene
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf0f0f0);
+        scene.background = new THREE.Color(0xf9f9f9);
 
         //===================================================== camera
         const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
@@ -121,24 +121,56 @@ function Scene({ color }) {
 
     }, [newMaterial, renderer])
 
-
+    const [designSpec, setDesignSpec] = useState();
 
     useEffect(() => {
-        const updateMaterial = (color) => {
+
+        if (design) {
+            setDesignSpec(design);
+        }
+
+    }, [design])
+
+    useEffect(() => {
+
+        const updateCanvas = (designSpec) => {
             var ctx = document.createElement("canvas").getContext('2d');
             ctx.canvas.width = 4096;
             ctx.canvas.height = 4096;
-            ctx.fillStyle = color;
+            ctx.fillStyle = designSpec.color;
             ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
             var tempCanvas = textureCanvas;
             tempCanvas.drawImage(ctx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
             setTextureCanvas(tempCanvas);
             texture.needsUpdate = true;
-
         }
 
-        updateMaterial(color);
-        
+        if(designSpec){
+            updateCanvas(designSpec)
+        }
+
+    }, [designSpec, texture.needsUpdate, textureCanvas])
+
+    // useEffect(() => {
+    //     if(designSpec){
+    //         const currentDesign = designSpec;
+    //         currentDesign.color = color;
+    //         console.log(currentDesign)
+    //         setDesignSpec(currentDesign);
+    //         console.log(designSpec)
+    //     }
+    // }, [color])
+
+    useEffect(() => {
+        var ctx = document.createElement("canvas").getContext('2d');
+        ctx.canvas.width = 4096;
+        ctx.canvas.height = 4096;
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        var tempCanvas = textureCanvas;
+        tempCanvas.drawImage(ctx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
+        setTextureCanvas(tempCanvas);
+        texture.needsUpdate = true;
     }, [color, texture.needsUpdate, textureCanvas])
 
     return (

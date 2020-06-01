@@ -5,9 +5,9 @@ import NavBar from '../../components/NavBar/NavBar.js'
 function Landing() {
 
   return (
-    <div>
-        <NavBar />
-        Landing
+    <div className='landing-container'>
+      <NavBar />
+        Sole Composer
     </div>
   );
 }

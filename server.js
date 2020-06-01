@@ -12,7 +12,8 @@ const app = express();
 
 app.get('/api/design', (req, res) => {
     const design = {
-        model: 'air force 1'
+        model: 'air force 1',
+        color: '#ffbb55'
     }
     res.json(design)
 })
