@@ -3,7 +3,7 @@ import './Scene.css';
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-
+import { drawSwooshFunction } from '../../helpers/drawfunctions.js';
 
 
 function Scene({ color, drawSwoosh, design }) {
@@ -177,36 +177,9 @@ function Scene({ color, drawSwoosh, design }) {
 
     useEffect(() => {
         if (drawSwoosh) {
-            console.log('in')
-            
-
-            const canvas = document.createElement('canvas');
-            canvas.id = 'tempcanvas';
-            canvas.width = 4096;
-            canvas.height = 4096;
-            const ctxtemp = canvas.getContext('2d');
-
-            const color = '#ffaa55'
-            const mask = new Image() 
-            mask.src = "/assets/images/outerSwooshMask.png" 
-            mask.onload = function() {
-                ctxtemp.drawImage(mask, 0, 0, ctxtemp.canvas.width, ctxtemp.canvas.height);
-            }
-            
-
-
-            ctxtemp.globalCompositeOperation = "source-in";
-            ctxtemp.fillStyle = color;
-            ctxtemp.fillRect(0, 0, 4096, 4096);
-
-            console.log(ctxtemp);
-
-            const tempCanvas = textureCanvas;
-            tempCanvas.drawImage(canvas, 2015, -359, 1500, 1500);
-            setTextureCanvas(tempCanvas);
-            texture.needsUpdate = true;
+            drawSwooshFunction(texture, textureCanvas, setTextureCanvas);
         }
-    }, [drawSwoosh, texture.needsUpdate, textureCanvas])
+    }, [drawSwoosh, texture, textureCanvas])
 
     return (
         <div className="scene-container" ref={canvasRef} />
