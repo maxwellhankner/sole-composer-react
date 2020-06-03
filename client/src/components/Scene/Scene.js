@@ -6,7 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 
 
-function Scene({ color, design }) {
+function Scene({ color, drawSwoosh, design }) {
 
     const createCanvas = (color) => {
         var ctx = document.createElement("canvas").getContext('2d');
@@ -145,7 +145,7 @@ function Scene({ color, design }) {
             texture.needsUpdate = true;
         }
 
-        if(designSpec){
+        if (designSpec) {
             updateCanvas(designSpec)
         }
 
@@ -172,6 +172,41 @@ function Scene({ color, design }) {
         setTextureCanvas(tempCanvas);
         texture.needsUpdate = true;
     }, [color, texture.needsUpdate, textureCanvas])
+
+    //===================================================== draw swoosh
+
+    useEffect(() => {
+        if (drawSwoosh) {
+            console.log('in')
+            
+
+            const canvas = document.createElement('canvas');
+            canvas.id = 'tempcanvas';
+            canvas.width = 4096;
+            canvas.height = 4096;
+            const ctxtemp = canvas.getContext('2d');
+
+            const color = '#ffaa55'
+            const mask = new Image() 
+            mask.src = "/assets/images/outerSwooshMask.png" 
+            mask.onload = function() {
+                ctxtemp.drawImage(mask, 0, 0, ctxtemp.canvas.width, ctxtemp.canvas.height);
+            }
+            
+
+
+            ctxtemp.globalCompositeOperation = "source-in";
+            ctxtemp.fillStyle = color;
+            ctxtemp.fillRect(0, 0, 4096, 4096);
+
+            console.log(ctxtemp);
+
+            const tempCanvas = textureCanvas;
+            tempCanvas.drawImage(canvas, 2015, -359, 1500, 1500);
+            setTextureCanvas(tempCanvas);
+            texture.needsUpdate = true;
+        }
+    }, [drawSwoosh, texture.needsUpdate, textureCanvas])
 
     return (
         <div className="scene-container" ref={canvasRef} />

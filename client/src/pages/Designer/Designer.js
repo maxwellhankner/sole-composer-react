@@ -8,6 +8,8 @@ function Designer() {
 
   const [color, setColor] = useState();
 
+  const [drawSwoosh, setDrawSwoosh] = useState(false);
+
   const [design, setDesign] = useState();
 
   useEffect(() => {
@@ -19,8 +21,8 @@ function Designer() {
   return (
     <div className="designer-container">
         <NavBar />
-        <Scene color={color} design={design}/>
-        <Interface setColor={setColor} />
+        <Scene color={color} drawSwoosh={drawSwoosh} design={design}/>
+        <Interface setColor={setColor} setDrawSwoosh={setDrawSwoosh} />
     </div>
   );
 }
