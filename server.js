@@ -27,12 +27,24 @@ app.get('/api/design', (req, res) => {
             innerQuarter: {
                 color: '#1155ff'
             },
+            outerHeel: {
+                color: '#bb2299'
+            },
+            innerHeel: {
+                color: '#ee44aa'
+            },
             toeBox: {
                 color: '#1155ff'
             },
             toeCap: {
                 color: '#3399bb'
             },
+            heelWing: {
+                color: '#1155ff'
+            },
+            heelTab: {
+                color: '#3399bb'
+            }
         }
     }
     res.json(design)

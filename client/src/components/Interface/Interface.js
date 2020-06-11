@@ -1,5 +1,6 @@
 import React  from 'react';
 import './Interface.css';
+import ColorTester from '../ColorTester/ColorTester'
 
 function Interface({setColor, setDrawSwoosh}) {
 
@@ -13,11 +14,7 @@ function Interface({setColor, setDrawSwoosh}) {
 
   return (
     <div className="interface-container">
-      <input id='color-input'/>
-      <button onClick={() => handleUpdate()}>Set Color</button>
-      <div>
-        <button onClick={() => handleDrawSwoosh()}>Swoosh</button>
-      </div>
+      <ColorTester handleUpdate={handleUpdate} handleDrawSwoosh={handleDrawSwoosh} />
     </div>
   );
 }
