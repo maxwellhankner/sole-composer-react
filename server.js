@@ -13,7 +13,27 @@ const app = express();
 app.get('/api/design', (req, res) => {
     const design = {
         model: 'air force 1',
-        color: '#ffbb55'
+        color: '#ffbb55',
+        parts: {
+            outerSwoosh: {
+                color: '#3399bb'
+            },
+            innerSwoosh: {
+                color: '#bb2299'
+            },
+            outerQuarter: {
+                color: '#ee44aa'
+            },
+            innerQuarter: {
+                color: '#1155ff'
+            },
+            toeBox: {
+                color: '#1155ff'
+            },
+            toeCap: {
+                color: '#3399bb'
+            },
+        }
     }
     res.json(design)
 })

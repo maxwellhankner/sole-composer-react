@@ -21,7 +21,7 @@ function Designer() {
   return (
     <div className="designer-container">
         <NavBar />
-        <Scene color={color} drawSwoosh={drawSwoosh} design={design}/>
+        <Scene color={color} drawSwoosh={drawSwoosh} design={design} setDrawSwoosh={setDrawSwoosh} />
         <Interface setColor={setColor} setDrawSwoosh={setDrawSwoosh} />
     </div>
   );

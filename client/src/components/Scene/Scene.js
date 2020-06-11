@@ -3,10 +3,11 @@ import './Scene.css';
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { drawSwooshFunction } from '../../helpers/drawfunctions.js';
+import { drawPartFunction, drawInitialFunction } from '../../helpers/drawFunctions.js';
+import { partsObject } from '../../helpers/partsObject.js'
 
 
-function Scene({ color, drawSwoosh, design }) {
+function Scene({ color, drawSwoosh, setDrawSwoosh, design }) {
 
     const createCanvas = (color) => {
         var ctx = document.createElement("canvas").getContext('2d');
@@ -133,53 +134,35 @@ function Scene({ color, drawSwoosh, design }) {
 
     useEffect(() => {
 
-        const updateCanvas = (designSpec) => {
-            var ctx = document.createElement("canvas").getContext('2d');
-            ctx.canvas.width = 4096;
-            ctx.canvas.height = 4096;
-            ctx.fillStyle = designSpec.color;
-            ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-            var tempCanvas = textureCanvas;
-            tempCanvas.drawImage(ctx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
-            setTextureCanvas(tempCanvas);
-            texture.needsUpdate = true;
+        const initialCanvas = (designSpec) => {
+            drawInitialFunction(texture, textureCanvas, setTextureCanvas, designSpec.color)
+            for (const property in designSpec.parts) {
+                drawPartFunction(texture, textureCanvas, setTextureCanvas, designSpec.parts[property].color, partsObject[property]);
+            }
         }
 
         if (designSpec) {
-            updateCanvas(designSpec)
+            initialCanvas(designSpec)
         }
 
-    }, [designSpec, texture.needsUpdate, textureCanvas])
-
-    // useEffect(() => {
-    //     if(designSpec){
-    //         const currentDesign = designSpec;
-    //         currentDesign.color = color;
-    //         console.log(currentDesign)
-    //         setDesignSpec(currentDesign);
-    //         console.log(designSpec)
-    //     }
-    // }, [color])
+    }, [designSpec, texture, textureCanvas])
 
     useEffect(() => {
-        var ctx = document.createElement("canvas").getContext('2d');
-        ctx.canvas.width = 4096;
-        ctx.canvas.height = 4096;
-        ctx.fillStyle = color;
-        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        var tempCanvas = textureCanvas;
-        tempCanvas.drawImage(ctx.canvas, 0, 0, ctx.canvas.width, ctx.canvas.height)
-        setTextureCanvas(tempCanvas);
-        texture.needsUpdate = true;
-    }, [color, texture.needsUpdate, textureCanvas])
+        drawInitialFunction(texture, textureCanvas, setTextureCanvas, color)
+    }, [color, texture, textureCanvas])
 
     //===================================================== draw swoosh
 
     useEffect(() => {
         if (drawSwoosh) {
-            drawSwooshFunction(texture, textureCanvas, setTextureCanvas);
+            drawPartFunction(texture, textureCanvas, setTextureCanvas, "#3366bb", partsObject.outerSwoosh);
+            drawPartFunction(texture, textureCanvas, setTextureCanvas, "#aa66bb", partsObject.innerSwoosh);
+            drawPartFunction(texture, textureCanvas, setTextureCanvas, "#11ff55", partsObject.outerQuarter);
+            drawPartFunction(texture, textureCanvas, setTextureCanvas, "#994455", partsObject.innerQuarter);
+            drawPartFunction(texture, textureCanvas, setTextureCanvas, "#11ff77", partsObject.toeBox);
         }
-    }, [drawSwoosh, texture, textureCanvas])
+        setDrawSwoosh(false);
+    }, [drawSwoosh, setDrawSwoosh, texture, textureCanvas])
 
     return (
         <div className="scene-container" ref={canvasRef} />
