@@ -1,10 +1,12 @@
 .color-picker {
     margin: auto;
+    margin-bottom: 15px;
 }
 
 .random-color {
     display: flex;
     justify-content: center;
+    padding-top: 15px;
     margin-bottom: 15px;
 }
 
@@ -12,7 +14,7 @@
     background-color: #f9f9f9;
     border: none;
     padding: 8px;
-    width: 33%;
+    width: 225px;
 }
 
 .color-picker-container button:focus {

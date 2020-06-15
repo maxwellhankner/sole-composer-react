@@ -1,29 +1,50 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import './Interface.css';
-// import ColorTester from '../ColorTester/ColorTester'
 import ColorPicker from '../ColorPicker/ColorPicker'
-import PartSelector from '../PartSelector/PartSelector'
+import DesignPreview from '../DesignPreview/DesignPreview'
+import LayersView from '../LayersView/LayersView'
 
 function Interface({ design, setDesign }) {
 
+  const [currentPart, setCurrentPart] = useState(0)
+  const [view, setView] = useState('DesignPreview');
+
+  const handleViewChange = (viewChange) => {
+    setView(viewChange);
+  }
+
   const handleDesignChange = (part, color) => {
-    // console.log(color)
-    // console.log('design:', design);
     const tempDesign = JSON.parse(JSON.stringify(design));
     tempDesign.parts[part].color = color;
-    // console.log('trempDesign', tempDesign);
     setDesign(tempDesign);
   }
 
-  const [currentPart, setCurrentPart] = useState(0)
 
-  return (
-    <div className="interface-container">
-      <PartSelector currentPart={currentPart} setCurrentPart={setCurrentPart}/>
-      {/* <ColorTester handleDesignChange={handleDesignChange}/> */}
-      <ColorPicker design={design} handleDesignChange={handleDesignChange} currentPart={currentPart}/>
-    </div>
-  );
+
+  if (view === 'DesignPreview') {
+    return (
+      <div className="interface-container">
+        <DesignPreview handleViewChange={handleViewChange} />
+      </div>
+    );
+  }
+  else if (view === 'Layers') {
+    return (
+      <div className="interface-container">
+        <LayersView handleViewChange={handleViewChange} design={design} currentPart={currentPart} setCurrentPart={setCurrentPart} />
+      </div>
+    )
+  }
+  else {
+    return (
+      <div className="interface-container">
+        <ColorPicker design={design} handleDesignChange={handleDesignChange} currentPart={currentPart} />
+        <div className='change-view-button'>
+          <button onClick={() => handleViewChange('Layers')}>Back</button>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Interface;

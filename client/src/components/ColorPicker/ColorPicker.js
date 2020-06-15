@@ -8,7 +8,6 @@ function ColorPicker({ handleDesignChange, currentPart, design }) {
   const [ currentColor, setCurrentColor ] = useState('#ffffaa')
 
   useEffect(() => {
-    console.log(design)
     if(design){
       setCurrentColor(design.parts[Object.keys(partsObject)[currentPart]].color)
     }
@@ -17,7 +16,6 @@ function ColorPicker({ handleDesignChange, currentPart, design }) {
 
   const handleChangeComplete = (color) => {
     setCurrentColor(color)
-    console.log('changed')
     handleDesignChange(Object.keys(partsObject)[currentPart], color.hex)
   }
 

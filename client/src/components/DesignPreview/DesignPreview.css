@@ -1,0 +1,18 @@
+.view-title p {
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+}
+
+.change-view-button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.change-view-button button {
+    background-color: #f9f9f9;
+    border: none;
+    padding: 8px;
+    width: 225px;
+}

@@ -147,7 +147,6 @@ function Scene({ design }) {
 
         if (design) {
             const partChange = getDesignPartChanges(oldDesignRef.current, design);
-            console.log(partChange, 'Changed');
             if(partChange){
                 drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange].color, partsObject[partChange])
             }
