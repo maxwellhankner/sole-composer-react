@@ -128,12 +128,14 @@ function Scene({ design }) {
 
         const getDesignPartChanges = (obj1, obj2) => {
             if(!obj1.parts){
+                console.log('no change')
                 return
             }
             const obj1Keys = Object.keys(obj1.parts);
             for (let objKey of obj1Keys) {
-                if(obj1.parts[objKey].color !== obj2.parts[objKey].color){
-                    return objKey;
+                if(obj1.parts[objKey].layers[0].color !== obj2.parts[objKey].layers[0].color){
+                    console.log('some change', objKey)
+                    return [objKey, 0];
                 }
             }
         }
@@ -141,14 +143,20 @@ function Scene({ design }) {
         const initialCanvas = (design) => {
             drawInitialFunction(texture, textureCanvas, setTextureCanvas, '#ffbb55')
             for (const property in design.parts) {
-                drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[property].color, partsObject[property]);
+                design.parts[property].layers.forEach(layer => {
+                    drawPartFunction(texture, textureCanvas, setTextureCanvas, layer.color, partsObject[property]);
+                })
+                
             }
         }
 
         if (design) {
+            console.log('old design', oldDesignRef.current)
+            console.log('new design', design)
+            
             const partChange = getDesignPartChanges(oldDesignRef.current, design);
             if(partChange){
-                drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange].color, partsObject[partChange])
+                drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange[0]].layers[0].color, partsObject[partChange[0]])
             }
             else{
                 initialCanvas(design);

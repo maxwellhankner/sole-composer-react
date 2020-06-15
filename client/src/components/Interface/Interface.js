@@ -13,9 +13,9 @@ function Interface({ design, setDesign }) {
     setView(viewChange);
   }
 
-  const handleDesignChange = (part, color) => {
+  const handleDesignChange = (part, layer, color) => {
     const tempDesign = JSON.parse(JSON.stringify(design));
-    tempDesign.parts[part].color = color;
+    tempDesign.parts[part].layers[layer].color = color;
     setDesign(tempDesign);
   }
 

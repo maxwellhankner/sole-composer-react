@@ -9,20 +9,23 @@ function ColorPicker({ handleDesignChange, currentPart, design }) {
 
   useEffect(() => {
     if(design){
-      setCurrentColor(design.parts[Object.keys(partsObject)[currentPart]].color)
+      setCurrentColor(design.parts[Object.keys(partsObject)[currentPart]].layers[0].color)
     }
     
   }, [design, currentPart])
 
   const handleChangeComplete = (color) => {
     setCurrentColor(color)
-    handleDesignChange(Object.keys(partsObject)[currentPart], color.hex)
+    handleDesignChange(Object.keys(partsObject)[currentPart], 0, color.hex)
   }
 
   
 
   return (
     <div className="color-picker-container">
+      <div className='view-title'>
+          <p>{Object.keys(partsObject)[currentPart]}</p>
+      </div>
       <div className='random-color'>
         <button onClick={() => handleDesignChange(Object.keys(partsObject)[currentPart], '#' + Math.floor(Math.random() * 16777215).toString(16))}>Random Color</button>
       </div>

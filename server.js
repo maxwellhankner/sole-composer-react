@@ -15,58 +15,148 @@ app.get('/api/design', (req, res) => {
         model: 'air force 1',
         parts: {
             outerSwoosh: {
-                color: '#3399bb'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#3399bb'
+                    }
+                ]
             },
             innerSwoosh: {
-                color: '#bb2299'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#ee44aa'
+                    }
+                ]
             },
             outerQuarter: {
-                color: '#ee44aa'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#3399bb'
+                    }
+                ]
             },
             innerQuarter: {
-                color: '#1155ff'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#ee44aa'
+                    }
+                ]
             },
             outerHeel: {
-                color: '#bb2299'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#3399bb'
+                    }
+                ]
             },
             innerHeel: {
-                color: '#ee44aa'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#ee44aa'
+                    }
+                ]
             },
             outerSole: {
-                color: '#ee44aa'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#ee44aa'
+                    }
+                ]
             },
             innerSole: {
-                color: '#ee44aa'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#ee44aa'
+                    }
+                ]
             },
             sole: {
-                color: '#ee44aa'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#ee44aa'
+                    }
+                ]
             },
             toeBox: {
-                color: '#1155ff'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#1155ff'
+                    }
+                ]
             },
             toeCap: {
-                color: '#3399bb'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#1155ff'
+                    }
+                ]
             },
             lace: {
-                color: '#ee44aa'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#1155ff'
+                    }
+                ]
             },
             laceCage: {
-                color: '#ee44aa'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#1155ff'
+                    }
+                ]
             },
             laceLock: {
-                color: '#ee44aa'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#3399bb'
+                    }
+                ]
             },
             tongue: {
-                color: '#1155ff'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#1155ff'
+                    }
+                ]
             },
             heelWing: {
-                color: '#1155ff'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#3399bb'
+                    }
+                ]
             },
             heelTab: {
-                color: '#3399bb'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#3399bb'
+                    }
+                ]
             },
             sockLiner: {
-                color: '#3399bb'
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#3399bb'
+                    }
+                ]
             }
         }
     }

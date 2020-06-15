@@ -2,12 +2,11 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    padding-top: 5px;
-    padding-bottom: 10px;
 }
 
 .part-selector-container div p {
     margin: auto;
+    padding: 10px;
 }
 
 .part-selector-container div button {
@@ -16,4 +15,6 @@
     background-color: transparent;
     border: none;
     font-size: 1rem;
+    padding-left: 15px;
+    padding-right: 15px;
 }

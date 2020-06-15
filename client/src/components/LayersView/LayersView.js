@@ -13,7 +13,7 @@ function LayersView({ handleViewChange, currentPart, setCurrentPart, design }) {
       </div>
       <div className='layers-box-container'>
         <div>
-          {design.parts[Object.keys(partsObject)[currentPart]].color}
+          {design.parts[Object.keys(partsObject)[currentPart]].layers.map(layer => `${layer.type} ${layer.color}`)}
         </div>
       </div>
       <div className='change-view-button'>
