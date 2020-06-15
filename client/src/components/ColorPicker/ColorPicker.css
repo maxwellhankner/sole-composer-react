@@ -1,0 +1,20 @@
+.color-picker {
+    margin: auto;
+}
+
+.random-color {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.color-picker-container button {
+    background-color: #f9f9f9;
+    border: none;
+    padding: 8px;
+    width: 33%;
+}
+
+.color-picker-container button:focus {
+    outline: none;
+}

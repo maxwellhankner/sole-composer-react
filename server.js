@@ -32,16 +32,40 @@ app.get('/api/design', (req, res) => {
             innerHeel: {
                 color: '#ee44aa'
             },
+            outerSole: {
+                color: '#ee44aa'
+            },
+            innerSole: {
+                color: '#ee44aa'
+            },
+            sole: {
+                color: '#ee44aa'
+            },
             toeBox: {
                 color: '#1155ff'
             },
             toeCap: {
                 color: '#3399bb'
             },
+            lace: {
+                color: '#ee44aa'
+            },
+            laceCage: {
+                color: '#ee44aa'
+            },
+            laceLock: {
+                color: '#ee44aa'
+            },
+            tongue: {
+                color: '#1155ff'
+            },
             heelWing: {
                 color: '#1155ff'
             },
             heelTab: {
+                color: '#3399bb'
+            },
+            sockLiner: {
                 color: '#3399bb'
             }
         }

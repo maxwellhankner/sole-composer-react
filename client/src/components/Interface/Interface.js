@@ -1,6 +1,8 @@
-import React  from 'react';
+import React, { useState }  from 'react';
 import './Interface.css';
-import ColorTester from '../ColorTester/ColorTester'
+// import ColorTester from '../ColorTester/ColorTester'
+import ColorPicker from '../ColorPicker/ColorPicker'
+import PartSelector from '../PartSelector/PartSelector'
 
 function Interface({ design, setDesign }) {
 
@@ -13,9 +15,13 @@ function Interface({ design, setDesign }) {
     setDesign(tempDesign);
   }
 
+  const [currentPart, setCurrentPart] = useState(0)
+
   return (
     <div className="interface-container">
-      <ColorTester handleDesignChange={handleDesignChange}/>
+      <PartSelector currentPart={currentPart} setCurrentPart={setCurrentPart}/>
+      {/* <ColorTester handleDesignChange={handleDesignChange}/> */}
+      <ColorPicker design={design} handleDesignChange={handleDesignChange} currentPart={currentPart}/>
     </div>
   );
 }

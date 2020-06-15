@@ -1,0 +1,19 @@
+.part-selector-container div {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+.part-selector-container div p {
+    margin: auto;
+}
+
+.part-selector-container div button {
+    font-weight: bold;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+}
