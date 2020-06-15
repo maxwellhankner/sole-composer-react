@@ -7,13 +7,13 @@ import { drawPartFunction, drawInitialFunction } from '../../helpers/drawFunctio
 import { partsObject } from '../../helpers/partsObject.js'
 
 
-function Scene({ color, drawSwoosh, setDrawSwoosh, design }) {
+function Scene({ design }) {
 
-    const createCanvas = (color) => {
+    const createCanvas = () => {
         var ctx = document.createElement("canvas").getContext('2d');
         ctx.canvas.width = 4096;
         ctx.canvas.height = 4096;
-        ctx.fillStyle = color;
+        ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         return ctx
     }
@@ -41,7 +41,7 @@ function Scene({ color, drawSwoosh, setDrawSwoosh, design }) {
 
     const [renderer] = useState(new THREE.WebGLRenderer());
 
-    const [textureCanvas, setTextureCanvas] = useState(createCanvas(color));
+    const [textureCanvas, setTextureCanvas] = useState(createCanvas());
 
     const [texture] = useState(createTexture());
 
@@ -122,47 +122,44 @@ function Scene({ color, drawSwoosh, setDrawSwoosh, design }) {
 
     }, [newMaterial, renderer])
 
-    const [designSpec, setDesignSpec] = useState();
+    const oldDesignRef = useRef({});
 
     useEffect(() => {
 
-        if (design) {
-            setDesignSpec(design);
-        }
-
-    }, [design])
-
-    useEffect(() => {
-
-        const initialCanvas = (designSpec) => {
-            drawInitialFunction(texture, textureCanvas, setTextureCanvas, designSpec.color)
-            for (const property in designSpec.parts) {
-                drawPartFunction(texture, textureCanvas, setTextureCanvas, designSpec.parts[property].color, partsObject[property]);
+        const getDesignPartChanges = (obj1, obj2) => {
+            if(!obj1.parts){
+                return
+            }
+            const obj1Keys = Object.keys(obj1.parts);
+            for (let objKey of obj1Keys) {
+                if(obj1.parts[objKey].color !== obj2.parts[objKey].color){
+                    return objKey;
+                }
             }
         }
 
-        if (designSpec) {
-            initialCanvas(designSpec)
+        const initialCanvas = (design) => {
+            drawInitialFunction(texture, textureCanvas, setTextureCanvas, '#ffbb55')
+            for (const property in design.parts) {
+                drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[property].color, partsObject[property]);
+            }
         }
 
-    }, [designSpec, texture, textureCanvas])
+        if (design) {
+            const partChange = getDesignPartChanges(oldDesignRef.current, design);
+            console.log(partChange, 'Changed');
+            if(partChange){
+                drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange].color, partsObject[partChange])
+            }
+            else{
+                initialCanvas(design);
+            }
 
-    useEffect(() => {
-        drawInitialFunction(texture, textureCanvas, setTextureCanvas, color)
-    }, [color, texture, textureCanvas])
+            oldDesignRef.current = design;
 
-    //===================================================== draw swoosh
-
-    useEffect(() => {
-        if (drawSwoosh) {
-            drawPartFunction(texture, textureCanvas, setTextureCanvas, "#3366bb", partsObject.outerSwoosh);
-            drawPartFunction(texture, textureCanvas, setTextureCanvas, "#aa66bb", partsObject.innerSwoosh);
-            drawPartFunction(texture, textureCanvas, setTextureCanvas, "#11ff55", partsObject.outerQuarter);
-            drawPartFunction(texture, textureCanvas, setTextureCanvas, "#994455", partsObject.innerQuarter);
-            drawPartFunction(texture, textureCanvas, setTextureCanvas, "#11ff77", partsObject.toeBox);
         }
-        setDrawSwoosh(false);
-    }, [drawSwoosh, setDrawSwoosh, texture, textureCanvas])
+
+    }, [design, texture, textureCanvas])
 
     return (
         <div className="scene-container" ref={canvasRef} />

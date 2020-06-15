@@ -6,10 +6,6 @@ import Interface from '../../components/Interface/Interface.js'
 
 function Designer() {
 
-  const [color, setColor] = useState();
-
-  const [drawSwoosh, setDrawSwoosh] = useState(false);
-
   const [design, setDesign] = useState();
 
   useEffect(() => {
@@ -21,8 +17,8 @@ function Designer() {
   return (
     <div className="designer-container">
         <NavBar />
-        <Scene color={color} drawSwoosh={drawSwoosh} design={design} setDrawSwoosh={setDrawSwoosh} />
-        <Interface setColor={setColor} setDrawSwoosh={setDrawSwoosh} />
+        <Scene design={design} />
+        <Interface design={design} setDesign={setDesign}/>
     </div>
   );
 }

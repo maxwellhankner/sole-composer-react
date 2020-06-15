@@ -2,19 +2,20 @@ import React  from 'react';
 import './Interface.css';
 import ColorTester from '../ColorTester/ColorTester'
 
-function Interface({setColor, setDrawSwoosh}) {
+function Interface({ design, setDesign }) {
 
-  const handleUpdate = () => {
-    setColor(document.getElementById('color-input').value)
-  }
-
-  const handleDrawSwoosh = () => {
-    setDrawSwoosh(true);
+  const handleDesignChange = (part, color) => {
+    // console.log(color)
+    // console.log('design:', design);
+    const tempDesign = JSON.parse(JSON.stringify(design));
+    tempDesign.parts[part].color = color;
+    // console.log('trempDesign', tempDesign);
+    setDesign(tempDesign);
   }
 
   return (
     <div className="interface-container">
-      <ColorTester handleUpdate={handleUpdate} handleDrawSwoosh={handleDrawSwoosh} />
+      <ColorTester handleDesignChange={handleDesignChange}/>
     </div>
   );
 }
