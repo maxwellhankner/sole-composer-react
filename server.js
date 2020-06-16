@@ -19,6 +19,14 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#3399bb'
+                    },
+                    {
+                        type: 'color',
+                        color: '#ffff11'
+                    },
+                    {
+                        type: 'color',
+                        color: '#1278fa'
                     }
                 ]
             },
@@ -35,6 +43,10 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#3399bb'
+                    },
+                    {
+                        type: 'color',
+                        color: '#57d59c'
                     }
                 ]
             },
@@ -66,7 +78,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#ee44aa'
+                        color: '#e0734c'
                     }
                 ]
             },
@@ -74,7 +86,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#ee44aa'
+                        color: '#e0734c'
                     }
                 ]
             },
@@ -82,7 +94,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#ee44aa'
+                        color: '#e0734c'
                     }
                 ]
             },

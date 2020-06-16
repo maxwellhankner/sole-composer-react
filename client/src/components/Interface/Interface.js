@@ -7,6 +7,7 @@ import LayersView from '../LayersView/LayersView'
 function Interface({ design, setDesign }) {
 
   const [currentPart, setCurrentPart] = useState(0)
+  const [currentLayer, setCurrentLayer] = useState(0);
   const [view, setView] = useState('DesignPreview');
 
   const handleViewChange = (viewChange) => {
@@ -31,14 +32,14 @@ function Interface({ design, setDesign }) {
   else if (view === 'Layers') {
     return (
       <div className="interface-container">
-        <LayersView handleViewChange={handleViewChange} design={design} currentPart={currentPart} setCurrentPart={setCurrentPart} />
+        <LayersView handleViewChange={handleViewChange} design={design} setDesign={setDesign} currentPart={currentPart} setCurrentPart={setCurrentPart} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer}/>
       </div>
     )
   }
   else {
     return (
       <div className="interface-container">
-        <ColorPicker design={design} handleDesignChange={handleDesignChange} currentPart={currentPart} />
+        <ColorPicker design={design} handleDesignChange={handleDesignChange} currentPart={currentPart} currentLayer={currentLayer} />
         <div className='change-view-button'>
           <button onClick={() => handleViewChange('Layers')}>Back</button>
         </div>
