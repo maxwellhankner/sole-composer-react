@@ -127,30 +127,45 @@ function Scene({ design }) {
     useEffect(() => {
 
         const getDesignPartChanges = (obj1, obj2) => {
-            if(!obj1.parts){
+            if (!obj1.parts) {
+                console.log('no change')
                 return
             }
             const obj1Keys = Object.keys(obj1.parts);
             for (let objKey of obj1Keys) {
-                if(obj1.parts[objKey].color !== obj2.parts[objKey].color){
-                    return objKey;
+                // check if the number of layers are different
+                // check if the layer colors are different
+                if (obj1.parts[objKey].layers.length !== obj2.parts[objKey].layers.length){
+                    console.log('layer added', objKey)
+                    return [objKey, 0]
                 }
+                for (let i = 0; i < obj1.parts[objKey].layers.length; i++)
+                    if (obj1.parts[objKey].layers[i].color !== obj2.parts[objKey].layers[i].color) {
+                        console.log('layer changed', objKey)
+                        return [objKey, i];
+                    }
             }
         }
 
         const initialCanvas = (design) => {
             drawInitialFunction(texture, textureCanvas, setTextureCanvas, '#ffbb55')
             for (const property in design.parts) {
-                drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[property].color, partsObject[property]);
+                design.parts[property].layers.forEach(layer => {
+                    drawPartFunction(texture, textureCanvas, setTextureCanvas, layer.color, partsObject[property]);
+                })
+
             }
         }
 
         if (design) {
             const partChange = getDesignPartChanges(oldDesignRef.current, design);
-            if(partChange){
-                drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange].color, partsObject[partChange])
+
+            if (partChange) {
+                for (let i = 0; i < design.parts[partChange[0]].layers.length; i++) {
+                    drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange[0]].layers[i].color, partsObject[partChange[0]])
+                }
             }
-            else{
+            else {
                 initialCanvas(design);
             }
 
