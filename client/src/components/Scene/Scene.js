@@ -135,7 +135,7 @@ function Scene({ design }) {
             for (let objKey of obj1Keys) {
                 // check if the number of layers are different
                 // check if the layer colors are different
-                if (obj1.parts[objKey].layers.length !== obj2.parts[objKey].layers.length){
+                if (obj1.parts[objKey].layers.length !== obj2.parts[objKey].layers.length) {
                     console.log('layer added', objKey)
                     return [objKey, 0]
                 }
@@ -149,21 +149,27 @@ function Scene({ design }) {
 
         const initialCanvas = (design) => {
             drawInitialFunction(texture, textureCanvas, setTextureCanvas, '#ffbb55')
-            for (const property in design.parts) {
-                design.parts[property].layers.forEach(layer => {
-                    drawPartFunction(texture, textureCanvas, setTextureCanvas, layer.color, partsObject[property]);
+            Object.keys(design.parts).map(async property => {
+                return design.parts[property].layers.forEach(async layer => {
+
+                    await drawPartFunction(texture, textureCanvas, setTextureCanvas, layer.color, partsObject[property])
+
                 })
 
-            }
+            })
         }
 
         if (design) {
             const partChange = getDesignPartChanges(oldDesignRef.current, design);
 
             if (partChange) {
-                for (let i = 0; i < design.parts[partChange[0]].layers.length; i++) {
-                    drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange[0]].layers[i].color, partsObject[partChange[0]])
-                }
+                // for (let i = 0; i < design.parts[partChange[0]].layers.length; i++) {
+
+                // }
+                design.parts[partChange[0]].layers.map(async layer => {
+
+                    await drawPartFunction(texture, textureCanvas, setTextureCanvas, layer.color, partsObject[partChange[0]])
+                })
             }
             else {
                 initialCanvas(design);

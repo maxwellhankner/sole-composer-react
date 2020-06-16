@@ -1,5 +1,11 @@
 .interface-container {
     height: 50%;
-    background-color: #333;
     color: #eee;
+    max-width: 375px;
+    margin: auto;
 }
+
+/* .interface-container div {
+    max-width: 375px;
+    margin: auto;
+} */
