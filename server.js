@@ -27,6 +27,14 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#f1515a'
+                    },
+                    {
+                        type: 'graphic',
+                        link: 'assets/images/spongebob.png',
+                        x: 0,
+                        y: 0,
+                        scale: 500,
+                        rotation: 0
                     }
                 ]
             },
@@ -35,6 +43,10 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#ee44aa'
+                    },
+                    {
+                        type: 'color',
+                        color: '#6ec081'
                     }
                 ]
             },
@@ -47,6 +59,14 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#57d59c'
+                    },
+                    {
+                        type: 'graphic',
+                        link: 'assets/images/static.jpg',
+                        x: 0,
+                        y: 0,
+                        scale: 500,
+                        rotation: 0
                     }
                 ]
             },
@@ -103,6 +123,14 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#1155ff'
+                    },
+                    {
+                        type: 'graphic',
+                        link: 'assets/images/static.jpg',
+                        x: 0,
+                        y: 0,
+                        scale: 500,
+                        rotation: 0
                     }
                 ]
             },

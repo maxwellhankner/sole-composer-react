@@ -43,6 +43,10 @@
     justify-content: space-between;
 }
 
+.focus-layer-highlight {
+    background-color: #111;
+}
+
 .layer-list-item-type {
     margin-top: auto;
     margin-bottom: auto;
@@ -54,6 +58,19 @@
     background-color: #111;
     color: #f9f9f9;
     height: 100%;
+}
+
+.edit-layer-button-dead button {
+    color: #555555
+}
+
+.edit-layer-button button:focus {
+    outline: none;
+}
+
+.edit-layer-button button svg {
+    display: block;
+    margin: auto;
 }
 
 .add-layer-button {
@@ -69,4 +86,8 @@
     height: 32px;
     outline: #f9f9f9 solid 1px;
     margin-bottom: 15px;
+}
+
+.hide-edit-buttons {
+    visibility: hidden;
 }

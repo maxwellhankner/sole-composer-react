@@ -3,7 +3,7 @@ import './PartSelector.css';
 import { partsObject } from '../../helpers/partsObject'
 import { handleConvertPartName } from '../../helpers/convertPartNames'
 
-function PartSelector({ currentPart, setCurrentPart }) {
+function PartSelector({ currentPart, setCurrentPart, setFocusLayer }) {
 
   const numberOfParts = Object.keys(partsObject).length
   const arrayOfParts = Object.keys(partsObject)
@@ -23,9 +23,15 @@ function PartSelector({ currentPart, setCurrentPart }) {
   return (
     <div className="part-selector-container">
       <div>
-        <button onClick={() => handlePartChange(-1)} >{'<'}</button>
+        <button onClick={() => {
+          handlePartChange(-1);
+          setFocusLayer(-1)
+        }} >{'<'}</button>
         <p>{handleConvertPartName(arrayOfParts[currentPart])}</p>
-        <button onClick={() => handlePartChange(1)} >{'>'}</button>
+        <button onClick={() => {
+          handlePartChange(1);
+          setFocusLayer(-1);
+        }} >{'>'}</button>
       </div>
     </div>
   );

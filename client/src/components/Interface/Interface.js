@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './Interface.css';
-import ColorPicker from '../ColorPicker/ColorPicker'
 import DesignPreview from '../DesignPreview/DesignPreview'
 import LayersView from '../LayersView/LayersView'
+
 
 function Interface({ design, setDesign }) {
 
@@ -20,8 +20,6 @@ function Interface({ design, setDesign }) {
     setDesign(tempDesign);
   }
 
-
-
   if (view === 'DesignPreview') {
     return (
       <div className="interface-container">
@@ -32,19 +30,9 @@ function Interface({ design, setDesign }) {
   else if (view === 'Layers') {
     return (
       <div className="interface-container">
-        <LayersView handleViewChange={handleViewChange} design={design} setDesign={setDesign} currentPart={currentPart} setCurrentPart={setCurrentPart} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer}/>
+        <LayersView handleViewChange={handleViewChange} handleDesignChange={handleDesignChange} design={design} setDesign={setDesign} currentPart={currentPart} setCurrentPart={setCurrentPart} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer}/>
       </div>
     )
-  }
-  else {
-    return (
-      <div className="interface-container">
-        <ColorPicker design={design} handleDesignChange={handleDesignChange} currentPart={currentPart} currentLayer={currentLayer} />
-        <div className='change-view-button'>
-          <button onClick={() => handleViewChange('Layers')}>Back</button>
-        </div>
-      </div>
-    );
   }
 }
 

@@ -9,7 +9,10 @@ function DesignPreview({ handleViewChange }) {
           <p>Design Preview</p>
       </div>
       <div className='change-view-button'>
-          <button onClick={() => handleViewChange('Layers')}>Layers</button>
+          <button onClick={() => handleViewChange('Layers')}>Designer</button>
+      </div>
+      <div className='change-view-button'>
+          <button>Save</button>
       </div>
     </div>
   );

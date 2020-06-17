@@ -3,7 +3,7 @@ import './Scene.css';
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { drawPartFunction, drawInitialFunction } from '../../helpers/drawFunctions.js';
+import { drawColorFunction, drawGraphicFunction, drawInitialFunction } from '../../helpers/drawFunctions.js';
 import { partsObject } from '../../helpers/partsObject.js'
 
 
@@ -137,27 +137,45 @@ function Scene({ design }) {
           console.log('layer added', objKey)
           return [objKey, 0]
         }
-        for (let i = 0; i < obj1.parts[objKey].layers.length; i++)
-          if (obj1.parts[objKey].layers[i].color !== obj2.parts[objKey].layers[i].color) {
-            console.log('layer changed', objKey)
-            return [objKey, i];
+        for (let i = 0; i < obj1.parts[objKey].layers.length; i++) {
+          // console.log(obj1.parts[objKey].layers[i])
+          for (let property of Object.keys(obj1.parts[objKey].layers[i])) {
+            if (obj1.parts[objKey].layers[i][property] !== obj2.parts[objKey].layers[i][property]) {
+              console.log('layer changed', objKey)
+              return [objKey, i];
+            }
           }
+          // if (obj1.parts[objKey].layers[i].x !== obj2.parts[objKey].layers[i].x) {
+          //   console.log('layer changed', objKey)
+          //   return [objKey, i];
+          // }
+        }
       }
     }
 
     const initialCanvas = async (design) => {
       drawInitialFunction(texture, textureCanvas, setTextureCanvas, '#ffbb55')
-      for (let x = 0; x < Object.keys(design.parts).length; x++){
-        const property =  Object.keys(design.parts)[x]
+      for (let x = 0; x < Object.keys(design.parts).length; x++) {
+        const property = Object.keys(design.parts)[x]
         for (let i = 0; i < design.parts[property].layers.length; i++) {
-          await drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[property].layers[i].color, partsObject[property])
+          if (design.parts[property].layers[i].type === 'color') {
+            await drawColorFunction(texture, textureCanvas, setTextureCanvas, design.parts[property].layers[i].color, partsObject[property])
+          }
+          else {
+            await drawGraphicFunction(texture, textureCanvas, setTextureCanvas, partsObject[property], design.parts[property].layers[i])
+          }
         }
       }
     }
 
     const updateLayer = async (partChange) => {
       for (let i = 0; i < design.parts[partChange[0]].layers.length; i++) {
-        await drawPartFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange[0]].layers[i].color, partsObject[partChange[0]])
+        if (design.parts[partChange[0]].layers[i].type === 'color') {
+          await drawColorFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange[0]].layers[i].color, partsObject[partChange[0]])
+        }
+        else {
+          await drawGraphicFunction(texture, textureCanvas, setTextureCanvas, partsObject[partChange[0]], design.parts[partChange[0]].layers[i])
+        }
       }
     }
 

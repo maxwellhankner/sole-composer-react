@@ -18,3 +18,7 @@
     padding-left: 15px;
     padding-right: 15px;
 }
+
+.part-selector-container div button:focus {
+    outline: none;
+}
