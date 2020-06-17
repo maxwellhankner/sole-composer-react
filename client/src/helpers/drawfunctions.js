@@ -19,9 +19,7 @@ export const drawPartFunction = (texture, textureCanvas, setTextureCanvas, color
         const ctxtemp = tempCanvas.getContext('2d');
         const mask = new Image()
         mask.src = part.mask;
-        console.log('outside')
         mask.onload = function () {
-            console.log('inside')
             ctxtemp.drawImage(mask, 0, 0, ctxtemp.canvas.width, ctxtemp.canvas.height);
             ctxtemp.globalCompositeOperation = "source-in";
             ctxtemp.fillStyle = color;
@@ -31,7 +29,6 @@ export const drawPartFunction = (texture, textureCanvas, setTextureCanvas, color
             finalCanvas.canvas.id = "new-canvas";
             setTextureCanvas(finalCanvas);
             texture.needsUpdate = true;
-            console.log(color)
             resolve('done');
         }
     })

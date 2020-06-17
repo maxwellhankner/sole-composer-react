@@ -26,7 +26,7 @@ app.get('/api/design', (req, res) => {
                     },
                     {
                         type: 'color',
-                        color: '#1278fa'
+                        color: '#f1515a'
                     }
                 ]
             },
