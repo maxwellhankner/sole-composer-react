@@ -57,13 +57,13 @@ function Scene({ design }) {
     scene.background = new THREE.Color(0xf9f9f9);
 
     //===================================================== camera
-    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
-    camera.position.z = 7;
+    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
+    camera.position.z = 8.5;
     camera.position.y = 0;
 
     //===================================================== orbit controls
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.maxDistance = 9;
+    controls.maxDistance = 12;
     controls.minDistance = 3;
     controls.minPolarAngle = Math.PI * (1 / 5);
     controls.maxPolarAngle = Math.PI * (6 / 7);
@@ -74,8 +74,15 @@ function Scene({ design }) {
     const light = new THREE.AmbientLight(0xffffff, 1);
     scene.add(light);
 
+    //===================================================== loading mananger
+    let manager = new THREE.LoadingManager();
+    manager.onLoad = () => {
+      document.getElementById('loading-screen').className +=' hide-loading-spinner';
+      document.getElementById('loader').className +=' hide-loading-spinner';
+    }
+
     //===================================================== model
-    var loader = new GLTFLoader();
+    var loader = new GLTFLoader(manager);
     var model;
     loader.load(
       "assets/models/af1_ao.gltf", function (gltf) {
@@ -138,17 +145,12 @@ function Scene({ design }) {
           return [objKey, 0]
         }
         for (let i = 0; i < obj1.parts[objKey].layers.length; i++) {
-          // console.log(obj1.parts[objKey].layers[i])
           for (let property of Object.keys(obj1.parts[objKey].layers[i])) {
             if (obj1.parts[objKey].layers[i][property] !== obj2.parts[objKey].layers[i][property]) {
               console.log('layer changed', objKey)
               return [objKey, i];
             }
           }
-          // if (obj1.parts[objKey].layers[i].x !== obj2.parts[objKey].layers[i].x) {
-          //   console.log('layer changed', objKey)
-          //   return [objKey, i];
-          // }
         }
       }
     }
@@ -168,7 +170,7 @@ function Scene({ design }) {
       }
     }
 
-    const updateLayer = async (partChange) => {
+    const updatePart = async (partChange) => {
       for (let i = 0; i < design.parts[partChange[0]].layers.length; i++) {
         if (design.parts[partChange[0]].layers[i].type === 'color') {
           await drawColorFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange[0]].layers[i].color, partsObject[partChange[0]])
@@ -182,7 +184,7 @@ function Scene({ design }) {
     if (design) {
       const partChange = getDesignPartChanges(oldDesignRef.current, design);
       if (partChange) {
-        updateLayer(partChange)
+        updatePart(partChange)
       }
       else {
         initialCanvas(design);
@@ -194,7 +196,11 @@ function Scene({ design }) {
   }, [design, texture, textureCanvas])
 
   return (
-    <div className="scene-container" ref={canvasRef} />
+    <div className="scene-container" ref={canvasRef} >
+      <div id="loading-screen">
+        <div id="loader"></div>
+      </div>
+    </div>
   )
 }
 

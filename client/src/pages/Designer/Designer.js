@@ -10,15 +10,15 @@ function Designer() {
 
   useEffect(() => {
     fetch('/api/design')
-    .then(res => res.json())
-    .then(data => setDesign(data))
+      .then(res => res.json())
+      .then(data => setDesign(data))
   }, [])
 
   return (
     <div className="designer-container">
-        <NavBar />
-        <Scene design={design} />
-        <Interface design={design} setDesign={setDesign}/>
+      <NavBar />
+      <Scene design={design} />
+      <Interface design={design} setDesign={setDesign} />
     </div>
   );
 }

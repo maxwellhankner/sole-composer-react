@@ -11,13 +11,18 @@ function AddLayerType({ handleAddLayer, currentPart, setLayersView }) {
 			<div className='change-view-button'>
 				<button onClick={
 					() => {
-						handleAddLayer(currentPart);
+						handleAddLayer(currentPart, 'Color');
 						setLayersView('Layers');
 					}
 				} >Color</button>
 			</div>
 			<div className='change-view-button'>
-				<button>Graphic</button>
+				<button onClick={
+					() => {
+						handleAddLayer(currentPart, 'Graphic');
+						setLayersView('Layers');
+					}
+				} >Graphic</button>
 			</div>
 		</div>
 	);

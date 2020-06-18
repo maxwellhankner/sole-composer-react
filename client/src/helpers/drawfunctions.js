@@ -76,6 +76,7 @@ export const drawGraphicFunction = (texture, textureCanvas, setTextureCanvas, pa
                 finalCanvas.drawImage(tempCanvas, part.x, part.y, part.width, part.height);
                 setTextureCanvas(finalCanvas);
                 texture.needsUpdate = true;
+
                 resolve('done');
             }
         }

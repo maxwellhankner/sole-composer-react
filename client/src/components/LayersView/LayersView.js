@@ -20,16 +20,34 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
     setFocusLayer(i);
   }
 
+  const handleClearFocusLayer = (aClass) => {
+    if (aClass === 'layers-view-container') {
+      setFocusLayer(-1);
+    }
+  }
+
   const handleCurrentLayer = (key) => {
     setCurrentLayer(key);
   }
 
-  const handleAddLayer = (part) => {
+  const handleAddLayer = (part, type) => {
     const tempDesign = JSON.parse(JSON.stringify(design));
-    tempDesign.parts[Object.keys(partsObject)[part]].layers.push({
-      type: 'color',
-      color: '#fb68f5'
-    });
+    if (type === 'Color') {
+      tempDesign.parts[Object.keys(partsObject)[part]].layers.push({
+        type: 'color',
+        color: '#fb68f5'
+      });
+    }
+    else {
+      tempDesign.parts[Object.keys(partsObject)[part]].layers.push({
+        type: 'graphic',
+        link: 'assets/images/japanese.png',
+        x: 0,
+        y: 0,
+        scale: 500,
+        rotation: 0
+      });
+    }
     setDesign(tempDesign);
     setFocusLayer(numberOfLayers)
   }
@@ -62,14 +80,12 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
 
   if (layersView === 'AddLayerType') {
     return (
-      <div className="interface-container">
-        <AddLayerType handleAddLayer={handleAddLayer} currentPart={currentPart} setLayersView={setLayersView} />
-      </div>
+      <AddLayerType handleAddLayer={handleAddLayer} currentPart={currentPart} setLayersView={setLayersView} />
     )
   }
   else if (layersView === 'ColorPicker') {
     return (
-      <div className="interface-container">
+      <div>
         <ColorPicker design={design} handleDesignChange={handleDesignChange} currentPart={currentPart} currentLayer={currentLayer} />
         <div className='change-view-button'>
           <button onClick={() => setLayersView('Layers')}>Back</button>
@@ -79,14 +95,12 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
   }
   else if (layersView === 'GraphicEditor') {
     return (
-      <div className="interface-container">
-        <GraphicEditor setLayersView={setLayersView} design={design} setDesign={setDesign} currentLayer={currentLayer} currentPart={currentPart} currentPartName={currentPartName} />
-      </div>
+      <GraphicEditor setLayersView={setLayersView} design={design} setDesign={setDesign} currentLayer={currentLayer} currentPart={currentPart} currentPartName={currentPartName} />
     )
   }
   else {
     return (
-      <div className="layers-view-container">
+      <div className="layers-view-container" onClick={(e) => handleClearFocusLayer(e.target.className)}>
         <PartSelector currentPart={currentPart} setCurrentPart={setCurrentPart} setFocusLayer={setFocusLayer} />
         <div className='view-title'>
           <p>Layers</p>
@@ -125,7 +139,7 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
                       setLayersView('GraphicEditor');
                     }}><FaPen /></button>
                   </div>
-              }
+                }
                 <div className='edit-layer-button'>
                   <button onClick={() => handleDeleteLayer(currentPart, i)}><FaTimes /></button>
                 </div>

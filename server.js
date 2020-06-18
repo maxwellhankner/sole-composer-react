@@ -62,7 +62,7 @@ app.get('/api/design', (req, res) => {
                     },
                     {
                         type: 'graphic',
-                        link: 'assets/images/static.jpg',
+                        link: 'assets/images/japanese.png',
                         x: 0,
                         y: 0,
                         scale: 500,
