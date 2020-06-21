@@ -1,5 +1,6 @@
 import React from 'react';
 import './PartSelector.css';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { partsObject } from '../../helpers/partsObject'
 import { handleConvertPartName } from '../../helpers/convertPartNames'
 
@@ -26,12 +27,12 @@ function PartSelector({ currentPart, setCurrentPart, setFocusLayer }) {
         <button onClick={() => {
           handlePartChange(-1);
           setFocusLayer(-1)
-        }} >{'<'}</button>
+        }} ><FaChevronLeft /></button>
         <p>{handleConvertPartName(arrayOfParts[currentPart])}</p>
         <button onClick={() => {
           handlePartChange(1);
           setFocusLayer(-1);
-        }} >{'>'}</button>
+        }} ><FaChevronRight /></button>
       </div>
     </div>
   );

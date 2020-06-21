@@ -22,10 +22,10 @@ export const partsObject = {
     },
     innerQuarter: {
         mask: '/assets/images/innerQuarterMask.png',
-        x: '-54',
-        y: '-76',
-        width: '1025',
-        height: '1025'
+        x: '-50',
+        y: '-74',
+        width: '1021',
+        height: '1021'
     },
     outerHeel: {
         mask: '/assets/images/outerHeelMask.png',
@@ -79,7 +79,7 @@ export const partsObject = {
     lace: {
         mask: '/assets/images/laceMask.png',
         x: '2932',
-        y: '1024',
+        y: '1025',
         width: '1264',
         height: '1264'
     },
@@ -92,17 +92,17 @@ export const partsObject = {
     },
     laceLock: {
         mask: '/assets/images/laceLockMask.png',
-        x: '3357',
-        y: '1993',
-        width: '325',
-        height: '325'
+        x: '3355',
+        y: '1996',
+        width: '326',
+        height: '326'
     },
     tongue: {
         mask: '/assets/images/tongueMask.png',
         x: '2840',
-        y: '722',
-        width: '1455',
-        height: '1455'
+        y: '721',
+        width: '1457',
+        height: '1457'
     },
     heelWing: {
         mask: '/assets/images/heelWingMask.png',
@@ -124,5 +124,187 @@ export const partsObject = {
         y: '640',
         width: '2660',
         height: '2660'
+    }
+}
+
+export const designObject = {
+    model: 'assets/models/af1_ao.gltf',
+    parts: {
+        outerSwoosh: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#f1515a'
+                },
+                {
+                    type: 'graphic',
+                    link: 'assets/images/spongebob.png',
+                    x: 0,
+                    y: 0,
+                    scale: 500,
+                    rotation: 0
+                }
+            ]
+        },
+        innerSwoosh: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#fb68f5'
+                }
+            ]
+        },
+        outerQuarter: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#57d59c'
+                }
+            ]
+        },
+        innerQuarter: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#ee44aa'
+                }
+            ]
+        },
+        outerHeel: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#3399bb'
+                }
+            ]
+        },
+        innerHeel: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#3f9bb7'
+                },
+                {
+                    type: 'graphic',
+                    link: 'assets/images/japanese.png',
+                    x: 0,
+                    y: 0,
+                    scale: 500,
+                    rotation: 0
+                }
+            ]
+        },
+        outerSole: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#cc9560'
+                }
+            ]
+        },
+        innerSole: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#cc9560'
+                }
+            ]
+        },
+        sole: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#cc9560'
+                }
+            ]
+        },
+        toeBox: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#b4488b'
+                },
+                {
+                    type: 'graphic',
+                    link: 'assets/images/abucamo.jpg',
+                    x: 0,
+                    y: 0,
+                    scale: 4000,
+                    rotation: 0
+                }
+            ]
+        },
+        toeCap: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#d3d8bc'
+                }
+            ]
+        },
+        lace: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#70b9c9'
+                }
+            ]
+        },
+        laceCage: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#dd2c75'
+                }
+            ]
+        },
+        laceLock: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#3399bb'
+                }
+            ]
+        },
+        tongue: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#f1c0c9'
+                }
+            ]
+        },
+        heelWing: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#217a99'
+                }
+            ]
+        },
+        heelTab: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#3399bb'
+                }
+            ]
+        },
+        sockLiner: {
+            layers: [
+                {
+                    type: 'color',
+                    color: '#3399bb'
+                },
+                {
+                    type: 'graphic',
+                    link: 'assets/images/static.jpg',
+                    x: 0,
+                    y: 0,
+                    scale: 500,
+                    rotation: 0
+                }
+            ]
+        }
     }
 }

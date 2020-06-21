@@ -1,3 +1,7 @@
 .app-container {
   height: 100%;
 }
+
+#final-canvas-test {
+  width: 100%
+}

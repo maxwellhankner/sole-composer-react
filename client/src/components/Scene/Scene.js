@@ -3,11 +3,12 @@ import './Scene.css';
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { drawColorFunction, drawGraphicFunction, drawInitialFunction } from '../../helpers/drawFunctions.js';
-import { partsObject } from '../../helpers/partsObject.js'
+import { drawColorFunction, drawGraphicFunction } from '../../helpers/drawFunctions.js';
+import { partsObject } from '../../helpers/partsObject.js';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 
-function Scene({ design }) {
+function Scene({ design, currentPartName, graphicVisualCanvas }) {
 
   const createCanvas = () => {
     var ctx = document.createElement("canvas").getContext('2d');
@@ -39,13 +40,15 @@ function Scene({ design }) {
 
   const canvasRef = useRef(null);
 
-  const [renderer] = useState(new THREE.WebGLRenderer());
+  const [renderer] = useState(new THREE.WebGLRenderer({ antialias: true }));
 
   const [textureCanvas, setTextureCanvas] = useState(createCanvas());
 
   const [texture] = useState(createTexture());
 
   const [newMaterial] = useState(createMaterial(texture));
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     canvasRef.current.appendChild(renderer.domElement);
@@ -77,15 +80,14 @@ function Scene({ design }) {
     //===================================================== loading mananger
     let manager = new THREE.LoadingManager();
     manager.onLoad = () => {
-      document.getElementById('loading-screen').className +=' hide-loading-spinner';
-      document.getElementById('loader').className +=' hide-loading-spinner';
+      setIsLoading(false)
     }
 
     //===================================================== model
     var loader = new GLTFLoader(manager);
     var model;
     loader.load(
-      "assets/models/af1_ao.gltf", function (gltf) {
+      design.model, function (gltf) {
         gltf.scene.traverse(function (node) {
           if (node.isMesh) node.material = newMaterial;
         });
@@ -127,79 +129,43 @@ function Scene({ design }) {
       controls.dispose();
     }
 
-  }, [newMaterial, renderer])
+  }, [newMaterial, renderer, design.model])
 
   const oldDesignRef = useRef({});
 
   useEffect(() => {
-
-    const getDesignPartChanges = (obj1, obj2) => {
-      if (!obj1.parts) {
-        console.log('no change')
-        return
-      }
-      const obj1Keys = Object.keys(obj1.parts);
-      for (let objKey of obj1Keys) {
-        if (obj1.parts[objKey].layers.length !== obj2.parts[objKey].layers.length) {
-          console.log('layer added', objKey)
-          return [objKey, 0]
-        }
-        for (let i = 0; i < obj1.parts[objKey].layers.length; i++) {
-          for (let property of Object.keys(obj1.parts[objKey].layers[i])) {
-            if (obj1.parts[objKey].layers[i][property] !== obj2.parts[objKey].layers[i][property]) {
-              console.log('layer changed', objKey)
-              return [objKey, i];
-            }
-          }
-        }
-      }
-    }
-
-    const initialCanvas = async (design) => {
-      drawInitialFunction(texture, textureCanvas, setTextureCanvas, '#ffbb55')
-      for (let x = 0; x < Object.keys(design.parts).length; x++) {
-        const property = Object.keys(design.parts)[x]
-        for (let i = 0; i < design.parts[property].layers.length; i++) {
-          if (design.parts[property].layers[i].type === 'color') {
-            await drawColorFunction(texture, textureCanvas, setTextureCanvas, design.parts[property].layers[i].color, partsObject[property])
-          }
-          else {
-            await drawGraphicFunction(texture, textureCanvas, setTextureCanvas, partsObject[property], design.parts[property].layers[i])
-          }
-        }
-      }
-    }
-
     const updatePart = async (partChange) => {
-      for (let i = 0; i < design.parts[partChange[0]].layers.length; i++) {
-        if (design.parts[partChange[0]].layers[i].type === 'color') {
-          await drawColorFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange[0]].layers[i].color, partsObject[partChange[0]])
+      for (let i = 0; i < design.parts[partChange].layers.length; i++) {
+        const isCurrentPart = (partChange === currentPartName);
+        if (design.parts[partChange].layers[i].type === 'color') {
+          await drawColorFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange].layers[i].color, partsObject[partChange], graphicVisualCanvas, isCurrentPart)
         }
         else {
-          await drawGraphicFunction(texture, textureCanvas, setTextureCanvas, partsObject[partChange[0]], design.parts[partChange[0]].layers[i])
+          await drawGraphicFunction(texture, textureCanvas, setTextureCanvas, partsObject[partChange], design.parts[partChange].layers[i], graphicVisualCanvas, isCurrentPart)
         }
       }
     }
 
-    if (design) {
-      const partChange = getDesignPartChanges(oldDesignRef.current, design);
-      if (partChange) {
-        updatePart(partChange)
+    if (currentPartName) {
+      updatePart(currentPartName)
+    }
+    else {
+      const updateAll = async () => {
+        for (let x = 0; x < Object.keys(design.parts).length; x++) {
+          const partChange = Object.keys(design.parts)[x]
+          await updatePart(partChange)
+        }
       }
-      else {
-        initialCanvas(design);
-      }
-
-      oldDesignRef.current = design;
+      updateAll()
     }
 
-  }, [design, texture, textureCanvas])
+    oldDesignRef.current = design;
+
+  }, [design, texture, textureCanvas, currentPartName, graphicVisualCanvas])
 
   return (
     <div className="scene-container" ref={canvasRef} >
-      <div id="loading-screen">
-        <div id="loader"></div>
-      </div>
+      <LoadingSpinner isLoading={isLoading} />
     </div>
   )
 }
