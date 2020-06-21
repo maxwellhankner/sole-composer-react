@@ -2,49 +2,44 @@ import React, { useEffect } from 'react';
 import { FaArrowUp, FaArrowDown, FaArrowRight, FaArrowLeft, FaUndoAlt, FaRedoAlt, FaArrowsAlt, FaCompressArrowsAlt } from 'react-icons/fa'
 import './GraphicEditor.css';
 
-function GraphicEditor({ setLayersView, design, setDesign, currentLayer, currentPartName }) {
+function GraphicEditor({ setLayersView, design, setDesign, currentLayer, partsObject, currentPart, graphicVisualCanvas }) {
 
     const handleMoveGraphic = (direction, distance) => {
         const tempDesign = JSON.parse(JSON.stringify(design));
+        const thisLayer = tempDesign.parts[Object.keys(partsObject)[currentPart]].layers[currentLayer];
         if (direction === 'vert') {
-            tempDesign.parts[currentPartName].layers[currentLayer].y += distance;
+            thisLayer.y += distance;
         }
         else if (direction === 'hor') {
-            tempDesign.parts[currentPartName].layers[currentLayer].x += distance;
+            thisLayer.x += distance;
         }
         else if (direction === 'scale') {
-            tempDesign.parts[currentPartName].layers[currentLayer].scale += distance;
+            thisLayer.scale += distance;
         }
         else if (direction === 'rotate') {
-            tempDesign.parts[currentPartName].layers[currentLayer].rotation += distance;
+            thisLayer.rotation += distance;
         }
         else if (direction === 'reset') {
-            tempDesign.parts[currentPartName].layers[currentLayer].y = 0;
-            tempDesign.parts[currentPartName].layers[currentLayer].x = 0;
-            tempDesign.parts[currentPartName].layers[currentLayer].scale = 500;
-            tempDesign.parts[currentPartName].layers[currentLayer].rotation = 0;
+            thisLayer.y = 0;
+            thisLayer.x = 0;
+            thisLayer.scale = 500;
+            thisLayer.rotation = 0;
         }
         
         setDesign(tempDesign);
     }
 
-    useEffect(() => {
-        handleGraphicVisual()
-    }, [])
-
     const handleGraphicVisual = () => {
-        const graphicVisualCanvas = document.createElement('canvas');
-        graphicVisualCanvas.id = 'graphic-visual-canvas';
-        graphicVisualCanvas.width = 4096;
-        graphicVisualCanvas.height = 4096;
-        var gvcCTX = graphicVisualCanvas.getContext('2d');
-        gvcCTX.fillStyle = '#555';
-        gvcCTX.fillRect(0, 0, 4096, 4096);
-
         let div = document.getElementById("graphic-visual-container")
         div.innerHTML = '';
         div.appendChild(graphicVisualCanvas)
     }
+
+    useEffect(() => {
+        handleGraphicVisual()
+    })
+
+    
 
     return (
         <div className="graphic-editor-container">

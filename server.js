@@ -12,24 +12,18 @@ const app = express();
 
 app.get('/api/design', (req, res) => {
     const design = {
-        model: 'air force 1',
+        // model: 'https://solecomposertesting.s3.us-east-2.amazonaws.com/af1_ao.gltf',
+        model: 'assets/models/af1_ao.gltf',
         parts: {
             outerSwoosh: {
                 layers: [
-                    {
-                        type: 'color',
-                        color: '#3399bb'
-                    },
-                    {
-                        type: 'color',
-                        color: '#ffff11'
-                    },
                     {
                         type: 'color',
                         color: '#f1515a'
                     },
                     {
                         type: 'graphic',
+                        // link: 'https://solecomposertesting.s3.us-east-2.amazonaws.com/spongebob.png',
                         link: 'assets/images/spongebob.png',
                         x: 0,
                         y: 0,
@@ -42,11 +36,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#ee44aa'
-                    },
-                    {
-                        type: 'color',
-                        color: '#6ec081'
+                        color: '#fb68f5'
                     }
                 ]
             },
@@ -54,19 +44,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#3399bb'
-                    },
-                    {
-                        type: 'color',
                         color: '#57d59c'
-                    },
-                    {
-                        type: 'graphic',
-                        link: 'assets/images/japanese.png',
-                        x: 0,
-                        y: 0,
-                        scale: 500,
-                        rotation: 0
                     }
                 ]
             },
@@ -90,7 +68,15 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#ee44aa'
+                        color: '#3f9bb7'
+                    },
+                    {
+                        type: 'graphic',
+                        link: 'assets/images/japanese.png',
+                        x: 0,
+                        y: 0,
+                        scale: 500,
+                        rotation: 0
                     }
                 ]
             },
@@ -98,7 +84,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#e0734c'
+                        color: '#cc9560'
                     }
                 ]
             },
@@ -106,7 +92,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#e0734c'
+                        color: '#cc9560'
                     }
                 ]
             },
@@ -114,7 +100,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#e0734c'
+                        color: '#cc9560'
                     }
                 ]
             },
@@ -122,14 +108,14 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#1155ff'
+                        color: '#b4488b'
                     },
                     {
                         type: 'graphic',
-                        link: 'assets/images/static.jpg',
+                        link: 'assets/images/abucamo.jpg',
                         x: 0,
                         y: 0,
-                        scale: 500,
+                        scale: 4000,
                         rotation: 0
                     }
                 ]
@@ -138,7 +124,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#1155ff'
+                        color: '#d3d8bc'
                     }
                 ]
             },
@@ -146,7 +132,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#1155ff'
+                        color: '#70b9c9'
                     }
                 ]
             },
@@ -154,7 +140,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#1155ff'
+                        color: '#dd2c75'
                     }
                 ]
             },
@@ -170,7 +156,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#1155ff'
+                        color: '#f1c0c9'
                     }
                 ]
             },
@@ -178,7 +164,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#3399bb'
+                        color: '#217a99'
                     }
                 ]
             },
@@ -195,6 +181,14 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#3399bb'
+                    },
+                    {
+                        type: 'graphic',
+                        link: 'assets/images/static.jpg',
+                        x: 0,
+                        y: 0,
+                        scale: 500,
+                        rotation: 0
                     }
                 ]
             }

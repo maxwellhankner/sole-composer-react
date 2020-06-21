@@ -7,6 +7,7 @@
 .scene-container canvas {
     width: 100% !important;
     height: 100% !important;
+    outline: none;
 }
 
 .hide-loading-spinner {
@@ -15,7 +16,7 @@
 
 #loading-screen {
     position: fixed;
-	z-index: 2;
+	z-index: 1;
 	width: 100%;
 	height: 50%;
 	opacity: 1;

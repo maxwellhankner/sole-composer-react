@@ -7,14 +7,14 @@ import AddLayerType from '../AddLayerType/AddLayerType'
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
 import ColorPicker from '../ColorPicker/ColorPicker';
 
-function LayersView({ handleViewChange, handleDesignChange, currentPart, currentLayer, setCurrentPart, design, setDesign, setCurrentLayer }) {
+function LayersView({ handleViewChange, handleDesignChange, currentPart, currentLayer, setCurrentPart, design, setDesign, setCurrentLayer, setCurrentPartName, graphicVisualCanvas }) {
 
   const [focusLayer, setFocusLayer] = useState();
   const [layersView, setLayersView] = useState('Layers');
 
   const numberOfLayers = design.parts[Object.keys(partsObject)[currentPart]].layers.length;
   const allLayers = design.parts[Object.keys(partsObject)[currentPart]].layers;
-  const currentPartName = Object.keys(partsObject)[currentPart]
+  setCurrentPartName(Object.keys(partsObject)[currentPart])
 
   const handleFocusLayer = (i) => {
     setFocusLayer(i);
@@ -95,7 +95,7 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
   }
   else if (layersView === 'GraphicEditor') {
     return (
-      <GraphicEditor setLayersView={setLayersView} design={design} setDesign={setDesign} currentLayer={currentLayer} currentPart={currentPart} currentPartName={currentPartName} />
+      <GraphicEditor setLayersView={setLayersView} design={design} setDesign={setDesign} currentLayer={currentLayer} currentPart={currentPart} partsObject={partsObject} graphicVisualCanvas={graphicVisualCanvas} />
     )
   }
   else {
@@ -121,7 +121,16 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
                 <div className='layer-list-item-type'>
                   {layer.type}
                 </div>
-                <div style={{ backgroundColor: layer.color, width: '50px' }}></div>
+                {layer.type === 'color' ?
+                  <div style={{ backgroundColor: layer.color, width: '50px' }}></div>
+                  :
+                  <div style={{ width: '50px', backgroundColor: '#ffffff' }}>
+                    {/* <div style={{ width: 'auto', maxHeight: '100%', padding: '5px' }}> */}
+                      <img src={layer.link} style={{ maxWidth: '100%', maxHeight: '100%' }} alt='design-graphic' />
+                    {/* </div> */}
+                  </div>
+                }
+
 
               </div>
               <div className={`layer-list-item-end ${focusLayer !== i ? 'hide-edit-buttons' : ''}`}>
