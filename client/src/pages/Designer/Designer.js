@@ -1,70 +1,32 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Designer.css';
-import NavBar from '../../components/NavBar/NavBar.js';
-import Scene from '../../components/Scene/Scene.js';
-import Interface from '../../components/Interface/Interface.js';
-import { canvasObjectToFinalTexture, designObjectToCanvasObject, createCanvasObjectPart, updateFinalTexturePart } from '../../helpers/drawFunctions';
-// import { designObject } from '../../helpers/partsObject';
+import DesignerContainer from '../../components/DesignerContainer/DesignerContainer';
+
 
 function Designer() {
 
-  const [design, setDesign] = useState();
+  console.log('designer component rendered')
 
-  const [currentPartName, setCurrentPartName] = useState();
-
-  const graphicVisualCanvas = useRef();
-  graphicVisualCanvas.current = document.createElement('canvas');
-  graphicVisualCanvas.current.id = 'graphic-visual-canvas';
-  graphicVisualCanvas.current.width = 4096;
-  graphicVisualCanvas.current.height = 4096;
-
-
-  const canvasObjectRef = useRef();
-  const finalTextureCanvasRef = useRef();
-
+  // const [design, setDesign] = useState();
+  const [designSpec, setDesignSpec] = useState()
 
   useEffect(() => {
+    console.log('design fetch')
     fetch('/api/design')
       .then(res => res.json())
-      .then(data => setDesign(data))
+      .then(data => {
+        console.log('design set to data')
+        setDesignSpec(data)
+      })
   }, [])
 
-  useEffect(() => {
-    if (design && currentPartName) {
-      const updatePart = async () => {
-        const updated = await createCanvasObjectPart(design.parts[currentPartName].layers, currentPartName)
-        canvasObjectRef.current[currentPartName] = updated
-
-        // finalTextureCanvasRef.current = canvasObjectToFinalTexture(canvasObjectRef.current)
-        updateFinalTexturePart(finalTextureCanvasRef.current, updated, currentPartName)
-        // document.body.appendChild(finalTextureCanvasRef.current);
-      }
-
-      updatePart()
-    }
-    else if (design) {
-      const buildTexture = async () => {
-        canvasObjectRef.current = await designObjectToCanvasObject(design);
-
-        finalTextureCanvasRef.current = canvasObjectToFinalTexture(canvasObjectRef.current)
-        document.body.appendChild(finalTextureCanvasRef.current);
-      }
-
-      buildTexture()
-    }
-
-  }, [design, currentPartName])
-
-  if (design) {
+  if (designSpec) {
     return (
-      <div className="designer-container">
-        <NavBar />
-        <Scene design={design} currentPartName={currentPartName} graphicVisualCanvas={graphicVisualCanvas.current} />
-        <Interface design={design} setDesign={setDesign} setCurrentPartName={setCurrentPartName} graphicVisualCanvas={graphicVisualCanvas.current} />
-      </div>
+      <DesignerContainer designSpec={designSpec} />
     );
   }
   else {
+    console.log('return null')
     return null;
   }
 

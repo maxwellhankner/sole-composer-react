@@ -4,7 +4,9 @@ import { partsObject } from '../../helpers/partsObject'
 import { ChromePicker } from 'react-color';
 import { handleConvertPartName } from '../../helpers/convertPartNames'
 
-function ColorPicker({ handleDesignChange, currentPart, currentLayer, design }) {
+function ColorPicker({ handleDesignChange, currentPart, currentLayer, design, currentPartName, handleUpdateLayer }) {
+  
+  handleUpdateLayer(currentPartName, currentLayer, design.parts[Object.keys(partsObject)[currentPart]].layers[currentLayer])
 
   const [ currentColor, setCurrentColor ] = useState('#ffffaa')
 

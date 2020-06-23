@@ -4,7 +4,7 @@ import DesignPreview from '../DesignPreview/DesignPreview'
 import LayersView from '../LayersView/LayersView'
 
 
-function Interface({ design, setDesign, setCurrentPartName, graphicVisualCanvas }) {
+function Interface({ design, setDesign, graphicVisualCanvas, handlePartUpdate, handleUpdateLayer }) {
 
   const [currentPart, setCurrentPart] = useState(0)
   const [currentLayer, setCurrentLayer] = useState(0);
@@ -30,7 +30,7 @@ function Interface({ design, setDesign, setCurrentPartName, graphicVisualCanvas 
   else if (view === 'Layers') {
     return (
       <div className="interface-container">
-        <LayersView handleViewChange={handleViewChange} handleDesignChange={handleDesignChange} design={design} setDesign={setDesign} currentPart={currentPart} setCurrentPart={setCurrentPart} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} setCurrentPartName={setCurrentPartName} graphicVisualCanvas={graphicVisualCanvas} />
+        <LayersView handleViewChange={handleViewChange} handleDesignChange={handleDesignChange} design={design} setDesign={setDesign} currentPart={currentPart} setCurrentPart={setCurrentPart} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} graphicVisualCanvas={graphicVisualCanvas} handlePartUpdate={handlePartUpdate} handleUpdateLayer={handleUpdateLayer} />
       </div>
     )
   }

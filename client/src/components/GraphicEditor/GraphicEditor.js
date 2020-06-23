@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import { FaArrowUp, FaArrowDown, FaArrowRight, FaArrowLeft, FaUndoAlt, FaRedoAlt, FaArrowsAlt, FaCompressArrowsAlt } from 'react-icons/fa'
 import './GraphicEditor.css';
 
-function GraphicEditor({ setLayersView, design, setDesign, currentLayer, partsObject, currentPart, graphicVisualCanvas }) {
+function GraphicEditor({ setLayersView, design, setDesign, currentLayer, partsObject, currentPart, graphicVisualCanvas, currentPartName, handleUpdateLayer }) {
+
+    handleUpdateLayer(currentPartName, currentLayer, design.parts[Object.keys(partsObject)[currentPart]].layers[currentLayer])
 
     const handleMoveGraphic = (direction, distance) => {
         const tempDesign = JSON.parse(JSON.stringify(design));
@@ -27,6 +29,7 @@ function GraphicEditor({ setLayersView, design, setDesign, currentLayer, partsOb
         }
         
         setDesign(tempDesign);
+        
     }
 
     const handleGraphicVisual = () => {

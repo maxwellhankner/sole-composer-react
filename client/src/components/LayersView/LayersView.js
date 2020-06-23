@@ -7,14 +7,16 @@ import AddLayerType from '../AddLayerType/AddLayerType'
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
 import ColorPicker from '../ColorPicker/ColorPicker';
 
-function LayersView({ handleViewChange, handleDesignChange, currentPart, currentLayer, setCurrentPart, design, setDesign, setCurrentLayer, setCurrentPartName, graphicVisualCanvas }) {
+function LayersView({ handleViewChange, handleDesignChange, currentPart, currentLayer, setCurrentPart, design, setDesign, setCurrentLayer, graphicVisualCanvas,  handlePartUpdate, handleUpdateLayer }) {
+
+  handlePartUpdate(Object.keys(partsObject)[currentPart])
 
   const [focusLayer, setFocusLayer] = useState();
   const [layersView, setLayersView] = useState('Layers');
 
   const numberOfLayers = design.parts[Object.keys(partsObject)[currentPart]].layers.length;
   const allLayers = design.parts[Object.keys(partsObject)[currentPart]].layers;
-  setCurrentPartName(Object.keys(partsObject)[currentPart])
+  const currentPartName = Object.keys(partsObject)[currentPart]
 
   const handleFocusLayer = (i) => {
     setFocusLayer(i);
@@ -86,7 +88,7 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
   else if (layersView === 'ColorPicker') {
     return (
       <div>
-        <ColorPicker design={design} handleDesignChange={handleDesignChange} currentPart={currentPart} currentLayer={currentLayer} />
+        <ColorPicker design={design} handleDesignChange={handleDesignChange} currentPart={currentPart} currentLayer={currentLayer} handleUpdateLayer={handleUpdateLayer} currentPartName={currentPartName} />
         <div className='change-view-button'>
           <button onClick={() => setLayersView('Layers')}>Back</button>
         </div>
@@ -95,7 +97,7 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
   }
   else if (layersView === 'GraphicEditor') {
     return (
-      <GraphicEditor setLayersView={setLayersView} design={design} setDesign={setDesign} currentLayer={currentLayer} currentPart={currentPart} partsObject={partsObject} graphicVisualCanvas={graphicVisualCanvas} />
+      <GraphicEditor setLayersView={setLayersView} design={design} setDesign={setDesign} currentLayer={currentLayer} currentPart={currentPart} partsObject={partsObject} graphicVisualCanvas={graphicVisualCanvas} handlePartUpdate={handlePartUpdate} currentPartName={currentPartName} handleUpdateLayer={handleUpdateLayer} />
     )
   }
   else {
