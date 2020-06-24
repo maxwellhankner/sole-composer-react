@@ -7,14 +7,14 @@ import AddLayerType from '../AddLayerType/AddLayerType'
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
 import ColorPicker from '../ColorPicker/ColorPicker';
 
-function LayersView({ handleViewChange, handleDesignChange, currentPart, currentLayer, setCurrentPart, design, setDesign, setCurrentLayer, setCurrentPartName, graphicVisualCanvas }) {
+function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPart, design, setDesign, setCurrentLayer, graphicVisualCanvas, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
 
   const [focusLayer, setFocusLayer] = useState();
   const [layersView, setLayersView] = useState('Layers');
 
   const numberOfLayers = design.parts[Object.keys(partsObject)[currentPart]].layers.length;
   const allLayers = design.parts[Object.keys(partsObject)[currentPart]].layers;
-  setCurrentPartName(Object.keys(partsObject)[currentPart])
+  const currentPartName = Object.keys(partsObject)[currentPart]
 
   const handleFocusLayer = (i) => {
     setFocusLayer(i);
@@ -30,32 +30,13 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
     setCurrentLayer(key);
   }
 
-  const handleAddLayer = (part, type) => {
-    const tempDesign = JSON.parse(JSON.stringify(design));
-    if (type === 'Color') {
-      tempDesign.parts[Object.keys(partsObject)[part]].layers.push({
-        type: 'color',
-        color: '#fb68f5'
-      });
-    }
-    else {
-      tempDesign.parts[Object.keys(partsObject)[part]].layers.push({
-        type: 'graphic',
-        link: 'assets/images/japanese.png',
-        x: 0,
-        y: 0,
-        scale: 500,
-        rotation: 0
-      });
-    }
-    setDesign(tempDesign);
+  const handleAddLayer = (type) => {
+    handleDesignChangeManager(['layer-added', currentPartName, type])
     setFocusLayer(numberOfLayers)
   }
 
-  const handleDeleteLayer = (part, layer) => {
-    const tempDesign = JSON.parse(JSON.stringify(design));
-    tempDesign.parts[Object.keys(partsObject)[part]].layers.splice(layer, 1);
-    setDesign(tempDesign);
+  const handleDeleteLayer = (layer) => {
+    handleDesignChangeManager(['layer-deleted', currentPartName, layer])
     setFocusLayer(-1)
   }
 
@@ -73,9 +54,13 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
       array[layer] = array[layer + direction]
       array[layer + direction] = tempElement
       tempDesign.parts[Object.keys(partsObject)[part]].layers = array;
-      setDesign(tempDesign);
+      handleDesignChangeManager(['layer-moved', currentPartName, layer, direction])
       setFocusLayer(focusLayer + direction)
     }
+  }
+
+  const handleColorChange = (layer, color) => {
+    handleDesignChangeManager(['color-changed', currentPartName, layer, color])
   }
 
   if (layersView === 'AddLayerType') {
@@ -86,7 +71,7 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
   else if (layersView === 'ColorPicker') {
     return (
       <div>
-        <ColorPicker design={design} handleDesignChange={handleDesignChange} currentPart={currentPart} currentLayer={currentLayer} />
+        <ColorPicker design={design} currentPart={currentPart} handleColorChange={handleColorChange} currentLayer={currentLayer} currentPartName={currentPartName} />
         <div className='change-view-button'>
           <button onClick={() => setLayersView('Layers')}>Back</button>
         </div>
@@ -95,7 +80,7 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
   }
   else if (layersView === 'GraphicEditor') {
     return (
-      <GraphicEditor setLayersView={setLayersView} design={design} setDesign={setDesign} currentLayer={currentLayer} currentPart={currentPart} partsObject={partsObject} graphicVisualCanvas={graphicVisualCanvas} />
+      <GraphicEditor setLayersView={setLayersView} design={design} setDesign={setDesign} currentLayer={currentLayer} currentPart={currentPart} partsObject={partsObject} graphicVisualCanvas={graphicVisualCanvas} currentPartName={currentPartName} handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas} handleDesignChangeManager={handleDesignChangeManager} />
     )
   }
   else {
@@ -150,7 +135,7 @@ function LayersView({ handleViewChange, handleDesignChange, currentPart, current
                   </div>
                 }
                 <div className='edit-layer-button'>
-                  <button onClick={() => handleDeleteLayer(currentPart, i)}><FaTimes /></button>
+                  <button onClick={() => handleDeleteLayer(i)}><FaTimes /></button>
                 </div>
               </div>
             </div>

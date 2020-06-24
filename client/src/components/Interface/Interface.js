@@ -4,7 +4,7 @@ import DesignPreview from '../DesignPreview/DesignPreview'
 import LayersView from '../LayersView/LayersView'
 
 
-function Interface({ design, setDesign, setCurrentPartName, graphicVisualCanvas }) {
+function Interface({ design, setDesign, graphicVisualCanvas, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
 
   const [currentPart, setCurrentPart] = useState(0)
   const [currentLayer, setCurrentLayer] = useState(0);
@@ -12,12 +12,6 @@ function Interface({ design, setDesign, setCurrentPartName, graphicVisualCanvas 
 
   const handleViewChange = (viewChange) => {
     setView(viewChange);
-  }
-
-  const handleDesignChange = (part, layer, color) => {
-    const tempDesign = JSON.parse(JSON.stringify(design));
-    tempDesign.parts[part].layers[layer].color = color;
-    setDesign(tempDesign);
   }
 
   if (view === 'DesignPreview') {
@@ -30,7 +24,7 @@ function Interface({ design, setDesign, setCurrentPartName, graphicVisualCanvas 
   else if (view === 'Layers') {
     return (
       <div className="interface-container">
-        <LayersView handleViewChange={handleViewChange} handleDesignChange={handleDesignChange} design={design} setDesign={setDesign} currentPart={currentPart} setCurrentPart={setCurrentPart} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} setCurrentPartName={setCurrentPartName} graphicVisualCanvas={graphicVisualCanvas} />
+        <LayersView handleViewChange={handleViewChange} design={design} setDesign={setDesign} currentPart={currentPart} setCurrentPart={setCurrentPart} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} graphicVisualCanvas={graphicVisualCanvas} handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas} handleDesignChangeManager={handleDesignChangeManager} />
       </div>
     )
   }

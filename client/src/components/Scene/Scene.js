@@ -3,21 +3,23 @@ import './Scene.css';
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { drawColorFunction, drawGraphicFunction } from '../../helpers/drawFunctions.js';
-import { partsObject } from '../../helpers/partsObject.js';
+// import { drawColorFunction, drawGraphicFunction } from '../../helpers/drawfunctions'
+// import { partsObject } from '../../helpers/partsObject.js';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+// import { Texture } from 'three';
 
 
-function Scene({ design, currentPartName, graphicVisualCanvas }) {
+function Scene({ design, texture }) {
 
-  const createCanvas = () => {
-    var ctx = document.createElement("canvas").getContext('2d');
-    ctx.canvas.width = 4096;
-    ctx.canvas.height = 4096;
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    return ctx
-  }
+  // const createCanvas = () => {
+  //   const canvas = document.createElement("canvas")
+  //   const ctx = canvas.getContext('2d');
+  //   ctx.canvas.width = 4096;
+  //   ctx.canvas.height = 4096;
+  //   ctx.fillStyle = '#ffffff';
+  //   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  //   return canvas
+  // }
 
   const createMaterial = (texture) => {
     var aoimg = new Image();
@@ -31,20 +33,18 @@ function Scene({ design, currentPartName, graphicVisualCanvas }) {
     })
   }
 
-  const createTexture = () => {
-    var texture = new THREE.CanvasTexture(textureCanvas.canvas);
-    texture.flipY = false;
+  // const createTexture = () => {
+  //   var texture = new THREE.CanvasTexture(textureCanvas);
+  //   texture.flipY = false;
 
-    return texture;
-  }
+  //   return texture;
+  // }
 
   const canvasRef = useRef(null);
 
   const [renderer] = useState(new THREE.WebGLRenderer({ antialias: true }));
 
-  const [textureCanvas, setTextureCanvas] = useState(createCanvas());
 
-  const [texture] = useState(createTexture());
 
   const [newMaterial] = useState(createMaterial(texture));
 
@@ -130,38 +130,6 @@ function Scene({ design, currentPartName, graphicVisualCanvas }) {
     }
 
   }, [newMaterial, renderer, design.model])
-
-  const oldDesignRef = useRef({});
-
-  useEffect(() => {
-    const updatePart = async (partChange) => {
-      for (let i = 0; i < design.parts[partChange].layers.length; i++) {
-        const isCurrentPart = (partChange === currentPartName);
-        if (design.parts[partChange].layers[i].type === 'color') {
-          await drawColorFunction(texture, textureCanvas, setTextureCanvas, design.parts[partChange].layers[i].color, partsObject[partChange], graphicVisualCanvas, isCurrentPart)
-        }
-        else {
-          await drawGraphicFunction(texture, textureCanvas, setTextureCanvas, partsObject[partChange], design.parts[partChange].layers[i], graphicVisualCanvas, isCurrentPart)
-        }
-      }
-    }
-
-    if (currentPartName) {
-      updatePart(currentPartName)
-    }
-    else {
-      const updateAll = async () => {
-        for (let x = 0; x < Object.keys(design.parts).length; x++) {
-          const partChange = Object.keys(design.parts)[x]
-          await updatePart(partChange)
-        }
-      }
-      updateAll()
-    }
-
-    oldDesignRef.current = design;
-
-  }, [design, texture, textureCanvas, currentPartName, graphicVisualCanvas])
 
   return (
     <div className="scene-container" ref={canvasRef} >

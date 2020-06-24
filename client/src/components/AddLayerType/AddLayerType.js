@@ -11,7 +11,7 @@ function AddLayerType({ handleAddLayer, currentPart, setLayersView }) {
 			<div className='change-view-button'>
 				<button onClick={
 					() => {
-						handleAddLayer(currentPart, 'Color');
+						handleAddLayer('Color');
 						setLayersView('Layers');
 					}
 				} >Color</button>
@@ -19,7 +19,7 @@ function AddLayerType({ handleAddLayer, currentPart, setLayersView }) {
 			<div className='change-view-button'>
 				<button onClick={
 					() => {
-						handleAddLayer(currentPart, 'Graphic');
+						handleAddLayer('Graphic');
 						setLayersView('Layers');
 					}
 				} >Graphic</button>

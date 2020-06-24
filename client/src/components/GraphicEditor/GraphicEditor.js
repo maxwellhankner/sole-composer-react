@@ -2,31 +2,12 @@ import React, { useEffect } from 'react';
 import { FaArrowUp, FaArrowDown, FaArrowRight, FaArrowLeft, FaUndoAlt, FaRedoAlt, FaArrowsAlt, FaCompressArrowsAlt } from 'react-icons/fa'
 import './GraphicEditor.css';
 
-function GraphicEditor({ setLayersView, design, setDesign, currentLayer, partsObject, currentPart, graphicVisualCanvas }) {
+function GraphicEditor({ setLayersView, currentLayer, graphicVisualCanvas, currentPartName, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
+
+    handleUpdateGraphicVisualCanvas(currentPartName)
 
     const handleMoveGraphic = (direction, distance) => {
-        const tempDesign = JSON.parse(JSON.stringify(design));
-        const thisLayer = tempDesign.parts[Object.keys(partsObject)[currentPart]].layers[currentLayer];
-        if (direction === 'vert') {
-            thisLayer.y += distance;
-        }
-        else if (direction === 'hor') {
-            thisLayer.x += distance;
-        }
-        else if (direction === 'scale') {
-            thisLayer.scale += distance;
-        }
-        else if (direction === 'rotate') {
-            thisLayer.rotation += distance;
-        }
-        else if (direction === 'reset') {
-            thisLayer.y = 0;
-            thisLayer.x = 0;
-            thisLayer.scale = 500;
-            thisLayer.rotation = 0;
-        }
-        
-        setDesign(tempDesign);
+        handleDesignChangeManager(['graphic-moved', currentPartName, currentLayer, direction, distance])
     }
 
     const handleGraphicVisual = () => {
