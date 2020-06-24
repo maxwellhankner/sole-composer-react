@@ -14,6 +14,25 @@ app.get('/api/design', (req, res) => {
     const design = {
         // model: 'https://solecomposertesting.s3.us-east-2.amazonaws.com/af1_ao.gltf',
         model: 'assets/models/af1_ao.gltf',
+        overlays: {
+            outerOverlay: {
+                parts: ['outerQuarter', 'outerHeel'],
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#99d561'
+                    },
+                    {
+                        type: 'graphic',
+                        link: 'assets/images/japanese.png',
+                        x: 0,
+                        y: 0,
+                        scale: 500,
+                        rotation: 0
+                    }
+                ]
+            }
+        },
         parts: {
             outerSwoosh: {
                 layers: [
@@ -185,6 +204,23 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'graphic',
                         link: 'assets/images/static.jpg',
+                        x: 0,
+                        y: 0,
+                        scale: 500,
+                        rotation: 0
+                    }
+                ]
+            },
+            outerOverlay: {
+                parts: ['outerQuarter', 'outerHeel'],
+                layers: [
+                    {
+                        type: 'color',
+                        color: '#99d561'
+                    },
+                    {
+                        type: 'graphic',
+                        link: 'assets/images/japanese.png',
                         x: 0,
                         y: 0,
                         scale: 500,

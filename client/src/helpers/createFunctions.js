@@ -1,7 +1,6 @@
 import * as THREE from "three";
 
 export const createTexture = (textureCanvas) => {
-    console.log('createTexture()')
     var texture = new THREE.CanvasTexture(textureCanvas);
     texture.flipY = false;
 
@@ -9,7 +8,6 @@ export const createTexture = (textureCanvas) => {
 }
 
 export const createCanvas = () => {
-    console.log('createCanvas()')
     const canvas = document.createElement("canvas")
     const ctx = canvas.getContext('2d');
     ctx.canvas.width = 4096;
@@ -20,7 +18,6 @@ export const createCanvas = () => {
 }
 
 export const createGraphicVisualCanvas = () => {
-    console.log('createGraphicVisualCanvas()')
     const canvas = document.createElement('canvas');
     canvas.id = 'graphic-visual-canvas';
     canvas.width = 4096;

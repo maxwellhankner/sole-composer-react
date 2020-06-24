@@ -1,58 +1,43 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './DesignerContainer.css';
-import { createTexture, createCanvas, createGraphicVisualCanvas } from '../../helpers/createFunctions';
+
 import NavBar from '../../components/NavBar/NavBar.js';
 import Scene from '../../components/Scene/Scene.js';
 import Interface from '../../components/Interface/Interface.js';
-import { canvasObjectToTextureCanvas, designObjectToCanvasObject, updateCanvasObjectPart, updateLayer } from '../../helpers/drawfunctions';
-// import { designObject } from '../../helpers/partsObject'
+import { canvasObjectToTextureCanvas, designObjectToCanvasObject, updateGraphicVisualCanvas, designChangeManager } from '../../helpers/drawfunctions';
 
-function DesignerContainer({ designSpec }) {
-
-    console.log('designer component rendered')
+function DesignerContainer({ designSpec, texture, textureCanvas, graphicVisualCanvas }) {
 
     const [design, setDesign] = useState(designSpec);
 
-    const [textureCanvas] = useState(createCanvas());
-
-    const [texture] = useState(createTexture(textureCanvas));
-
     const canvasObjectRef = useRef();
 
-    const [graphicVisualCanvas] = useState(createGraphicVisualCanvas())
-
-    // const graphicVisualCanvas = useRef();
-    // graphicVisualCanvas.current = createGraphicVisualCanvas();
-
-    const handlePartUpdate = (part) => {
-        console.log('handle part update')
-        updateCanvasObjectPart(design, part, canvasObjectRef.current, textureCanvas, texture, graphicVisualCanvas);
+    const handleUpdateGraphicVisualCanvas = (partName) => {
+        updateGraphicVisualCanvas(graphicVisualCanvas, partName, canvasObjectRef.current)
     }
 
-    const handleUpdateLayer = (part, layer, layerObject) => {
-        console.log('handle update layer')
-        updateLayer(part, layer, layerObject, canvasObjectRef.current, textureCanvas, texture, graphicVisualCanvas)
+    // Update design and canvasObject as needed depending on params
+    const handleDesignChangeManager = (changeArray) => {
+        designChangeManager(changeArray, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObjectRef.current);
     }
 
     useEffect(() => {
-        console.log('design useEffect')
-
-        const buildTexture = async () => {
-            console.log('buildTexture')
-            canvasObjectRef.current = await designObjectToCanvasObject(design);
-            canvasObjectToTextureCanvas(canvasObjectRef.current, textureCanvas)
+        
+        if (!canvasObjectRef.current) {
+            const buildTexture = async () => {
+                console.log('buildTexture()')
+                canvasObjectRef.current = await designObjectToCanvasObject(design);
+                canvasObjectToTextureCanvas(canvasObjectRef.current, textureCanvas)
+            }
+            buildTexture()
         }
-        buildTexture()
-
-
-    }, [])
-
+    }, [design, textureCanvas])
 
     return (
         <div className="designer-container">
             <NavBar />
             <Scene design={design} texture={texture} textureCanvas={textureCanvas} />
-            <Interface design={design} setDesign={setDesign} graphicVisualCanvas={graphicVisualCanvas} handlePartUpdate={handlePartUpdate} handleUpdateLayer={handleUpdateLayer} />
+            <Interface design={design} setDesign={setDesign} graphicVisualCanvas={graphicVisualCanvas} handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas} handleDesignChangeManager={handleDesignChangeManager} />
         </div>
     );
 
