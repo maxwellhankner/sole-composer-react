@@ -7,14 +7,24 @@ import AddLayerType from '../AddLayerType/AddLayerType'
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
 import ColorPicker from '../ColorPicker/ColorPicker';
 
-function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPart, design, setDesign, setCurrentLayer, graphicVisualCanvas, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
+function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPart, design, setCurrentLayer, graphicVisualCanvas, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
 
   const [focusLayer, setFocusLayer] = useState();
   const [layersView, setLayersView] = useState('Layers');
 
-  const numberOfLayers = design.parts[Object.keys(partsObject)[currentPart]].layers.length;
-  const allLayers = design.parts[Object.keys(partsObject)[currentPart]].layers;
   const currentPartName = Object.keys(partsObject)[currentPart]
+
+  let numberOfLayers;
+  let allLayers;
+
+  if (currentPartName === 'outerOverlay') {
+    numberOfLayers = design.overlays[currentPartName].layers.length;
+    allLayers = design.overlays[currentPartName].layers;
+  }
+  else {
+    numberOfLayers = design.parts[currentPartName].layers.length;
+    allLayers = design.parts[currentPartName].layers;
+  }
 
   const handleFocusLayer = (i) => {
     setFocusLayer(i);
@@ -71,7 +81,7 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
   else if (layersView === 'ColorPicker') {
     return (
       <div>
-        <ColorPicker design={design} currentPart={currentPart} handleColorChange={handleColorChange} currentLayer={currentLayer} currentPartName={currentPartName} />
+        <ColorPicker design={design} currentPartName={currentPartName} handleColorChange={handleColorChange} currentLayer={currentLayer} />
         <div className='change-view-button'>
           <button onClick={() => setLayersView('Layers')}>Back</button>
         </div>
@@ -80,7 +90,7 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
   }
   else if (layersView === 'GraphicEditor') {
     return (
-      <GraphicEditor setLayersView={setLayersView} design={design} setDesign={setDesign} currentLayer={currentLayer} currentPart={currentPart} partsObject={partsObject} graphicVisualCanvas={graphicVisualCanvas} currentPartName={currentPartName} handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas} handleDesignChangeManager={handleDesignChangeManager} />
+      <GraphicEditor setLayersView={setLayersView} currentLayer={currentLayer} graphicVisualCanvas={graphicVisualCanvas} currentPartName={currentPartName} handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas} handleDesignChangeManager={handleDesignChangeManager} />
     )
   }
   else {

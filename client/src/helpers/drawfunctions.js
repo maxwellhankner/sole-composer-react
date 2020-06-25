@@ -189,6 +189,7 @@ layer moved - design is changed, canvasObject needs update, part needs redraw
 // New Functions
 
 const createColorLayerCanvas = (layer, partName) => {
+    console.log(partName, layer)
     return new Promise((resolve, reject) => {
         const { mask } = partsObject[partName];
         const { color } = layer;
@@ -269,6 +270,9 @@ export const designObjectToCanvasObject = (design) => {
             for (let property in design.parts) {
                 canvasObject[property] = await createCanvasObjectPart(design.parts[property].layers, property)
             }
+            for (let property in design.overlays) {
+                canvasObject[property] = await createCanvasObjectPart(design.overlays[property].layers, property)
+            }
             resolve(canvasObject)
         }
         createAllParts();
@@ -307,12 +311,15 @@ export const updateLayer = async (part, layerIndex, layerObject, canvasObject, c
     let layerCanvas;
     if (layerObject.type === 'color') {
         layerCanvas = await createColorLayerCanvas(layerObject, part)
+        console.log('done')
     }
     else {
         layerCanvas = await createGraphicLayerCanvas(layerObject, part)
     }
+    console.log(canvasObject);
     canvasObject[part].layers[layerIndex] = layerCanvas;
     // redraw part
+    console.log('here')
     redrawCanvasObjectPart(canvasTexture, canvasObject[part], part, texture, graphicVisualCanvas)
 }
 
@@ -361,7 +368,14 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
         const layerIndex = changeArray[2];
         const newColor = changeArray[3]
         const tempDesign = JSON.parse(JSON.stringify(design));
-        const thisLayer = tempDesign.parts[partName].layers[layerIndex];
+        let thisLayer;
+        if (partName === 'outerOverlay') {
+            thisLayer = tempDesign.overlays[partName].layers[layerIndex];
+        }
+        else {
+            thisLayer = tempDesign.parts[partName].layers[layerIndex];
+        }
+        
         thisLayer.color = newColor;
         setDesign(tempDesign);
         updateLayer(partName, layerIndex, thisLayer, canvasObject, textureCanvas, texture, graphicVisualCanvas)

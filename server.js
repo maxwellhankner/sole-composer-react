@@ -64,6 +64,10 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#57d59c'
+                    },
+                    {
+                        type: 'overlay',
+                        source: 'outerOverlay'
                     }
                 ]
             },
@@ -204,23 +208,6 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'graphic',
                         link: 'assets/images/static.jpg',
-                        x: 0,
-                        y: 0,
-                        scale: 500,
-                        rotation: 0
-                    }
-                ]
-            },
-            outerOverlay: {
-                parts: ['outerQuarter', 'outerHeel'],
-                layers: [
-                    {
-                        type: 'color',
-                        color: '#99d561'
-                    },
-                    {
-                        type: 'graphic',
-                        link: 'assets/images/japanese.png',
                         x: 0,
                         y: 0,
                         scale: 500,
