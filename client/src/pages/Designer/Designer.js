@@ -8,6 +8,7 @@ function Designer() {
   const [designSpec, setDesignSpec] = useState()
 
   const [textureCanvas] = useState(createCanvas());
+  const [overlayCanvas] = useState(createCanvas());
 
   const [texture] = useState(createTexture(textureCanvas));
 
@@ -23,7 +24,7 @@ function Designer() {
 
   if (designSpec) {
     return (
-      <DesignerContainer designSpec={designSpec} textureCanvas={textureCanvas} texture={texture} graphicVisualCanvas={graphicVisualCanvas} />
+      <DesignerContainer designSpec={designSpec} textureCanvas={textureCanvas} texture={texture} overlayCanvas={overlayCanvas} graphicVisualCanvas={graphicVisualCanvas} />
     );
   }
   else {

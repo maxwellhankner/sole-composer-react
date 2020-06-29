@@ -4,7 +4,7 @@ import './GraphicEditor.css';
 
 function GraphicEditor({ setLayersView, currentLayer, graphicVisualCanvas, currentPartName, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
 
-    handleUpdateGraphicVisualCanvas(currentPartName)
+    
 
     const handleMoveGraphic = (direction, distance) => {
         handleDesignChangeManager(['graphic-moved', currentPartName, currentLayer, direction, distance])
@@ -18,6 +18,7 @@ function GraphicEditor({ setLayersView, currentLayer, graphicVisualCanvas, curre
 
     useEffect(() => {
         handleGraphicVisual()
+        handleUpdateGraphicVisualCanvas(currentPartName)
     })
 
     

@@ -84,6 +84,10 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#3399bb'
+                    },
+                    {
+                        type: 'overlay',
+                        source: 'outerOverlay'
                     }
                 ]
             },

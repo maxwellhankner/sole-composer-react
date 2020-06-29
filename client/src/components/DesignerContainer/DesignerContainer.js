@@ -4,34 +4,47 @@ import './DesignerContainer.css';
 import NavBar from '../../components/NavBar/NavBar.js';
 import Scene from '../../components/Scene/Scene.js';
 import Interface from '../../components/Interface/Interface.js';
-import { canvasObjectToTextureCanvas, designObjectToCanvasObject, updateGraphicVisualCanvas, designChangeManager } from '../../helpers/drawfunctions';
+import { canvasObjectToTextureCanvas, designObjectToCanvasObject, updateGraphicVisualCanvas, designChangeManager, overlayCanvasObjectToTextureCanvas, overlayChangeManager } from '../../helpers/drawfunctions';
 
-function DesignerContainer({ designSpec, texture, textureCanvas, graphicVisualCanvas }) {
+function DesignerContainer({ designSpec, texture, textureCanvas, overlayCanvas, graphicVisualCanvas }) {
 
     const [design, setDesign] = useState(designSpec);
 
     const canvasObjectRef = useRef();
+    const overlaysCanvasObjectRef = useRef();
 
     const handleUpdateGraphicVisualCanvas = (partName) => {
-        updateGraphicVisualCanvas(graphicVisualCanvas, partName, canvasObjectRef.current)
+        if (partName === 'outerOverlay') {
+            console.log('update visual')
+            updateGraphicVisualCanvas(graphicVisualCanvas, partName, overlaysCanvasObjectRef.current)
+        }
+        else {
+            updateGraphicVisualCanvas(graphicVisualCanvas, partName, canvasObjectRef.current)
+        }
     }
 
     // Update design and canvasObject as needed depending on params
     const handleDesignChangeManager = (changeArray) => {
-        designChangeManager(changeArray, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObjectRef.current);
+        if (changeArray[1] === 'outerOverlay') {
+            overlayChangeManager(changeArray, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObjectRef.current, overlayCanvas, overlaysCanvasObjectRef.current)
+        }
+        else {
+            designChangeManager(changeArray, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObjectRef.current);
+        }
     }
 
     useEffect(() => {
-        
         if (!canvasObjectRef.current) {
             const buildTexture = async () => {
-                console.log('buildTexture()')
-                canvasObjectRef.current = await designObjectToCanvasObject(design);
+                overlaysCanvasObjectRef.current = await designObjectToCanvasObject(design, 'overlaysCanvasObject');
+                overlayCanvasObjectToTextureCanvas(overlaysCanvasObjectRef.current, overlayCanvas, graphicVisualCanvas)
+
+                canvasObjectRef.current = await designObjectToCanvasObject(design, 'partsCanvasObject', overlayCanvas);
                 canvasObjectToTextureCanvas(canvasObjectRef.current, textureCanvas)
             }
             buildTexture()
         }
-    }, [design, textureCanvas])
+    }, [design, textureCanvas, overlayCanvas])
 
     return (
         <div className="designer-container">

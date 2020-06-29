@@ -1,5 +1,21 @@
 export const partsArray = ['outerSwoosh', 'innerSwoosh', 'outerQuarter', 'innerQuarter', 'outerHeel', 'innerHeel', 'outerSole', 'innerSole', 'sole', 'toeBox', 'toeCap', 'lace', 'laceCage', 'laceLock', 'tongue', 'heelWing', 'heelTab', 'sockLiner', 'outerOverlay']
 
+export const translations = {
+    outerOverlay: {
+        outerHeel: {
+            x: -100,
+            y: -900,
+            scale: 1800,
+            rotation: 0
+        },
+        outerQuarter: {
+            x: -3500,
+            y: -1950,
+            scale: 3600,
+            rotation: 0
+        }
+    }
+}
 export const partsObject = {
     outerSwoosh: {
         mask: '/assets/images/outerSwooshMask.png',

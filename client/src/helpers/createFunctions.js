@@ -12,8 +12,8 @@ export const createCanvas = () => {
     const ctx = canvas.getContext('2d');
     ctx.canvas.width = 4096;
     ctx.canvas.height = 4096;
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    // ctx.fillStyle = '#ffffff';
+    // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     return canvas
 }
 

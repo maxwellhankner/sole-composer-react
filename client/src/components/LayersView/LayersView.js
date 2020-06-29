@@ -50,9 +50,17 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
     setFocusLayer(-1)
   }
 
-  const handleMoveLayer = (part, layer, direction) => {
+  const handleMoveLayer = (layer, direction) => {
     const tempDesign = JSON.parse(JSON.stringify(design));
-    let array = tempDesign.parts[Object.keys(partsObject)[part]].layers
+    let array;
+
+    if (currentPartName === 'outerOverlay') {
+      array = tempDesign.overlays[currentPartName].layers
+    }
+    else {
+      array = tempDesign.parts[currentPartName].layers
+    }
+
     if (layer === array.length - 1 && direction === 1) {
       return
     }
@@ -63,7 +71,13 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
       let tempElement = array[layer]
       array[layer] = array[layer + direction]
       array[layer + direction] = tempElement
-      tempDesign.parts[Object.keys(partsObject)[part]].layers = array;
+      // tempDesign.parts[currentPartName].layers = array;
+      if (currentPartName === 'outerOverlay') {
+        tempDesign.overlays[currentPartName].layers = array;
+      }
+      else {
+        tempDesign.parts[currentPartName].layers = array;
+      }
       handleDesignChangeManager(['layer-moved', currentPartName, layer, direction])
       setFocusLayer(focusLayer + direction)
     }
@@ -106,27 +120,28 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
             <div key={i} className='layer-list-items'>
               <div className={`layer-list-item-end ${focusLayer !== i ? 'hide-edit-buttons' : ''}`}>
                 <div className={`edit-layer-button ${i === numberOfLayers - 1 ? 'edit-layer-button-dead' : ''}`}>
-                  <button onClick={() => handleMoveLayer(currentPart, i, 1)}><FaChevronUp /></button>
+                  <button onClick={() => handleMoveLayer(i, 1)}><FaChevronUp /></button>
                 </div>
                 <div className={`edit-layer-button ${i === 0 ? 'edit-layer-button-dead' : ''}`}>
-                  <button onClick={() => handleMoveLayer(currentPart, i, -1)}><FaChevronDown /></button>
+                  <button onClick={() => handleMoveLayer(i, -1)}><FaChevronDown /></button>
                 </div>
               </div>
               <div className={`layer-list-item-middle ${focusLayer === i ? 'focus-layer-highlight' : ''}`} onClick={() => handleFocusLayer(i)}>
                 <div className='layer-list-item-type'>
                   {layer.type}
                 </div>
+
                 {layer.type === 'color' ?
                   <div style={{ backgroundColor: layer.color, width: '50px' }}></div>
-                  :
-                  <div style={{ width: '50px', backgroundColor: '#ffffff' }}>
-                    {/* <div style={{ width: 'auto', maxHeight: '100%', padding: '5px' }}> */}
-                      <img src={layer.link} style={{ maxWidth: '100%', maxHeight: '100%' }} alt='design-graphic' />
-                    {/* </div> */}
-                  </div>
+                  : (
+                    layer.type === 'graphic' ?
+                      <div style={{ width: '50px', backgroundColor: '#ffffff' }}>
+                        <img src={layer.link} style={{ maxWidth: '100%', maxHeight: '100%' }} alt='design-graphic' />
+                      </div>
+                      :
+                      <div></div>
+                  )
                 }
-
-
               </div>
               <div className={`layer-list-item-end ${focusLayer !== i ? 'hide-edit-buttons' : ''}`}>
                 {layer.type === 'color' ?
@@ -136,13 +151,23 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
                       setLayersView('ColorPicker');
                     }}><FaPen /></button>
                   </div>
-                  :
-                  <div className='edit-layer-button'>
-                    <button onClick={() => {
-                      handleCurrentLayer(i);
-                      setLayersView('GraphicEditor');
-                    }}><FaPen /></button>
-                  </div>
+                  : (
+                    layer.type === 'graphic' ?
+                      <div className='edit-layer-button'>
+                        <button onClick={() => {
+                          handleCurrentLayer(i);
+                          setLayersView('GraphicEditor');
+                        }}><FaPen /></button>
+                      </div>
+                      :
+                      <div className='edit-layer-button'>
+                        <button onClick={() => {
+                          setCurrentPart(18)
+                          setFocusLayer(-1);
+                          // setLayersView('GraphicEditor');
+                        }}><FaPen /></button>
+                      </div>
+                  )
                 }
                 <div className='edit-layer-button'>
                   <button onClick={() => handleDeleteLayer(i)}><FaTimes /></button>
