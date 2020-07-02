@@ -169,9 +169,15 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
                       </div>
                   )
                 }
-                <div className='edit-layer-button'>
-                  <button onClick={() => handleDeleteLayer(i)}><FaTimes /></button>
-                </div>
+                {layer.type === 'overlay' ?
+                  <div className='edit-layer-button edit-layer-button-dead'>
+                    <button><FaTimes /></button>
+                  </div>
+                  :
+                  <div className='edit-layer-button'>
+                    <button onClick={() => handleDeleteLayer(i)}><FaTimes /></button>
+                  </div>
+                }
               </div>
             </div>
           )}

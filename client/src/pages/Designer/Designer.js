@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Designer.css';
 import DesignerContainer from '../../components/DesignerContainer/DesignerContainer';
+import NavBar from '../../components/NavBar/NavBar.js';
 import { createTexture, createCanvas, createGraphicVisualCanvas } from '../../helpers/createFunctions';
 
 function Designer() {
@@ -24,7 +25,10 @@ function Designer() {
 
   if (designSpec) {
     return (
-      <DesignerContainer designSpec={designSpec} textureCanvas={textureCanvas} texture={texture} overlayCanvas={overlayCanvas} graphicVisualCanvas={graphicVisualCanvas} />
+      <div className='designer-root-container'>
+        <NavBar />
+        <DesignerContainer designSpec={designSpec} textureCanvas={textureCanvas} texture={texture} overlayCanvas={overlayCanvas} graphicVisualCanvas={graphicVisualCanvas} />
+      </div>
     );
   }
   else {

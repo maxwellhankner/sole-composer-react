@@ -83,13 +83,9 @@ export const drawGraphicFunction = (texture, textureCanvas, setTextureCanvas, pa
                 ctxtemp.translate(ctxtemp.canvas.width / 2, ctxtemp.canvas.width / 2);
                 ctxtemp.drawImage(pythagoreanCanvas, (-ctxtemp.canvas.width / 2) + x - scale, (-ctxtemp.canvas.height / 2) + y - scale, ctxtemp.canvas.width + (2 * scale), ctxtemp.canvas.width + (2 * scale));
                 ctxtemp.resetTransform();
-
-                // document.body.appendChild(tempCanvas);
-
                 // // Final step
                 const finalCanvas = textureCanvas;
                 finalCanvas.drawImage(tempCanvas, part.x, part.y, part.width, part.height);
-
                 // Graphic Part Visual
                 if (isCurrentPart) {
                     const gvcCTX = graphicVisualCanvas.getContext('2d');
@@ -97,7 +93,6 @@ export const drawGraphicFunction = (texture, textureCanvas, setTextureCanvas, pa
                     gvcCTX.globalCompositeOperation = "source-over"
                     gvcCTX.translate(ctxtemp.canvas.width / 2, ctxtemp.canvas.width / 2);
                     gvcCTX.drawImage(pythagoreanCanvas, (-ctxtemp.canvas.width / 2) + x - scale, (-ctxtemp.canvas.height / 2) + y - scale, ctxtemp.canvas.width + (2 * scale), ctxtemp.canvas.width + (2 * scale))
-
                     // draw mask
                     const graphicMask = document.createElement('canvas')
                     graphicMask.id = 'temp-graphic-mask';
@@ -120,73 +115,8 @@ export const drawGraphicFunction = (texture, textureCanvas, setTextureCanvas, pa
     })
 }
 
-/*
-designObject: {
-    parts: {
-        outerHeel: {
-            layers: {
-                [
-                    {
-                        type: 'color',
-                        color: '#ffffff'
-                    },
-                    {
-                        type: 'overlay',
-                        source: 'quarterHeelOverlay'
-                    },
-                    {
-                        type: 'graphic',
-                        link: '/assets/images/japanes.png',
-                        x: 0,
-                        y: 0,
-                        scale: 500,
-                        roatation: 0
-                    }
-                ]
-            }
-        },
-        outerQuarter: {
-            layers: {
-                [
-                    {
-                        type: 'color',
-                        color: '#ffffff'
-                    },
-                    {
-                        type: 'overlay',
-                        source: 'quarterHeelOverlay'
-                    },
-                ]
-            }
-        },
-        quarterHeelOverlay: {
-            layers: {
-                [
-                    {
-                        type: graphic,
-                        link: '/assets/images/spongebob.png',
-                        x: 0,
-                        y: 0,
-                        scale: 500,
-                        roatation: 0
-                    },
-                ]
-            }
-        }
-    }
-}
 
-function that updates a part of the canvasObject given the designObject changes
-
-color change
-graphic moved
-layer added - design is changed, canvasObject needs update, part needs redraw
-layer deleted - design is changed, canvasObject needs update, part needs redraw
-layer moved - design is changed, canvasObject needs update, part needs redraw
-
-*/
-
-// New Functions
+// ------------------------------------------------------------- New Functions
 
 const createColorLayerCanvas = (layer, partName) => {
     return new Promise((resolve, reject) => {
@@ -246,16 +176,10 @@ const createGraphicLayerCanvas = (layer, partName) => {
 }
 
 const createOverlayLayerCanvas = (layer, partName, overlayCanvas) => {
-    document.body.appendChild(overlayCanvas)
     return new Promise((resolve, reject) => {
         const { mask } = partsObject[partName];
         const { source } = layer;
         const { x, y, scale, rotation } = translations[source][partName]
-        // we know the partName and the layer details (source)
-        // need overlay textureCanvas
-        // need the translation information for drawing this overlay to this part
-
-        // testing
         const layerCanvas = document.createElement('canvas');
         layerCanvas.width = 4096;
         layerCanvas.height = 4096;
@@ -266,6 +190,7 @@ const createOverlayLayerCanvas = (layer, partName, overlayCanvas) => {
             layerCanvasCTX.drawImage(maskImg, 0, 0, layerCanvas.width, layerCanvas.height);
             layerCanvasCTX.globalCompositeOperation = "source-in";
             layerCanvasCTX.translate(x, y)
+            layerCanvasCTX.rotate(rotation)
             layerCanvasCTX.drawImage(overlayCanvas, 0, 0, 4096 + scale, 4096 + scale)
             resolve(layerCanvas)
         }
@@ -326,7 +251,6 @@ export const canvasObjectToTextureCanvas = (canvasObject, finalCanvas) => {
 }
 
 export const overlayCanvasObjectToTextureCanvas = (overlayCanvasObject, overlayCanvas, graphicVisualCanvas) => {
-    console.log(graphicVisualCanvas)
     const overlayCanvasCTX = overlayCanvas.getContext('2d');
     const graphicCTX = graphicVisualCanvas.getContext('2d');
     graphicCTX.clearRect(0, 0, 4096, 4096);
@@ -356,7 +280,7 @@ const redrawCanvasObjectPart = (finalCanvas, canvasObjectPart, property, texture
 }
 
 // update part layer in canvasObject, then redraw
-export const updateLayer = async (part, layerIndex, layerObject, canvasObject, canvasTexture, texture, graphicVisualCanvas) => {
+const updateLayer = async (part, layerIndex, layerObject, canvasObject, canvasTexture, texture, graphicVisualCanvas) => {
     // update canvasObject layer
     let layerCanvas;
     if (layerObject.type === 'color') {
@@ -499,7 +423,6 @@ const moveLayerInCanvasObject = (canvasObject, partName, layerIndex, direction, 
 }
 
 export const overlayChangeManager = (changeArray, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObject, overlayCanvas, overlayCanvasObject) => {
-    console.log(graphicVisualCanvas)
     // update design
     if (changeArray[0] === 'graphic-moved') {
         const partName = changeArray[1]
@@ -551,9 +474,23 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
         updateOverlayLayer(partName, layerIndex, thisLayer, overlayCanvasObject, overlayCanvas, texture, graphicVisualCanvas, design, canvasObject, textureCanvas)
     }
     else if (changeArray[0] === 'layer-added') {
+
         const partName = changeArray[1]
         const type = changeArray[2]
         const tempDesign = JSON.parse(JSON.stringify(design));
+        // add layers to design if this is the first overlay layer added
+        if (design.overlays[partName].layers.length === 0) {
+            const effectedParts = design.overlays[partName].parts;
+            for (let layer in effectedParts) {
+                const currentPart = effectedParts[layer]
+                tempDesign.parts[currentPart].layers.push(
+                    {
+                        type: 'overlay',
+                        source: partName
+                    }
+                )
+            }
+        }
         if (type === 'Color') {
             tempDesign.overlays[partName].layers.push({
                 type: 'color',
@@ -571,7 +508,7 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
             });
         }
         setDesign(tempDesign)
-        addLayerToOverlayCanvasObject(overlayCanvasObject, partName, tempDesign.overlays[partName].layers.slice(-1)[0], overlayCanvas, texture, graphicVisualCanvas, design, textureCanvas, canvasObject)
+        addLayerToOverlayCanvasObject(overlayCanvasObject, partName, tempDesign.overlays[partName].layers.slice(-1)[0], overlayCanvas, texture, graphicVisualCanvas, design, textureCanvas, canvasObject, tempDesign)
     }
     else if (changeArray[0] === 'layer-moved') {
         const partName = changeArray[1]
@@ -591,12 +528,28 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
         const layerIndex = changeArray[2]
         const tempDesign = JSON.parse(JSON.stringify(design));
         tempDesign.overlays[partName].layers.splice(layerIndex, 1);
+        if (tempDesign.overlays[partName].layers.length === 0) {
+            console.log('no more layers')
+            // remove layers from design if this is the last overlay layer deleted
+                const effectedParts = design.overlays[partName].parts;
+                for (let layer in effectedParts) {
+                    const currentPart = effectedParts[layer]
+                    for (let i = 0; i < tempDesign.parts[currentPart].layers.length; i++) {
+                        const layerIndex = i;
+                        if (tempDesign.parts[currentPart].layers[i].type === 'overlay') {
+                            console.log('overlay layer deleted')
+                            tempDesign.parts[currentPart].layers.splice(layerIndex, 1);
+                            canvasObject[currentPart].layers.splice(layerIndex, 1)
+                        }
+                    }
+                }
+        }
         setDesign(tempDesign);
-        deleteLayerFromOverlayCanvasObject(overlayCanvasObject, partName, layerIndex, overlayCanvas, texture, graphicVisualCanvas, design, textureCanvas, canvasObject);
+        deleteLayerFromOverlayCanvasObject(overlayCanvasObject, partName, layerIndex, overlayCanvas, texture, graphicVisualCanvas, design, textureCanvas, canvasObject, tempDesign);
     }
 }
 
-export const updateOverlayLayer = async (part, layerIndex, layerObject, overlayCanvasObject, overlayCanvas, texture, graphicVisualCanvas, design, canvasObject, canvasTexture) => {
+const updateOverlayLayer = async (part, layerIndex, layerObject, overlayCanvasObject, overlayCanvas, texture, graphicVisualCanvas, design, canvasObject, canvasTexture) => {
     const effectedParts = design.overlays[part].parts
     // update canvasObject layer
     let layerCanvas;
@@ -619,11 +572,10 @@ export const updateOverlayLayer = async (part, layerIndex, layerObject, overlayC
             if (design.parts[currentPart].layers[i].type === 'overlay') {
                 const layerCanvas = await createOverlayLayerCanvas(design.parts[currentPart].layers[i], currentPart, overlayCanvas)
                 canvasObject[currentPart].layers[layerIndex] = layerCanvas
-                document.body.appendChild(layerCanvas)
                 // redraw effected parts in textureCanvas
                 redrawOverlayCanvasObjectPart(canvasTexture, canvasObject[currentPart], currentPart, texture)
             }
-        }   
+        }
     }
 }
 
@@ -637,7 +589,7 @@ const redrawOverlayCanvasObjectPart = (finalCanvas, canvasObjectPart, property, 
     texture.needsUpdate = true;
 }
 
-const addLayerToOverlayCanvasObject = async (overlayCanvasObject, partName, layerObject, overlayCanvas, texture, graphicVisualCanvas, design, canvasTexture, canvasObject) => {
+const addLayerToOverlayCanvasObject = async (overlayCanvasObject, partName, layerObject, overlayCanvas, texture, graphicVisualCanvas, design, canvasTexture, canvasObject, tempDesign) => {
     if (layerObject.type === 'color') {
         const newLayerCanvas = await createColorLayerCanvas(layerObject, partName)
         overlayCanvasObject[partName].layers.push(newLayerCanvas)
@@ -654,16 +606,15 @@ const addLayerToOverlayCanvasObject = async (overlayCanvasObject, partName, laye
     const effectedParts = design.overlays[partName].parts
     for (let part in effectedParts) {
         const currentPart = effectedParts[part]
-        console.log(currentPart)
-        for (let i = 0; i < design.parts[currentPart].layers.length; i++) {
+        for (let i = 0; i < tempDesign.parts[currentPart].layers.length; i++) {
             const layerIndex = i;
-            if (design.parts[currentPart].layers[i].type === 'overlay') {
-                const layerCanvas = await createOverlayLayerCanvas(design.parts[currentPart].layers[i], currentPart, overlayCanvas)
+            if (tempDesign.parts[currentPart].layers[i].type === 'overlay') {
+                const layerCanvas = await createOverlayLayerCanvas(tempDesign.parts[currentPart].layers[i], currentPart, overlayCanvas)
                 canvasObject[currentPart].layers[layerIndex] = layerCanvas
                 // redraw effected parts in textureCanvas
                 redrawOverlayCanvasObjectPart(canvasTexture, canvasObject[currentPart], currentPart, texture)
             }
-        }   
+        }
     }
 }
 
@@ -678,7 +629,6 @@ const moveLayerInOverlayCanvasObject = async (overlayCanvasObject, partName, lay
     const effectedParts = design.overlays[partName].parts
     for (let part in effectedParts) {
         const currentPart = effectedParts[part]
-        console.log(currentPart)
         for (let i = 0; i < design.parts[currentPart].layers.length; i++) {
             const layerIndex = i;
             if (design.parts[currentPart].layers[i].type === 'overlay') {
@@ -687,27 +637,25 @@ const moveLayerInOverlayCanvasObject = async (overlayCanvasObject, partName, lay
                 // redraw effected parts in textureCanvas
                 redrawOverlayCanvasObjectPart(canvasTexture, canvasObject[currentPart], currentPart, texture)
             }
-        }   
+        }
     }
 }
 
-const deleteLayerFromOverlayCanvasObject = async (overlayCanvasObject, partName, layerIndex, overlayCanvas, texture, graphicVisualCanvas, design, canvasTexture, canvasObject) => {
+const deleteLayerFromOverlayCanvasObject = async (overlayCanvasObject, partName, layerIndex, overlayCanvas, texture, graphicVisualCanvas, design, canvasTexture, canvasObject, tempDesign) => {
     overlayCanvasObject[partName].layers.splice(layerIndex, 1);
-    // redrawCanvasObjectPart(textureCanvas, canvasObject[partName], partName, texture, graphicVisualCanvas)
     overlayCanvasObjectToTextureCanvas(overlayCanvasObject, overlayCanvas, graphicVisualCanvas);
 
     const effectedParts = design.overlays[partName].parts
     for (let part in effectedParts) {
         const currentPart = effectedParts[part]
-        console.log(currentPart)
-        for (let i = 0; i < design.parts[currentPart].layers.length; i++) {
+        for (let i = 0; i < tempDesign.parts[currentPart].layers.length; i++) {
             const layerIndex = i;
-            if (design.parts[currentPart].layers[i].type === 'overlay') {
+            if (tempDesign.parts[currentPart].layers[i].type === 'overlay') {
                 const layerCanvas = await createOverlayLayerCanvas(design.parts[currentPart].layers[i], currentPart, overlayCanvas)
                 canvasObject[currentPart].layers[layerIndex] = layerCanvas
-                // redraw effected parts in textureCanvas
-                redrawOverlayCanvasObjectPart(canvasTexture, canvasObject[currentPart], currentPart, texture)
             }
-        }   
+            // redraw effected parts in textureCanvas
+            redrawOverlayCanvasObjectPart(canvasTexture, canvasObject[currentPart], currentPart, texture)
+        }
     }
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './DesignerContainer.css';
-
-import NavBar from '../../components/NavBar/NavBar.js';
+// import NavBar from '../../components/NavBar/NavBar.js';
 import Scene from '../../components/Scene/Scene.js';
 import Interface from '../../components/Interface/Interface.js';
 import { canvasObjectToTextureCanvas, designObjectToCanvasObject, updateGraphicVisualCanvas, designChangeManager, overlayCanvasObjectToTextureCanvas, overlayChangeManager } from '../../helpers/drawfunctions';
@@ -15,7 +14,6 @@ function DesignerContainer({ designSpec, texture, textureCanvas, overlayCanvas, 
 
     const handleUpdateGraphicVisualCanvas = (partName) => {
         if (partName === 'outerOverlay') {
-            console.log('update visual')
             updateGraphicVisualCanvas(graphicVisualCanvas, partName, overlaysCanvasObjectRef.current)
         }
         else {
@@ -34,6 +32,7 @@ function DesignerContainer({ designSpec, texture, textureCanvas, overlayCanvas, 
     }
 
     useEffect(() => {
+        console.log(design);
         if (!canvasObjectRef.current) {
             const buildTexture = async () => {
                 overlaysCanvasObjectRef.current = await designObjectToCanvasObject(design, 'overlaysCanvasObject');
@@ -44,11 +43,10 @@ function DesignerContainer({ designSpec, texture, textureCanvas, overlayCanvas, 
             }
             buildTexture()
         }
-    }, [design, textureCanvas, overlayCanvas])
+    }, [design, textureCanvas, overlayCanvas, graphicVisualCanvas])
 
     return (
         <div className="designer-container">
-            <NavBar />
             <Scene design={design} texture={texture} textureCanvas={textureCanvas} />
             <Interface design={design} setDesign={setDesign} graphicVisualCanvas={graphicVisualCanvas} handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas} handleDesignChangeManager={handleDesignChangeManager} />
         </div>

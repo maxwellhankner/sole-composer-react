@@ -3,15 +3,57 @@ export const partsArray = ['outerSwoosh', 'innerSwoosh', 'outerQuarter', 'innerQ
 export const translations = {
     outerOverlay: {
         outerHeel: {
-            x: -100,
-            y: -900,
-            scale: 1800,
+            x: -600,
+            y: -2220,
+            scale: 5250,
             rotation: 0
         },
         outerQuarter: {
-            x: -3500,
-            y: -1950,
-            scale: 3600,
+            x: -4365,
+            y: -3945,
+            scale: 8700,
+            rotation: 0
+        },
+        outerSwoosh: {
+            x: -1155,
+            y: -1840,
+            scale: 4600,
+            rotation: 0
+        },
+        outerSole: {
+            x: 55,
+            y: -105,
+            scale: -680,
+            rotation: 0
+        },
+        toeBox: {
+            x: 2050,
+            y: -8600,
+            scale: 7000,
+            rotation: 1.13
+        },
+        toeCap: {
+            x: -1510,
+            y: 420,
+            scale: -870,
+            rotation: 0
+        },
+        laceCage: {
+            x: 1900,
+            y: -4200,
+            scale: 4660,
+            rotation: 1.13
+        },
+        heelWing: {
+            x: 1250,
+            y: -2900,
+            scale: 7600,
+            rotation: 0
+        },
+        heelTab: {
+            x: -400,
+            y: -17550,
+            scale: 32500,
             rotation: 0
         }
     }
