@@ -1,4 +1,119 @@
-export const partsArray = ['outerSwoosh', 'innerSwoosh', 'outerQuarter', 'innerQuarter', 'outerHeel', 'innerHeel', 'outerSole', 'innerSole', 'sole', 'toeBox', 'toeCap', 'lace', 'laceCage', 'laceLock', 'tongue', 'heelWing', 'heelTab', 'sockLiner', 'outerOverlay']
+export const partsArray = ['outerSwoosh', 'innerSwoosh', 'outerQuarter', 'innerQuarter', 'outerHeel', 'innerHeel', 'outerSole', 'innerSole', 'sole', 'toeBox', 'toeCap', 'lace', 'laceCage', 'laceLock', 'tongue', 'heelWing', 'heelTab', 'sockLiner', 'outerOverlay', 'innerOverlay']
+
+export const translations = {
+    outerOverlay: {
+        outerHeel: {
+            x: -600,
+            y: -2220,
+            scale: 5250,
+            rotation: 0
+        },
+        outerQuarter: {
+            x: -4365,
+            y: -3945,
+            scale: 8700,
+            rotation: 0
+        },
+        outerSwoosh: {
+            x: -1155,
+            y: -1840,
+            scale: 4600,
+            rotation: 0
+        },
+        outerSole: {
+            x: 55,
+            y: -105,
+            scale: -680,
+            rotation: 0
+        },
+        toeBox: {
+            x: 2050,
+            y: -8600,
+            scale: 7000,
+            rotation: 1.13
+        },
+        toeCap: {
+            x: -1510,
+            y: 420,
+            scale: -870,
+            rotation: 0
+        },
+        laceCage: {
+            x: 1900,
+            y: -4200,
+            scale: 4660,
+            rotation: 1.13
+        },
+        heelWing: {
+            x: 1250,
+            y: -2900,
+            scale: 7600,
+            rotation: 0
+        },
+        heelTab: {
+            x: -400,
+            y: -17550,
+            scale: 32500,
+            rotation: 0
+        }
+    },
+    innerOverlay: {
+        innerHeel: {
+            x: -4520,
+            y: -2120,
+            scale: 5000,
+            rotation: 0
+        },
+        innerQuarter: {
+            x: -4000,
+            y: -3600,
+            scale: 8000,
+            rotation: 0
+        },
+        innerSwoosh: {
+            x: -3330,
+            y: -1690,
+            scale: 4270,
+            rotation: 0
+        },
+        innerSole: {
+            x: 355,
+            y: 325,
+            scale: -750,
+            rotation: -.16
+        },
+        toeBox: {
+            x: -1900,
+            y: 1500,
+            scale: 6000,
+            rotation: -1.2
+        },
+        toeCap: {
+            x: 2210,
+            y: 550,
+            scale: -870,
+            rotation: -.11
+        },
+        laceCage: {
+            x: -1700,
+            y: 3300,
+            scale: 4350,
+            rotation: -1.04
+        },
+        heelWing: {
+            x: -8885,
+            y: -2850,
+            scale: 7450,
+            rotation: 0
+        },
+        heelTab: {
+            x: -32400,
+            y: -17800,
+            scale: 32400,
+            rotation: 0
+        }
+    }
+}
 
 export const partsObject = {
     outerSwoosh: {
@@ -130,6 +245,13 @@ export const partsObject = {
     outerOverlay: {
         mask: '/assets/images/outerOverlayMask.png',
         x: '1790',
+        y: '-550',
+        width: '1940',
+        height: '1940'
+    },
+    innerOverlay: {
+        mask: '/assets/images/innerOverlayMask.png',
+        x: '1590',
         y: '-550',
         width: '1940',
         height: '1940'

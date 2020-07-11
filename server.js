@@ -16,20 +16,45 @@ app.get('/api/design', (req, res) => {
         model: 'assets/models/af1_ao.gltf',
         overlays: {
             outerOverlay: {
-                parts: ['outerQuarter', 'outerHeel'],
+                parts: ['outerQuarter', 'outerHeel', 'outerSwoosh', 'outerSole', 'toeBox', 'toeCap', 'laceCage', 'heelWing', 'heelTab'],
                 layers: [
-                    {
-                        type: 'color',
-                        color: '#99d561'
-                    },
+                    // {
+                    //     type: 'graphic',
+                    //     link: 'assets/images/jordan.png',
+                    //     x: 40,
+                    //     y: 120,
+                    //     scale: -160,
+                    //     rotation: 0
+                    // }
+                    // {
+                    //     type: 'color',
+                    //     color: '#9955dd'
+                    // }
+                ]
+            },
+            innerOverlay: {
+                parts: ['innerQuarter', 'innerHeel', 'innerSwoosh', 'innerSole', 'toeBox', 'toeCap', 'laceCage', 'heelWing', 'heelTab'],
+                layers: [
+                    // {
+                    //     type: 'graphic',
+                    //     link: 'assets/images/innerOverlayHelper.png',
+                    //     x: 0,
+                    //     y: 0,
+                    //     scale: 860,
+                    //     rotation: 0
+                    // }
                     {
                         type: 'graphic',
-                        link: 'assets/images/japanese.png',
+                        link: 'assets/images/rainbow.png',
                         x: 0,
                         y: 0,
-                        scale: 500,
+                        scale: 680,
                         rotation: 0
                     }
+                    // {
+                    //     type: 'color',
+                    //     color: '#ff99aa'
+                    // }
                 ]
             }
         },
@@ -38,7 +63,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#f1515a'
+                        color: '#9955dd'
                     },
                     {
                         type: 'graphic',
@@ -49,6 +74,10 @@ app.get('/api/design', (req, res) => {
                         scale: 500,
                         rotation: 0
                     }
+                    // {
+                    //     type: 'overlay',
+                    //     source: 'outerOverlay'
+                    // }
                 ]
             },
             innerSwoosh: {
@@ -56,6 +85,10 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#fb68f5'
+                    },
+                    {
+                        type: 'overlay',
+                        source: 'innerOverlay'
                     }
                 ]
             },
@@ -65,6 +98,10 @@ app.get('/api/design', (req, res) => {
                         type: 'color',
                         color: '#57d59c'
                     }
+                    // {
+                    //     type: 'overlay',
+                    //     source: 'outerOverlay'
+                    // }
                 ]
             },
             innerQuarter: {
@@ -72,6 +109,10 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#ee44aa'
+                    },
+                    {
+                        type: 'overlay',
+                        source: 'innerOverlay'
                     }
                 ]
             },
@@ -81,6 +122,10 @@ app.get('/api/design', (req, res) => {
                         type: 'color',
                         color: '#3399bb'
                     }
+                    // {
+                    //     type: 'overlay',
+                    //     source: 'outerOverlay'
+                    // }
                 ]
             },
             innerHeel: {
@@ -91,11 +136,15 @@ app.get('/api/design', (req, res) => {
                     },
                     {
                         type: 'graphic',
-                        link: 'assets/images/japanese.png',
+                        link: 'assets/images/checker.jpg',
                         x: 0,
                         y: 0,
                         scale: 500,
                         rotation: 0
+                    },
+                    {
+                        type: 'overlay',
+                        source: 'innerOverlay'
                     }
                 ]
             },
@@ -105,6 +154,10 @@ app.get('/api/design', (req, res) => {
                         type: 'color',
                         color: '#cc9560'
                     }
+                    // {
+                    //     type: 'overlay',
+                    //     source: 'outerOverlay'
+                    // }
                 ]
             },
             innerSole: {
@@ -112,6 +165,10 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#cc9560'
+                    },
+                    {
+                        type: 'overlay',
+                        source: 'innerOverlay'
                     }
                 ]
             },
@@ -136,6 +193,14 @@ app.get('/api/design', (req, res) => {
                         y: 0,
                         scale: 4000,
                         rotation: 0
+                    },
+                    // {
+                    //     type: 'overlay',
+                    //     source: 'outerOverlay'
+                    // },
+                    {
+                        type: 'overlay',
+                        source: 'innerOverlay'
                     }
                 ]
             },
@@ -144,6 +209,14 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#d3d8bc'
+                    },
+                    // {
+                    //     type: 'overlay',
+                    //     source: 'outerOverlay'
+                    // },
+                    {
+                        type: 'overlay',
+                        source: 'innerOverlay'
                     }
                 ]
             },
@@ -160,6 +233,14 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#dd2c75'
+                    },
+                    // {
+                    //     type: 'overlay',
+                    //     source: 'outerOverlay'
+                    // },
+                    {
+                        type: 'overlay',
+                        source: 'innerOverlay'
                     }
                 ]
             },
@@ -184,6 +265,14 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#217a99'
+                    },
+                    // {
+                    //     type: 'overlay',
+                    //     source: 'outerOverlay'
+                    // },
+                    {
+                        type: 'overlay',
+                        source: 'innerOverlay'
                     }
                 ]
             },
@@ -192,6 +281,14 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#3399bb'
+                    },
+                    // {
+                    //     type: 'overlay',
+                    //     source: 'outerOverlay'
+                    // },
+                    {
+                        type: 'overlay',
+                        source: 'innerOverlay'
                     }
                 ]
             },
@@ -204,23 +301,6 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'graphic',
                         link: 'assets/images/static.jpg',
-                        x: 0,
-                        y: 0,
-                        scale: 500,
-                        rotation: 0
-                    }
-                ]
-            },
-            outerOverlay: {
-                parts: ['outerQuarter', 'outerHeel'],
-                layers: [
-                    {
-                        type: 'color',
-                        color: '#99d561'
-                    },
-                    {
-                        type: 'graphic',
-                        link: 'assets/images/japanese.png',
                         x: 0,
                         y: 0,
                         scale: 500,
