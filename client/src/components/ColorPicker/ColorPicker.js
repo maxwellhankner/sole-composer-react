@@ -8,7 +8,7 @@ function ColorPicker({ handleColorChange, currentPartName, currentLayer, design 
   const [currentColor, setCurrentColor] = useState('#ffffaa')
 
   useEffect(() => {
-    if (currentPartName === 'outerOverlay') {
+    if (currentPartName === 'outerOverlay' || currentPartName === 'innerOverlay') {
       setCurrentColor(design.overlays[currentPartName].layers[currentLayer].color)
     }
     else {

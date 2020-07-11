@@ -9,7 +9,8 @@ function Designer() {
   const [designSpec, setDesignSpec] = useState()
 
   const [textureCanvas] = useState(createCanvas());
-  const [overlayCanvas] = useState(createCanvas());
+  const [outerOverlayCanvas] = useState(createCanvas());
+  const [innerOverlayCanvas] = useState(createCanvas());
 
   const [texture] = useState(createTexture(textureCanvas));
 
@@ -27,7 +28,7 @@ function Designer() {
     return (
       <div className='designer-root-container'>
         <NavBar />
-        <DesignerContainer designSpec={designSpec} textureCanvas={textureCanvas} texture={texture} overlayCanvas={overlayCanvas} graphicVisualCanvas={graphicVisualCanvas} />
+        <DesignerContainer designSpec={designSpec} textureCanvas={textureCanvas} texture={texture} outerOverlayCanvas={outerOverlayCanvas} innerOverlayCanvas={innerOverlayCanvas} graphicVisualCanvas={graphicVisualCanvas} />
       </div>
     );
   }

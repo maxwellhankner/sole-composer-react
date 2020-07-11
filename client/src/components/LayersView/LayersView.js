@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaChevronUp, FaChevronDown, FaPen, FaTimes } from 'react-icons/fa';
 import './LayersView.css';
 import PartSelector from '../PartSelector/PartSelector';
-import { partsObject } from '../../helpers/partsObject';
+import { partsObject, partsArray } from '../../helpers/partsObject';
 import AddLayerType from '../AddLayerType/AddLayerType'
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
 import ColorPicker from '../ColorPicker/ColorPicker';
@@ -17,7 +17,7 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
   let numberOfLayers;
   let allLayers;
 
-  if (currentPartName === 'outerOverlay') {
+  if (currentPartName === 'outerOverlay' || currentPartName === 'innerOverlay') {
     numberOfLayers = design.overlays[currentPartName].layers.length;
     allLayers = design.overlays[currentPartName].layers;
   }
@@ -54,7 +54,7 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
     const tempDesign = JSON.parse(JSON.stringify(design));
     let array;
 
-    if (currentPartName === 'outerOverlay') {
+    if (currentPartName === 'outerOverlay' || currentPartName === 'innerOverlay') {
       array = tempDesign.overlays[currentPartName].layers
     }
     else {
@@ -72,7 +72,7 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
       array[layer] = array[layer + direction]
       array[layer + direction] = tempElement
       // tempDesign.parts[currentPartName].layers = array;
-      if (currentPartName === 'outerOverlay') {
+      if (currentPartName === 'outerOverlay' || currentPartName === 'innerOverlay') {
         tempDesign.overlays[currentPartName].layers = array;
       }
       else {
@@ -162,9 +162,8 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
                       :
                       <div className='edit-layer-button'>
                         <button onClick={() => {
-                          setCurrentPart(18)
+                          setCurrentPart(partsArray.indexOf(layer.source))
                           setFocusLayer(-1);
-                          // setLayersView('GraphicEditor');
                         }}><FaPen /></button>
                       </div>
                   )
