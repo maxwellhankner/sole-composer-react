@@ -4,24 +4,20 @@ import './GraphicEditor.css';
 
 function GraphicEditor({ setLayersView, currentLayer, graphicVisualCanvas, currentPartName, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
 
-    
-
     const handleMoveGraphic = (direction, distance) => {
         handleDesignChangeManager(['graphic-moved', currentPartName, currentLayer, direction, distance])
     }
 
-    const handleGraphicVisual = () => {
+    const placeGraphicVisual = () => {
         let div = document.getElementById("graphic-visual-container")
         div.innerHTML = '';
         div.appendChild(graphicVisualCanvas)
     }
 
     useEffect(() => {
-        handleGraphicVisual()
+        placeGraphicVisual()
         handleUpdateGraphicVisualCanvas(currentPartName)
-    })
-
-    
+    })    
 
     return (
         <div className="graphic-editor-container">

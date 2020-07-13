@@ -1,0 +1,25 @@
+.current-colors-container {
+    width: 60%;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.current-colors-scroll {
+    min-width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.current-colors-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.current-colors-container button {
+    width: 32px !important;
+    height: 32px;
+    margin-right: 10px;
+    border-radius: 16px;
+    flex: 0 0 auto;
+}

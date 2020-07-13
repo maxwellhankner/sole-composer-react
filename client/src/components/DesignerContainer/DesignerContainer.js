@@ -32,7 +32,6 @@ function DesignerContainer({ designSpec, texture, textureCanvas, outerOverlayCan
     }
 
     useEffect(() => {
-        console.log(design);
         if (!canvasObjectRef.current) {
             const buildTexture = async () => {
                 overlaysCanvasObjectRef.current = await designObjectToCanvasObject(design, 'overlaysCanvasObject');
@@ -44,7 +43,7 @@ function DesignerContainer({ designSpec, texture, textureCanvas, outerOverlayCan
             }
             buildTexture()
         }
-    }, [design, textureCanvas, outerOverlayCanvas, innerOverlayCanvas, graphicVisualCanvas, texture])
+    })
 
     return (
         <div className="designer-container">

@@ -46,10 +46,10 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'graphic',
                         link: 'assets/images/rainbow.png',
-                        x: 0,
-                        y: 0,
-                        scale: 680,
-                        rotation: 0
+                        x: -640,
+                        y: 400,
+                        scale: 440,
+                        rotation: -15
                     }
                     // {
                     //     type: 'color',
@@ -63,7 +63,15 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#9955dd'
+                        color: '#ffffff'
+                    },
+                    {
+                        type: 'graphic',
+                        link: 'assets/images/checker.png',
+                        x: 0,
+                        y: 0,
+                        scale: 500,
+                        rotation: 0
                     },
                     {
                         type: 'graphic',
@@ -84,7 +92,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#fb68f5'
+                        color: '#ffffff'
                     },
                     {
                         type: 'overlay',
@@ -96,7 +104,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#57d59c'
+                        color: '#ffffff'
                     }
                     // {
                     //     type: 'overlay',
@@ -108,7 +116,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#ee44aa'
+                        color: '#ffffff'
                     },
                     {
                         type: 'overlay',
@@ -120,7 +128,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#3399bb'
+                        color: '#ffffff'
                     }
                     // {
                     //     type: 'overlay',
@@ -132,15 +140,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#3f9bb7'
-                    },
-                    {
-                        type: 'graphic',
-                        link: 'assets/images/checker.jpg',
-                        x: 0,
-                        y: 0,
-                        scale: 500,
-                        rotation: 0
+                        color: '#ffffff'
                     },
                     {
                         type: 'overlay',
@@ -184,7 +184,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#b4488b'
+                        color: '#ffffff'
                     },
                     {
                         type: 'graphic',
@@ -224,7 +224,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#70b9c9'
+                        color: '#57905A'
                     }
                 ]
             },
@@ -232,7 +232,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#dd2c75'
+                        color: '#57905A'
                     },
                     // {
                     //     type: 'overlay',
@@ -248,7 +248,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#3399bb'
+                        color: '#57905A'
                     }
                 ]
             },
@@ -256,7 +256,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#f1c0c9'
+                        color: '#57905A'
                     }
                 ]
             },
@@ -264,7 +264,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#217a99'
+                        color: '#ffffff'
                     },
                     // {
                     //     type: 'overlay',
@@ -280,7 +280,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#3399bb'
+                        color: '#ffffff'
                     },
                     // {
                     //     type: 'overlay',
@@ -295,16 +295,16 @@ app.get('/api/design', (req, res) => {
             sockLiner: {
                 layers: [
                     {
-                        type: 'color',
-                        color: '#3399bb'
-                    },
-                    {
                         type: 'graphic',
                         link: 'assets/images/static.jpg',
                         x: 0,
                         y: 0,
                         scale: 500,
                         rotation: 0
+                    },
+                    {
+                        type: 'color',
+                        color: '#3D6040'
                     }
                 ]
             }

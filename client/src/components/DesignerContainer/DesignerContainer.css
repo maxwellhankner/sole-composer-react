@@ -1,5 +1,6 @@
 .designer-container {
     height: 100%;
+    width: 100%;
     background-color: #333;
     display: flex;
     flex-direction: column;
@@ -10,17 +11,18 @@
         flex-direction: row;
     }
     .scene-container {
-        width: 60%;
+        width: 60% !important;
         height: 100% !important;
     }
     .interface-container {
-        width: 40%;
+        width: 40% !important;
         height: 100% !important;
-        /* margin-top: 20% !important; */
-        margin: auto;
-        display: grid;
-        flex-direction: row;
-        align-content: center;
+    }
+    /* .navbar-container {
+        left: 0;
+    } */
+    .graphic-editor-container {
+        height: unset !important;
     }
     .navbar-container p {
         color: #000;
@@ -28,5 +30,8 @@
     #loading-screen {
         width: 60% !important;
         height: 100% !important;
+    }
+    .part-selector-container {
+        padding-top: 1rem;
     }
 }

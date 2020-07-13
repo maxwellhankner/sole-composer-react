@@ -1,7 +1,7 @@
 import React from 'react';
 import './AddLayerType.css';
 
-function AddLayerType({ handleAddLayer, currentPart, setLayersView }) {
+function AddLayerType({ handleAddLayer, setLayersView }) {
 
 	return (
 		<div className="design-preview-container">

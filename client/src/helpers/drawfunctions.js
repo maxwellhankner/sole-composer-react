@@ -435,7 +435,6 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
         const direction = changeArray[3]
         const distance = changeArray[4];
 
-
         const tempDesign = JSON.parse(JSON.stringify(design));
         const thisLayer = tempDesign.overlays[partName].layers[layerIndex];
         if (direction === 'vert') {

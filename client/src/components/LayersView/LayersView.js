@@ -6,6 +6,7 @@ import { partsObject, partsArray } from '../../helpers/partsObject';
 import AddLayerType from '../AddLayerType/AddLayerType'
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
 import ColorPicker from '../ColorPicker/ColorPicker';
+import { handleConvertPartName } from '../../helpers/convertPartNames';
 
 function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPart, design, setCurrentLayer, graphicVisualCanvas, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
 
@@ -95,10 +96,8 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
   else if (layersView === 'ColorPicker') {
     return (
       <div>
-        <ColorPicker design={design} currentPartName={currentPartName} handleColorChange={handleColorChange} currentLayer={currentLayer} />
-        <div className='change-view-button'>
-          <button onClick={() => setLayersView('Layers')}>Back</button>
-        </div>
+        <ColorPicker design={design} currentPartName={currentPartName} handleColorChange={handleColorChange} currentLayer={currentLayer} setLayersView={setLayersView} />
+        
       </div>
     );
   }
@@ -115,6 +114,11 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
           <p>Layers</p>
         </div>
 
+        <div className='add-layer-button'>
+            {/* <button onClick={() => handleAddLayer(currentPart)}>Add Layer</button> */}
+            <button onClick={() => setLayersView('AddLayerType')}>Add Layer</button>
+          </div>
+
         <div className='layers-box-container'>
           {allLayers.map((layer, i) =>
             <div key={i} className='layer-list-items'>
@@ -128,7 +132,7 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
               </div>
               <div className={`layer-list-item-middle ${focusLayer === i ? 'focus-layer-highlight' : ''}`} onClick={() => handleFocusLayer(i)}>
                 <div className='layer-list-item-type'>
-                  {layer.type}
+                  {layer.type === 'overlay' ? handleConvertPartName(layer.source).toLowerCase() : layer.type}
                 </div>
 
                 {layer.type === 'color' ?
@@ -136,7 +140,7 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
                   : (
                     layer.type === 'graphic' ?
                       <div style={{ width: '50px', backgroundColor: '#ffffff' }}>
-                        <img src={layer.link} style={{ maxWidth: '100%', maxHeight: '100%' }} alt='design-graphic' />
+                        <img src={layer.link} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='design-graphic' />
                       </div>
                       :
                       <div></div>
@@ -180,10 +184,7 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
               </div>
             </div>
           )}
-          <div className='add-layer-button'>
-            {/* <button onClick={() => handleAddLayer(currentPart)}>Add Layer</button> */}
-            <button onClick={() => setLayersView('AddLayerType')}>Add Layer</button>
-          </div>
+          
         </div>
 
         <div className='change-view-button'>

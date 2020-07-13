@@ -3,23 +3,9 @@ import './Scene.css';
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-// import { drawColorFunction, drawGraphicFunction } from '../../helpers/drawfunctions'
-// import { partsObject } from '../../helpers/partsObject.js';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-// import { Texture } from 'three';
-
 
 function Scene({ design, texture }) {
-
-  // const createCanvas = () => {
-  //   const canvas = document.createElement("canvas")
-  //   const ctx = canvas.getContext('2d');
-  //   ctx.canvas.width = 4096;
-  //   ctx.canvas.height = 4096;
-  //   ctx.fillStyle = '#ffffff';
-  //   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  //   return canvas
-  // }
 
   const createMaterial = (texture) => {
     var aoimg = new Image();
@@ -33,18 +19,9 @@ function Scene({ design, texture }) {
     })
   }
 
-  // const createTexture = () => {
-  //   var texture = new THREE.CanvasTexture(textureCanvas);
-  //   texture.flipY = false;
-
-  //   return texture;
-  // }
-
   const canvasRef = useRef(null);
 
   const [renderer] = useState(new THREE.WebGLRenderer({ antialias: true }));
-
-
 
   const [newMaterial] = useState(createMaterial(texture));
 
