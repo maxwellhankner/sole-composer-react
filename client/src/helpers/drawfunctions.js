@@ -1,123 +1,6 @@
 import { partsObject, translations } from './partsObject';
 
-export const drawColorFunction = (texture, textureCanvas, setTextureCanvas, color, part, graphicVisualCanvas, isCurrentPart) => {
-    return new Promise((resolve, reject) => {
-        const tempCanvas = document.createElement('canvas');
-
-        tempCanvas.id = 'temp-canvas';
-        tempCanvas.width = 4096;
-        tempCanvas.height = 4096;
-        const mask = new Image()
-        mask.src = part.mask;
-        mask.onload = () => {
-            const ctxtemp = tempCanvas.getContext('2d');
-            if (ctxtemp) {
-                // const hey = document.createElement('h1');
-                // hey.innerHTML = (part.mask)
-                // document.body.appendChild(hey)
-            }
-            ctxtemp.drawImage(mask, 0, 0, tempCanvas.width, tempCanvas.height);
-            ctxtemp.globalCompositeOperation = "source-in";
-            ctxtemp.fillStyle = color;
-            ctxtemp.fillRect(0, 0, 4096, 4096);
-            const finalCanvas = textureCanvas;
-            finalCanvas.drawImage(tempCanvas, part.x, part.y, part.width, part.height);
-            finalCanvas.canvas.id = "new-canvas";
-            setTextureCanvas(finalCanvas);
-            texture.needsUpdate = true;
-
-            // Graphic Part Visual
-            if (isCurrentPart) {
-                const gvcCTX = graphicVisualCanvas.getContext('2d');
-                const graphicMask = document.createElement('canvas')
-                graphicMask.id = 'temp-graphic-mask';
-                graphicMask.width = 4096;
-                graphicMask.height = 4096;
-                const tempGraphicMask = graphicMask.getContext('2d')
-                tempGraphicMask.drawImage(mask, 0, 0, graphicVisualCanvas.width, graphicVisualCanvas.height)
-                tempGraphicMask.globalCompositeOperation = "source-in";
-                tempGraphicMask.fillStyle = color;
-                tempGraphicMask.fillRect(0, 0, 4096, 4096);
-                gvcCTX.drawImage(graphicMask, 0, 0, 4096, 4096);
-            }
-            resolve('done');
-        }
-    })
-}
-
-export const drawGraphicFunction = (texture, textureCanvas, setTextureCanvas, part, layerDetails, graphicVisualCanvas, isCurrentPart) => {
-    const { link, x, y, scale, rotation } = layerDetails
-
-    return new Promise((resolve, reject) => {
-        var graphicImg = new Image();
-        // graphicImg.crossOrigin = 'Anonymous';
-        graphicImg.src = link;
-        graphicImg.onload = () => {
-
-            // Variables
-            var graphicWidth = graphicImg.width;
-            var graphicHeight = graphicImg.height;
-            var graphicPythagorean = Math.sqrt(Math.pow(graphicWidth, 2) + Math.pow(graphicHeight, 2));
-
-            // Create Pythagorean Canvas
-            var pythagoreanCanvas = document.createElement('canvas');
-            pythagoreanCanvas.id = 'pythagorean-canvas';
-            pythagoreanCanvas.width = graphicPythagorean;
-            pythagoreanCanvas.height = graphicPythagorean;
-            var pythagoreanTemp = pythagoreanCanvas.getContext('2d');
-            pythagoreanTemp.translate(pythagoreanCanvas.width / 2, pythagoreanCanvas.height / 2);
-            pythagoreanTemp.rotate(rotation * Math.PI / 180);
-            pythagoreanTemp.drawImage(graphicImg, (-graphicImg.width / 2), (-graphicImg.height / 2), graphicImg.width, graphicImg.height);
-
-            // Load the mask
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.id = 'temp-canvas';
-            tempCanvas.width = 4096;
-            tempCanvas.height = 4096;
-            const ctxtemp = tempCanvas.getContext('2d');
-            const mask = new Image()
-            mask.src = part.mask;
-            mask.onload = function () {
-                ctxtemp.drawImage(mask, 0, 0, ctxtemp.canvas.width, ctxtemp.canvas.height);
-                ctxtemp.globalCompositeOperation = "source-in";
-                ctxtemp.translate(ctxtemp.canvas.width / 2, ctxtemp.canvas.width / 2);
-                ctxtemp.drawImage(pythagoreanCanvas, (-ctxtemp.canvas.width / 2) + x - scale, (-ctxtemp.canvas.height / 2) + y - scale, ctxtemp.canvas.width + (2 * scale), ctxtemp.canvas.width + (2 * scale));
-                ctxtemp.resetTransform();
-                // // Final step
-                const finalCanvas = textureCanvas;
-                finalCanvas.drawImage(tempCanvas, part.x, part.y, part.width, part.height);
-                // Graphic Part Visual
-                if (isCurrentPart) {
-                    const gvcCTX = graphicVisualCanvas.getContext('2d');
-                    // draw graphic
-                    gvcCTX.globalCompositeOperation = "source-over"
-                    gvcCTX.translate(ctxtemp.canvas.width / 2, ctxtemp.canvas.width / 2);
-                    gvcCTX.drawImage(pythagoreanCanvas, (-ctxtemp.canvas.width / 2) + x - scale, (-ctxtemp.canvas.height / 2) + y - scale, ctxtemp.canvas.width + (2 * scale), ctxtemp.canvas.width + (2 * scale))
-                    // draw mask
-                    const graphicMask = document.createElement('canvas')
-                    graphicMask.id = 'temp-graphic-mask';
-                    graphicMask.width = 4096;
-                    graphicMask.height = 4096;
-                    const tempGraphicMask = graphicMask.getContext('2d')
-                    tempGraphicMask.drawImage(mask, 0, 0, graphicMask.width, graphicMask.height)
-                    tempGraphicMask.globalCompositeOperation = "source-out";
-                    tempGraphicMask.fillStyle = '#333333bb';
-                    tempGraphicMask.fillRect(0, 0, 4096, 4096);
-                    gvcCTX.resetTransform()
-                    gvcCTX.drawImage(graphicMask, 0, 0, 4096, 4096);
-                }
-
-                setTextureCanvas(finalCanvas);
-                texture.needsUpdate = true;
-                resolve('done');
-            }
-        }
-    })
-}
-
-
-// ------------------------------------------------------------- New Functions
-
+//------------------------------------------- Create Canvas Functions
 const createColorLayerCanvas = (layer, partName) => {
     return new Promise((resolve, reject) => {
         const { mask } = partsObject[partName];
@@ -197,6 +80,7 @@ const createOverlayLayerCanvas = (layer, partName, overlayCanvas) => {
     })
 }
 
+//------------------------------------------- Initial Functions
 // create canvasObject part with designObject part
 const createCanvasObjectPart = async (designLayers, property, overlays) => {
     const canvasLayers = [];
@@ -270,35 +154,6 @@ export const overlayCanvasObjectToTextureCanvas = (overlayCanvasObject, overlayC
     // }
 }
 
-// update finalTexture from canvasObject part
-const redrawCanvasObjectPart = (finalCanvas, canvasObjectPart, property, texture, graphicVisualCanvas) => {
-    const finalCanvasCTX = finalCanvas.getContext('2d');
-    const graphicCTX = graphicVisualCanvas.getContext('2d');
-    graphicCTX.clearRect(0, 0, 4096, 4096);
-    const { x, y, width, height } = partsObject[property]
-    for (let layer in canvasObjectPart.layers) {
-        const layerCanvas = canvasObjectPart.layers[layer]
-        finalCanvasCTX.drawImage(layerCanvas, x, y, width, height)
-        graphicCTX.drawImage(layerCanvas, 0, 0, 4096, 4096)
-    }
-    texture.needsUpdate = true;
-}
-
-// update part layer in canvasObject, then redraw
-const updateLayer = async (part, layerIndex, layerObject, canvasObject, canvasTexture, texture, graphicVisualCanvas) => {
-    // update canvasObject layer
-    let layerCanvas;
-    if (layerObject.type === 'color') {
-        layerCanvas = await createColorLayerCanvas(layerObject, part)
-    }
-    else {
-        layerCanvas = await createGraphicLayerCanvas(layerObject, part)
-    }
-    canvasObject[part].layers[layerIndex] = layerCanvas;
-    // redraw part
-    redrawCanvasObjectPart(canvasTexture, canvasObject[part], part, texture, graphicVisualCanvas)
-}
-
 // update graphicVisualCanvas
 export const updateGraphicVisualCanvas = (graphicVisualCanvas, partName, canvasObject) => {
     const graphicCTX = graphicVisualCanvas.getContext('2d');
@@ -309,6 +164,7 @@ export const updateGraphicVisualCanvas = (graphicVisualCanvas, partName, canvasO
     }
 }
 
+//------------------------------------------- Part Change Functions
 export const designChangeManager = (changeArray, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObject) => {
     if (changeArray[0] === 'graphic-moved') {
         const partName = changeArray[1]
@@ -401,6 +257,34 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
     }
 }
 
+// update finalTexture from canvasObject part
+const redrawCanvasObjectPart = (finalCanvas, canvasObjectPart, property, texture, graphicVisualCanvas) => {
+    const finalCanvasCTX = finalCanvas.getContext('2d');
+    const graphicCTX = graphicVisualCanvas.getContext('2d');
+    graphicCTX.clearRect(0, 0, 4096, 4096);
+    const { x, y, width, height } = partsObject[property]
+    for (let layer in canvasObjectPart.layers) {
+        const layerCanvas = canvasObjectPart.layers[layer]
+        finalCanvasCTX.drawImage(layerCanvas, x, y, width, height)
+        graphicCTX.drawImage(layerCanvas, 0, 0, 4096, 4096)
+    }
+    texture.needsUpdate = true;
+}
+
+const updateLayer = async (part, layerIndex, layerObject, canvasObject, canvasTexture, texture, graphicVisualCanvas) => {
+    // update canvasObject layer
+    let layerCanvas;
+    if (layerObject.type === 'color') {
+        layerCanvas = await createColorLayerCanvas(layerObject, part)
+    }
+    else {
+        layerCanvas = await createGraphicLayerCanvas(layerObject, part)
+    }
+    canvasObject[part].layers[layerIndex] = layerCanvas;
+    // redraw part
+    redrawCanvasObjectPart(canvasTexture, canvasObject[part], part, texture, graphicVisualCanvas)
+}
+
 const addLayerToCanvasObject = async (canvasObject, partName, layerObject, textureCanvas, texture, graphicVisualCanvas) => {
     if (layerObject.type === 'color') {
         const newLayerCanvas = await createColorLayerCanvas(layerObject, partName)
@@ -427,6 +311,7 @@ const moveLayerInCanvasObject = (canvasObject, partName, layerIndex, direction, 
     redrawCanvasObjectPart(textureCanvas, canvasObject[partName], partName, texture, graphicVisualCanvas)
 }
 
+//------------------------------------------- Overlay Change Functions
 export const overlayChangeManager = (changeArray, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObject, overlayCanvas, overlayCanvasObject) => {
     // update design
     if (changeArray[0] === 'graphic-moved') {
@@ -434,8 +319,8 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
         const layerIndex = changeArray[2]
         const direction = changeArray[3]
         const distance = changeArray[4];
-
         const tempDesign = JSON.parse(JSON.stringify(design));
+        // tempDesign = ...design
         const thisLayer = tempDesign.overlays[partName].layers[layerIndex];
         if (direction === 'vert') {
             thisLayer.y += distance;
@@ -455,8 +340,8 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
             thisLayer.scale = 500;
             thisLayer.rotation = 0;
         }
+
         setDesign(tempDesign);
-        // update overlay layer in overlayCanvasObject
         updateOverlayLayer(partName, layerIndex, thisLayer, overlayCanvasObject, overlayCanvas, texture, graphicVisualCanvas, design, canvasObject, textureCanvas)
     }
     else if (changeArray[0] === 'color-changed') {
@@ -464,21 +349,13 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
         const layerIndex = changeArray[2];
         const newColor = changeArray[3]
         const tempDesign = JSON.parse(JSON.stringify(design));
-        let thisLayer;
-        if (partName === 'outerOverlay' || partName === 'innerOverlay') {
-            thisLayer = tempDesign.overlays[partName].layers[layerIndex];
-        }
-        else {
-            thisLayer = tempDesign.parts[partName].layers[layerIndex];
-        }
-
+        let thisLayer = tempDesign.overlays[partName].layers[layerIndex];
         thisLayer.color = newColor;
+
         setDesign(tempDesign);
-        // updateLayer(partName, layerIndex, thisLayer, canvasObject, textureCanvas, texture, graphicVisualCanvas)
         updateOverlayLayer(partName, layerIndex, thisLayer, overlayCanvasObject, overlayCanvas, texture, graphicVisualCanvas, design, canvasObject, textureCanvas)
     }
     else if (changeArray[0] === 'layer-added') {
-
         const partName = changeArray[1]
         const type = changeArray[2]
         const tempDesign = JSON.parse(JSON.stringify(design));
@@ -524,6 +401,7 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
         array[layerIndex] = array[layerIndex + direction]
         array[layerIndex + direction] = tempElement
         tempDesign.overlays[partName].layers = array;
+
         setDesign(tempDesign)
         moveLayerInOverlayCanvasObject(overlayCanvasObject, partName, layerIndex, direction, overlayCanvas, texture, graphicVisualCanvas, design, textureCanvas, canvasObject)
     }
@@ -540,12 +418,15 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
                 for (let i = 0; i < tempDesign.parts[currentPart].layers.length; i++) {
                     const layerIndex = i;
                     if (tempDesign.parts[currentPart].layers[i].type === 'overlay') {
-                        tempDesign.parts[currentPart].layers.splice(layerIndex, 1);
-                        canvasObject[currentPart].layers.splice(layerIndex, 1)
+                        if (tempDesign.parts[currentPart].layers[i].source === partName) {
+                            tempDesign.parts[currentPart].layers.splice(layerIndex, 1);
+                            canvasObject[currentPart].layers.splice(layerIndex, 1)
+                        }
                     }
                 }
             }
         }
+
         setDesign(tempDesign);
         deleteLayerFromOverlayCanvasObject(overlayCanvasObject, partName, layerIndex, overlayCanvas, texture, graphicVisualCanvas, design, textureCanvas, canvasObject, tempDesign);
     }
@@ -582,6 +463,7 @@ const updateOverlayLayer = async (partName, layerIndex, layerObject, overlayCanv
             }
         }
     }
+    texture.needsUpdate = true;
 }
 
 const redrawOverlayCanvasObjectPart = (finalCanvas, canvasObjectPart, property, texture) => {
