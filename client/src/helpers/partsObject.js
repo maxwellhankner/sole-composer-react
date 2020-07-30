@@ -258,3 +258,65 @@ export const partsObject = {
     }
 }
 
+export const layerTypes = {
+    outerSwoosh: {
+        types: ['Color', 'Graphic']
+    },
+    innerSwoosh: {
+        types: ['Color', 'Graphic']
+    },
+    outerQuarter: {
+        types: ['Color', 'Graphic']
+    },
+    innerQuarter: {
+        types: ['Color', 'Graphic']
+    },
+    outerHeel: {
+        types: ['Color', 'Graphic']
+    },
+    innerHeel: {
+        types: ['Color', 'Graphic']
+    },
+    outerSole: {
+        types: ['Color', 'Graphic']
+    },
+    innerSole: {
+        types: ['Color', 'Graphic']
+    },
+    sole: {
+        types: ['Color', 'Graphic']
+    },
+    toeBox: {
+        types: ['Color', 'Graphic']
+    },
+    toeCap: {
+        types: ['Color', 'Graphic']
+    },
+    lace: {
+        types: ['Color']
+    },
+    laceCage: {
+        types: ['Color', 'Graphic']
+    },
+    laceLock: {
+        types: ['Color']
+    },
+    tongue: {
+        types: ['Color', 'Graphic', 'Mask']
+    },
+    heelWing: {
+        types: ['Color', 'Graphic', 'Mask']
+    },
+    heelTab: {
+        types: ['Color', 'Graphic']
+    },
+    sockLiner: {
+        types: ['Color', 'Graphic']
+    },
+    outerOverlay: {
+        types: ['Color', 'Graphic']
+    },
+    innerOverlay: {
+        types: ['Color', 'Graphic']
+    }
+}

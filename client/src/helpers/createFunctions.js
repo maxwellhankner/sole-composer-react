@@ -9,11 +9,8 @@ export const createTexture = (textureCanvas) => {
 
 export const createCanvas = () => {
     const canvas = document.createElement("canvas")
-    const ctx = canvas.getContext('2d');
-    ctx.canvas.width = 4096;
-    ctx.canvas.height = 4096;
-    // ctx.fillStyle = '#ffffff';
-    // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    canvas.width = 4096;
+    canvas.height = 4096;
     return canvas
 }
 

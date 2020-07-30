@@ -1,29 +1,24 @@
 import React from 'react';
 import './AddLayerType.css';
+import { layerTypes } from '../../helpers/partsObject';
 
-function AddLayerType({ handleAddLayer, setLayersView }) {
+function AddLayerType({ handleAddLayer, setLayersView, currentPartName }) {
 
 	return (
 		<div className="design-preview-container">
 			<div className='view-title'>
 				<p>Select Layer Type</p>
 			</div>
-			<div className='change-view-button'>
-				<button onClick={
-					() => {
-						handleAddLayer('Color');
-						setLayersView('Layers');
-					}
-				} >Color</button>
-			</div>
-			<div className='change-view-button'>
-				<button onClick={
-					() => {
-						handleAddLayer('Graphic');
-						setLayersView('Layers');
-					}
-				} >Graphic</button>
-			</div>
+			{layerTypes[currentPartName].types.map((type, i)=>
+				<div key={i} className='change-view-button'>
+					<button onClick={
+						() => {
+							handleAddLayer(type);
+							setLayersView('Layers');
+						}
+					} >{type}</button>
+				</div>
+			)}
 		</div>
 	);
 }

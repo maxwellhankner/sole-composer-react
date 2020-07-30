@@ -90,7 +90,7 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
 
   if (layersView === 'AddLayerType') {
     return (
-      <AddLayerType handleAddLayer={handleAddLayer} currentPart={currentPart} setLayersView={setLayersView} />
+      <AddLayerType handleAddLayer={handleAddLayer} currentPartName={currentPartName} setLayersView={setLayersView} />
     )
   }
   else if (layersView === 'ColorPicker') {
