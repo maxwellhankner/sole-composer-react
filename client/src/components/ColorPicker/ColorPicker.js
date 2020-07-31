@@ -4,15 +4,11 @@ import { ChromePicker } from 'react-color';
 import { handleConvertPartName } from '../../helpers/convertPartNames'
 import CurrentColors from '../CurrentColors/CurrentColors'
 
-function ColorPicker({ handleColorChange, currentPartName, currentLayer, design, setLayersView }) {
+function ColorPicker({ currentPartName, currentLayer, design, setLayersView, handleDesignChangeManager }) {
 
   const [currentColor, setCurrentColor] = useState('#ffffaa')
 
-  
-
   const [colorsArray, setColorsArray] = useState([])
-
-
 
   useEffect(() => {
     
@@ -44,7 +40,12 @@ function ColorPicker({ handleColorChange, currentPartName, currentLayer, design,
 
   const handleColorChangeComplete = (color) => {
     setCurrentColor(color)
-    handleColorChange(currentLayer, color.hex)
+    handleDesignChangeManager(['color-changed', currentPartName, currentLayer, color.hex])
+  }
+
+  const handleColorChange = (color) => {
+    setCurrentColor(color)
+    handleDesignChangeManager(['color-changed', currentPartName, currentLayer, color])
   }
 
 
@@ -54,10 +55,10 @@ function ColorPicker({ handleColorChange, currentPartName, currentLayer, design,
         <p>{handleConvertPartName(currentPartName)}</p>
       </div>
       <div className='random-color'>
-        <button onClick={() => handleColorChange(currentLayer, '#' + Math.floor(Math.random() * 16777215).toString(16))}>Random Color</button>
+        <button onClick={() => handleColorChange('#' + Math.floor(Math.random() * 16777215).toString(16))}>Random Color</button>
       </div>
       <div>
-        <CurrentColors colorsArray={colorsArray} handleColorChange={handleColorChange} currentLayer={currentLayer} />
+        <CurrentColors colorsArray={colorsArray} handleColorChange={handleColorChange} />
       </div>
       <div>
         <ChromePicker className='color-picker' color={currentColor} onChangeComplete={handleColorChangeComplete} />

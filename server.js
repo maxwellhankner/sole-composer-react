@@ -273,6 +273,11 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'overlay',
                         source: 'innerOverlay'
+                    },
+                    {
+                        type: 'mask',
+                        link: 'assets/images/heelWingLogoMask.png',
+                        color: '#ffaa99'
                     }
                 ]
             },

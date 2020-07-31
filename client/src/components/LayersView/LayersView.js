@@ -84,10 +84,6 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
     }
   }
 
-  const handleColorChange = (layer, color) => {
-    handleDesignChangeManager(['color-changed', currentPartName, layer, color])
-  }
-
   if (layersView === 'AddLayerType') {
     return (
       <AddLayerType handleAddLayer={handleAddLayer} currentPartName={currentPartName} setLayersView={setLayersView} />
@@ -96,8 +92,8 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
   else if (layersView === 'ColorPicker') {
     return (
       <div>
-        <ColorPicker design={design} currentPartName={currentPartName} handleColorChange={handleColorChange} currentLayer={currentLayer} setLayersView={setLayersView} />
-        
+        <ColorPicker design={design} currentPartName={currentPartName} handleDesignChangeManager={handleDesignChangeManager} currentLayer={currentLayer} setLayersView={setLayersView} />
+
       </div>
     );
   }
@@ -115,9 +111,9 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
         </div>
 
         <div className='add-layer-button'>
-            {/* <button onClick={() => handleAddLayer(currentPart)}>Add Layer</button> */}
-            <button onClick={() => setLayersView('AddLayerType')}>Add Layer</button>
-          </div>
+          {/* <button onClick={() => handleAddLayer(currentPart)}>Add Layer</button> */}
+          <button onClick={() => setLayersView('AddLayerType')}>Add Layer</button>
+        </div>
 
         <div className='layers-box-container'>
           {allLayers.map((layer, i) =>
@@ -143,7 +139,12 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
                         <img src={layer.link} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='design-graphic' />
                       </div>
                       :
-                      <div></div>
+                      layer.type === 'mask' ?
+                        <div style={{ width: '50px', backgroundColor: '#ffffff' }}>
+                          <img src={layer.link} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt='design-graphic' />
+                        </div>
+                        :
+                        <div></div>
                   )
                 }
               </div>
@@ -164,12 +165,20 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
                         }}><FaPen /></button>
                       </div>
                       :
-                      <div className='edit-layer-button'>
-                        <button onClick={() => {
-                          setCurrentPart(partsArray.indexOf(layer.source))
-                          setFocusLayer(-1);
-                        }}><FaPen /></button>
-                      </div>
+                      layer.type === 'mask' ?
+                        <div className='edit-layer-button'>
+                          <button onClick={() => {
+                            handleCurrentLayer(i);
+                            setLayersView('ColorPicker');
+                          }}><FaPen /></button>
+                        </div>
+                        :
+                        <div className='edit-layer-button'>
+                          <button onClick={() => {
+                            setCurrentPart(partsArray.indexOf(layer.source))
+                            setFocusLayer(-1);
+                          }}><FaPen /></button>
+                        </div>
                   )
                 }
                 {layer.type === 'overlay' ?
@@ -184,7 +193,7 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
               </div>
             </div>
           )}
-          
+
         </div>
 
         <div className='change-view-button'>

@@ -58,6 +58,26 @@ const createGraphicLayerCanvas = (layer, partName) => {
     })
 }
 
+// TODO: create mask layer canvas
+const createMaskLayerCanvas = (layer, partName) => {
+    return new Promise((resolve, reject) => {
+        const { link, color } = layer;
+        const layerCanvas = document.createElement('canvas');
+        layerCanvas.width = 4096;
+        layerCanvas.height = 4096;
+        const layerCanvasCTX = layerCanvas.getContext('2d');
+        var graphicImg = new Image();
+        graphicImg.src = link;
+        graphicImg.onload = () => {
+            layerCanvasCTX.drawImage(graphicImg, 0, 0, 4096, 4096);
+            layerCanvasCTX.globalCompositeOperation = "source-in";
+            layerCanvasCTX.fillStyle = color;
+            layerCanvasCTX.fillRect(0, 0, 4096, 4096);
+            resolve(layerCanvas);
+        }
+    })
+}
+
 const createOverlayLayerCanvas = (layer, partName, overlayCanvas) => {
     return new Promise((resolve, reject) => {
         const { mask } = partsObject[partName];
@@ -91,6 +111,9 @@ const createCanvasObjectPart = async (designLayers, property, overlays) => {
         }
         else if (designLayers[layer].type === 'graphic') {
             canvasLayers.push(await createGraphicLayerCanvas(designLayers[layer], property))
+        }
+        else if (designLayers[layer].type === 'mask') {
+            canvasLayers.push(await createMaskLayerCanvas(designLayers[layer], property))
         }
         else if (designLayers[layer].type === 'overlay') {
             if (designLayers[layer].source === 'outerOverlay') {
@@ -277,8 +300,11 @@ const updateLayer = async (part, layerIndex, layerObject, canvasObject, canvasTe
     if (layerObject.type === 'color') {
         layerCanvas = await createColorLayerCanvas(layerObject, part)
     }
-    else {
+    else if (layerObject.type === 'graphic') {
         layerCanvas = await createGraphicLayerCanvas(layerObject, part)
+    }
+    else {
+        layerCanvas = await createMaskLayerCanvas(layerObject, part)
     }
     canvasObject[part].layers[layerIndex] = layerCanvas;
     // redraw part
