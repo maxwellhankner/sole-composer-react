@@ -6,6 +6,7 @@ import { partsObject, partsArray } from '../../helpers/partsObject';
 import AddLayerType from '../AddLayerType/AddLayerType'
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
 import ColorPicker from '../ColorPicker/ColorPicker';
+import MaskTypes from '../MaskTypes/MaskTypes'
 import { handleConvertPartName } from '../../helpers/convertPartNames';
 
 function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPart, design, setCurrentLayer, graphicVisualCanvas, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
@@ -43,6 +44,11 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
 
   const handleAddLayer = (type) => {
     handleDesignChangeManager(['layer-added', currentPartName, type])
+    setFocusLayer(numberOfLayers)
+  }
+
+  const handleAddMaskLayer = (maskType, maskLink) => {
+    handleDesignChangeManager(['layer-added', currentPartName, 'Mask', maskType, maskLink])
     setFocusLayer(numberOfLayers)
   }
 
@@ -100,6 +106,11 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
   else if (layersView === 'GraphicEditor') {
     return (
       <GraphicEditor setLayersView={setLayersView} currentLayer={currentLayer} graphicVisualCanvas={graphicVisualCanvas} currentPartName={currentPartName} handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas} handleDesignChangeManager={handleDesignChangeManager} />
+    )
+  }
+  else if (layersView === 'MaskType') {
+    return (
+      <MaskTypes handleAddMaskLayer={handleAddMaskLayer} setLayersView={setLayersView} currentPartName={currentPartName} />
     )
   }
   else {

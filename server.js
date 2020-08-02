@@ -257,6 +257,11 @@ app.get('/api/design', (req, res) => {
                     {
                         type: 'color',
                         color: '#57905A'
+                    },
+                    {
+                        type: 'mask',
+                        link: 'assets/images/tongueLogoMask.png',
+                        color: '#ffaa99'
                     }
                 ]
             },

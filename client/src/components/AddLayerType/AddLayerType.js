@@ -9,17 +9,30 @@ function AddLayerType({ handleAddLayer, setLayersView, currentPartName }) {
 			<div className='view-title'>
 				<p>Select Layer Type</p>
 			</div>
-			{layerTypes[currentPartName].types.map((type, i)=>
+			{layerTypes[currentPartName].types.map((type, i) =>
 				<div key={i} className='change-view-button'>
-					<button onClick={
-						() => {
-							handleAddLayer(type);
-							setLayersView('Layers');
-						}
-					} >{type}</button>
+					{
+						type === 'Mask' ?
+							<button onClick={() => {
+								console.log('yo');
+								// handleAddLayer(type);
+								setLayersView('MaskType');
+							}}>
+								{type}
+							</button>
+							:
+							<button onClick={() => {
+								console.log('mama');
+								handleAddLayer(type);
+								setLayersView('Layers');
+							}}>
+								{type}
+							</button>
+					}
 				</div>
-			)}
-		</div>
+	)
+}
+		</div >
 	);
 }
 

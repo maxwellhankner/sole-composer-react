@@ -58,7 +58,6 @@ const createGraphicLayerCanvas = (layer, partName) => {
     })
 }
 
-// TODO: create mask layer canvas
 const createMaskLayerCanvas = (layer, partName) => {
     return new Promise((resolve, reject) => {
         const { link, color } = layer;
@@ -232,6 +231,7 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
 
         thisLayer.color = newColor;
         setDesign(tempDesign);
+        console.log(tempDesign)
         updateLayer(partName, layerIndex, thisLayer, canvasObject, textureCanvas, texture, graphicVisualCanvas)
     }
     else if (changeArray[0] === 'layer-added') {
@@ -244,7 +244,7 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
                 color: '#fb68f5'
             });
         }
-        else {
+        else if (type === 'Graphic') {
             tempDesign.parts[partName].layers.push({
                 type: 'graphic',
                 link: 'assets/images/japanese.png',
@@ -253,6 +253,17 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
                 scale: 500,
                 rotation: 0
             });
+        }
+        else {
+            // const maskType = changeArray[3];
+            const maskLink = changeArray[4];
+            tempDesign.parts[partName].layers.push(
+                {
+                    type: 'mask',
+                    link: maskLink,
+                    color: '#000000'
+                }
+            )
         }
         setDesign(tempDesign)
         addLayerToCanvasObject(canvasObject, partName, tempDesign.parts[partName].layers.slice(-1)[0], textureCanvas, texture, graphicVisualCanvas)
@@ -318,6 +329,10 @@ const addLayerToCanvasObject = async (canvasObject, partName, layerObject, textu
     }
     else if (layerObject.type === 'graphic') {
         const newLayerCanvas = await createGraphicLayerCanvas(layerObject, partName)
+        canvasObject[partName].layers.push(newLayerCanvas)
+    }
+    else {
+        const newLayerCanvas = await createMaskLayerCanvas(layerObject, partName)
         canvasObject[partName].layers.push(newLayerCanvas)
     }
     redrawCanvasObjectPart(textureCanvas, canvasObject[partName], partName, texture, graphicVisualCanvas)

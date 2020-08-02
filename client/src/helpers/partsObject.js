@@ -320,3 +320,13 @@ export const layerTypes = {
         types: ['Color', 'Graphic']
     }
 }
+
+export const maskTypes = {
+    tongue: [
+        ['logo', 'assets/images/tongueLogoMask.png']
+    ],
+    heelWing: [
+        ['logo', 'assets/images/heelWingLogoMask.png'],
+        ['stitch', 'assets/images/heelWingStitchMask.png']
+    ]
+}
