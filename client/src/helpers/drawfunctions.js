@@ -9,7 +9,6 @@ const createColorLayerCanvas = (layer, partName) => {
         layerCanvas.width = canvasSize;
         layerCanvas.height = canvasSize;
         const layerCanvasCTX = layerCanvas.getContext('2d');
-        console.log(layerCanvasCTX)
         const maskImg = new Image()
         maskImg.src = mask;
         maskImg.onload = () => {
@@ -35,7 +34,8 @@ const createGraphicLayerCanvas = (layer, partName) => {
         graphicImg.onload = () => {
             var graphicWidth = graphicImg.width;
             var graphicHeight = graphicImg.height;
-            var graphicPythagorean = Math.sqrt(Math.pow(graphicWidth, 2) + Math.pow(graphicHeight, 2));
+            var graphicPythagorean = Math.round(Math.sqrt((graphicWidth * graphicWidth) + (graphicHeight * graphicHeight)));
+            console.log(graphicPythagorean)
             // Create Pythagorean Canvas
             var pythagoreanCanvas = document.createElement('canvas');
             pythagoreanCanvas.id = 'pythagorean-canvas';
@@ -180,10 +180,11 @@ export const overlayCanvasObjectToTextureCanvas = (overlayCanvasObject, overlayC
 // update graphicVisualCanvas
 export const updateGraphicVisualCanvas = (graphicVisualCanvas, partName, canvasObject) => {
     const graphicCTX = graphicVisualCanvas.getContext('2d');
-    graphicCTX.clearRect(0, 0, 4096, 4096)
+    graphicCTX.clearRect(0, 0, canvasSize, canvasSize)
     for (let layer in canvasObject[partName].layers) {
         const layerCanvas = canvasObject[partName].layers[layer]
-        graphicCTX.drawImage(layerCanvas, 0, 0, 4096, 4096)
+        graphicCTX.drawImage(layerCanvas, 0, 0, canvasSize, canvasSize)
+        console.log('drawn')
     }
 }
 
@@ -293,14 +294,15 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
 
 // update finalTexture from canvasObject part
 const redrawCanvasObjectPart = (finalCanvas, canvasObjectPart, property, texture, graphicVisualCanvas) => {
+    console.log('redrawCanvasObjectPart')
     const finalCanvasCTX = finalCanvas.getContext('2d');
     const graphicCTX = graphicVisualCanvas.getContext('2d');
-    graphicCTX.clearRect(0, 0, 4096, 4096);
+    graphicCTX.clearRect(0, 0, canvasSize, canvasSize);
     const { x, y, width, height } = partsObject[property]
     for (let layer in canvasObjectPart.layers) {
         const layerCanvas = canvasObjectPart.layers[layer]
         finalCanvasCTX.drawImage(layerCanvas, x, y, width, height)
-        graphicCTX.drawImage(layerCanvas, 0, 0, 4096, 4096)
+        graphicCTX.drawImage(layerCanvas, 0, 0, canvasSize, canvasSize)
     }
     texture.needsUpdate = true;
 }
@@ -526,9 +528,7 @@ const addLayerToOverlayCanvasObject = async (overlayCanvasObject, partName, laye
         const newLayerCanvas = await createGraphicLayerCanvas(layerObject, partName)
         overlayCanvasObject[partName].layers.push(newLayerCanvas)
     }
-    // redrawCanvasObjectPart(overlayCanvas, overlayCanvasObject[partName], partName, texture, graphicVisualCanvas)
     overlayCanvasObjectToTextureCanvas(overlayCanvasObject, overlayCanvas, partName, graphicVisualCanvas);
-
     // update effected layers in canvas object
     const effectedParts = design.overlays[partName].parts
     for (let part in effectedParts) {

@@ -7,17 +7,19 @@ function GraphicEditor({ setLayersView, currentLayer, graphicVisualCanvas, curre
     const handleMoveGraphic = (direction, distance) => {
         handleDesignChangeManager(['graphic-moved', currentPartName, currentLayer, direction, distance])
     }
-
-    const placeGraphicVisual = () => {
-        let div = document.getElementById("graphic-visual-container")
-        div.innerHTML = '';
-        div.appendChild(graphicVisualCanvas)
-    }
-
+    
     useEffect(() => {
+        console.log('placeGraphicVisual')
+        const placeGraphicVisual = () => {
+            let div = document.getElementById("graphic-visual-container")
+            div.innerHTML = '';
+            div.appendChild(graphicVisualCanvas)
+        }
         placeGraphicVisual()
+        console.log('handleUpdateGraphicVisualCanvas')
         handleUpdateGraphicVisualCanvas(currentPartName)
-    })    
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <div className="graphic-editor-container">

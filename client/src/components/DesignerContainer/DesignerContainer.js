@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './DesignerContainer.css';
-// import NavBar from '../../components/NavBar/NavBar.js';
 import Scene from '../../components/Scene/Scene.js';
 import Interface from '../../components/Interface/Interface.js';
 import { canvasObjectToTextureCanvas, designObjectToCanvasObject, updateGraphicVisualCanvas, designChangeManager, overlayCanvasObjectToTextureCanvas, overlayChangeManager } from '../../helpers/drawfunctions';
