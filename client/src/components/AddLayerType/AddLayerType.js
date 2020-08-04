@@ -14,15 +14,12 @@ function AddLayerType({ handleAddLayer, setLayersView, currentPartName }) {
 					{
 						type === 'Mask' ?
 							<button onClick={() => {
-								console.log('yo');
-								// handleAddLayer(type);
 								setLayersView('MaskType');
 							}}>
 								{type}
 							</button>
 							:
 							<button onClick={() => {
-								console.log('mama');
 								handleAddLayer(type);
 								setLayersView('Layers');
 							}}>

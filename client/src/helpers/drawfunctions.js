@@ -1,4 +1,4 @@
-import { partsObject, translations } from './partsObject';
+import { partsObject, translations, canvasSize } from './partsObject';
 
 //------------------------------------------- Create Canvas Functions
 const createColorLayerCanvas = (layer, partName) => {
@@ -6,16 +6,17 @@ const createColorLayerCanvas = (layer, partName) => {
         const { mask } = partsObject[partName];
         const { color } = layer;
         const layerCanvas = document.createElement('canvas');
-        layerCanvas.width = 4096;
-        layerCanvas.height = 4096;
+        layerCanvas.width = canvasSize;
+        layerCanvas.height = canvasSize;
         const layerCanvasCTX = layerCanvas.getContext('2d');
+        console.log(layerCanvasCTX)
         const maskImg = new Image()
         maskImg.src = mask;
         maskImg.onload = () => {
             layerCanvasCTX.drawImage(maskImg, 0, 0, layerCanvas.width, layerCanvas.height);
             layerCanvasCTX.globalCompositeOperation = "source-in";
             layerCanvasCTX.fillStyle = color;
-            layerCanvasCTX.fillRect(0, 0, 4096, 4096);
+            layerCanvasCTX.fillRect(0, 0, canvasSize, canvasSize);
             resolve(layerCanvas)
         }
     })
@@ -26,8 +27,8 @@ const createGraphicLayerCanvas = (layer, partName) => {
         const { mask } = partsObject[partName];
         const { link, x, y, scale, rotation } = layer;
         const layerCanvas = document.createElement('canvas');
-        layerCanvas.width = 4096;
-        layerCanvas.height = 4096;
+        layerCanvas.width = canvasSize;
+        layerCanvas.height = canvasSize;
         const layerCanvasCTX = layerCanvas.getContext('2d');
         var graphicImg = new Image();
         graphicImg.src = link;
@@ -62,16 +63,16 @@ const createMaskLayerCanvas = (layer, partName) => {
     return new Promise((resolve, reject) => {
         const { link, color } = layer;
         const layerCanvas = document.createElement('canvas');
-        layerCanvas.width = 4096;
-        layerCanvas.height = 4096;
+        layerCanvas.width = canvasSize;
+        layerCanvas.height = canvasSize;
         const layerCanvasCTX = layerCanvas.getContext('2d');
         var graphicImg = new Image();
         graphicImg.src = link;
         graphicImg.onload = () => {
-            layerCanvasCTX.drawImage(graphicImg, 0, 0, 4096, 4096);
+            layerCanvasCTX.drawImage(graphicImg, 0, 0, canvasSize, canvasSize);
             layerCanvasCTX.globalCompositeOperation = "source-in";
             layerCanvasCTX.fillStyle = color;
-            layerCanvasCTX.fillRect(0, 0, 4096, 4096);
+            layerCanvasCTX.fillRect(0, 0, canvasSize, canvasSize);
             resolve(layerCanvas);
         }
     })
@@ -83,8 +84,8 @@ const createOverlayLayerCanvas = (layer, partName, overlayCanvas) => {
         const { source } = layer;
         const { x, y, scale, rotation } = translations[source][partName]
         const layerCanvas = document.createElement('canvas');
-        layerCanvas.width = 4096;
-        layerCanvas.height = 4096;
+        layerCanvas.width = canvasSize;
+        layerCanvas.height = canvasSize;
         const layerCanvasCTX = layerCanvas.getContext('2d');
         const maskImg = new Image()
         maskImg.src = mask;
@@ -93,7 +94,7 @@ const createOverlayLayerCanvas = (layer, partName, overlayCanvas) => {
             layerCanvasCTX.globalCompositeOperation = "source-in";
             layerCanvasCTX.translate(x, y)
             layerCanvasCTX.rotate(rotation)
-            layerCanvasCTX.drawImage(overlayCanvas, 0, 0, 4096 + scale, 4096 + scale)
+            layerCanvasCTX.drawImage(overlayCanvas, 0, 0, canvasSize + scale, canvasSize + scale)
             resolve(layerCanvas)
         }
     })
@@ -164,14 +165,14 @@ export const canvasObjectToTextureCanvas = (canvasObject, finalCanvas, texture) 
 export const overlayCanvasObjectToTextureCanvas = (overlayCanvasObject, overlayCanvas, property, graphicVisualCanvas) => {
     const overlayCanvasCTX = overlayCanvas.getContext('2d');
     const graphicCTX = graphicVisualCanvas.getContext('2d');
-    graphicCTX.clearRect(0, 0, 4096, 4096);
-    overlayCanvasCTX.clearRect(0, 0, 4096, 4096);
+    graphicCTX.clearRect(0, 0, canvasSize, canvasSize);
+    overlayCanvasCTX.clearRect(0, 0, canvasSize, canvasSize);
     // for (let property in overlayCanvasObject) {
     // const { x, y, width, height } = partsObject[property]
     for (let layer in overlayCanvasObject[property].layers) {
         const layerCanvas = overlayCanvasObject[property].layers[layer]
-        overlayCanvasCTX.drawImage(layerCanvas, 0, 0, 4096, 4096)
-        graphicCTX.drawImage(layerCanvas, 0, 0, 4096, 4096)
+        overlayCanvasCTX.drawImage(layerCanvas, 0, 0, canvasSize, canvasSize)
+        graphicCTX.drawImage(layerCanvas, 0, 0, canvasSize, canvasSize)
     }
     // }
 }
@@ -231,7 +232,6 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
 
         thisLayer.color = newColor;
         setDesign(tempDesign);
-        console.log(tempDesign)
         updateLayer(partName, layerIndex, thisLayer, canvasObject, textureCanvas, texture, graphicVisualCanvas)
     }
     else if (changeArray[0] === 'layer-added') {

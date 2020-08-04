@@ -13,7 +13,6 @@ function MaskTypes({ handleAddMaskLayer, setLayersView, currentPartName }) {
             {maskTypes[currentPartName].map((type, i) =>
                 <div key={i} className='change-view-button'>
                     <button onClick={() => {
-                        console.log('clicked');
                         handleAddMaskLayer(type[0], type[1]);
                         setLayersView('Layer');
                     }}>

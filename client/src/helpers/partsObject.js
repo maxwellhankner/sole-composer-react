@@ -115,146 +115,148 @@ export const translations = {
     }
 }
 
+export const divider = 4;
+
 export const partsObject = {
     outerSwoosh: {
         mask: '/assets/images/outerSwooshMask.png',
-        x: '2015',
-        y: '-359',
-        width: '1500',
-        height: '1500'
+        x: 2015 / divider,
+        y: -359 / divider,
+        width: 1500 / divider,
+        height: 1500 / divider
     },
     innerSwoosh: {
         mask: '/assets/images/innerSwooshMask.png',
-        x: '138',
-        y: '-384',
-        width: '1520',
-        height: '1520'
+        x: 138 / divider,
+        y: -384 / divider,
+        width: 1520 / divider,
+        height: 1520 / divider
     },
     outerQuarter: {
         mask: '/assets/images/outerQuarterMask.png',
-        x: '2679',
-        y: '-50',
-        width: '1019',
-        height: '1019'
+        x: 2679 / divider,
+        y: -50 / divider,
+        width: 1019 / divider,
+        height: 1019 / divider
     },
     innerQuarter: {
         mask: '/assets/images/innerQuarterMask.png',
-        x: '-50',
-        y: '-74',
-        width: '1021',
-        height: '1021'
+        x: -50 / divider,
+        y: -74 / divider,
+        width: 1021 / divider,
+        height: 1021 / divider
     },
     outerHeel: {
         mask: '/assets/images/outerHeelMask.png',
-        x: '1803',
-        y: '-272',
-        width: '1385',
-        height: '1385'
+        x: 1803 / divider,
+        y: -272 / divider,
+        width: 1385 / divider,
+        height: 1385 / divider
     },
     innerHeel: {
         mask: '/assets/images/innerHeelMask.png',
-        x: '461',
-        y: '-270',
-        width: '1360',
-        height: '1360'
+        x: 461 / divider,
+        y: -270 / divider,
+        width: 1360 / divider,
+        height: 1360 / divider
     },
     outerSole: {
         mask: '/assets/images/outerSoleMask.png',
-        x: '-197',
-        y: '1142',
-        width: '3760',
-        height: '3760'
+        x: -197 / divider,
+        y: 1142 / divider,
+        width: 3760 / divider,
+        height: 3760 / divider
     },
     innerSole: {
         mask: '/assets/images/innerSoleMask.png',
-        x: '-200',
-        y: '1486',
-        width: '3760',
-        height: '3760'
+        x: -200 / divider,
+        y: 1486 / divider,
+        width: 3760 / divider,
+        height: 3760 / divider
     },
     sole: {
         mask: '/assets/images/soleMask.png',
-        x: '-150',
-        y: '-110',
-        width: '2800',
-        height: '2800'
+        x: -150 / divider,
+        y: -110 / divider,
+        width: 2800 / divider,
+        height: 2800 / divider
     },
     toeBox: {
         mask: '/assets/images/toeBoxMask.png',
-        x: '2937',
-        y: '1891',
-        width: '1151',
-        height: '1151'
+        x: 2937 / divider,
+        y: 1891 / divider,
+        width: 1151 / divider,
+        height: 1151 / divider
     },
     toeCap: {
         mask: '/assets/images/toeCapMask.png',
-        x: '-217',
-        y: '1831',
-        width: '3920',
-        height: '3920'
+        x: -217 / divider,
+        y: 1831 / divider,
+        width: 3920 / divider,
+        height: 3920 / divider
     },
     lace: {
         mask: '/assets/images/laceMask.png',
-        x: '2932',
-        y: '1025',
-        width: '1264',
-        height: '1264'
+        x: 2932 / divider,
+        y: 1025 / divider,
+        width: 1264 / divider,
+        height: 1264 / divider
     },
     laceCage: {
         mask: '/assets/images/laceCageMask.png',
-        x: '2821',
-        y: '950',
-        width: '1497',
-        height: '1497'
+        x: 2821 / divider,
+        y: 950 / divider,
+        width: 1497 / divider,
+        height: 1497 / divider
     },
     laceLock: {
         mask: '/assets/images/laceLockMask.png',
-        x: '3355',
-        y: '1996',
-        width: '326',
-        height: '326'
+        x: 3355 / divider,
+        y: 1996 / divider,
+        width: 326 / divider,
+        height: 326 / divider
     },
     tongue: {
         mask: '/assets/images/tongueMask.png',
-        x: '2840',
-        y: '721',
-        width: '1457',
-        height: '1457'
+        x: 2840 / divider,
+        y: 721 / divider,
+        width: 1457 / divider,
+        height: 1457 / divider
     },
     heelWing: {
         mask: '/assets/images/heelWingMask.png',
-        x: '1281',
-        y: '-235',
-        width: '1084',
-        height: '1084'
+        x: 1281 / divider,
+        y: -235 / divider,
+        width: 1084 / divider,
+        height: 1084 / divider
     },
     heelTab: {
         mask: '/assets/images/heelTabMask.png',
-        x: '1642',
-        y: '495',
-        width: '344',
-        height: '344'
+        x: 1642 / divider,
+        y: 495 / divider,
+        width: 344 / divider,
+        height: 344 / divider
     },
     sockLiner: {
         mask: '/assets/images/sockLinerMask.png',
-        x: '-157',
-        y: '640',
-        width: '2660',
-        height: '2660'
+        x: -157 / divider,
+        y: 640 / divider,
+        width: 2660 / divider,
+        height: 2660 / divider
     },
     outerOverlay: {
         mask: '/assets/images/outerOverlayMask.png',
-        x: '1790',
-        y: '-550',
-        width: '1940',
-        height: '1940'
+        x: 1790 / divider,
+        y: -550 / divider,
+        width: 1940 / divider,
+        height: 1940 / divider
     },
     innerOverlay: {
         mask: '/assets/images/innerOverlayMask.png',
-        x: '1590',
-        y: '-550',
-        width: '1940',
-        height: '1940'
+        x: 1590 / divider,
+        y: -550 / divider,
+        width: 1940 / divider,
+        height: 1940 / divider
     }
 }
 
@@ -330,3 +332,7 @@ export const maskTypes = {
         ['stitch', 'assets/images/heelWingStitchMask.png']
     ]
 }
+
+
+
+export const canvasSize = 1024;
