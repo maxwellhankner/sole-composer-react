@@ -248,7 +248,7 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
                 link: 'assets/images/japanese.png',
                 x: 0,
                 y: 0,
-                scale: 0,
+                scale: 1,
                 rotation: 0
             });
         }
@@ -422,7 +422,7 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
                 link: 'assets/images/japanese.png',
                 x: 0,
                 y: 0,
-                scale: 0,
+                scale: 1,
                 rotation: 0
             });
         }
