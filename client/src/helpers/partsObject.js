@@ -3,119 +3,123 @@ export const partsArray = ['outerSwoosh', 'innerSwoosh', 'outerQuarter', 'innerQ
 export const translations = {
     outerOverlay: {
         outerHeel: {
-            x: -600,
-            y: -2220,
-            scale: 5250,
+            x: -0.15,
+            y: -0.54,
+            scale: 2.28,
             rotation: 0
         },
         outerQuarter: {
-            x: -4365,
-            y: -3945,
-            scale: 8700,
+            x: -1.07,
+            y: -0.96,
+            scale: 3.12,
             rotation: 0
         },
         outerSwoosh: {
-            x: -1155,
-            y: -1840,
-            scale: 4600,
+            x: -0.28,
+            y: -0.45,
+            scale: 2.12,
             rotation: 0
         },
         outerSole: {
-            x: 55,
-            y: -105,
-            scale: -680,
+            x: 0.015,
+            y: -0.03,
+            scale: 0.83,
             rotation: 0
         },
         toeBox: {
-            x: 2050,
-            y: -8600,
-            scale: 7000,
+            x: 0.5,
+            y: -2.1,
+            scale: 2.71,
             rotation: 1.13
         },
         toeCap: {
-            x: -1510,
-            y: 420,
-            scale: -870,
+            x: -0.37,
+            y: 0.1,
+            scale: 0.79,
             rotation: 0
         },
         laceCage: {
-            x: 1900,
-            y: -4200,
-            scale: 4660,
+            x: 0.46,
+            y: -1.025,
+            scale: 2.14,
             rotation: 1.13
         },
         heelWing: {
-            x: 1250,
-            y: -2900,
-            scale: 7600,
+            x: 0.305,
+            y: -0.71,
+            scale: 2.86,
             rotation: 0
         },
         heelTab: {
-            x: -400,
-            y: -17550,
-            scale: 32500,
+            x: -0.1,
+            y: -4.28,
+            scale: 8.93,
             rotation: 0
         }
     },
     innerOverlay: {
         innerHeel: {
-            x: -4520,
-            y: -2120,
-            scale: 5000,
+            x: -1.1,
+            y: -0.52,
+            scale: 2.22,
             rotation: 0
         },
         innerQuarter: {
-            x: -4000,
-            y: -3600,
-            scale: 8000,
+            x: -0.98,
+            y: -0.88,
+            scale: 2.95,
             rotation: 0
         },
         innerSwoosh: {
-            x: -3330,
-            y: -1690,
-            scale: 4270,
+            x: -0.81,
+            y: -0.41,
+            scale: 2.04,
             rotation: 0
         },
         innerSole: {
-            x: 355,
-            y: 325,
-            scale: -750,
+            x: 0.086,
+            y: 0.08,
+            scale: 0.82,
             rotation: -.16
         },
         toeBox: {
-            x: -1900,
-            y: 1500,
-            scale: 6000,
+            x: -0.46,
+            y: 0.37,
+            scale: 2.46,
             rotation: -1.2
         },
         toeCap: {
-            x: 2210,
-            y: 550,
-            scale: -870,
+            x: 0.54,
+            y: 0.135,
+            scale: 0.79,
             rotation: -.11
         },
         laceCage: {
-            x: -1700,
-            y: 3300,
-            scale: 4350,
+            x: -0.42,
+            y: 0.81,
+            scale: 2.06,
             rotation: -1.04
         },
         heelWing: {
-            x: -8885,
-            y: -2850,
-            scale: 7450,
+            x: -2.17,
+            y: -0.7,
+            scale: 2.82,
             rotation: 0
         },
         heelTab: {
-            x: -32400,
-            y: -17800,
-            scale: 32400,
+            x: -7.9,
+            y: -4.35,
+            scale: 8.9,
             rotation: 0
         }
     }
 }
 
+// export const divider = 1;
+// export const canvasSize = 4096;
+
 export const divider = 4;
+export const canvasSize = 1024;
 
 export const partsObject = {
     outerSwoosh: {
@@ -332,7 +336,3 @@ export const maskTypes = {
         ['stitch', 'assets/images/heelWingStitchMask.png']
     ]
 }
-
-
-
-export const canvasSize = 1024;

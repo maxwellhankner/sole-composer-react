@@ -35,7 +35,6 @@ const createGraphicLayerCanvas = (layer, partName) => {
             var graphicWidth = graphicImg.width;
             var graphicHeight = graphicImg.height;
             var graphicPythagorean = Math.round(Math.sqrt((graphicWidth * graphicWidth) + (graphicHeight * graphicHeight)));
-            console.log(graphicPythagorean)
             // Create Pythagorean Canvas
             var pythagoreanCanvas = document.createElement('canvas');
             pythagoreanCanvas.id = 'pythagorean-canvas';
@@ -50,8 +49,7 @@ const createGraphicLayerCanvas = (layer, partName) => {
             maskImg.onload = function () {
                 layerCanvasCTX.drawImage(maskImg, 0, 0, layerCanvasCTX.canvas.width, layerCanvasCTX.canvas.height);
                 layerCanvasCTX.globalCompositeOperation = "source-in";
-                layerCanvasCTX.translate(layerCanvasCTX.canvas.width / 2, layerCanvasCTX.canvas.width / 2);
-                layerCanvasCTX.drawImage(pythagoreanCanvas, (-layerCanvasCTX.canvas.width / 2) + x - scale, (-layerCanvasCTX.canvas.height / 2) + y - scale, layerCanvasCTX.canvas.width + (2 * scale), layerCanvasCTX.canvas.width + (2 * scale));
+                layerCanvasCTX.drawImage(pythagoreanCanvas, x + (canvasSize - (canvasSize * scale))/2, y + (canvasSize - (canvasSize * scale))/2, layerCanvas.width * scale, layerCanvas.width * scale);
                 layerCanvasCTX.resetTransform();
                 resolve(layerCanvas);
             }
@@ -92,9 +90,9 @@ const createOverlayLayerCanvas = (layer, partName, overlayCanvas) => {
         maskImg.onload = () => {
             layerCanvasCTX.drawImage(maskImg, 0, 0, layerCanvas.width, layerCanvas.height);
             layerCanvasCTX.globalCompositeOperation = "source-in";
-            layerCanvasCTX.translate(x, y)
+            layerCanvasCTX.translate(canvasSize * x, canvasSize * y)
             layerCanvasCTX.rotate(rotation)
-            layerCanvasCTX.drawImage(overlayCanvas, 0, 0, canvasSize + scale, canvasSize + scale)
+            layerCanvasCTX.drawImage(overlayCanvas, 0, 0, canvasSize * scale, canvasSize * scale)
             resolve(layerCanvas)
         }
     })
@@ -184,7 +182,6 @@ export const updateGraphicVisualCanvas = (graphicVisualCanvas, partName, canvasO
     for (let layer in canvasObject[partName].layers) {
         const layerCanvas = canvasObject[partName].layers[layer]
         graphicCTX.drawImage(layerCanvas, 0, 0, canvasSize, canvasSize)
-        console.log('drawn')
     }
 }
 
@@ -204,7 +201,7 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
             thisLayer.x += distance;
         }
         else if (direction === 'scale') {
-            thisLayer.scale += distance;
+            thisLayer.scale *= distance;
         }
         else if (direction === 'rotate') {
             thisLayer.rotation += distance;
@@ -212,7 +209,7 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
         else if (direction === 'reset') {
             thisLayer.y = 0;
             thisLayer.x = 0;
-            thisLayer.scale = 500;
+            thisLayer.scale = 1;
             thisLayer.rotation = 0;
         }
         setDesign(tempDesign);
@@ -251,7 +248,7 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
                 link: 'assets/images/japanese.png',
                 x: 0,
                 y: 0,
-                scale: 500,
+                scale: 0,
                 rotation: 0
             });
         }
@@ -292,9 +289,7 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
     }
 }
 
-// update finalTexture from canvasObject part
 const redrawCanvasObjectPart = (finalCanvas, canvasObjectPart, property, texture, graphicVisualCanvas) => {
-    console.log('redrawCanvasObjectPart')
     const finalCanvasCTX = finalCanvas.getContext('2d');
     const graphicCTX = graphicVisualCanvas.getContext('2d');
     graphicCTX.clearRect(0, 0, canvasSize, canvasSize);
@@ -372,7 +367,7 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
             thisLayer.x += distance;
         }
         else if (direction === 'scale') {
-            thisLayer.scale += distance;
+            thisLayer.scale *= distance;
         }
         else if (direction === 'rotate') {
             thisLayer.rotation += distance;
@@ -427,7 +422,7 @@ export const overlayChangeManager = (changeArray, design, setDesign, texture, te
                 link: 'assets/images/japanese.png',
                 x: 0,
                 y: 0,
-                scale: 500,
+                scale: 0,
                 rotation: 0
             });
         }
