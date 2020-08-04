@@ -33,7 +33,13 @@ function Designer() {
     );
   }
   else {
-    return null;
+    return (
+      <div>
+        <h1>
+          Hold Up..
+        </h1>
+      </div>
+    );
   }
 
 }
