@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './ColorPicker.css';
 import { ChromePicker } from 'react-color';
-import { handleConvertPartName } from '../../helpers/convertPartNames'
-import CurrentColors from '../CurrentColors/CurrentColors'
+import { handleConvertPartName } from '../../helpers/convertPartNames';
+import CurrentColors from '../CurrentColors/CurrentColors';
+import CustomColor from '../CustomColor/CustomColor';
 
 function ColorPicker({ currentPartName, currentLayer, design, setLayersView, handleDesignChangeManager }) {
 
@@ -60,8 +61,11 @@ function ColorPicker({ currentPartName, currentLayer, design, setLayersView, han
       <div>
         <CurrentColors colorsArray={colorsArray} handleColorChange={handleColorChange} />
       </div>
-      <div>
+      {/* <div>
         <ChromePicker className='color-picker' color={currentColor} onChangeComplete={handleColorChangeComplete} />
+      </div> */}
+      <div>
+        <CustomColor color={currentColor} onChangeComplete={handleColorChangeComplete} />
       </div>
       <div className='change-view-button'>
         <button onClick={() => setLayersView('Layers')}>Back</button>

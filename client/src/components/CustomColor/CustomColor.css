@@ -1,0 +1,12 @@
+.custom-color {
+    width: 60%;
+    margin: auto;
+}
+
+.color-input {
+    display: flex;
+    margin-bottom: 15px;
+    height: 32px;
+    overflow: hidden;
+    background-color: #ffffff;
+}
