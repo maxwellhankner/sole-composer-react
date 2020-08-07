@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ColorPicker.css';
-import { ChromePicker } from 'react-color';
+// import { ChromePicker } from 'react-color';
 import { handleConvertPartName } from '../../helpers/convertPartNames';
 import CurrentColors from '../CurrentColors/CurrentColors';
 import CustomColor from '../CustomColor/CustomColor';

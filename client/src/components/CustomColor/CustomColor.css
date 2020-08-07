@@ -4,9 +4,11 @@
 }
 
 .color-input {
-    display: flex;
     margin-bottom: 15px;
-    height: 32px;
-    overflow: hidden;
-    background-color: #ffffff;
+    /* overflow: hidden; */
+    /* background-color: #ffffff; */
+}
+
+.custom-color-input {
+    display: inline;
 }

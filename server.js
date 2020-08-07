@@ -33,7 +33,7 @@ app.get('/api/design', (req, res) => {
                 layers: [
                     {
                         type: 'color',
-                        color: '#ffffff'
+                        color: '#ffaa55'
                     }
                 ]
             },
