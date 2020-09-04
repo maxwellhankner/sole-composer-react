@@ -49,23 +49,14 @@ function ColorPicker({ props }) {
 		}
 	}, [design, currentPartName, currentLayer, setColorsArray]);
 
-	const handleColorChangeComplete = (color) => {
-		setCurrentColor(color);
-		handleDesignChangeManager([
-			'color-changed',
-			currentPartName,
-			currentLayer,
-			color.hex,
-		]);
-	};
-
 	const handleColorChange = (color) => {
+		const newColor = color.hex || color;
 		setCurrentColor(color);
 		handleDesignChangeManager([
 			'color-changed',
 			currentPartName,
 			currentLayer,
-			color,
+			newColor,
 		]);
 	};
 
@@ -97,7 +88,7 @@ function ColorPicker({ props }) {
 			<div>
 				<CustomColor
 					color={currentColor}
-					onChangeComplete={handleColorChangeComplete}
+					onChangeComplete={handleColorChange}
 				/>
 			</div>
 			<div className="change-view-button">

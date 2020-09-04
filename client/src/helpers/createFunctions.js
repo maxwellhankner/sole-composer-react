@@ -8,7 +8,7 @@ export const createTexture = (textureCanvas) => {
 }
 
 export const createCanvas = () => {
-    const canvas = document.createElement("canvas")
+    const canvas = document.createElement("canvas");
     canvas.width = canvasSize;
     canvas.height = canvasSize;
     const canvasCTX = canvas.getContext('2d');

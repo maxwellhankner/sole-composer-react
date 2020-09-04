@@ -147,19 +147,6 @@ export const designObjectToCanvasObject = (design, type, overlays) => {
     })
 }
 
-// turn canvasObject into a finalTexture
-export const canvasObjectToTextureCanvas = (canvasObject, finalCanvas, texture) => {
-    const finalCanvasCTX = finalCanvas.getContext('2d');
-    for (let property in canvasObject) {
-        const { x, y, width, height } = partsObject[property];
-        for (let layer in canvasObject[property].layers) {
-            const layerCanvas = canvasObject[property].layers[layer];
-            finalCanvasCTX.drawImage(layerCanvas, x, y, width, height);
-        }
-    }
-    texture.needsUpdate = true;
-}
-
 export const overlayCanvasObjectToTextureCanvas = (overlayCanvasObject, overlayCanvas, property, graphicVisualCanvas) => {
     const overlayCanvasCTX = overlayCanvas.getContext('2d');
     const graphicCTX = graphicVisualCanvas.getContext('2d');
@@ -260,7 +247,15 @@ export const designChangeManager = (changeArray, design, setDesign, texture, tex
             )
         }
         setDesign(tempDesign);
-        addLayerToCanvasObject(canvasObject, partName, tempDesign.parts[partName].layers.slice(-1)[0], textureCanvas, texture, graphicVisualCanvas);
+        const layerObject = tempDesign.parts[partName].layers.slice(-1)[0];
+        addLayerToCanvasObject({
+			canvasObject,
+			graphicVisualCanvas,
+			layerObject,
+			partName,
+			texture,
+			textureCanvas,
+		});
     }
     else if (changeArray[0] === 'layer-moved') {
         const partName = changeArray[1]
@@ -315,21 +310,41 @@ const updateLayer = async (part, layerIndex, layerObject, canvasObject, canvasTe
     redrawCanvasObjectPart(canvasTexture, canvasObject[part], part, texture, graphicVisualCanvas);
 }
 
-const addLayerToCanvasObject = async (canvasObject, partName, layerObject, textureCanvas, texture, graphicVisualCanvas) => {
-    if (layerObject.type === 'color') {
-        const newLayerCanvas = await createColorLayerCanvas(layerObject, partName);
-        canvasObject[partName].layers.push(newLayerCanvas);
-    }
-    else if (layerObject.type === 'graphic') {
-        const newLayerCanvas = await createGraphicLayerCanvas(layerObject, partName);
-        canvasObject[partName].layers.push(newLayerCanvas);
-    }
-    else {
-        const newLayerCanvas = await createMaskLayerCanvas(layerObject, partName);
-        canvasObject[partName].layers.push(newLayerCanvas);
-    }
-    redrawCanvasObjectPart(textureCanvas, canvasObject[partName], partName, texture, graphicVisualCanvas);
-}
+const addLayerToCanvasObject = async ({
+	canvasObject,
+	graphicVisualCanvas,
+	layerObject,
+	partName,
+	texture,
+	textureCanvas,
+}) => {
+	if (layerObject.type === 'color') {
+		const newLayerCanvas = await createColorLayerCanvas(
+			layerObject,
+			partName
+		);
+		canvasObject[partName].layers.push(newLayerCanvas);
+	} else if (layerObject.type === 'graphic') {
+		const newLayerCanvas = await createGraphicLayerCanvas(
+			layerObject,
+			partName
+		);
+		canvasObject[partName].layers.push(newLayerCanvas);
+	} else {
+		const newLayerCanvas = await createMaskLayerCanvas(
+			layerObject,
+			partName
+		);
+		canvasObject[partName].layers.push(newLayerCanvas);
+	}
+	redrawCanvasObjectPart(
+		textureCanvas,
+		canvasObject[partName],
+		partName,
+		texture,
+		graphicVisualCanvas
+	);
+};
 
 const deleteLayerFromCanvasObject = (canvasObject, partName, layerIndex, textureCanvas, texture, graphicVisualCanvas) => {
     canvasObject[partName].layers.splice(layerIndex, 1);
