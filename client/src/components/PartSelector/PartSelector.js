@@ -1,23 +1,23 @@
 import React from 'react';
 import './PartSelector.css';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { partsArray } from '../../helpers/partsObject'
-import { handleConvertPartName } from '../../helpers/convertPartNames'
+import { partsArray } from '../../helpers/partsObject';
+import { handleConvertPartName } from '../../helpers/convertPartNames';
 
 function PartSelector({ currentPart, setCurrentPart, setFocusLayer }) {
 
-  const numberOfParts = partsArray.length
-  const arrayOfParts = partsArray
+  const numberOfParts = partsArray.length;
+  const arrayOfParts = partsArray;
 
   const handlePartChange = (i) => {
     if (currentPart === 0 && i < 0) {
-      setCurrentPart(numberOfParts - 1)
+      setCurrentPart(numberOfParts - 1);
     }
     else if (currentPart === numberOfParts - 1 && i > 0) {
-      setCurrentPart(0)
+      setCurrentPart(0);
     }
     else {
-      setCurrentPart(currentPart + i)
+      setCurrentPart(currentPart + i);
     }
   }
 
@@ -26,7 +26,7 @@ function PartSelector({ currentPart, setCurrentPart, setFocusLayer }) {
       <div>
         <button onClick={() => {
           handlePartChange(-1);
-          setFocusLayer(-1)
+          setFocusLayer(-1);
         }} ><FaChevronLeft /></button>
         <p>{handleConvertPartName(arrayOfParts[currentPart])}</p>
         <button onClick={() => {

@@ -105,7 +105,7 @@ function Scene({ design, texture }) {
       controls.dispose();
     }
 
-  }, [newMaterial, renderer, design.model])
+  }, [newMaterial, renderer, design.model]);
 
   return (
     <div className="scene-container" ref={canvasRef} >

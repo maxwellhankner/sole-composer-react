@@ -117,7 +117,6 @@ export const translations = {
 
 // export const divider = 1;
 // export const canvasSize = 4096;
-
 export const divider = 4;
 export const canvasSize = 1024;
 

@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './ColorPicker.css';
-// import { ChromePicker } from 'react-color';
 import { handleConvertPartName } from '../../helpers/convertPartNames';
 import CurrentColors from '../CurrentColors/CurrentColors';
 import CustomColor from '../CustomColor/CustomColor';
 
 function ColorPicker({ currentPartName, currentLayer, design, setLayersView, handleDesignChangeManager }) {
 
-  const [currentColor, setCurrentColor] = useState('#ffffaa')
+  const [currentColor, setCurrentColor] = useState('#ffffaa');
 
-  const [colorsArray, setColorsArray] = useState([])
+  const [colorsArray, setColorsArray] = useState([]);
 
   useEffect(() => {
     
@@ -19,34 +18,35 @@ function ColorPicker({ currentPartName, currentLayer, design, setLayersView, han
         for (const layer in design.parts[property].layers) {
   
           if (design.parts[property].layers[layer].type === 'color') {
-            const thisColor = design.parts[property].layers[layer].color
+            const thisColor = design.parts[property].layers[layer].color;
             if (!colors.includes(thisColor)) {
-              colors.push(thisColor)
+              colors.push(thisColor);
             }
   
           }
         }
       }
-      return colors
+      return colors;
     }
 
-    setColorsArray(getDesignColors())
+    setColorsArray(getDesignColors());
+
     if (currentPartName === 'outerOverlay' || currentPartName === 'innerOverlay') {
-      setCurrentColor(design.overlays[currentPartName].layers[currentLayer].color)
+      setCurrentColor(design.overlays[currentPartName].layers[currentLayer].color);
     }
     else {
-      setCurrentColor(design.parts[currentPartName].layers[currentLayer].color)
+      setCurrentColor(design.parts[currentPartName].layers[currentLayer].color);
     }
-  }, [design, currentPartName, currentLayer, setColorsArray])
+  }, [design, currentPartName, currentLayer, setColorsArray]);
 
   const handleColorChangeComplete = (color) => {
-    setCurrentColor(color)
-    handleDesignChangeManager(['color-changed', currentPartName, currentLayer, color.hex])
+    setCurrentColor(color);
+    handleDesignChangeManager(['color-changed', currentPartName, currentLayer, color.hex]);
   }
 
   const handleColorChange = (color) => {
-    setCurrentColor(color)
-    handleDesignChangeManager(['color-changed', currentPartName, currentLayer, color])
+    setCurrentColor(color);
+    handleDesignChangeManager(['color-changed', currentPartName, currentLayer, color]);
   }
 
 
@@ -61,9 +61,6 @@ function ColorPicker({ currentPartName, currentLayer, design, setLayersView, han
       <div>
         <CurrentColors colorsArray={colorsArray} handleColorChange={handleColorChange} />
       </div>
-      {/* <div>
-        <ChromePicker className='color-picker' color={currentColor} onChangeComplete={handleColorChangeComplete} />
-      </div> */}
       <div>
         <CustomColor color={currentColor} onChangeComplete={handleColorChangeComplete} />
       </div>

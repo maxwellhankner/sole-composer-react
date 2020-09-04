@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './Interface.css';
-import DesignPreview from '../DesignPreview/DesignPreview'
-import LayersView from '../LayersView/LayersView'
+import DesignPreview from '../DesignPreview/DesignPreview';
+import LayersView from '../LayersView/LayersView';
 
 
 function Interface({ design, setDesign, graphicVisualCanvas, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
 
-  const [currentPart, setCurrentPart] = useState(0)
+  const [currentPart, setCurrentPart] = useState(0);
   const [currentLayer, setCurrentLayer] = useState(0);
   const [view, setView] = useState('DesignPreview');
 

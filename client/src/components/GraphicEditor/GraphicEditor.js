@@ -1,23 +1,23 @@
 import React, { useEffect } from 'react';
-import { FaArrowUp, FaArrowDown, FaArrowRight, FaArrowLeft, FaUndoAlt, FaRedoAlt, FaArrowsAlt, FaCompressArrowsAlt } from 'react-icons/fa'
+import { FaArrowUp, FaArrowDown, FaArrowRight, FaArrowLeft, FaUndoAlt, FaRedoAlt, FaArrowsAlt, FaCompressArrowsAlt } from 'react-icons/fa';
 import './GraphicEditor.css';
 
 function GraphicEditor({ setLayersView, currentLayer, graphicVisualCanvas, currentPartName, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
 
     const handleMoveGraphic = (direction, distance) => {
-        handleDesignChangeManager(['graphic-moved', currentPartName, currentLayer, direction, distance])
+        handleDesignChangeManager(['graphic-moved', currentPartName, currentLayer, direction, distance]);
     }
     
     useEffect(() => {
         const placeGraphicVisual = () => {
-            let div = document.getElementById("graphic-visual-container")
+            let div = document.getElementById("graphic-visual-container");
             div.innerHTML = '';
-            div.appendChild(graphicVisualCanvas)
+            div.appendChild(graphicVisualCanvas);
         }
         placeGraphicVisual()
-        handleUpdateGraphicVisualCanvas(currentPartName)
+        handleUpdateGraphicVisualCanvas(currentPartName);
         // eslint-disable-next-line
-    }, [])
+    }, []);
 
     return (
         <div className="graphic-editor-container">

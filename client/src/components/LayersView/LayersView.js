@@ -6,7 +6,7 @@ import { partsObject, partsArray } from '../../helpers/partsObject';
 import AddLayerType from '../AddLayerType/AddLayerType'
 import GraphicEditor from '../GraphicEditor/GraphicEditor';
 import ColorPicker from '../ColorPicker/ColorPicker';
-import MaskTypes from '../MaskTypes/MaskTypes'
+import MaskTypes from '../MaskTypes/MaskTypes';
 import { handleConvertPartName } from '../../helpers/convertPartNames';
 
 function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPart, design, setCurrentLayer, graphicVisualCanvas, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
@@ -43,18 +43,18 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
   }
 
   const handleAddLayer = (type) => {
-    handleDesignChangeManager(['layer-added', currentPartName, type])
-    setFocusLayer(numberOfLayers)
+    handleDesignChangeManager(['layer-added', currentPartName, type]);
+    setFocusLayer(numberOfLayers);
   }
 
   const handleAddMaskLayer = (maskType, maskLink) => {
-    handleDesignChangeManager(['layer-added', currentPartName, 'Mask', maskType, maskLink])
-    setFocusLayer(numberOfLayers)
+    handleDesignChangeManager(['layer-added', currentPartName, 'Mask', maskType, maskLink]);
+    setFocusLayer(numberOfLayers);
   }
 
   const handleDeleteLayer = (layer) => {
-    handleDesignChangeManager(['layer-deleted', currentPartName, layer])
-    setFocusLayer(-1)
+    handleDesignChangeManager(['layer-deleted', currentPartName, layer]);
+    setFocusLayer(-1);
   }
 
   const handleMoveLayer = (layer, direction) => {
@@ -62,17 +62,17 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
     let array;
 
     if (currentPartName === 'outerOverlay' || currentPartName === 'innerOverlay') {
-      array = tempDesign.overlays[currentPartName].layers
+      array = tempDesign.overlays[currentPartName].layers;
     }
     else {
-      array = tempDesign.parts[currentPartName].layers
+      array = tempDesign.parts[currentPartName].layers;
     }
 
     if (layer === array.length - 1 && direction === 1) {
-      return
+      return;
     }
     else if (layer === 0 && direction === -1) {
-      return
+      return;
     }
     else {
       let tempElement = array[layer]
@@ -122,7 +122,6 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
         </div>
 
         <div className='add-layer-button'>
-          {/* <button onClick={() => handleAddLayer(currentPart)}>Add Layer</button> */}
           <button onClick={() => setLayersView('AddLayerType')}>Add Layer</button>
         </div>
 
@@ -186,7 +185,7 @@ function LayersView({ handleViewChange, currentPart, currentLayer, setCurrentPar
                         :
                         <div className='edit-layer-button'>
                           <button onClick={() => {
-                            setCurrentPart(partsArray.indexOf(layer.source))
+                            setCurrentPart(partsArray.indexOf(layer.source));
                             setFocusLayer(-1);
                           }}><FaPen /></button>
                         </div>

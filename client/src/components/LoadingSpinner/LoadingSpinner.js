@@ -12,7 +12,7 @@ function LoadingSpinner({isLoading}) {
         )
     }
     else {
-        return null
+        return null;
     }
 
 }

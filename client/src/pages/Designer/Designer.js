@@ -6,7 +6,7 @@ import { createTexture, createCanvas, createGraphicVisualCanvas } from '../../he
 
 function Designer() {
 
-  const [designSpec, setDesignSpec] = useState()
+  const [designSpec, setDesignSpec] = useState();
 
   const [textureCanvas] = useState(createCanvas());
   const [outerOverlayCanvas] = useState(createCanvas());
@@ -14,13 +14,13 @@ function Designer() {
 
   const [texture] = useState(createTexture(textureCanvas));
 
-  const [graphicVisualCanvas] = useState(createGraphicVisualCanvas())
+  const [graphicVisualCanvas] = useState(createGraphicVisualCanvas());
 
   useEffect(() => {
     fetch('/api/design')
       .then(res => res.json())
       .then(data => {
-        setDesignSpec(data)
+        setDesignSpec(data);
       })
   }, [])
 

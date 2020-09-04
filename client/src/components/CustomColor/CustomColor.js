@@ -59,7 +59,6 @@ export const CustomColor = ({ hex, hsl, hsv, onChange }) => {
           value={hex}
           onChange={onChange}
         />
-        {/* <div style={styles.swatch} /> */}
       </div>
     </div>
   );
