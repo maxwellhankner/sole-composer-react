@@ -1,6 +1,6 @@
 #loading-screen {
     position: fixed;
-	z-index: 1;
+	z-index: 0;
 	width: 100%;
 	height: 50%;
 	opacity: 1;
@@ -22,12 +22,3 @@
     height: 120px;
     animation: spin 2s linear infinite;
 }
-
-/* @keyframes spin {
-    0%   {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-} */
