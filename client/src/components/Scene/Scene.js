@@ -8,15 +8,15 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 function Scene({ design, texture }) {
 
   const createMaterial = (texture) => {
-    var aoimg = new Image();
+    const aoimg = new Image();
     aoimg.src = 'assets/images/ao_diffuse.png';
-    var ao = new THREE.CanvasTexture(aoimg);
+    const ao = new THREE.CanvasTexture(aoimg);
     ao.flipY = false;
 
     return new THREE.MeshStandardMaterial({
       map: texture,
       aoMap: ao
-    })
+    });
   }
 
   const canvasRef = useRef(null);
@@ -55,20 +55,19 @@ function Scene({ design, texture }) {
     scene.add(light);
 
     //===================================================== loading mananger
-    let manager = new THREE.LoadingManager();
+    const manager = new THREE.LoadingManager();
     manager.onLoad = () => {
       setIsLoading(false)
     }
 
     //===================================================== model
-    var loader = new GLTFLoader(manager);
-    var model;
+    const loader = new GLTFLoader(manager);
     loader.load(
       design.model, function (gltf) {
         gltf.scene.traverse(function (node) {
           if (node.isMesh) node.material = newMaterial;
         });
-        model = gltf.scene;
+        const model = gltf.scene;
         model.scale.set(.35, .35, .35);
         model.position.y = -1;
         model.rotation.y = -95 * (Math.PI / 180);
