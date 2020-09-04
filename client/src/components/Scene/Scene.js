@@ -63,8 +63,8 @@ function Scene({ design, texture }) {
     //===================================================== model
     const loader = new GLTFLoader(manager);
     loader.load(
-      design.model, function (gltf) {
-        gltf.scene.traverse(function (node) {
+      design.model, (gltf) => {
+        gltf.scene.traverse((node) => {
           if (node.isMesh) node.material = newMaterial;
         });
         const model = gltf.scene;
@@ -76,9 +76,7 @@ function Scene({ design, texture }) {
     );
 
     //===================================================== resize
-    window.addEventListener("resize", resizecanvas);
-
-    function resizecanvas() {
+    const resizecanvas = () => {
       const canvas = renderer.domElement;
       const width = canvas.clientWidth * 2;
       const height = canvas.clientHeight * 2;
@@ -89,6 +87,8 @@ function Scene({ design, texture }) {
       }
     }
 
+    window.addEventListener("resize", resizecanvas);
+
     //===================================================== animate
     const render = () => {
       renderer.render(scene, camera);
@@ -97,13 +97,15 @@ function Scene({ design, texture }) {
       controls.update();
     }
 
-    render()
+    render();
 
     //===================================================== cleanup
-    return function cleanup() {
+    const cleanup = () => {
       cancelAnimationFrame(render);
       controls.dispose();
     }
+
+    return cleanup;
 
   }, [newMaterial, renderer, design.model]);
 
