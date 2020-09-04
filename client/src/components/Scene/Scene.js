@@ -111,7 +111,7 @@ function Scene({ design, texture }) {
 
   return (
     <div className="scene-container" ref={canvasRef} >
-      <LoadingSpinner isLoading={isLoading} />
+      {isLoading && <LoadingSpinner />}
     </div>
   )
 }
