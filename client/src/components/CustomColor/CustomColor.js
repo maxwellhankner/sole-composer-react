@@ -36,7 +36,6 @@ export const CustomColor = ({ hex, hsl, hsv, onChange }) => {
       'width': '100%',
       'height': '100%',
       background: hex
-      // padding: '1px 0px'
     },
     inputContainer: {
       background: hex
