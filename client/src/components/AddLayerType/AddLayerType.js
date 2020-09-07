@@ -14,7 +14,8 @@ function AddLayerType({ props }) {
 					{type === 'Mask' ? (
 						<button
 							onClick={() => {
-								setLayersView('MaskType');
+								console.log('yo')
+								setLayersView('MaskTypes');
 							}}
 						>
 							{type}

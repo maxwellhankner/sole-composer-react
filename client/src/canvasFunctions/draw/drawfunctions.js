@@ -1,64 +1,9 @@
-import { partsObject, translations, canvasSize } from './partsObject';
+import { partsObject, canvasSize } from '../../helpers/partsObject';
+import { createColorLayerCanvas, createGraphicLayerCanvas, createOverlayLayerCanvas } from '../index';
 
-//------------------------------------------- Create Canvas Functions
-const createColorLayerCanvas = (layer, partName) => {
-    return new Promise((resolve, reject) => {
-        const { mask } = partsObject[partName];
-        const { color } = layer;
-        const layerCanvas = document.createElement('canvas');
-        layerCanvas.width = canvasSize;
-        layerCanvas.height = canvasSize;
-        const layerCanvasCTX = layerCanvas.getContext('2d');
-        const maskImg = new Image();
-        maskImg.src = mask;
-        maskImg.onload = () => {
-            layerCanvasCTX.drawImage(maskImg, 0, 0, layerCanvas.width, layerCanvas.height);
-            layerCanvasCTX.globalCompositeOperation = "source-in";
-            layerCanvasCTX.fillStyle = color;
-            layerCanvasCTX.fillRect(0, 0, canvasSize, canvasSize);
-            resolve(layerCanvas);
-        }
-    })
-}
-
-const createGraphicLayerCanvas = (layer, partName) => {
-    return new Promise((resolve, reject) => {
-        const { mask } = partsObject[partName];
-        const { link, x, y, scale, rotation } = layer;
-        const layerCanvas = document.createElement('canvas');
-        layerCanvas.width = canvasSize;
-        layerCanvas.height = canvasSize;
-        const layerCanvasCTX = layerCanvas.getContext('2d');
-        var graphicImg = new Image();
-        graphicImg.src = link;
-        graphicImg.onload = () => {
-            var graphicWidth = graphicImg.width;
-            var graphicHeight = graphicImg.height;
-            var graphicPythagorean = Math.round(Math.sqrt((graphicWidth * graphicWidth) + (graphicHeight * graphicHeight)));
-            // Create Pythagorean Canvas
-            var pythagoreanCanvas = document.createElement('canvas');
-            pythagoreanCanvas.id = 'pythagorean-canvas';
-            pythagoreanCanvas.width = graphicPythagorean;
-            pythagoreanCanvas.height = graphicPythagorean;
-            var pythagoreanTemp = pythagoreanCanvas.getContext('2d');
-            pythagoreanTemp.translate(pythagoreanCanvas.width / 2, pythagoreanCanvas.height / 2);
-            pythagoreanTemp.rotate(rotation * Math.PI / 180);
-            pythagoreanTemp.drawImage(graphicImg, (-graphicImg.width / 2), (-graphicImg.height / 2), graphicImg.width, graphicImg.height);
-            const maskImg = new Image();
-            maskImg.src = mask;
-            maskImg.onload = function () {
-                layerCanvasCTX.drawImage(maskImg, 0, 0, layerCanvasCTX.canvas.width, layerCanvasCTX.canvas.height);
-                layerCanvasCTX.globalCompositeOperation = "source-in";
-                layerCanvasCTX.drawImage(pythagoreanCanvas, x + (canvasSize - (canvasSize * scale))/2, y + (canvasSize - (canvasSize * scale))/2, layerCanvas.width * scale, layerCanvas.width * scale);
-                layerCanvasCTX.resetTransform();
-                resolve(layerCanvas);
-            }
-        }
-    })
-}
 
 const createMaskLayerCanvas = (layer, partName) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const { link, color } = layer;
         const layerCanvas = document.createElement('canvas');
         layerCanvas.width = canvasSize;
@@ -74,29 +19,7 @@ const createMaskLayerCanvas = (layer, partName) => {
             resolve(layerCanvas);
         }
     })
-}
-
-const createOverlayLayerCanvas = (layer, partName, overlayCanvas) => {
-    return new Promise((resolve, reject) => {
-        const { mask } = partsObject[partName];
-        const { source } = layer;
-        const { x, y, scale, rotation } = translations[source][partName];
-        const layerCanvas = document.createElement('canvas');
-        layerCanvas.width = canvasSize;
-        layerCanvas.height = canvasSize;
-        const layerCanvasCTX = layerCanvas.getContext('2d');
-        const maskImg = new Image();
-        maskImg.src = mask;
-        maskImg.onload = () => {
-            layerCanvasCTX.drawImage(maskImg, 0, 0, layerCanvas.width, layerCanvas.height);
-            layerCanvasCTX.globalCompositeOperation = "source-in";
-            layerCanvasCTX.translate(canvasSize * x, canvasSize * y);
-            layerCanvasCTX.rotate(rotation);
-            layerCanvasCTX.drawImage(overlayCanvas, 0, 0, canvasSize * scale, canvasSize * scale);
-            resolve(layerCanvas);
-        }
-    })
-}
+};
 
 //------------------------------------------- Initial Functions
 // create canvasObject part with designObject part
@@ -104,7 +27,7 @@ const createCanvasObjectPart = async (designLayers, property, overlays) => {
     const canvasLayers = [];
     for (let layer in designLayers) {
         if (designLayers[layer].type === 'color') {
-            const thisLayer = await createColorLayerCanvas(designLayers[layer], property);
+            const thisLayer = await createColorLayerCanvas(designLayers[layer], property, canvasSize);
             canvasLayers.push(thisLayer);
         }
         else if (designLayers[layer].type === 'graphic') {
@@ -297,7 +220,7 @@ const updateLayer = async (part, layerIndex, layerObject, canvasObject, canvasTe
     // update canvasObject layer
     let layerCanvas;
     if (layerObject.type === 'color') {
-        layerCanvas = await createColorLayerCanvas(layerObject, part);
+        layerCanvas = await createColorLayerCanvas(layerObject, part, canvasSize);
     }
     else if (layerObject.type === 'graphic') {
         layerCanvas = await createGraphicLayerCanvas(layerObject, part);
@@ -321,7 +244,8 @@ const addLayerToCanvasObject = async ({
 	if (layerObject.type === 'color') {
 		const newLayerCanvas = await createColorLayerCanvas(
 			layerObject,
-			partName
+            partName,
+            canvasSize
 		);
 		canvasObject[partName].layers.push(newLayerCanvas);
 	} else if (layerObject.type === 'graphic') {
@@ -486,7 +410,7 @@ const updateOverlayLayer = async (partName, layerIndex, layerObject, overlayCanv
     // update canvasObject layer
     let layerCanvas;
     if (layerObject.type === 'color') {
-        layerCanvas = await createColorLayerCanvas(layerObject, partName);
+        layerCanvas = await createColorLayerCanvas(layerObject, partName, canvasSize);
     }
     else {
         layerCanvas = await createGraphicLayerCanvas(layerObject, partName);
@@ -526,7 +450,7 @@ const redrawOverlayCanvasObjectPart = (finalCanvas, canvasObjectPart, property) 
 
 const addLayerToOverlayCanvasObject = async (overlayCanvasObject, partName, layerObject, overlayCanvas, texture, graphicVisualCanvas, design, canvasTexture, canvasObject, tempDesign) => {
     if (layerObject.type === 'color') {
-        const newLayerCanvas = await createColorLayerCanvas(layerObject, partName);
+        const newLayerCanvas = await createColorLayerCanvas(layerObject, partName, canvasSize);
         overlayCanvasObject[partName].layers.push(newLayerCanvas);
     }
     else if (layerObject.type === 'graphic') {

@@ -6,7 +6,7 @@ import {
 	createTexture,
 	createCanvas,
 	createGraphicVisualCanvas,
-} from '../../helpers/createFunctions';
+} from '../../canvasFunctions';
 
 function Designer() {
 	const [designSpec, setDesignSpec] = useState();

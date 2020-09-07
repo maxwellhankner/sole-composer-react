@@ -1,7 +1,5 @@
-import { partsObject } from '../helpers/partsObject';
-
 // turn canvasObject into a finalTexture
-const canvasObjectToTextureCanvas = ({canvasObject, size}) => {
+export const canvasObjectToTextureCanvas = ({canvasObject, size, partsObject}) => {
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;
@@ -15,6 +13,4 @@ const canvasObjectToTextureCanvas = ({canvasObject, size}) => {
         }
     }
     return canvas;
-}
-
-export default canvasObjectToTextureCanvas;
+};

@@ -8,9 +8,9 @@ import {
 	designChangeManager,
 	overlayCanvasObjectToTextureCanvas,
 	overlayChangeManager,
-} from '../../helpers/drawfunctions';
-
-import {canvasObjectToTextureCanvas} from '../../drawFunctions';
+} from '../../canvasFunctions';
+import { partsObject } from '../../helpers/partsObject';
+import { canvasObjectToTextureCanvas } from '../../canvasFunctions';
 
 function DesignerContainer({
 	designSpec,
@@ -98,6 +98,7 @@ function DesignerContainer({
 				const newCanvas = canvasObjectToTextureCanvas({
 					canvasObject: canvasObjectRef.current,
 					size: textureCanvas.height,
+					partsObject
                 });
                 textureCanvas.getContext('2d').drawImage(newCanvas,0,0);
                 

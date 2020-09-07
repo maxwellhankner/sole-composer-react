@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { canvasSize } from './partsObject';
+import { canvasSize } from '../../helpers/partsObject';
 
 export const createTexture = (textureCanvas) => {
     var texture = new THREE.CanvasTexture(textureCanvas);
