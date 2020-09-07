@@ -113,7 +113,7 @@ function Scene({ design, texture }) {
     <div className="scene-container" ref={canvasRef} >
       {isLoading && <LoadingSpinner />}
     </div>
-  )
+  );
 }
 
 export default Scene;
