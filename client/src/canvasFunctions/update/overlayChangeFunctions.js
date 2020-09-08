@@ -234,16 +234,13 @@ const deleteLayerFromOverlayCanvasObject = async (overlayCanvasObject, partName,
         const currentPart = effectedParts[part];
         for (let i = 0; i < tempDesign.parts[currentPart].layers.length; i++) {
             const layerIndex = i;
-            if (tempDesign.parts[currentPart].layers[i].type === 'overlay') {
-
-                if (tempDesign.parts[currentPart].layers[i].source === partName) {
+            if (tempDesign.parts[currentPart].layers[i].type === 'overlay' && tempDesign.parts[currentPart].layers[i].source === partName) {
                     const layerCanvas = await createOverlayLayerCanvas(design.parts[currentPart].layers[i], currentPart, overlayCanvas);
                     canvasObject[currentPart].layers[layerIndex] = layerCanvas;
-                }
-            }
-            // redraw effected parts in textureCanvas
-            redrawOverlayCanvasObjectPart(canvasTexture, canvasObject[currentPart], currentPart);
-        }
-    }
+            };
+        };
+        // redraw effected parts in textureCanvas
+        redrawOverlayCanvasObjectPart(canvasTexture, canvasObject[currentPart], currentPart);
+    };
     texture.needsUpdate = true;
 };
