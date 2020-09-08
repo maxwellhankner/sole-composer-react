@@ -1,6 +1,6 @@
 import { canvasSize } from '../../helpers/partsObject';
 
-export const createMaskLayerCanvas = (layer, partName) => {
+export const createMaskLayerCanvas = (layer) => {
     return new Promise((resolve) => {
         const { link, color } = layer;
         const layerCanvas = document.createElement('canvas');

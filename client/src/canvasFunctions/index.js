@@ -1,10 +1,8 @@
-import { canvasObjectToTextureCanvas } from './draw/canvasObjectToTextureCanvas';
-
 import {
 	createTexture,
 	createCanvas,
 	createGraphicVisualCanvas,
-} from './create/initialFunctions';
+} from './create/createCanvasFunctions';
 
 import { createColorLayerCanvas } from './create/createColorLayerCanvas';
 import { createGraphicLayerCanvas } from './create/createGraphicLayerCanvas';
@@ -12,12 +10,15 @@ import { createMaskLayerCanvas } from './create/createMaskLayerCanvas';
 import { createOverlayLayerCanvas } from './create/createOverlayLayerCanvas';
 
 import {
-    designObjectToCanvasObject,
-	updateGraphicVisualCanvas,
-	designChangeManager,
+	designObjectToCanvasObject,
 	overlayCanvasObjectToTextureCanvas,
-	overlayChangeManager,
-} from './draw/drawfunctions';
+	updateGraphicVisualCanvas
+} from './create/initialFunctions';
+
+import { designChangeManager } from './update/partChangeFunctions';
+import { overlayChangeManager } from './update/overlayChangeFunctions';
+
+import { canvasObjectToTextureCanvas } from './update/canvasObjectToTextureCanvas';
 
 export {
     canvasObjectToTextureCanvas,
