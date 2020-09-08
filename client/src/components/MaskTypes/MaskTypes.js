@@ -15,7 +15,7 @@ function MaskTypes({ props }) {
 					<button
 						onClick={() => {
 							handleAddMaskLayer(type[0], type[1]);
-							setLayersView('Layer');
+							setLayersView('LayerOverview');
 						}}
 					>
 						{type[0]}
