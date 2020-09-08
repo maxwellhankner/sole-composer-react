@@ -1,9 +1,8 @@
-import { partsObject } from '../../helpers/partsObject';
-
-export const createColorLayerCanvas = (layer, partName, canvasSize) => {
+export const createColorLayerCanvas = ({ design, layer, partName }) => {
     return new Promise((resolve) => {
-        const { mask } = partsObject[partName];
+        const { mask } = design.config.partsObject[partName];
         const { color } = layer;
+        const { canvasSize } = design.config;
         const layerCanvas = document.createElement('canvas');
         layerCanvas.width = canvasSize;
         layerCanvas.height = canvasSize;

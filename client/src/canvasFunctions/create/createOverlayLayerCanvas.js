@@ -1,10 +1,9 @@
-import { partsObject, canvasSize, translations } from '../../helpers/partsObject';
-
-export const createOverlayLayerCanvas = (layer, partName, overlayCanvas) => {
+export const createOverlayLayerCanvas = ({ design, layer, partName, overlayCanvas }) => {
     return new Promise((resolve) => {
-        const { mask } = partsObject[partName];
+        const { mask } = design.config.partsObject[partName];
         const { source } = layer;
-        const { x, y, scale, rotation } = translations[source][partName];
+        const { x, y, scale, rotation } = design.config.translations[source][partName];
+        const { canvasSize } = design.config;
         const layerCanvas = document.createElement('canvas');
         layerCanvas.width = canvasSize;
         layerCanvas.height = canvasSize;

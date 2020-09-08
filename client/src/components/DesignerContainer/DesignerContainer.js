@@ -9,7 +9,6 @@ import {
 	overlayCanvasObjectToTextureCanvas,
 	overlayChangeManager,
 } from '../../canvasFunctions';
-import { partsObject } from '../../helpers/partsObject';
 import { canvasObjectToTextureCanvas } from '../../canvasFunctions';
 
 function DesignerContainer({
@@ -20,6 +19,7 @@ function DesignerContainer({
 	texture,
 	textureCanvas,
 }) {
+
 	const [design, setDesign] = useState(designSpec);
 
 	const canvasObjectRef = useRef();
@@ -77,31 +77,33 @@ function DesignerContainer({
 					design,
 					'overlaysCanvasObject'
 				);
-				overlayCanvasObjectToTextureCanvas(
-					overlaysCanvasObjectRef.current,
-					outerOverlayCanvas,
-					'outerOverlay',
+				overlayCanvasObjectToTextureCanvas({
+					design,
+					overlayCanvasObject: overlaysCanvasObjectRef.current,
+					overlayCanvas: outerOverlayCanvas,
+					partName: 'outerOverlay',
 					graphicVisualCanvas
-				);
-				overlayCanvasObjectToTextureCanvas(
-					overlaysCanvasObjectRef.current,
-					innerOverlayCanvas,
-					'innerOverlay',
+				});
+				overlayCanvasObjectToTextureCanvas({
+					design,
+					overlayCanvasObject: overlaysCanvasObjectRef.current,
+					overlayCanvas: innerOverlayCanvas,
+					partName: 'innerOverlay',
 					graphicVisualCanvas
-				);
+				});
 
 				canvasObjectRef.current = await designObjectToCanvasObject(
 					design,
 					'partsCanvasObject',
 					[outerOverlayCanvas, innerOverlayCanvas]
-                );
+				);
 				const newCanvas = canvasObjectToTextureCanvas({
 					canvasObject: canvasObjectRef.current,
 					size: textureCanvas.height,
-					partsObject
-                });
-                textureCanvas.getContext('2d').drawImage(newCanvas,0,0);
-                
+					design
+				});
+				textureCanvas.getContext('2d').drawImage(newCanvas, 0, 0);
+
 				texture.needsUpdate = true;
 			};
 			buildTexture();

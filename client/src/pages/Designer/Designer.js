@@ -9,11 +9,12 @@ import {
 } from '../../canvasFunctions';
 
 function Designer() {
+
 	const [designSpec, setDesignSpec] = useState();
 	const [graphicVisualCanvas] = useState(createGraphicVisualCanvas());
 	const [innerOverlayCanvas] = useState(createCanvas());
-  const [outerOverlayCanvas] = useState(createCanvas());
-  
+	const [outerOverlayCanvas] = useState(createCanvas());
+
 	const [textureCanvas] = useState(createCanvas());
 	const [texture] = useState(createTexture(textureCanvas));
 
@@ -26,6 +27,7 @@ function Designer() {
 	}, []);
 
 	if (designSpec) {
+		
 		return (
 			<div className="designer-root-container">
 				<NavBar />
