@@ -16,13 +16,13 @@ function GraphicEditor({ props }) {
 		currentLayer,
 		currentPartName,
 		graphicVisualCanvas,
-		handleDesignChangeManager,
+		handlePartChangeManager,
 		handleUpdateGraphicVisualCanvas,
 		setLayersView,
 	} = props;
 
 	const handleMoveGraphic = (direction, distance) => {
-		handleDesignChangeManager([
+		handlePartChangeManager([
 			'graphic-moved',
 			currentPartName,
 			currentLayer,

@@ -4,7 +4,7 @@ import DesignPreview from '../DesignPreview/DesignPreview';
 import LayersView from '../LayersView/LayersView';
 
 
-function Interface({ design, setDesign, graphicVisualCanvas, handleUpdateGraphicVisualCanvas, handleDesignChangeManager }) {
+function Interface({ design, setDesign, graphicVisualCanvas, handleUpdateGraphicVisualCanvas, handlePartChangeManager }) {
 
   const [currentPart, setCurrentPart] = useState(0);
   const [currentLayer, setCurrentLayer] = useState(0);
@@ -24,7 +24,7 @@ function Interface({ design, setDesign, graphicVisualCanvas, handleUpdateGraphic
   else if (view === 'Layers') {
     return (
       <div className="interface-container">
-        <LayersView handleViewChange={handleViewChange} design={design} setDesign={setDesign} currentPart={currentPart} setCurrentPart={setCurrentPart} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} graphicVisualCanvas={graphicVisualCanvas} handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas} handleDesignChangeManager={handleDesignChangeManager} />
+        <LayersView handleViewChange={handleViewChange} design={design} setDesign={setDesign} currentPart={currentPart} setCurrentPart={setCurrentPart} currentLayer={currentLayer} setCurrentLayer={setCurrentLayer} graphicVisualCanvas={graphicVisualCanvas} handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas} handlePartChangeManager={handlePartChangeManager} />
       </div>
     )
   }

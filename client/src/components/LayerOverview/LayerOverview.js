@@ -12,7 +12,7 @@ function LayerOverview({ props }) {
 		currentPartName,
 		design,
 		focusLayer,
-		handleDesignChangeManager,
+		handlePartChangeManager,
 		handleViewChange,
 		numberOfLayers,
 		setCurrentLayer,
@@ -36,7 +36,7 @@ function LayerOverview({ props }) {
 	};
 
 	const handleDeleteLayer = (layer) => {
-		handleDesignChangeManager(['layer-deleted', currentPartName, layer]);
+		handlePartChangeManager(['layer-deleted', currentPartName, layer]);
 		setFocusLayer(-1);
 	};
 
@@ -69,7 +69,7 @@ function LayerOverview({ props }) {
 			} else {
 				tempDesign.parts[currentPartName].layers = array;
 			}
-			handleDesignChangeManager([
+			handlePartChangeManager([
 				'layer-moved',
 				currentPartName,
 				layer,

@@ -15,8 +15,8 @@ import {
 	updateGraphicVisualCanvas
 } from './create/initialFunctions';
 
-import { designChangeManager } from './update/partChangeFunctions';
-import { overlayChangeManager } from './update/overlayChangeFunctions';
+import { partChangeManager } from './update/partChangeManager';
+import { overlayChangeManager } from './update/overlayChangeManager';
 
 import { canvasObjectToTextureCanvas } from './update/canvasObjectToTextureCanvas';
 
@@ -31,7 +31,7 @@ export {
     createOverlayLayerCanvas,
     designObjectToCanvasObject,
 	updateGraphicVisualCanvas,
-	designChangeManager,
+	partChangeManager,
 	overlayCanvasObjectToTextureCanvas,
 	overlayChangeManager,
 };

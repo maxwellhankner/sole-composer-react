@@ -9,7 +9,7 @@ function ColorPicker({ props }) {
 		currentLayer,
 		currentPartName,
 		design,
-		handleDesignChangeManager,
+		handlePartChangeManager,
 		setLayersView,
 	} = props;
 
@@ -52,7 +52,7 @@ function ColorPicker({ props }) {
 	const handleColorChange = (color) => {
 		const newColor = color.hex || color;
 		setCurrentColor(color);
-		handleDesignChangeManager([
+		handlePartChangeManager([
 			'color-changed',
 			currentPartName,
 			currentLayer,

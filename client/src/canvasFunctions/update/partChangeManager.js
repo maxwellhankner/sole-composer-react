@@ -6,7 +6,7 @@ import {
 } from '../index';
 
 //------------------------------------------- Part Change Functions
-export const designChangeManager = (changeArray, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObject) => {
+export const partChangeManager = (changeArray, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObject) => {
     if (changeArray[0] === 'graphic-moved') {
         const partName = changeArray[1];
         const layerIndex = changeArray[2];

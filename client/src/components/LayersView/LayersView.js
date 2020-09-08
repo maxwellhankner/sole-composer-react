@@ -8,7 +8,7 @@ function LayersView({
 	currentPart,
 	design,
 	graphicVisualCanvas,
-	handleDesignChangeManager,
+	handlePartChangeManager,
 	handleUpdateGraphicVisualCanvas,
 	handleViewChange,
 	setCurrentLayer,
@@ -34,12 +34,12 @@ function LayersView({
 	}
 
 	const handleAddLayer = (type) => {
-		handleDesignChangeManager(['layer-added', currentPartName, type]);
+		handlePartChangeManager(['layer-added', currentPartName, type]);
 		setFocusLayer(numberOfLayers);
 	};
 
 	const handleAddMaskLayer = (maskType, maskLink) => {
-		handleDesignChangeManager([
+		handlePartChangeManager([
 			'layer-added',
 			currentPartName,
 			'Mask',
@@ -61,7 +61,7 @@ function LayersView({
 		graphicVisualCanvas,
 		handleAddLayer,
 		handleAddMaskLayer,
-		handleDesignChangeManager,
+		handlePartChangeManager,
 		handleUpdateGraphicVisualCanvas,
 		handleViewChange,
 		setCurrentLayer,

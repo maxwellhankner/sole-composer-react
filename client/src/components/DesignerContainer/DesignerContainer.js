@@ -5,7 +5,7 @@ import Interface from '../../components/Interface/Interface.js';
 import {
 	designObjectToCanvasObject,
 	updateGraphicVisualCanvas,
-	designChangeManager,
+	partChangeManager,
 	overlayCanvasObjectToTextureCanvas,
 	overlayChangeManager,
 } from '../../canvasFunctions';
@@ -41,7 +41,7 @@ function DesignerContainer({
 		}
 	};
 
-	const handleDesignChangeManager = (changeArray) => {
+	const handlePartChangeManager = (changeArray) => {
 		if (
 			changeArray[1] === 'outerOverlay' ||
 			changeArray[1] === 'innerOverlay'
@@ -58,7 +58,7 @@ function DesignerContainer({
 				overlaysCanvasObjectRef.current
 			);
 		} else {
-			designChangeManager(
+			partChangeManager(
 				changeArray,
 				design,
 				setDesign,
@@ -122,7 +122,7 @@ function DesignerContainer({
 				handleUpdateGraphicVisualCanvas={
 					handleUpdateGraphicVisualCanvas
 				}
-				handleDesignChangeManager={handleDesignChangeManager}
+				handlePartChangeManager={handlePartChangeManager}
 			/>
 		</div>
 	);
