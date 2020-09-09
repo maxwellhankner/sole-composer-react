@@ -1,9 +1,8 @@
-import { partsObject, canvasSize } from '../../helpers/partsObject';
-
-export const createGraphicLayerCanvas = (layer, partName) => {
+export const createGraphicLayerCanvas = ({ design, layer, partName }) => {
     return new Promise((resolve) => {
-        const { mask } = partsObject[partName];
+        const { mask } = design.config.partsObject[partName];
         const { link, x, y, scale, rotation } = layer;
+        const { canvasSize } = design.config;
         const layerCanvas = document.createElement('canvas');
         layerCanvas.width = canvasSize;
         layerCanvas.height = canvasSize;

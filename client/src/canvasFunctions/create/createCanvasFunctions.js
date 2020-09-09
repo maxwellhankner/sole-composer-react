@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { canvasSize } from '../../helpers/partsObject';
 
 export const createTexture = (textureCanvas) => {
     var texture = new THREE.CanvasTexture(textureCanvas);
@@ -7,7 +6,8 @@ export const createTexture = (textureCanvas) => {
     return texture;
 }
 
-export const createCanvas = () => {
+export const createCanvas = ({ design }) => {
+    const { canvasSize } = design.config;
     const canvas = document.createElement("canvas");
     canvas.width = canvasSize;
     canvas.height = canvasSize;
@@ -17,7 +17,8 @@ export const createCanvas = () => {
     return canvas;
 }
 
-export const createGraphicVisualCanvas = () => {
+export const createGraphicVisualCanvas = ({ design }) => {
+    const { canvasSize } = design.config;
     const canvas = document.createElement('canvas');
     canvas.id = 'graphic-visual-canvas';
     canvas.width = canvasSize;

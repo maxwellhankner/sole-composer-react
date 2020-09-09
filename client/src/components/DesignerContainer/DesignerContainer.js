@@ -9,7 +9,6 @@ import {
 	overlayCanvasObjectToTextureCanvas,
 	overlayChangeManager,
 } from '../../canvasFunctions';
-import { partsObject } from '../../helpers/partsObject';
 import { canvasObjectToTextureCanvas } from '../../canvasFunctions';
 
 function DesignerContainer({
@@ -20,6 +19,7 @@ function DesignerContainer({
 	texture,
 	textureCanvas,
 }) {
+
 	const [design, setDesign] = useState(designSpec);
 
 	const canvasObjectRef = useRef();
@@ -27,17 +27,19 @@ function DesignerContainer({
 
 	const handleUpdateGraphicVisualCanvas = (partName) => {
 		if (partName === 'outerOverlay' || partName === 'innerOverlay') {
-			updateGraphicVisualCanvas(
+			updateGraphicVisualCanvas({
+				design,
 				graphicVisualCanvas,
 				partName,
-				overlaysCanvasObjectRef.current
-			);
+				canvasObject: overlaysCanvasObjectRef.current
+			});
 		} else {
-			updateGraphicVisualCanvas(
+			updateGraphicVisualCanvas({
+				design,
 				graphicVisualCanvas,
 				partName,
-				canvasObjectRef.current
-			);
+				canvasObject: canvasObjectRef.current
+			});
 		}
 	};
 
@@ -46,17 +48,17 @@ function DesignerContainer({
 			changeArray[1] === 'outerOverlay' ||
 			changeArray[1] === 'innerOverlay'
 		) {
-			overlayChangeManager(
+			overlayChangeManager({
 				changeArray,
 				design,
 				setDesign,
 				texture,
 				textureCanvas,
 				graphicVisualCanvas,
-				canvasObjectRef.current,
-				outerOverlayCanvas,
-				overlaysCanvasObjectRef.current
-			);
+				canvasObject: canvasObjectRef.current,
+				overlayCanvas: outerOverlayCanvas,
+				overlayCanvasObject: overlaysCanvasObjectRef.current
+			});
 		} else {
 			partChangeManager(
 				changeArray,
@@ -73,35 +75,37 @@ function DesignerContainer({
 	useEffect(() => {
 		if (!canvasObjectRef.current) {
 			const buildTexture = async () => {
-				overlaysCanvasObjectRef.current = await designObjectToCanvasObject(
+				overlaysCanvasObjectRef.current = await designObjectToCanvasObject({
 					design,
-					'overlaysCanvasObject'
-				);
-				overlayCanvasObjectToTextureCanvas(
-					overlaysCanvasObjectRef.current,
-					outerOverlayCanvas,
-					'outerOverlay',
+					type: 'overlaysCanvasObject'
+				});
+				overlayCanvasObjectToTextureCanvas({
+					design,
+					overlayCanvasObject: overlaysCanvasObjectRef.current,
+					overlayCanvas: outerOverlayCanvas,
+					partName: 'outerOverlay',
 					graphicVisualCanvas
-				);
-				overlayCanvasObjectToTextureCanvas(
-					overlaysCanvasObjectRef.current,
-					innerOverlayCanvas,
-					'innerOverlay',
+				});
+				overlayCanvasObjectToTextureCanvas({
+					design,
+					overlayCanvasObject: overlaysCanvasObjectRef.current,
+					overlayCanvas: innerOverlayCanvas,
+					partName: 'innerOverlay',
 					graphicVisualCanvas
-				);
+				});
 
-				canvasObjectRef.current = await designObjectToCanvasObject(
+				canvasObjectRef.current = await designObjectToCanvasObject({
 					design,
-					'partsCanvasObject',
-					[outerOverlayCanvas, innerOverlayCanvas]
-                );
+					type: 'partsCanvasObject',
+					overlays: [outerOverlayCanvas, innerOverlayCanvas]
+				});
 				const newCanvas = canvasObjectToTextureCanvas({
 					canvasObject: canvasObjectRef.current,
 					size: textureCanvas.height,
-					partsObject
-                });
-                textureCanvas.getContext('2d').drawImage(newCanvas,0,0);
-                
+					design
+				});
+				textureCanvas.getContext('2d').drawImage(newCanvas, 0, 0);
+
 				texture.needsUpdate = true;
 			};
 			buildTexture();

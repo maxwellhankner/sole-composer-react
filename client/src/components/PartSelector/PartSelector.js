@@ -1,13 +1,12 @@
 import React from 'react';
 import './PartSelector.css';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { partsArray } from '../../helpers/partsObject';
 import { handleConvertPartName } from '../../helpers/convertPartNames';
 
-function PartSelector({ currentPart, setCurrentPart, setFocusLayer }) {
+function PartSelector({ design, currentPart, setCurrentPart, setFocusLayer }) {
 
-  const numberOfParts = partsArray.length;
-  const arrayOfParts = partsArray;
+  const numberOfParts = design.config.partsArray.length;
+  const arrayOfParts = design.config.partsArray;
 
   const handlePartChange = (i) => {
     if (currentPart === 0 && i < 0) {

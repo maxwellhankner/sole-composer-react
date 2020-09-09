@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { partsObject } from '../../helpers/partsObject';
 import LayerDictionary from './Constants';
 import './LayersView.css';
 
@@ -17,7 +16,7 @@ function LayersView({
 	const [focusLayer, setFocusLayer] = useState();
 	const [layersView, setLayersView] = useState('LayerOverview');
 
-	const currentPartName = Object.keys(partsObject)[currentPart];
+	const currentPartName = Object.keys(design.config.partsObject)[currentPart];
 
 	let numberOfLayers;
 	let allLayers;
@@ -26,11 +25,11 @@ function LayersView({
 		currentPartName === 'outerOverlay' ||
 		currentPartName === 'innerOverlay'
 	) {
-		numberOfLayers = design.overlays[currentPartName].layers.length;
-		allLayers = design.overlays[currentPartName].layers;
+		numberOfLayers = design.outline.overlays[currentPartName].layers.length;
+		allLayers = design.outline.overlays[currentPartName].layers;
 	} else {
-		numberOfLayers = design.parts[currentPartName].layers.length;
-		allLayers = design.parts[currentPartName].layers;
+		numberOfLayers = design.outline.parts[currentPartName].layers.length;
+		allLayers = design.outline.parts[currentPartName].layers;
 	}
 
 	const handleAddLayer = (type) => {

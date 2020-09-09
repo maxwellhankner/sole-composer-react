@@ -2,7 +2,6 @@ import React from 'react';
 import './LayerOverview.css';
 import { handleConvertPartName } from '../../helpers/convertPartNames';
 import { FaChevronUp, FaChevronDown, FaPen, FaTimes } from 'react-icons/fa';
-import { partsArray } from '../../helpers/partsObject';
 import PartSelector from '../PartSelector/PartSelector';
 
 function LayerOverview({ props }) {
@@ -48,9 +47,9 @@ function LayerOverview({ props }) {
 			currentPartName === 'outerOverlay' ||
 			currentPartName === 'innerOverlay'
 		) {
-			array = tempDesign.overlays[currentPartName].layers;
+			array = tempDesign.outline.overlays[currentPartName].layers;
 		} else {
-			array = tempDesign.parts[currentPartName].layers;
+			array = tempDesign.outline.parts[currentPartName].layers;
 		}
 
 		if (layer === array.length - 1 && direction === 1) {
@@ -65,9 +64,9 @@ function LayerOverview({ props }) {
 				currentPartName === 'outerOverlay' ||
 				currentPartName === 'innerOverlay'
 			) {
-				tempDesign.overlays[currentPartName].layers = array;
+				tempDesign.outline.overlays[currentPartName].layers = array;
 			} else {
-				tempDesign.parts[currentPartName].layers = array;
+				tempDesign.outline.parts[currentPartName].layers = array;
 			}
 			handlePartChangeManager([
 				'layer-moved',
@@ -85,6 +84,7 @@ function LayerOverview({ props }) {
 			onClick={(e) => handleClearFocusLayer(e.target.className)}
 		>
 			<PartSelector
+				design={design}
 				currentPart={currentPart}
 				setCurrentPart={setCurrentPart}
 				setFocusLayer={setFocusLayer}
@@ -105,14 +105,14 @@ function LayerOverview({ props }) {
 						<div
 							className={`layer-list-item-end ${
 								focusLayer !== i ? 'hide-edit-buttons' : ''
-							}`}
+								}`}
 						>
 							<div
 								className={`edit-layer-button ${
 									i === numberOfLayers - 1
 										? 'edit-layer-button-dead'
 										: ''
-								}`}
+									}`}
 							>
 								<button onClick={() => handleMoveLayer(i, 1)}>
 									<FaChevronUp />
@@ -121,7 +121,7 @@ function LayerOverview({ props }) {
 							<div
 								className={`edit-layer-button ${
 									i === 0 ? 'edit-layer-button-dead' : ''
-								}`}
+									}`}
 							>
 								<button onClick={() => handleMoveLayer(i, -1)}>
 									<FaChevronDown />
@@ -131,14 +131,14 @@ function LayerOverview({ props }) {
 						<div
 							className={`layer-list-item-middle ${
 								focusLayer === i ? 'focus-layer-highlight' : ''
-							}`}
+								}`}
 							onClick={() => handleFocusLayer(i)}
 						>
 							<div className="layer-list-item-type">
 								{layer.type === 'overlay'
 									? handleConvertPartName(
-											layer.source
-									  ).toLowerCase()
+										layer.source
+									).toLowerCase()
 									: layer.type}
 							</div>
 
@@ -184,13 +184,13 @@ function LayerOverview({ props }) {
 									/>
 								</div>
 							) : (
-								<div></div>
-							)}
+											<div></div>
+										)}
 						</div>
 						<div
 							className={`layer-list-item-end ${
 								focusLayer !== i ? 'hide-edit-buttons' : ''
-							}`}
+								}`}
 						>
 							{layer.type === 'color' ? (
 								<div className="edit-layer-button">
@@ -226,19 +226,19 @@ function LayerOverview({ props }) {
 									</button>
 								</div>
 							) : (
-								<div className="edit-layer-button">
-									<button
-										onClick={() => {
-											setCurrentPart(
-												partsArray.indexOf(layer.source)
-											);
-											setFocusLayer(-1);
-										}}
-									>
-										<FaPen />
-									</button>
-								</div>
-							)}
+											<div className="edit-layer-button">
+												<button
+													onClick={() => {
+														setCurrentPart(
+															design.config.partsArray.indexOf(layer.source)
+														);
+														setFocusLayer(-1);
+													}}
+												>
+													<FaPen />
+												</button>
+											</div>
+										)}
 							{layer.type === 'overlay' ? (
 								<div className="edit-layer-button edit-layer-button-dead">
 									<button>
@@ -246,14 +246,14 @@ function LayerOverview({ props }) {
 									</button>
 								</div>
 							) : (
-								<div className="edit-layer-button">
-									<button
-										onClick={() => handleDeleteLayer(i)}
-									>
-										<FaTimes />
-									</button>
-								</div>
-							)}
+									<div className="edit-layer-button">
+										<button
+											onClick={() => handleDeleteLayer(i)}
+										>
+											<FaTimes />
+										</button>
+									</div>
+								)}
 						</div>
 					</div>
 				))}
