@@ -12,7 +12,7 @@ export const partChangeManager = (changeArray, design, setDesign, texture, textu
         const direction = changeArray[3];
         const distance = changeArray[4];
         const tempDesign = JSON.parse(JSON.stringify(design));
-        const thisLayer = tempDesign.parts[partName].layers[layerIndex];
+        const thisLayer = tempDesign.outline.parts[partName].layers[layerIndex];
         if (direction === 'vert') {
             thisLayer.y += distance;
         }
@@ -41,10 +41,10 @@ export const partChangeManager = (changeArray, design, setDesign, texture, textu
         const tempDesign = JSON.parse(JSON.stringify(design));
         let thisLayer;
         if (partName === 'outerOverlay' || partName === 'innerOverlay') {
-            thisLayer = tempDesign.overlays[partName].layers[layerIndex];
+            thisLayer = tempDesign.outline.overlays[partName].layers[layerIndex];
         }
         else {
-            thisLayer = tempDesign.parts[partName].layers[layerIndex];
+            thisLayer = tempDesign.outline.parts[partName].layers[layerIndex];
         }
 
         thisLayer.color = newColor;
@@ -56,13 +56,13 @@ export const partChangeManager = (changeArray, design, setDesign, texture, textu
         const type = changeArray[2];
         const tempDesign = JSON.parse(JSON.stringify(design));
         if (type === 'Color') {
-            tempDesign.parts[partName].layers.push({
+            tempDesign.outline.parts[partName].layers.push({
                 type: 'color',
                 color: '#777777'
             });
         }
         else if (type === 'Graphic') {
-            tempDesign.parts[partName].layers.push({
+            tempDesign.outline.parts[partName].layers.push({
                 type: 'graphic',
                 link: 'assets/images/japanese.png',
                 x: 0,
@@ -73,7 +73,7 @@ export const partChangeManager = (changeArray, design, setDesign, texture, textu
         }
         else {
             const maskLink = changeArray[4];
-            tempDesign.parts[partName].layers.push(
+            tempDesign.outline.parts[partName].layers.push(
                 {
                     type: 'mask',
                     link: maskLink,
@@ -82,7 +82,7 @@ export const partChangeManager = (changeArray, design, setDesign, texture, textu
             )
         }
         setDesign(tempDesign);
-        const layerObject = tempDesign.parts[partName].layers.slice(-1)[0];
+        const layerObject = tempDesign.outline.parts[partName].layers.slice(-1)[0];
         addLayerToCanvasObject({
 			canvasObject,
 			graphicVisualCanvas,
@@ -98,11 +98,11 @@ export const partChangeManager = (changeArray, design, setDesign, texture, textu
         const layerIndex = changeArray[2]
         const direction = changeArray[3]
         const tempDesign = JSON.parse(JSON.stringify(design));
-        let array = tempDesign.parts[partName].layers
+        let array = tempDesign.outline.parts[partName].layers
         let tempElement = array[layerIndex]
         array[layerIndex] = array[layerIndex + direction]
         array[layerIndex + direction] = tempElement
-        tempDesign.parts[partName].layers = array;
+        tempDesign.outline.parts[partName].layers = array;
         setDesign(tempDesign)
         moveLayerInCanvasObject(canvasObject, partName, layerIndex, direction, textureCanvas, texture, graphicVisualCanvas, design)
     }
@@ -110,7 +110,7 @@ export const partChangeManager = (changeArray, design, setDesign, texture, textu
         const partName = changeArray[1]
         const layerIndex = changeArray[2]
         const tempDesign = JSON.parse(JSON.stringify(design));
-        tempDesign.parts[partName].layers.splice(layerIndex, 1);
+        tempDesign.outline.parts[partName].layers.splice(layerIndex, 1);
         setDesign(tempDesign);
         deleteLayerFromCanvasObject(canvasObject, partName, layerIndex, textureCanvas, texture, graphicVisualCanvas, design);
     }

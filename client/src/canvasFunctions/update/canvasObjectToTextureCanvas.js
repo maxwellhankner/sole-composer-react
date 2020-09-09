@@ -1,5 +1,6 @@
 // turn canvasObject into a finalTexture
 export const canvasObjectToTextureCanvas = ({ canvasObject, size, design }) => {
+    console.log('canvasObjectToTextureCanvas', canvasObject)
     const canvas = document.createElement("canvas");
     canvas.width = size;
     canvas.height = size;

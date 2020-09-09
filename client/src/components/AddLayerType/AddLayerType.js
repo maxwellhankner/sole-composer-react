@@ -1,20 +1,18 @@
 import React from 'react';
 import './AddLayerType.css';
-import { layerTypes } from '../../helpers/partsObject';
 
 function AddLayerType({ props }) {
-	const { currentPartName, handleAddLayer, setLayersView } = props;
+	const { design, currentPartName, handleAddLayer, setLayersView } = props;
 	return (
 		<div className="design-preview-container">
 			<div className="view-title">
 				<p>Select Layer Type</p>
 			</div>
-			{layerTypes[currentPartName].types.map((type, i) => (
+			{design.config.layerTypes[currentPartName].types.map((type, i) => (
 				<div key={i} className="change-view-button">
 					{type === 'Mask' ? (
 						<button
 							onClick={() => {
-								console.log('yo')
 								setLayersView('MaskTypes');
 							}}
 						>

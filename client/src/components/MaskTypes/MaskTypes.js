@@ -1,16 +1,15 @@
 import React from 'react';
 import './MaskTypes.css';
-import { maskTypes } from '../../helpers/partsObject';
 
 function MaskTypes({ props }) {
-	const { currentPartName, handleAddMaskLayer, setLayersView } = props;
+	const { design, currentPartName, handleAddMaskLayer, setLayersView } = props;
 	return (
 		<div className="design-preview-container">
 			<div className="view-title">
 				<p>Select Mask Type</p>
 			</div>
 
-			{maskTypes[currentPartName].map((type, i) => (
+			{design.config.maskTypes[currentPartName].map((type, i) => (
 				<div key={i} className="change-view-button">
 					<button
 						onClick={() => {

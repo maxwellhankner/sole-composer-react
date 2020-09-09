@@ -9,14 +9,12 @@ import {
 } from '../../canvasFunctions';
 
 function Designer() {
-
-	const [designSpec, setDesignSpec] = useState();
-	const [graphicVisualCanvas] = useState(createGraphicVisualCanvas());
-	const [innerOverlayCanvas] = useState(createCanvas());
-	const [outerOverlayCanvas] = useState(createCanvas());
-
-	const [textureCanvas] = useState(createCanvas());
-	const [texture] = useState(createTexture(textureCanvas));
+	const [designSpec, setDesignSpec] = useState(null);
+	const [graphicVisualCanvas, setGraphicVisualCanvas] = useState(null);
+	const [innerOverlayCanvas, setInnerOverlayCanvas] = useState(null);
+	const [outerOverlayCanvas, setOuterOverlayCanvas] = useState(null);
+	const [textureCanvas, setTextureCanvas] = useState(null);
+	const [texture, setTexture] = useState(null);
 
 	useEffect(() => {
 		fetch('/api/design')
@@ -26,8 +24,31 @@ function Designer() {
 			});
 	}, []);
 
-	if (designSpec) {
-		
+	useEffect(() => {
+		if (designSpec) {
+			setGraphicVisualCanvas(createGraphicVisualCanvas({ design: designSpec }));
+			setInnerOverlayCanvas(createCanvas({ design: designSpec }));
+			setOuterOverlayCanvas(createCanvas({ design: designSpec }));
+			setTextureCanvas(createCanvas({ design: designSpec }));
+		}
+	}, [designSpec]);
+
+	useEffect(() => {
+		if (textureCanvas) {
+			setTexture(createTexture(textureCanvas));
+		}
+	}, [textureCanvas]);
+
+	const initialized =
+		designSpec &&
+		graphicVisualCanvas &&
+		innerOverlayCanvas &&
+		outerOverlayCanvas &&
+		textureCanvas &&
+		texture;
+
+	if (initialized) {
+
 		return (
 			<div className="designer-root-container">
 				<NavBar />
