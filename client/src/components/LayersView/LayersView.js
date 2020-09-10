@@ -33,18 +33,22 @@ function LayersView({
 	}
 
 	const handleAddLayer = (type) => {
-		handlePartChangeManager(['layer-added', currentPartName, type]);
+		handlePartChangeManager({
+			type: 'layer-added',
+			partName: currentPartName,
+			layerType: type
+		});
 		setFocusLayer(numberOfLayers);
 	};
 
 	const handleAddMaskLayer = (maskType, maskLink) => {
-		handlePartChangeManager([
-			'layer-added',
-			currentPartName,
-			'Mask',
+		handlePartChangeManager({
+			type: 'layer-added',
+			partName: currentPartName,
+			layerType: 'Mask',
 			maskType,
 			maskLink,
-		]);
+		});
 		setFocusLayer(numberOfLayers);
 	};
 

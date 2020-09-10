@@ -35,7 +35,11 @@ function LayerOverview({ props }) {
 	};
 
 	const handleDeleteLayer = (layer) => {
-		handlePartChangeManager(['layer-deleted', currentPartName, layer]);
+		handlePartChangeManager({
+			type: 'layer-deleted',
+			partName: currentPartName,
+			layerIndex: layer
+		});
 		setFocusLayer(-1);
 	};
 
@@ -68,12 +72,12 @@ function LayerOverview({ props }) {
 			} else {
 				tempDesign.outline.parts[currentPartName].layers = array;
 			}
-			handlePartChangeManager([
-				'layer-moved',
-				currentPartName,
-				layer,
+			handlePartChangeManager({
+				type: 'layer-moved',
+				partName: currentPartName,
+				layerIndex: layer,
 				direction,
-			]);
+			});
 			setFocusLayer(focusLayer + direction);
 		}
 	};
