@@ -44,23 +44,6 @@ function DesignerContainer({
 	};
 
 	const handlePartChangeManager = (changeArray) => {
-		console.log('change', changeArray);
-		// if (
-		// 	changeArray[1] === 'outerOverlay' ||
-		// 	changeArray[1] === 'innerOverlay'
-		// ) {
-		// 	overlayChangeManager({
-		// 		changeArray,
-		// 		design,
-		// 		setDesign,
-		// 		texture,
-		// 		textureCanvas,
-		// 		graphicVisualCanvas,
-		// 		canvasObject: canvasObjectRef.current,
-		// 		overlayCanvas: outerOverlayCanvas,
-		// 		overlayCanvasObject: overlaysCanvasObjectRef.current
-		// 	});
-		// }
 		if ( changeArray[1] === 'outerOverlay' ) {
 			overlayChangeManager({
 				changeArray,
