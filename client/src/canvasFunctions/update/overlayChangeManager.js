@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import {
     createColorLayerCanvas,
     createGraphicLayerCanvas,
@@ -8,10 +9,9 @@ import {
 //------------------------------------------- Overlay Change Functions
 export const overlayChangeManager = ({ changeObject, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObject, overlayCanvas, overlayCanvasObject }) => {
     const { type } = changeObject;
+    const tempDesign = cloneDeep(design);
     if (type === 'graphic-moved') {
         const { partName, layerIndex, direction, distance } = changeObject; 
-        const tempDesign = JSON.parse(JSON.stringify(design));
-        // tempDesign = ...design
         const thisLayer = tempDesign.outline.overlays[partName].layers[layerIndex];
         if (direction === 'vert') {
             thisLayer.y += distance;
@@ -37,7 +37,6 @@ export const overlayChangeManager = ({ changeObject, design, setDesign, texture,
     }
     else if (type === 'color-changed') {
         const { partName, layerIndex, newColor } = changeObject;
-        const tempDesign = JSON.parse(JSON.stringify(design));
         let thisLayer = tempDesign.outline.overlays[partName].layers[layerIndex];
         thisLayer.color = newColor;
 
@@ -46,7 +45,6 @@ export const overlayChangeManager = ({ changeObject, design, setDesign, texture,
     }
     else if (type === 'layer-added') {
         const { partName, layerType } = changeObject;
-        const tempDesign = JSON.parse(JSON.stringify(design));
         // add layers to design if this is the first overlay layer added
         if (design.outline.overlays[partName].layers.length === 0) {
             const effectedParts = design.config.overlayParts[partName];
@@ -82,7 +80,6 @@ export const overlayChangeManager = ({ changeObject, design, setDesign, texture,
     }
     else if (type === 'layer-moved') {
         const { partName, layerIndex, direction } = changeObject;
-        const tempDesign = JSON.parse(JSON.stringify(design));
         let array = tempDesign.outline.overlays[partName].layers
         let tempElement = array[layerIndex]
         array[layerIndex] = array[layerIndex + direction]
@@ -94,7 +91,6 @@ export const overlayChangeManager = ({ changeObject, design, setDesign, texture,
     }
     else if (type === 'layer-deleted') {
         const { partName, layerIndex } = changeObject;
-        const tempDesign = JSON.parse(JSON.stringify(design));
         tempDesign.outline.overlays[partName].layers.splice(layerIndex, 1);
         if (tempDesign.outline.overlays[partName].layers.length === 0) {
             // remove layers from design if this is the last overlay layer deleted

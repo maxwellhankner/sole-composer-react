@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import {
     createColorLayerCanvas,
     createGraphicLayerCanvas,
@@ -7,9 +8,9 @@ import {
 //------------------------------------------- Part Change Functions
 export const partChangeManager = ({ changeObject, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObject }) => {
     const { type } = changeObject;
+    const tempDesign = cloneDeep(design);
     if (type === 'graphic-moved') {
         const { partName, layerIndex, direction, distance } = changeObject;
-        const tempDesign = JSON.parse(JSON.stringify(design));
         const thisLayer = tempDesign.outline.parts[partName].layers[layerIndex];
         if (direction === 'vert') {
             thisLayer.y += distance;
@@ -35,7 +36,6 @@ export const partChangeManager = ({ changeObject, design, setDesign, texture, te
     }
     else if (type === 'color-changed') {
         const { partName, layerIndex, newColor } = changeObject;
-        const tempDesign = JSON.parse(JSON.stringify(design));
         let thisLayer;
         if (partName === 'outerOverlay' || partName === 'innerOverlay') {
             thisLayer = tempDesign.outline.overlays[partName].layers[layerIndex];
@@ -50,7 +50,6 @@ export const partChangeManager = ({ changeObject, design, setDesign, texture, te
     }
     else if (type === 'layer-added') {
         const { partName, layerType } = changeObject;
-        const tempDesign = JSON.parse(JSON.stringify(design));
         if (layerType === 'Color') {
             tempDesign.outline.parts[partName].layers.push({
                 type: 'color',
@@ -92,7 +91,6 @@ export const partChangeManager = ({ changeObject, design, setDesign, texture, te
     }
     else if (type === 'layer-moved') {
         const { partName, layerIndex, direction } = changeObject;
-        const tempDesign = JSON.parse(JSON.stringify(design));
         let array = tempDesign.outline.parts[partName].layers
         let tempElement = array[layerIndex]
         array[layerIndex] = array[layerIndex + direction]
@@ -104,7 +102,6 @@ export const partChangeManager = ({ changeObject, design, setDesign, texture, te
     }
     else if (type === 'layer-deleted') {
         const { partName, layerIndex } = changeObject;
-        const tempDesign = JSON.parse(JSON.stringify(design));
         tempDesign.outline.parts[partName].layers.splice(layerIndex, 1);
 
         setDesign(tempDesign);
