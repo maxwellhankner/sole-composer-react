@@ -1,4 +1,5 @@
 import React from 'react';
+import {cloneDeep} from 'lodash';
 import './LayerOverview.css';
 import { handleConvertPartName } from '../../helpers/convertPartNames';
 import { FaChevronUp, FaChevronDown, FaPen, FaTimes } from 'react-icons/fa';
@@ -44,7 +45,7 @@ function LayerOverview({ props }) {
 	};
 
 	const handleMoveLayer = (layer, direction) => {
-		const tempDesign = JSON.parse(JSON.stringify(design));
+		const tempDesign = cloneDeep(design);
 		let array;
 
 		if (
