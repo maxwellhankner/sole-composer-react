@@ -27,7 +27,10 @@ app.get('/api/design', (req, res) => {
                 },
                 innerOverlay: {
                     layers: [
-    
+                        {
+                            type: 'color',
+                            color: '#999944'
+                        }
                     ]
                 }
             },
@@ -49,6 +52,10 @@ app.get('/api/design', (req, res) => {
                         {
                             type: 'color',
                             color: '#ffffff'
+                        },
+                        {
+                            type: 'overlay',
+                            source: 'innerOverlay'
                         }
                     ]
                 },
@@ -69,6 +76,10 @@ app.get('/api/design', (req, res) => {
                         {
                             type: 'color',
                             color: '#ffffff'
+                        },
+                        {
+                            type: 'overlay',
+                            source: 'innerOverlay'
                         }
                     ]
                 },
@@ -89,6 +100,10 @@ app.get('/api/design', (req, res) => {
                         {
                             type: 'color',
                             color: '#ffffff'
+                        },
+                        {
+                            type: 'overlay',
+                            source: 'innerOverlay'
                         }
                     ]
                 },
@@ -109,6 +124,10 @@ app.get('/api/design', (req, res) => {
                         {
                             type: 'color',
                             color: '#ffffff'
+                        },
+                        {
+                            type: 'overlay',
+                            source: 'innerOverlay'
                         }
                     ]
                 },
@@ -129,6 +148,10 @@ app.get('/api/design', (req, res) => {
                         {
                             type: 'overlay',
                             source: 'outerOverlay'
+                        },
+                        {
+                            type: 'overlay',
+                            source: 'innerOverlay'
                         }
                     ]
                 },
@@ -141,6 +164,10 @@ app.get('/api/design', (req, res) => {
                         {
                             type: 'overlay',
                             source: 'outerOverlay'
+                        },
+                        {
+                            type: 'overlay',
+                            source: 'innerOverlay'
                         }
                     ]
                 },
@@ -161,6 +188,10 @@ app.get('/api/design', (req, res) => {
                         {
                             type: 'overlay',
                             source: 'outerOverlay'
+                        },
+                        {
+                            type: 'overlay',
+                            source: 'innerOverlay'
                         }
                     ]
                 },
@@ -189,6 +220,10 @@ app.get('/api/design', (req, res) => {
                         {
                             type: 'overlay',
                             source: 'outerOverlay'
+                        },
+                        {
+                            type: 'overlay',
+                            source: 'innerOverlay'
                         }
                     ]
                 },
@@ -201,6 +236,10 @@ app.get('/api/design', (req, res) => {
                         {
                             type: 'overlay',
                             source: 'outerOverlay'
+                        },
+                        {
+                            type: 'overlay',
+                            source: 'innerOverlay'
                         }
                     ]
                 },
