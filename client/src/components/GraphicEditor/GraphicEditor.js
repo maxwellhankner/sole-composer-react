@@ -22,13 +22,13 @@ function GraphicEditor({ props }) {
 	} = props;
 
 	const handleMoveGraphic = (direction, distance) => {
-		handlePartChangeManager([
-			'graphic-moved',
-			currentPartName,
-			currentLayer,
+		handlePartChangeManager({
+			type: 'graphic-moved',
+			partName: currentPartName,
+			layerIndex: currentLayer,
 			direction,
 			distance,
-		]);
+		});
 	};
 
 	useEffect(() => {

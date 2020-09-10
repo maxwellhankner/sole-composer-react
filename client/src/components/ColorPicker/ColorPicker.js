@@ -52,12 +52,12 @@ function ColorPicker({ props }) {
 	const handleColorChange = (color) => {
 		const newColor = color.hex || color;
 		setCurrentColor(color);
-		handlePartChangeManager([
-			'color-changed',
-			currentPartName,
-			currentLayer,
+		handlePartChangeManager({
+			type: 'color-changed',
+			partName: currentPartName,
+			layerIndex: currentLayer,
 			newColor,
-		]);
+		});
 	};
 
 	return (

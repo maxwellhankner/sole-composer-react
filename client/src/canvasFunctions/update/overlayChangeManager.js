@@ -6,14 +6,10 @@ import {
 } from '../index';
 
 //------------------------------------------- Overlay Change Functions
-export const overlayChangeManager = ({ changeArray, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObject, overlayCanvas, overlayCanvasObject }) => {
-    document.body.appendChild(overlayCanvas);
-    // update design
-    if (changeArray[0] === 'graphic-moved') {
-        const partName = changeArray[1];
-        const layerIndex = changeArray[2];
-        const direction = changeArray[3];
-        const distance = changeArray[4];
+export const overlayChangeManager = ({ changeObject, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObject, overlayCanvas, overlayCanvasObject }) => {
+    const { type } = changeObject;
+    if (type === 'graphic-moved') {
+        const { partName, layerIndex, direction, distance } = changeObject; 
         const tempDesign = JSON.parse(JSON.stringify(design));
         // tempDesign = ...design
         const thisLayer = tempDesign.outline.overlays[partName].layers[layerIndex];
@@ -39,10 +35,8 @@ export const overlayChangeManager = ({ changeArray, design, setDesign, texture, 
         setDesign(tempDesign);
         updateOverlayLayer(partName, layerIndex, thisLayer, overlayCanvasObject, overlayCanvas, texture, graphicVisualCanvas, design, canvasObject, textureCanvas);
     }
-    else if (changeArray[0] === 'color-changed') {
-        const partName = changeArray[1]
-        const layerIndex = changeArray[2];
-        const newColor = changeArray[3]
+    else if (type === 'color-changed') {
+        const { partName, layerIndex, newColor } = changeObject;
         const tempDesign = JSON.parse(JSON.stringify(design));
         let thisLayer = tempDesign.outline.overlays[partName].layers[layerIndex];
         thisLayer.color = newColor;
@@ -50,9 +44,8 @@ export const overlayChangeManager = ({ changeArray, design, setDesign, texture, 
         setDesign(tempDesign);
         updateOverlayLayer(partName, layerIndex, thisLayer, overlayCanvasObject, overlayCanvas, texture, graphicVisualCanvas, design, canvasObject, textureCanvas)
     }
-    else if (changeArray[0] === 'layer-added') {
-        const partName = changeArray[1]
-        const type = changeArray[2]
+    else if (type === 'layer-added') {
+        const { partName, layerType } = changeObject;
         const tempDesign = JSON.parse(JSON.stringify(design));
         // add layers to design if this is the first overlay layer added
         if (design.outline.overlays[partName].layers.length === 0) {
@@ -67,7 +60,7 @@ export const overlayChangeManager = ({ changeArray, design, setDesign, texture, 
                 )
             }
         }
-        if (type === 'Color') {
+        if (layerType === 'Color') {
             tempDesign.outline.overlays[partName].layers.push({
                 type: 'color',
                 color: '#777777'
@@ -83,13 +76,12 @@ export const overlayChangeManager = ({ changeArray, design, setDesign, texture, 
                 rotation: 0
             });
         }
+
         setDesign(tempDesign)
         addLayerToOverlayCanvasObject(overlayCanvasObject, partName, tempDesign.outline.overlays[partName].layers.slice(-1)[0], overlayCanvas, texture, graphicVisualCanvas, design, textureCanvas, canvasObject, tempDesign)
     }
-    else if (changeArray[0] === 'layer-moved') {
-        const partName = changeArray[1]
-        const layerIndex = changeArray[2]
-        const direction = changeArray[3]
+    else if (type === 'layer-moved') {
+        const { partName, layerIndex, direction } = changeObject;
         const tempDesign = JSON.parse(JSON.stringify(design));
         let array = tempDesign.outline.overlays[partName].layers
         let tempElement = array[layerIndex]
@@ -100,9 +92,8 @@ export const overlayChangeManager = ({ changeArray, design, setDesign, texture, 
         setDesign(tempDesign)
         moveLayerInOverlayCanvasObject(overlayCanvasObject, partName, layerIndex, direction, overlayCanvas, texture, graphicVisualCanvas, design, textureCanvas, canvasObject)
     }
-    else if (changeArray[0] === 'layer-deleted') {
-        const partName = changeArray[1]
-        const layerIndex = changeArray[2]
+    else if (type === 'layer-deleted') {
+        const { partName, layerIndex } = changeObject;
         const tempDesign = JSON.parse(JSON.stringify(design));
         tempDesign.outline.overlays[partName].layers.splice(layerIndex, 1);
         if (tempDesign.outline.overlays[partName].layers.length === 0) {
