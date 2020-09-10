@@ -7,6 +7,7 @@ import {
 
 //------------------------------------------- Overlay Change Functions
 export const overlayChangeManager = ({ changeArray, design, setDesign, texture, textureCanvas, graphicVisualCanvas, canvasObject, overlayCanvas, overlayCanvasObject }) => {
+    document.body.appendChild(overlayCanvas);
     // update design
     if (changeArray[0] === 'graphic-moved') {
         const partName = changeArray[1];

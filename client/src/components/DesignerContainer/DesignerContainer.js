@@ -44,10 +44,24 @@ function DesignerContainer({
 	};
 
 	const handlePartChangeManager = (changeArray) => {
-		if (
-			changeArray[1] === 'outerOverlay' ||
-			changeArray[1] === 'innerOverlay'
-		) {
+		console.log('change', changeArray);
+		// if (
+		// 	changeArray[1] === 'outerOverlay' ||
+		// 	changeArray[1] === 'innerOverlay'
+		// ) {
+		// 	overlayChangeManager({
+		// 		changeArray,
+		// 		design,
+		// 		setDesign,
+		// 		texture,
+		// 		textureCanvas,
+		// 		graphicVisualCanvas,
+		// 		canvasObject: canvasObjectRef.current,
+		// 		overlayCanvas: outerOverlayCanvas,
+		// 		overlayCanvasObject: overlaysCanvasObjectRef.current
+		// 	});
+		// }
+		if ( changeArray[1] === 'outerOverlay' ) {
 			overlayChangeManager({
 				changeArray,
 				design,
@@ -59,7 +73,21 @@ function DesignerContainer({
 				overlayCanvas: outerOverlayCanvas,
 				overlayCanvasObject: overlaysCanvasObjectRef.current
 			});
-		} else {
+		}
+		else if ( changeArray[1] === 'innerOverlay' ) {
+			overlayChangeManager({
+				changeArray,
+				design,
+				setDesign,
+				texture,
+				textureCanvas,
+				graphicVisualCanvas,
+				canvasObject: canvasObjectRef.current,
+				overlayCanvas: innerOverlayCanvas,
+				overlayCanvasObject: overlaysCanvasObjectRef.current
+			});
+		}
+		else {
 			partChangeManager(
 				changeArray,
 				design,
