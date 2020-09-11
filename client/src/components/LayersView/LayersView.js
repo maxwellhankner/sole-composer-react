@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import LayerDictionary from "./Constants";
-import "./LayersView.css";
+import React, { useState } from 'react';
+import LayerDictionary from './Constants';
+import './LayersView.css';
 
 function LayersView({
   currentLayer,
@@ -14,7 +14,7 @@ function LayersView({
   setCurrentPart,
 }) {
   const [focusLayer, setFocusLayer] = useState();
-  const [layersView, setLayersView] = useState("LayerOverview");
+  const [layersView, setLayersView] = useState('LayerOverview');
 
   const currentPartName = Object.keys(design.config.partsObject)[currentPart];
 
@@ -22,8 +22,8 @@ function LayersView({
   let allLayers;
 
   if (
-    currentPartName === "outerOverlay" ||
-    currentPartName === "innerOverlay"
+    currentPartName === 'outerOverlay' ||
+    currentPartName === 'innerOverlay'
   ) {
     numberOfLayers = design.outline.overlays[currentPartName].layers.length;
     allLayers = design.outline.overlays[currentPartName].layers;
@@ -34,7 +34,7 @@ function LayersView({
 
   const handleAddLayer = (type) => {
     handlePartChangeManager({
-      type: "layer-added",
+      type: 'layer-added',
       partName: currentPartName,
       layerType: type,
     });
@@ -43,9 +43,9 @@ function LayersView({
 
   const handleAddMaskLayer = (maskType, maskLink) => {
     handlePartChangeManager({
-      type: "layer-added",
+      type: 'layer-added',
       partName: currentPartName,
-      layerType: "Mask",
+      layerType: 'Mask',
       maskType,
       maskLink,
     });

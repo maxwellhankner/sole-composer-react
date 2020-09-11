@@ -1,7 +1,7 @@
-import React from "react";
-import "./PartSelector.css";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { handleConvertPartName } from "../../helpers/convertPartNames";
+import React from 'react';
+import './PartSelector.css';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { handleConvertPartName } from '../../helpers/convertPartNames';
 
 function PartSelector({ design, currentPart, setCurrentPart, setFocusLayer }) {
   const numberOfParts = design.config.partsArray.length;
@@ -18,7 +18,7 @@ function PartSelector({ design, currentPart, setCurrentPart, setFocusLayer }) {
   };
 
   return (
-    <div className="part-selector-container">
+    <div className='part-selector-container'>
       <div>
         <button
           onClick={() => {

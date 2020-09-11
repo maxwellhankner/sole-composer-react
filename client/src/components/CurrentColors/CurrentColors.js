@@ -1,10 +1,10 @@
-import React from "react";
-import "./CurrentColors.css";
+import React from 'react';
+import './CurrentColors.css';
 
 function CurrentColors({ colorsArray, handleColorChange }) {
   return (
-    <div className="current-colors-container">
-      <div className="current-colors-scroll">
+    <div className='current-colors-container'>
+      <div className='current-colors-scroll'>
         {colorsArray.map((color, i) => (
           <button
             key={i}

@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./Scene.css";
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import React, { useEffect, useRef, useState } from 'react';
+import './Scene.css';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const Scene = ({ design, texture }) => {
   const canvasRef = useRef(null);
@@ -13,7 +13,7 @@ const Scene = ({ design, texture }) => {
 
   const createMaterial = (texture) => {
     const aoimg = new Image();
-    aoimg.src = "assets/images/ao_diffuse.png";
+    aoimg.src = 'assets/images/ao_diffuse.png';
     const ao = new THREE.CanvasTexture(aoimg);
     ao.flipY = false;
 
@@ -89,7 +89,7 @@ const Scene = ({ design, texture }) => {
         }
       };
 
-      window.addEventListener("resize", resizecanvas);
+      window.addEventListener('resize', resizecanvas);
 
       //===================================================== animate
       const render = () => {
@@ -112,7 +112,7 @@ const Scene = ({ design, texture }) => {
   }, [newMaterial, renderer, design.config.source]);
 
   return (
-    <div className="scene-container" ref={canvasRef}>
+    <div className='scene-container' ref={canvasRef}>
       {isLoading && <LoadingSpinner />}
     </div>
   );

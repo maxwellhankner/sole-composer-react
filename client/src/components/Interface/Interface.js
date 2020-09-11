@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import "./Interface.css";
-import DesignPreview from "../DesignPreview/DesignPreview";
-import LayersView from "../LayersView/LayersView";
+import React, { useState } from 'react';
+import './Interface.css';
+import DesignPreview from '../DesignPreview/DesignPreview';
+import LayersView from '../LayersView/LayersView';
 
 function Interface({
   design,
@@ -12,21 +12,21 @@ function Interface({
 }) {
   const [currentPart, setCurrentPart] = useState(0);
   const [currentLayer, setCurrentLayer] = useState(0);
-  const [view, setView] = useState("DesignPreview");
+  const [view, setView] = useState('DesignPreview');
 
   const handleViewChange = (viewChange) => {
     setView(viewChange);
   };
 
-  if (view === "DesignPreview") {
+  if (view === 'DesignPreview') {
     return (
-      <div className="interface-container">
+      <div className='interface-container'>
         <DesignPreview handleViewChange={handleViewChange} />
       </div>
     );
-  } else if (view === "Layers") {
+  } else if (view === 'Layers') {
     return (
-      <div className="interface-container">
+      <div className='interface-container'>
         <LayersView
           handleViewChange={handleViewChange}
           design={design}

@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./DesignerContainer.css";
-import Scene from "../../components/Scene/Scene.js";
-import Interface from "../../components/Interface/Interface.js";
+import React, { useState, useEffect, useRef } from 'react';
+import './DesignerContainer.css';
+import Scene from '../../components/Scene/Scene.js';
+import Interface from '../../components/Interface/Interface.js';
 import {
   designObjectToCanvasObject,
   updateGraphicVisualCanvas,
   partChangeManager,
   overlayCanvasObjectToTextureCanvas,
   overlayChangeManager,
-} from "../../canvasFunctions";
-import { canvasObjectToTextureCanvas } from "../../canvasFunctions";
+} from '../../canvasFunctions';
+import { canvasObjectToTextureCanvas } from '../../canvasFunctions';
 
 function DesignerContainer({
   designSpec,
@@ -25,7 +25,7 @@ function DesignerContainer({
   const overlaysCanvasObjectRef = useRef();
 
   const handleUpdateGraphicVisualCanvas = (partName) => {
-    if (partName === "outerOverlay" || partName === "innerOverlay") {
+    if (partName === 'outerOverlay' || partName === 'innerOverlay') {
       updateGraphicVisualCanvas({
         design,
         graphicVisualCanvas,
@@ -44,7 +44,7 @@ function DesignerContainer({
 
   const handlePartChangeManager = (changeObject) => {
     const { partName } = changeObject;
-    if (partName === "outerOverlay") {
+    if (partName === 'outerOverlay') {
       overlayChangeManager({
         changeObject,
         design,
@@ -56,7 +56,7 @@ function DesignerContainer({
         overlayCanvas: outerOverlayCanvas,
         overlayCanvasObject: overlaysCanvasObjectRef.current,
       });
-    } else if (partName === "innerOverlay") {
+    } else if (partName === 'innerOverlay') {
       overlayChangeManager({
         changeObject,
         design,
@@ -86,26 +86,26 @@ function DesignerContainer({
       const buildTexture = async () => {
         overlaysCanvasObjectRef.current = await designObjectToCanvasObject({
           design,
-          type: "overlaysCanvasObject",
+          type: 'overlaysCanvasObject',
         });
         overlayCanvasObjectToTextureCanvas({
           design,
           overlayCanvasObject: overlaysCanvasObjectRef.current,
           overlayCanvas: outerOverlayCanvas,
-          partName: "outerOverlay",
+          partName: 'outerOverlay',
           graphicVisualCanvas,
         });
         overlayCanvasObjectToTextureCanvas({
           design,
           overlayCanvasObject: overlaysCanvasObjectRef.current,
           overlayCanvas: innerOverlayCanvas,
-          partName: "innerOverlay",
+          partName: 'innerOverlay',
           graphicVisualCanvas,
         });
 
         canvasObjectRef.current = await designObjectToCanvasObject({
           design,
-          type: "partsCanvasObject",
+          type: 'partsCanvasObject',
           overlays: [outerOverlayCanvas, innerOverlayCanvas],
         });
         const newCanvas = canvasObjectToTextureCanvas({
@@ -113,7 +113,7 @@ function DesignerContainer({
           size: textureCanvas.height,
           design,
         });
-        textureCanvas.getContext("2d").drawImage(newCanvas, 0, 0);
+        textureCanvas.getContext('2d').drawImage(newCanvas, 0, 0);
 
         texture.needsUpdate = true;
       };
@@ -122,7 +122,7 @@ function DesignerContainer({
   });
 
   return (
-    <div className="designer-container">
+    <div className='designer-container'>
       <Scene design={design} texture={texture} textureCanvas={textureCanvas} />
       <Interface
         design={design}

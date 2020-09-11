@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import "./ColorPicker.css";
-import { handleConvertPartName } from "../../helpers/convertPartNames";
-import CurrentColors from "../CurrentColors/CurrentColors";
-import CustomColor from "../CustomColor/CustomColor";
+import React, { useState, useEffect } from 'react';
+import './ColorPicker.css';
+import { handleConvertPartName } from '../../helpers/convertPartNames';
+import CurrentColors from '../CurrentColors/CurrentColors';
+import CustomColor from '../CustomColor/CustomColor';
 
 function ColorPicker({ props }) {
   const {
@@ -13,7 +13,7 @@ function ColorPicker({ props }) {
     setLayersView,
   } = props;
 
-  const [currentColor, setCurrentColor] = useState("#ffffaa");
+  const [currentColor, setCurrentColor] = useState('#ffffaa');
   const [colorsArray, setColorsArray] = useState([]);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function ColorPicker({ props }) {
       const colors = [];
       for (const property in design.outline.parts) {
         for (const layer in design.outline.parts[property].layers) {
-          if (design.outline.parts[property].layers[layer].type === "color") {
+          if (design.outline.parts[property].layers[layer].type === 'color') {
             const thisColor =
               design.outline.parts[property].layers[layer].color;
             if (!colors.includes(thisColor)) {
@@ -36,8 +36,8 @@ function ColorPicker({ props }) {
     setColorsArray(getDesignColors());
 
     if (
-      currentPartName === "outerOverlay" ||
-      currentPartName === "innerOverlay"
+      currentPartName === 'outerOverlay' ||
+      currentPartName === 'innerOverlay'
     ) {
       setCurrentColor(
         design.outline.overlays[currentPartName].layers[currentLayer].color
@@ -53,7 +53,7 @@ function ColorPicker({ props }) {
     const newColor = color.hex || color;
     setCurrentColor(color);
     handlePartChangeManager({
-      type: "color-changed",
+      type: 'color-changed',
       partName: currentPartName,
       layerIndex: currentLayer,
       newColor,
@@ -61,15 +61,15 @@ function ColorPicker({ props }) {
   };
 
   return (
-    <div className="color-picker-container">
-      <div className="view-title">
+    <div className='color-picker-container'>
+      <div className='view-title'>
         <p>{handleConvertPartName(currentPartName)}</p>
       </div>
-      <div className="random-color">
+      <div className='random-color'>
         <button
           onClick={() =>
             handleColorChange(
-              "#" + Math.floor(Math.random() * 16777215).toString(16)
+              '#' + Math.floor(Math.random() * 16777215).toString(16)
             )
           }
         >
@@ -88,8 +88,8 @@ function ColorPicker({ props }) {
           onChangeComplete={handleColorChange}
         />
       </div>
-      <div className="change-view-button">
-        <button onClick={() => setLayersView("LayerOverview")}>Back</button>
+      <div className='change-view-button'>
+        <button onClick={() => setLayersView('LayerOverview')}>Back</button>
       </div>
     </div>
   );

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import "./Designer.css";
-import DesignerContainer from "../../components/DesignerContainer/DesignerContainer";
-import NavBar from "../../components/NavBar/NavBar.js";
+import React, { useEffect, useState } from 'react';
+import './Designer.css';
+import DesignerContainer from '../../components/DesignerContainer/DesignerContainer';
+import NavBar from '../../components/NavBar/NavBar.js';
 import {
   createTexture,
   createCanvas,
   createGraphicVisualCanvas,
-} from "../../canvasFunctions";
+} from '../../canvasFunctions';
 
 function Designer() {
   const [designSpec, setDesignSpec] = useState(null);
@@ -17,7 +17,7 @@ function Designer() {
   const [texture, setTexture] = useState(null);
 
   useEffect(() => {
-    fetch("/api/design")
+    fetch('/api/design')
       .then((res) => res.json())
       .then((data) => {
         setDesignSpec(data);
@@ -49,7 +49,7 @@ function Designer() {
 
   if (initialized) {
     return (
-      <div className="designer-root-container">
+      <div className='designer-root-container'>
         <NavBar />
         <DesignerContainer
           designSpec={designSpec}

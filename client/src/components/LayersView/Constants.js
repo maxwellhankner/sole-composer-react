@@ -1,8 +1,8 @@
-import AddLayerType from "../AddLayerType/AddLayerType";
-import ColorPicker from "../ColorPicker/ColorPicker";
-import GraphicEditor from "../GraphicEditor/GraphicEditor";
-import LayerOverview from "../LayerOverview/LayerOverview";
-import MaskTypes from "../MaskTypes/MaskTypes";
+import AddLayerType from '../AddLayerType/AddLayerType';
+import ColorPicker from '../ColorPicker/ColorPicker';
+import GraphicEditor from '../GraphicEditor/GraphicEditor';
+import LayerOverview from '../LayerOverview/LayerOverview';
+import MaskTypes from '../MaskTypes/MaskTypes';
 
 const LayerDictionary = {
   AddLayerType: AddLayerType,
