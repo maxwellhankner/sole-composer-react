@@ -1,24 +1,24 @@
 .part-selector-container div {
-    display: flex;
-    width: 100%;
-    justify-content: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 .part-selector-container div p {
-    margin: auto;
-    padding: 10px;
+  margin: auto;
+  padding: 10px;
 }
 
 .part-selector-container div button {
-    font-weight: bold;
-    color: #ffffff;
-    background-color: transparent;
-    border: none;
-    font-size: 1rem;
-    padding-left: 15px;
-    padding-right: 15px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .part-selector-container div button:focus {
-    outline: none;
+  outline: none;
 }

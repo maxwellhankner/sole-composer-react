@@ -1,16 +1,6 @@
 .interface-container {
-    height: 50%;
-    color: #eee;
-    width: 100%;
-    /* max-width: 400px; */
-    /* margin: auto; */
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
-    touch-action: none;
+  height: 50%;
+  color: #eee;
+  width: 100%;
+  touch-action: none;
 }
-
-/* .interface-container div {
-    max-width: 375px;
-    margin: auto;
-} */

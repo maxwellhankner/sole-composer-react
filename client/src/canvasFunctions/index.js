@@ -1,37 +1,37 @@
 import {
-	createTexture,
-	createCanvas,
-	createGraphicVisualCanvas,
-} from './create/createCanvasFunctions';
+  createTexture,
+  createCanvas,
+  createGraphicVisualCanvas,
+} from "./create/createCanvasFunctions";
 
-import { createColorLayerCanvas } from './create/createColorLayerCanvas';
-import { createGraphicLayerCanvas } from './create/createGraphicLayerCanvas';
-import { createMaskLayerCanvas } from './create/createMaskLayerCanvas';
-import { createOverlayLayerCanvas } from './create/createOverlayLayerCanvas';
+import { createColorLayerCanvas } from "./create/createColorLayerCanvas";
+import { createGraphicLayerCanvas } from "./create/createGraphicLayerCanvas";
+import { createMaskLayerCanvas } from "./create/createMaskLayerCanvas";
+import { createOverlayLayerCanvas } from "./create/createOverlayLayerCanvas";
 
 import {
-	designObjectToCanvasObject,
-	overlayCanvasObjectToTextureCanvas,
-	updateGraphicVisualCanvas
-} from './create/initialFunctions';
+  designObjectToCanvasObject,
+  overlayCanvasObjectToTextureCanvas,
+  updateGraphicVisualCanvas,
+} from "./create/initialFunctions";
 
-import { partChangeManager } from './update/partChangeManager';
-import { overlayChangeManager } from './update/overlayChangeManager';
+import { partChangeManager } from "./update/partChangeManager";
+import { overlayChangeManager } from "./update/overlayChangeManager";
 
-import { canvasObjectToTextureCanvas } from './update/canvasObjectToTextureCanvas';
+import { canvasObjectToTextureCanvas } from "./update/canvasObjectToTextureCanvas";
 
 export {
-    canvasObjectToTextureCanvas,
-    createTexture,
-	createCanvas,
-    createGraphicVisualCanvas,
-    createColorLayerCanvas,
-    createGraphicLayerCanvas,
-    createMaskLayerCanvas,
-    createOverlayLayerCanvas,
-    designObjectToCanvasObject,
-	updateGraphicVisualCanvas,
-	partChangeManager,
-	overlayCanvasObjectToTextureCanvas,
-	overlayChangeManager,
+  canvasObjectToTextureCanvas,
+  createTexture,
+  createCanvas,
+  createGraphicVisualCanvas,
+  createColorLayerCanvas,
+  createGraphicLayerCanvas,
+  createMaskLayerCanvas,
+  createOverlayLayerCanvas,
+  designObjectToCanvasObject,
+  updateGraphicVisualCanvas,
+  partChangeManager,
+  overlayCanvasObjectToTextureCanvas,
+  overlayChangeManager,
 };

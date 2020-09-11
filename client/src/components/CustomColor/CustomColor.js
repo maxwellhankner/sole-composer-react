@@ -1,8 +1,12 @@
 import React from "react";
-import './CustomColor.css';
+import "./CustomColor.css";
 import { CustomPicker } from "react-color";
 import CustomPointer from "../CustomPointer/CustomPointer";
-import { EditableInput, Hue, Saturation } from "react-color/lib/components/common";
+import {
+  EditableInput,
+  Hue,
+  Saturation,
+} from "react-color/lib/components/common";
 
 export const CustomColor = ({ hex, hsl, hsv, onChange }) => {
   const styles = {
@@ -10,45 +14,50 @@ export const CustomColor = ({ hex, hsl, hsv, onChange }) => {
       height: 15,
       position: "relative",
       marginBottom: 10,
-      overflow: 'hidden'
+      overflow: "hidden",
     },
     saturation: {
-      "width": "100%",
+      width: "100%",
       height: 100,
       position: "relative",
       marginBottom: 10,
-      overflow: 'hidden'
+      overflow: "hidden",
     },
     input: {
-      'width': '50%',
-      'height': '30px',
-      border: 'none',
-      borderRadius: 'none',
-      fontSize: '.7rem',
+      width: "50%",
+      height: "30px",
+      border: "none",
+      borderRadius: "none",
+      fontSize: ".7rem",
       // border: `1px solid ${hex}`,
-      WebkitAppearance: 'none',
+      WebkitAppearance: "none",
       WebkitBorderRadius: 0,
       paddingLeft: 10,
-      boxShadow: 'none',
-      display: 'block'
+      boxShadow: "none",
+      display: "block",
     },
     swatch: {
-      'width': '100%',
-      'height': '100%',
-      background: hex
+      width: "100%",
+      height: "100%",
+      background: hex,
     },
     inputContainer: {
-      background: hex
-    }
+      background: hex,
+    },
   };
   return (
-    <div className="custom-color" >
+    <div className="custom-color">
       <div style={styles.hue}>
         <Hue hsl={hsl} onChange={onChange} pointer={CustomPointer} />
       </div>
 
       <div style={styles.saturation}>
-        <Saturation hsl={hsl} hsv={hsv} onChange={onChange} pointer={CustomPointer} />
+        <Saturation
+          hsl={hsl}
+          hsv={hsv}
+          onChange={onChange}
+          pointer={CustomPointer}
+        />
       </div>
 
       <div className="color-input" style={styles.inputContainer}>

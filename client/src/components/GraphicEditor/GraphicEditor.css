@@ -1,17 +1,17 @@
 .graphic-editor-container {
-    position: relative;
-    height: 100%;
+  position: relative;
+  height: 100%;
 }
 
 .graphic-editor-buttons {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr 3fr 1fr;
-    grid-template-rows: 1fr 3fr 1fr 3fr 1fr 1fr;
-    z-index: 1;
-    grid-template-areas: 
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 3fr 1fr;
+  grid-template-rows: 1fr 3fr 1fr 3fr 1fr 1fr;
+  z-index: 1;
+  grid-template-areas:
     "counter . up . clock"
     ". . . . ."
     "left . . . right"
@@ -20,54 +20,74 @@
     ". reset . back .";
 }
 
-#left-button {grid-area: left;}
-#right-button {grid-area: right;}
-#up-button {grid-area: up;}
-#down-button {grid-area: down;}
-#counterclockwise-button {grid-area: counter;}
-#clockwise-button {grid-area: clock;}
-#scale-up-button {grid-area: expand;}
-#scale-down-button {grid-area: compress;}
-#reset-button {grid-area: reset;}
-#back-button {grid-area: back;}
+#left-button {
+  grid-area: left;
+}
+#right-button {
+  grid-area: right;
+}
+#up-button {
+  grid-area: up;
+}
+#down-button {
+  grid-area: down;
+}
+#counterclockwise-button {
+  grid-area: counter;
+}
+#clockwise-button {
+  grid-area: clock;
+}
+#scale-up-button {
+  grid-area: expand;
+}
+#scale-down-button {
+  grid-area: compress;
+}
+#reset-button {
+  grid-area: reset;
+}
+#back-button {
+  grid-area: back;
+}
 
 .graphic-edit-button {
-    background-color: #00000077;
-    color: #f9f9f9;
-    border: none;
-    border-radius: 30px;
-    padding: 0px;
+  background-color: #00000077;
+  color: #f9f9f9;
+  border: none;
+  border-radius: 30px;
+  padding: 0px;
 }
 
 .graphic-edit-button:focus {
-    outline: none;
+  outline: none;
 }
 
 .graphic-edit-button svg {
-    display: block;
-    margin: auto;
+  display: block;
+  margin: auto;
 }
 
 .graphic-interface-button {
-    border: none;
-    background-color: transparent;
-    color: #f9f9f9;
+  border: none;
+  background-color: transparent;
+  color: #f9f9f9;
 }
 
 .graphic-interface-button:focus {
-    outline: none;
+  outline: none;
 }
 
 .selection-texture {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 #graphic-visual-container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 #graphic-visual-canvas {
-    width: 100%;
+  width: 100%;
 }

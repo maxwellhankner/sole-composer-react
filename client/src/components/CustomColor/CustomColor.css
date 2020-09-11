@@ -1,14 +1,12 @@
 .custom-color {
-    width: 60%;
-    margin: auto;
+  width: 60%;
+  margin: auto;
 }
 
 .color-input {
-    margin-bottom: 15px;
-    /* overflow: hidden; */
-    /* background-color: #ffffff; */
+  margin-bottom: 15px;
 }
 
 .custom-color-input {
-    display: inline;
+  display: inline;
 }
