@@ -254,7 +254,8 @@ app.get("/api/design", (req, res) => {
       },
     },
     config: {
-      model: "assets/models/af1_ao.gltf",
+      model: "Air-Force-One",
+      source: "assets/models/af1_ao.gltf",
       partsArray: [
         "outerSwoosh",
         "innerSwoosh",

@@ -66,7 +66,7 @@ const Scene = ({ design, texture }) => {
 
       //===================================================== model
       const loader = new GLTFLoader(manager);
-      loader.load(design.config.model, (gltf) => {
+      loader.load(design.config.source, (gltf) => {
         gltf.scene.traverse((node) => {
           if (node.isMesh) node.material = newMaterial;
         });
@@ -109,7 +109,7 @@ const Scene = ({ design, texture }) => {
 
       return cleanup;
     }
-  }, [newMaterial, renderer, design.config.model]);
+  }, [newMaterial, renderer, design.config.source]);
 
   return (
     <div className="scene-container" ref={canvasRef}>
