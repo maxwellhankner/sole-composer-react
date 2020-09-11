@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export const createTexture = (textureCanvas) => {
-  var texture = new THREE.CanvasTexture(textureCanvas);
+  const texture = new THREE.CanvasTexture(textureCanvas);
   texture.flipY = false;
   return texture;
 };

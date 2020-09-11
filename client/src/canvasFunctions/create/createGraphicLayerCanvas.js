@@ -7,20 +7,20 @@ export const createGraphicLayerCanvas = ({ design, layer, partName }) => {
     layerCanvas.width = canvasSize;
     layerCanvas.height = canvasSize;
     const layerCanvasCTX = layerCanvas.getContext("2d");
-    var graphicImg = new Image();
+    const graphicImg = new Image();
     graphicImg.src = link;
     graphicImg.onload = () => {
-      var graphicWidth = graphicImg.width;
-      var graphicHeight = graphicImg.height;
-      var graphicPythagorean = Math.round(
+      const graphicWidth = graphicImg.width;
+      const graphicHeight = graphicImg.height;
+      const graphicPythagorean = Math.round(
         Math.sqrt(graphicWidth * graphicWidth + graphicHeight * graphicHeight)
       );
       // Create Pythagorean Canvas
-      var pythagoreanCanvas = document.createElement("canvas");
+      const pythagoreanCanvas = document.createElement("canvas");
       pythagoreanCanvas.id = "pythagorean-canvas";
       pythagoreanCanvas.width = graphicPythagorean;
       pythagoreanCanvas.height = graphicPythagorean;
-      var pythagoreanTemp = pythagoreanCanvas.getContext("2d");
+      const pythagoreanTemp = pythagoreanCanvas.getContext("2d");
       pythagoreanTemp.translate(
         pythagoreanCanvas.width / 2,
         pythagoreanCanvas.height / 2

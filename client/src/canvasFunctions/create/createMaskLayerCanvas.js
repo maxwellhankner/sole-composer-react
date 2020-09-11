@@ -6,7 +6,7 @@ export const createMaskLayerCanvas = ({ design, layer }) => {
     layerCanvas.width = canvasSize;
     layerCanvas.height = canvasSize;
     const layerCanvasCTX = layerCanvas.getContext("2d");
-    var graphicImg = new Image();
+    const graphicImg = new Image();
     graphicImg.src = link;
     graphicImg.onload = () => {
       layerCanvasCTX.drawImage(graphicImg, 0, 0, canvasSize, canvasSize);
