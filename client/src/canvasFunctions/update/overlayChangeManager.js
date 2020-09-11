@@ -34,7 +34,7 @@ export const overlayChangeManager = ({
     } else if (direction === "reset") {
       thisLayer.y = 0;
       thisLayer.x = 0;
-      thisLayer.scale = 500;
+      thisLayer.scale = 1;
       thisLayer.rotation = 0;
     }
 
