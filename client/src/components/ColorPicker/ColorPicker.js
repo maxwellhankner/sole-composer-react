@@ -65,7 +65,7 @@ function ColorPicker({ props }) {
       <div className='view-title'>
         <p>{handleConvertPartName(currentPartName)}</p>
       </div>
-      <div className='random-color'>
+      <div className='standard-button'>
         <button
           onClick={() =>
             handleColorChange(
@@ -88,7 +88,7 @@ function ColorPicker({ props }) {
           onChangeComplete={handleColorChange}
         />
       </div>
-      <div className='change-view-button'>
+      <div className='standard-button'>
         <button onClick={() => setLayersView('LayerOverview')}>Back</button>
       </div>
     </div>

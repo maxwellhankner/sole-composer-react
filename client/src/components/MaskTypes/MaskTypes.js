@@ -10,7 +10,7 @@ function MaskTypes({ props }) {
       </div>
 
       {design.config.maskTypes[currentPartName].map((type, i) => (
-        <div key={i} className='change-view-button'>
+        <div key={i} className='standard-button'>
           <button
             onClick={() => {
               handleAddMaskLayer(type[0], type[1]);

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Designer.css';
 import DesignerContainer from '../../components/DesignerContainer/DesignerContainer';
-import NavBar from '../../components/NavBar/NavBar.js';
 import {
   createTexture,
   createCanvas,
@@ -50,7 +49,6 @@ function Designer() {
   if (initialized) {
     return (
       <div className='designer-root-container'>
-        <NavBar />
         <DesignerContainer
           designSpec={designSpec}
           graphicVisualCanvas={graphicVisualCanvas}

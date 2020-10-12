@@ -18,7 +18,7 @@ export const CustomColor = ({ hex, hsl, hsv, onChange }) => {
     },
     saturation: {
       width: '100%',
-      height: 100,
+      height: 120,
       position: 'relative',
       marginBottom: 10,
       overflow: 'hidden',

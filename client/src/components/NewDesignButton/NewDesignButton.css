@@ -1,0 +1,20 @@
+.new-design-button-container {
+  width: 90%;
+  margin: auto;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.new-design-button-container button {
+  color: #ffffff;
+  background-color: #333333;
+  border: none;
+  padding: 8px;
+  width: 100%;
+  font-size: 13px;
+}
+
+.new-design-button-container a {
+  text-decoration: none;
+  width: 100%;
+}

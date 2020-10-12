@@ -256,7 +256,7 @@ function LayerOverview({ props }) {
         ))}
       </div>
 
-      <div className='change-view-button'>
+      <div className='standard-button'>
         <button onClick={() => handleViewChange('DesignPreview')}>Back</button>
       </div>
     </div>
