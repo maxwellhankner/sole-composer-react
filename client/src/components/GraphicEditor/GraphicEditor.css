@@ -1,23 +1,32 @@
 .graphic-editor-container {
-  position: relative;
   height: 100%;
+  padding-top: 5px;
+}
+
+.graphic-editor-upper {
+  height: 80%;
+  width: 100%;
+  position: relative;
 }
 
 .graphic-editor-buttons {
   position: absolute;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr 3fr 1fr;
-  grid-template-rows: 1fr 3fr 1fr 3fr 1fr 1fr;
+  grid-template-rows: 1fr 3fr 1fr 3fr 1fr;
   z-index: 1;
   grid-template-areas:
-    "counter . up . clock"
-    ". . . . ."
-    "left . . . right"
-    ". . . . ."
-    "compress . down . expand"
-    ". reset . back .";
+    'counter . up . clock'
+    '. . . . .'
+    'left . . . right'
+    '. . . . .'
+    'compress . down . expand';
 }
 
 #left-button {
@@ -44,19 +53,17 @@
 #scale-down-button {
   grid-area: compress;
 }
-#reset-button {
-  grid-area: reset;
-}
-#back-button {
-  grid-area: back;
-}
 
 .graphic-edit-button {
   background-color: #00000077;
   color: #f9f9f9;
+  width: 40px;
+  height: 40px;
   border: none;
-  border-radius: 30px;
+  margin: auto;
+  border-radius: 50px;
   padding: 0px;
+  font-size: 20px;
 }
 
 .graphic-edit-button:focus {
@@ -78,16 +85,43 @@
   outline: none;
 }
 
-.selection-texture {
-  height: 100%;
-  width: 100%;
+.graphic-editor-lower {
+  display: flex;
+  flex-direction: row;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.graphic-editor-lower-button {
+  margin-bottom: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 #graphic-visual-container {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #graphic-visual-canvas {
-  width: 100%;
+  width: 80%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+/* Desktop Landscape */
+@media screen and (min-device-width: 1000px) and (orientation: landscape) {
+  .graphic-editor-upper {
+    height: 50%;
+  }
 }

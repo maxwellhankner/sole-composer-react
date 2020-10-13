@@ -5,9 +5,9 @@ const app = express();
 app.get('/api/design', (req, res) => {
   const design = {
     outline: {
-      title: 'my first design',
+      title: 'Design Name',
       author: 'Maxwell Hankner',
-      model: 'Air-Force-One',
+      model: 'Air Force One',
       overlays: {
         outerOverlay: {
           layers: [
@@ -15,21 +15,13 @@ app.get('/api/design', (req, res) => {
               type: 'color',
               color: '#999999',
             },
-            {
-              type: 'graphic',
-              link: 'assets/images/spongebob.png',
-              x: 0,
-              y: 0,
-              scale: 1,
-              rotation: 0,
-            },
           ],
         },
         innerOverlay: {
           layers: [
             {
               type: 'color',
-              color: '#999944',
+              color: '#cccccc',
             },
           ],
         },
@@ -254,7 +246,7 @@ app.get('/api/design', (req, res) => {
       },
     },
     config: {
-      model: 'Air-Force-One',
+      model: 'Air Force One',
       source: 'assets/models/af1_ao.gltf',
       partsArray: [
         'outerSwoosh',

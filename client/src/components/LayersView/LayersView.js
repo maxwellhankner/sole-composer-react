@@ -71,6 +71,7 @@ function LayersView({
     setCurrentPart,
     setFocusLayer,
     setLayersView,
+    numberOfLayers,
   };
 
   return <Component props={propsToPassDown} />;

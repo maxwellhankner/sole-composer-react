@@ -60,11 +60,7 @@ function Designer() {
       </div>
     );
   } else {
-    return (
-      <div>
-        <h1>Hold Up..</h1>
-      </div>
-    );
+    return <div></div>;
   }
 }
 

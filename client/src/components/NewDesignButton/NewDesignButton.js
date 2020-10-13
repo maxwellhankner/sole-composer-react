@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function NewDesignButton() {
   return (
-    <div className='new-design-button-container'>
+    <div className='new-design-button standard-button'>
       <Link to='/designer'>
         <button>New Design</button>
       </Link>

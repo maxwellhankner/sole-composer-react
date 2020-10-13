@@ -2,3 +2,15 @@
   background-color: #f9f9f9;
   height: 100%;
 }
+
+.landing-header {
+  color: #333333;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.landing-header p {
+  margin: 0;
+}

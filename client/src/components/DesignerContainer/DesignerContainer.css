@@ -6,6 +6,7 @@
   flex-direction: column;
 }
 
+/* Mobile Landscape */
 @media only screen and (orientation: landscape) {
   .designer-container {
     flex-direction: row;
@@ -18,14 +19,27 @@
     width: 40% !important;
     height: 100% !important;
   }
-  .navbar-container p {
-    color: #000;
-  }
   #loading-screen {
     width: 60% !important;
     height: 100% !important;
   }
   .part-selector-container {
     padding-top: 1rem;
+  }
+}
+
+/* Desktop Landscape */
+@media screen and (min-device-width: 1000px) and (orientation: landscape) {
+  .scene-container {
+    width: 70% !important;
+    height: 100% !important;
+  }
+  .interface-container {
+    width: 30% !important;
+    height: 100% !important;
+  }
+  #loading-screen {
+    width: 70% !important;
+    height: 100% !important;
   }
 }
