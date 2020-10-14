@@ -18,6 +18,8 @@ function DesignerContainer({
   outerOverlayCanvas,
   texture,
   textureCanvas,
+  initialLoaded,
+  setInitialLoaded,
 }) {
   const [design, setDesign] = useState(designSpec);
 
@@ -114,8 +116,9 @@ function DesignerContainer({
           design,
         });
         textureCanvas.getContext('2d').drawImage(newCanvas, 0, 0);
-        console.log('loaded');
         texture.needsUpdate = true;
+        console.log('loaded');
+        setInitialLoaded(true);
       };
       buildTexture();
     }
@@ -123,13 +126,19 @@ function DesignerContainer({
 
   return (
     <div className='designer-container'>
-      <Scene design={design} texture={texture} textureCanvas={textureCanvas} />
+      <Scene
+        design={design}
+        texture={texture}
+        textureCanvas={textureCanvas}
+        initialLoaded={initialLoaded}
+      />
       <Interface
         design={design}
         setDesign={setDesign}
         graphicVisualCanvas={graphicVisualCanvas}
         handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
         handlePartChangeManager={handlePartChangeManager}
+        setInitialLoaded={setInitialLoaded}
       />
     </div>
   );
