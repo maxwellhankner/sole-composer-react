@@ -4,12 +4,16 @@
   justify-content: center;
 }
 
-.part-selector-container div p {
+.partname-button {
   margin: auto;
   padding: 10px;
+  border: none;
+  background-color: transparent;
+  color: #ffffff;
+  font-size: 18px;
 }
 
-.part-selector-container div button {
+.change-part-button {
   font-weight: bold;
   color: #ffffff;
   background-color: transparent;

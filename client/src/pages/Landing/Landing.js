@@ -1,12 +1,17 @@
 import React from 'react';
 import './Landing.css';
-import NavBar from '../../components/NavBar/NavBar.js';
+import NewDesignButton from '../../components/NewDesignButton/NewDesignButton';
+import { FaBars } from 'react-icons/fa';
 
 function Landing() {
   return (
     <div className='landing-container'>
-      <NavBar />
-      Sole Composer
+      <div className='landing-header'>
+        <p>Sole Composer</p>
+        <FaBars />
+      </div>
+
+      <NewDesignButton />
     </div>
   );
 }

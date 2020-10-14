@@ -9,7 +9,7 @@ function AddLayerType({ props }) {
         <p>Select Layer Type</p>
       </div>
       {design.config.layerTypes[currentPartName].types.map((type, i) => (
-        <div key={i} className='change-view-button'>
+        <div key={i} className='standard-button'>
           {type === 'Mask' ? (
             <button
               onClick={() => {
@@ -30,6 +30,9 @@ function AddLayerType({ props }) {
           )}
         </div>
       ))}
+      <div className='standard-button'>
+        <button onClick={() => setLayersView('LayerOverview')}>Cancel</button>
+      </div>
     </div>
   );
 }

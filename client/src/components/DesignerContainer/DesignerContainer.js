@@ -114,7 +114,7 @@ function DesignerContainer({
           design,
         });
         textureCanvas.getContext('2d').drawImage(newCanvas, 0, 0);
-
+        console.log('loaded');
         texture.needsUpdate = true;
       };
       buildTexture();

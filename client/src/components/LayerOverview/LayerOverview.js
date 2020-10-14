@@ -93,10 +93,8 @@ function LayerOverview({ props }) {
         currentPart={currentPart}
         setCurrentPart={setCurrentPart}
         setFocusLayer={setFocusLayer}
+        setLayersView={setLayersView}
       />
-      <div className='view-title'>
-        <p>Layers</p>
-      </div>
 
       <div className='add-layer-button'>
         <button onClick={() => setLayersView('AddLayerType')}>Add Layer</button>
@@ -130,31 +128,30 @@ function LayerOverview({ props }) {
               </div>
             </div>
             <div
-              className={`layer-list-item-middle ${
-                focusLayer === i ? 'focus-layer-highlight' : ''
-              }`}
+              className='layer-list-item-middle'
               onClick={() => handleFocusLayer(i)}
             >
-              <div className='layer-list-item-type'>
-                {layer.type === 'overlay'
-                  ? handleConvertPartName(layer.source).toLowerCase()
-                  : layer.type}
+              <div
+                className={`layer-list-item-left ${
+                  focusLayer === i ? 'focus-layer-highlight' : ''
+                }`}
+              >
+                <div className='layer-list-item-type'>
+                  {layer.type === 'overlay'
+                    ? handleConvertPartName(layer.source).toLowerCase()
+                    : layer.type}
+                </div>
               </div>
 
               {layer.type === 'color' ? (
                 <div
+                  className='layer-list-item-right'
                   style={{
                     backgroundColor: layer.color,
-                    width: '50px',
                   }}
                 ></div>
               ) : layer.type === 'graphic' ? (
-                <div
-                  style={{
-                    width: '50px',
-                    backgroundColor: '#ffffff',
-                  }}
-                >
+                <div className='layer-list-item-right'>
                   <img
                     src={layer.link}
                     style={{
@@ -166,12 +163,7 @@ function LayerOverview({ props }) {
                   />
                 </div>
               ) : layer.type === 'mask' ? (
-                <div
-                  style={{
-                    width: '50px',
-                    backgroundColor: '#ffffff',
-                  }}
-                >
+                <div className='layer-list-item-right'>
                   <img
                     src={layer.link}
                     style={{
@@ -183,7 +175,17 @@ function LayerOverview({ props }) {
                   />
                 </div>
               ) : (
-                <div></div>
+                <div className='layer-list-item-right'>
+                  <img
+                    src={`assets/images/${layer.source}Mask.png`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                    alt='design-graphic'
+                  />
+                </div>
               )}
             </div>
             <div
@@ -256,7 +258,7 @@ function LayerOverview({ props }) {
         ))}
       </div>
 
-      <div className='change-view-button'>
+      <div className='standard-button layer-back-button'>
         <button onClick={() => handleViewChange('DesignPreview')}>Back</button>
       </div>
     </div>

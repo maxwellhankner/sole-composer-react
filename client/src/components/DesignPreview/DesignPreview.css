@@ -1,22 +1,104 @@
-.design-preview-container {
-  padding-top: 1rem;
-}
-
 .view-title p {
   text-align: center;
-  padding: 10px;
-  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 18px;
 }
 
-.change-view-button {
-  display: flex;
-  justify-content: center;
+.design-preview-info {
+  width: 90%;
+  margin: auto;
+  margin-top: 15px;
   margin-bottom: 15px;
 }
 
-.change-view-button button {
-  background-color: #f9f9f9;
+.design-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.design-title {
+  margin: 0px;
+  margin-bottom: 5px;
+}
+
+.edit-design-title-button {
+  background-color: transparent;
+  border: none;
+  padding: 0px;
+}
+
+.edit-design-title-button:focus {
+  outline: none;
+}
+
+.edit-design-title-button svg {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.design-model {
+  margin: 0px;
+  font-size: 13px;
+  color: #999999;
+}
+
+.design-preview-container a {
+  text-decoration: none;
+}
+
+/* Standard Button */
+.standard-button {
+  width: 90%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.standard-button button {
+  height: 40px;
+  background-color: #434343;
+  color: #ffffff;
   border: none;
   padding: 8px;
-  width: 60%;
+  width: 100%;
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+.standard-button button:focus {
+  outline: none;
+}
+
+/* Design Preview Button */
+.design-preview-button {
+  width: 90%;
+  margin: auto;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.design-preview-button-icon {
+  width: 30px;
+  font-size: 16px;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: #ffffff;
+  line-height: 0px;
+}
+
+.design-preview-button button {
+  width: 100%;
+  height: 40px;
+  background-color: #434343;
+  color: #ffffff;
+  border: none;
+  padding-left: 12px;
+  width: 100%;
+  font-size: 13px;
+}
+
+.design-preview-button button:focus {
+  outline: none;
 }
