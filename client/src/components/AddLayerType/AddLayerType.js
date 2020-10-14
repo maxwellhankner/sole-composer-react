@@ -30,6 +30,9 @@ function AddLayerType({ props }) {
           )}
         </div>
       ))}
+      <div className='standard-button'>
+        <button onClick={() => setLayersView('LayerOverview')}>Cancel</button>
+      </div>
     </div>
   );
 }

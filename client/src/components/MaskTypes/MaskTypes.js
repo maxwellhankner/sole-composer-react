@@ -21,6 +21,9 @@ function MaskTypes({ props }) {
           </button>
         </div>
       ))}
+      <div className='standard-button'>
+        <button onClick={() => setLayersView('LayerOverview')}>Cancel</button>
+      </div>
     </div>
   );
 }

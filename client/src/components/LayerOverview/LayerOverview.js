@@ -93,6 +93,7 @@ function LayerOverview({ props }) {
         currentPart={currentPart}
         setCurrentPart={setCurrentPart}
         setFocusLayer={setFocusLayer}
+        setLayersView={setLayersView}
       />
 
       <div className='add-layer-button'>

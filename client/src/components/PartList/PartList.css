@@ -1,0 +1,19 @@
+.partlist-container {
+  height: 100%;
+}
+
+.partlist-buttons {
+  height: 70%;
+  overflow: auto;
+  overflow-x: hidden;
+  margin-bottom: 10px;
+}
+
+.partlist-title {
+  padding: 10px;
+  text-align: center;
+}
+
+.partlist-title p {
+  margin: 0;
+}

@@ -14,7 +14,7 @@ function LayersView({
   setCurrentPart,
 }) {
   const [focusLayer, setFocusLayer] = useState();
-  const [layersView, setLayersView] = useState('LayerOverview');
+  const [layersView, setLayersView] = useState('PartList');
 
   const currentPartName = Object.keys(design.config.partsObject)[currentPart];
 

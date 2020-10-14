@@ -2,6 +2,7 @@
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-size: 18px;
 }
 
 .design-preview-info {
@@ -62,6 +63,7 @@
   padding: 8px;
   width: 100%;
   font-size: 13px;
+  text-transform: capitalize;
 }
 
 .standard-button button:focus {
@@ -79,7 +81,6 @@
 
 .design-preview-button-icon {
   width: 30px;
-  /* text-align: center; */
   font-size: 16px;
   margin-top: auto;
   margin-bottom: auto;
@@ -90,7 +91,6 @@
 .design-preview-button button {
   width: 100%;
   height: 40px;
-  /* text-align: left; */
   background-color: #434343;
   color: #ffffff;
   border: none;
