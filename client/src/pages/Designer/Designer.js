@@ -17,7 +17,7 @@ function Designer() {
   const [initialLoaded, setInitialLoaded] = useState(false);
 
   useEffect(() => {
-    fetch('/api/outlines/5f8926f0fe29a71d3ce1ef61')
+    fetch('/api/outlines/5f89fa848bad7310f40b1630')
       .then((res) => res.json())
       .then((data) => {
         setDesignSpec(data);
