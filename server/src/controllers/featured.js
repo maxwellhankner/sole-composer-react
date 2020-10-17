@@ -4,7 +4,9 @@ const Featured = require('../models/featured');
 // GET /api/featured/
 exports.getFeatured = async (req, res, next) => {
   try {
-    const featured = await Featured.find().populate('Outline');
+    const featured = await Featured.findById(
+      '5f8a049635430e1940be0f55'
+    ).populate('featured');
 
     if (!featured) {
       return res.status(400).json({ error: 'No featured designs found' });
