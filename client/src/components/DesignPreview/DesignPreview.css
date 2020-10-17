@@ -50,8 +50,11 @@
 
 /* Standard Button */
 .standard-button {
-  width: 90%;
-  margin: auto;
+  /* width: 90%;
+  margin: auto; */
+  /* width: 100%; */
+  margin-left: 10px;
+  margin-right: 10px;
   margin-bottom: 10px;
 }
 
