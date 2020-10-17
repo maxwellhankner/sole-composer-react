@@ -117,6 +117,7 @@
 }
 
 .layer-back-button {
+  margin: auto;
   margin-top: 15px;
   width: 60%;
 }

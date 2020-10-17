@@ -13,7 +13,7 @@ const Scene = ({ design, texture, initialLoaded }) => {
 
   const createMaterial = (texture) => {
     const aoimg = new Image();
-    aoimg.src = 'assets/images/ao_diffuse.png';
+    aoimg.src = '../assets/images/ao_diffuse.png';
     const ao = new THREE.CanvasTexture(aoimg);
     ao.flipY = false;
 
@@ -66,7 +66,7 @@ const Scene = ({ design, texture, initialLoaded }) => {
 
       //===================================================== model
       const loader = new GLTFLoader(manager);
-      loader.load(design.config.source, (gltf) => {
+      loader.load(`../../../${design.config.source}`, (gltf) => {
         gltf.scene.traverse((node) => {
           if (node.isMesh) node.material = newMaterial;
         });

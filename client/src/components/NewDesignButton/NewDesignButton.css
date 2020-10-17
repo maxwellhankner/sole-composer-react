@@ -1,5 +1,7 @@
 .new-design-button button {
   background-color: #333333 !important;
+  height: 50px !important;
+  font-size: 18px !important;
 }
 
 .new-design-button a {

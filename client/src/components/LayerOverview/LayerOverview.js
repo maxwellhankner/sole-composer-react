@@ -45,6 +45,7 @@ function LayerOverview({ props }) {
   };
 
   const handleMoveLayer = (layer, direction) => {
+    console.log('design', design);
     const tempDesign = cloneDeep(design);
     let array;
 
@@ -177,7 +178,7 @@ function LayerOverview({ props }) {
               ) : (
                 <div className='layer-list-item-right'>
                   <img
-                    src={`assets/images/${layer.source}Mask.png`}
+                    src={`../assets/images/${layer.source}Mask.png`}
                     style={{
                       width: '100%',
                       height: '100%',

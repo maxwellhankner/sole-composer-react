@@ -38,7 +38,6 @@ function PartSelector({
         <button
           className='partname-button'
           onClick={() => {
-            console.log('hey');
             setLayersView('PartList');
           }}
         >

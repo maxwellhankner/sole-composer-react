@@ -21,22 +21,15 @@ connection.once('open', () => {
   console.log('MongoDB connection established successfully');
 });
 
-// const designRoutes = require('./src/routes/dumbdesign');
+// Routes
 const outlineRoutes = require('./src/routes/outlines');
 const configRoutes = require('./src/routes/configs');
-/*
+const featuredRoutes = require('./src/routes/featured');
 
-Keep adding routes by category here:
-const userRoutes = require('./src/routes/users');
-
-And calling them here: 
-app.use('/api/users', userRoutes);
-app.use('/api/featured', reaturedRoutes);
-etc.
-
-*/
+// Use routes
 app.use('/api/outlines', outlineRoutes);
 app.use('/api/configs', configRoutes);
+app.use('/api/featured', featuredRoutes);
 
 app.listen(port, () => {
   console.log('App is listening on port:', port);

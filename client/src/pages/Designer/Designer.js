@@ -6,6 +6,7 @@ import {
   createCanvas,
   createGraphicVisualCanvas,
 } from '../../canvasFunctions';
+import { useParams } from 'react-router-dom';
 
 function Designer() {
   const [designSpec, setDesignSpec] = useState(null);
@@ -16,13 +17,23 @@ function Designer() {
   const [texture, setTexture] = useState(null);
   const [initialLoaded, setInitialLoaded] = useState(false);
 
+  const { id } = useParams();
+
   useEffect(() => {
-    fetch('/api/outlines/5f8926f0fe29a71d3ce1ef61')
-      .then((res) => res.json())
-      .then((data) => {
-        setDesignSpec(data);
-      });
-  }, []);
+    if (id) {
+      fetch(`/api/outlines/${id}`, { method: 'GET' })
+        .then((res) => res.json())
+        .then((data) => {
+          setDesignSpec(data);
+        });
+    } else {
+      fetch('/api/outlines/5f89fa848bad7310f40b1630', { method: 'GET' })
+        .then((res) => res.json())
+        .then((data) => {
+          setDesignSpec(data);
+        });
+    }
+  }, [id]);
 
   useEffect(() => {
     if (designSpec) {
