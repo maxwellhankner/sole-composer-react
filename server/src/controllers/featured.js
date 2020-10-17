@@ -5,7 +5,7 @@ const Featured = require('../models/featured');
 exports.getFeatured = async (req, res, next) => {
   try {
     const featured = await Featured.findById(
-      '5f8a049635430e1940be0f55'
+      '5f8b79d8dc97b93fb8fbe17c'
     ).populate('featured');
 
     if (!featured) {

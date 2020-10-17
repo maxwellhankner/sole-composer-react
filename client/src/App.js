@@ -11,6 +11,7 @@ function App() {
         <Switch>
           <Route exact path='/' component={Landing} />
           <Route exact path='/designer' component={Designer} />
+          <Route exact path='/designer/:id' component={Designer} />
         </Switch>
       </Router>
     </div>

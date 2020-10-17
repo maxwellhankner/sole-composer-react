@@ -28,7 +28,11 @@ function Landing() {
           <div className='feature-designs'>
             {featured
               ? featured.featured.map((outline, key) => (
-                  <FeaturedDesignCard props={outline.outline} key={key} />
+                  <FeaturedDesignCard
+                    props={outline.outline}
+                    id={outline._id}
+                    key={key}
+                  />
                 ))
               : null}
           </div>
