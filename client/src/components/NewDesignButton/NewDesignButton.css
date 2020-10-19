@@ -1,3 +1,7 @@
+.new-design-button {
+  margin-bottom: 15px !important;
+}
+
 .new-design-button button {
   background-color: #333333 !important;
   height: 50px !important;

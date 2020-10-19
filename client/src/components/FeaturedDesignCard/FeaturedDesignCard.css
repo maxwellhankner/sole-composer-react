@@ -22,18 +22,21 @@
 .featureddesigncard-title {
   color: #000000;
   font-size: 22px;
+  margin-left: 6px;
   margin-top: 10px;
   margin-bottom: 0px;
 }
 .featureddesigncard-model {
   color: #000000;
   font-size: 14px;
+  margin-left: 6px;
   margin-top: 8px;
   margin-bottom: 0px;
 }
 .featureddesigncard-author {
   color: #555555;
   font-size: 14px;
+  margin-left: 6px;
   margin-top: 8px;
   margin-bottom: 0px;
 }
