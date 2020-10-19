@@ -2,15 +2,21 @@ import React, { useState, useEffect } from 'react';
 import './Landing.css';
 import NewDesignButton from '../../components/NewDesignButton/NewDesignButton';
 import FeaturedDesignCard from '../../components/FeaturedDesignCard/FeaturedDesignCard';
+import MyDesignTiles from '../../components/MyDesignTiles/MyDesignTiles';
 import { FaBars } from 'react-icons/fa';
 
 function Landing() {
   const [featured, setFeatured] = useState();
+  const [myDesigns, setMyDesigns] = useState();
 
   useEffect(() => {
     fetch('/api/featured', { method: 'GET' })
       .then((res) => res.json())
       .then((data) => setFeatured(data));
+
+    fetch('/api/outlines/mydesigns', { method: 'GET' })
+      .then((res) => res.json())
+      .then((data) => setMyDesigns(data));
   }, []);
 
   return (
@@ -24,7 +30,7 @@ function Landing() {
 
       <div className='landing-content'>
         <div className='featured-designs-container'>
-          <p className='featured-designs-label'>Featured</p>
+          <p className='landing-section-label'>Featured</p>
           <div className='feature-designs'>
             {featured
               ? featured.featured.map((outline, key) => (
@@ -39,6 +45,8 @@ function Landing() {
         </div>
 
         <NewDesignButton />
+
+        {myDesigns && <MyDesignTiles myDesigns={myDesigns} />}
       </div>
     </div>
   );

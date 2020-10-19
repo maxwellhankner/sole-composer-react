@@ -25,18 +25,16 @@
 
 .featured-designs-container {
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 .feature-designs {
-  padding: 10px;
-  padding-top: 0px;
   display: flex;
   flex-wrap: nowrap;
-  /* flex-direction: row; */
   overflow-x: auto;
 }
-.featured-designs-label {
+.landing-section-label {
   margin: 0px;
-  margin-left: 20px;
+  margin-left: 16px;
   font-size: 20px;
   font-weight: bold;
 }

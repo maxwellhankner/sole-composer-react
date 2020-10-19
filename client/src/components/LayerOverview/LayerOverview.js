@@ -45,7 +45,6 @@ function LayerOverview({ props }) {
   };
 
   const handleMoveLayer = (layer, direction) => {
-    console.log('design', design);
     const tempDesign = cloneDeep(design);
     let array;
 

@@ -10,6 +10,15 @@ import {
 } from 'react-icons/fa';
 
 function DesignPreview({ handleViewChange, design }) {
+  const handleSaveDesign = () => {
+    fetch('/api/outlines', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ outline: design.outline }),
+    });
+  };
   return (
     <div className='design-preview-container'>
       <div className='design-preview-info'>
@@ -33,7 +42,12 @@ function DesignPreview({ handleViewChange, design }) {
         </div>
         <button>Layers</button>
       </div>
-      <div className='design-preview-button'>
+      <div
+        className='design-preview-button'
+        onClick={() => {
+          handleSaveDesign();
+        }}
+      >
         <div className='design-preview-button-icon'>
           <FaSave />
         </div>
