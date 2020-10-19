@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Interface.css';
 import DesignPreview from '../DesignPreview/DesignPreview';
 import LayersView from '../LayersView/LayersView';
+import ChangeDesignName from '../ChangeDesignName/ChangeDesignName';
 
 function Interface({
   design,
@@ -38,6 +39,16 @@ function Interface({
           graphicVisualCanvas={graphicVisualCanvas}
           handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
           handlePartChangeManager={handlePartChangeManager}
+        />
+      </div>
+    );
+  } else if (view === 'ChangeDesignName') {
+    return (
+      <div className='interface-container'>
+        <ChangeDesignName
+          handleViewChange={handleViewChange}
+          design={design}
+          setDesign={setDesign}
         />
       </div>
     );

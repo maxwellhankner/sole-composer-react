@@ -15,7 +15,10 @@ function DesignPreview({ handleViewChange, design }) {
       <div className='design-preview-info'>
         <div className='design-title-container'>
           <p className='design-title'>{design.outline.title}</p>
-          <button className='edit-design-title-button'>
+          <button
+            className='edit-design-title-button'
+            onClick={() => handleViewChange('ChangeDesignName')}
+          >
             <FaPen />
           </button>
         </div>
