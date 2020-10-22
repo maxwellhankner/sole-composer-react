@@ -66,7 +66,7 @@ const Scene = ({ design, texture, initialLoaded }) => {
 
       //===================================================== model
       const loader = new GLTFLoader(manager);
-      loader.load(`../../../${design.config.source}`, (gltf) => {
+      loader.load(design.config.source, (gltf) => {
         gltf.scene.traverse((node) => {
           if (node.isMesh) node.material = newMaterial;
         });

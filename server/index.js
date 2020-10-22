@@ -26,11 +26,13 @@ connection.once('open', () => {
 const outlineRoutes = require('./src/routes/outlines');
 const configRoutes = require('./src/routes/configs');
 const featuredRoutes = require('./src/routes/featured');
+const assetRoutes = require('./src/routes/assets');
 
 // Use routes
 app.use('/api/outlines', outlineRoutes);
 app.use('/api/configs', configRoutes);
 app.use('/api/featured', featuredRoutes);
+app.use('/api/assets', assetRoutes);
 
 app.listen(port, () => {
   console.log('App is listening on port:', port);
