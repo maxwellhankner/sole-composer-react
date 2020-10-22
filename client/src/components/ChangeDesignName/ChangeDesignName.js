@@ -23,6 +23,7 @@ function ChangeDesignName({ handleViewChange, design, setDesign }) {
           type='text'
           id='design-name-input'
           className='designer-input'
+          defaultValue={design.outline.title}
         ></input>
       </div>
       <div className='standard-button'>

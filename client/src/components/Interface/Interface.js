@@ -22,7 +22,11 @@ function Interface({
   if (view === 'DesignPreview') {
     return (
       <div className='interface-container'>
-        <DesignPreview handleViewChange={handleViewChange} design={design} />
+        <DesignPreview
+          handleViewChange={handleViewChange}
+          design={design}
+          setDesign={setDesign}
+        />
       </div>
     );
   } else if (view === 'Layers') {

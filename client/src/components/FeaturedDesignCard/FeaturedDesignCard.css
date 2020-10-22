@@ -4,39 +4,44 @@
 
 .featureddesigncard-container {
   width: 200px;
-  margin: 10px;
-  /* margin-top: 10px; */
-  /* padding: 10px; */
+  margin: 8px;
+  margin-top: 0px;
   flex: 0 0 auto;
 }
+
+.feature-designs a:first-child {
+  margin-left: 8px;
+}
+
 .featureddesigncard-image {
   width: 100%;
-  height: 180px;
+  height: 150px;
   background-color: #f0f0f0;
+  border-radius: 8px;
 }
+
 .featureddesigncard-image img {
-  margin-top: 32px;
+  margin-top: 20px;
   width: 100%;
-  background-color: #f0f0f0;
 }
+
 .featureddesigncard-title {
   color: #000000;
   font-size: 22px;
-  margin-left: 6px;
   margin-top: 10px;
   margin-bottom: 0px;
 }
+
 .featureddesigncard-model {
   color: #000000;
   font-size: 14px;
-  margin-left: 6px;
   margin-top: 8px;
   margin-bottom: 0px;
 }
+
 .featureddesigncard-author {
-  color: #555555;
+  color: #666666;
   font-size: 14px;
-  margin-left: 6px;
   margin-top: 8px;
   margin-bottom: 0px;
 }
