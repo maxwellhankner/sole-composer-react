@@ -24,17 +24,19 @@
 }
 
 .featured-designs-container {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 16px;
+  /* margin-bottom: 10px; */
 }
 .feature-designs {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+  /* margin-left: 5px; */
 }
 .landing-section-label {
   margin: 0px;
   margin-left: 16px;
+  margin-bottom: 10px;
   font-size: 20px;
   font-weight: bold;
 }

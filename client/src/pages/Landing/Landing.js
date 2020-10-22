@@ -17,6 +17,9 @@ function Landing() {
     fetch('/api/outlines/mydesigns', { method: 'GET' })
       .then((res) => res.json())
       .then((data) => setMyDesigns(data));
+
+    // const data = await fetch(route, method)
+    // set(data)
   }, []);
 
   return (

@@ -1,4 +1,5 @@
 .mydesigntiles-container {
+  margin-top: 16px;
   width: 100%;
 }
 
@@ -18,4 +19,14 @@
 .my-design-tile img {
   margin-top: 34px;
   width: 100%;
+}
+
+/* Desktop Landscape */
+@media screen and (min-device-width: 1000px) and (orientation: landscape) {
+  .my-designs-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .my-design-tile {
+    height: 200px;
+  }
 }
