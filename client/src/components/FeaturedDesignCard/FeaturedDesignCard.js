@@ -9,7 +9,10 @@ function FeaturedDesignCard({ props, id }) {
     <Link to={`/designer/${id}`} className='link-to-designer'>
       <div className='featureddesigncard-container'>
         <div className='featureddesigncard-image'>
-          <img src={`/assets/images/${imageLink}.png`} alt='feature-design' />
+          <img
+            src={`/api/assets/images/${imageLink}.png`}
+            alt='feature-design'
+          />
         </div>
 
         <p className='featureddesigncard-title'>{title}</p>

@@ -77,7 +77,7 @@ export const partChangeManager = ({
     } else if (layerType === 'Graphic') {
       tempDesign.outline.parts[partName].layers.push({
         type: 'graphic',
-        link: '../assets/images/japanese.png',
+        link: '/api/assets/images/japanese.png',
         x: 0,
         y: 0,
         scale: 1,

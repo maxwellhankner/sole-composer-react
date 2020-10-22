@@ -17,7 +17,7 @@ function MyDesignTiles({ myDesigns }) {
           >
             <div className='my-design-tile'>
               <img
-                src='/assets/images/blankdesign.png'
+                src='/api/assets/images/blankdesign.png'
                 alt='my-design-preview'
               />
             </div>

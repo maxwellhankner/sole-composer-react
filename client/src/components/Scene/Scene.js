@@ -12,21 +12,31 @@ const Scene = ({ design, texture, initialLoaded }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const createMaterial = (texture) => {
-    const aoimg = new Image();
-    aoimg.src = '../assets/images/ao_diffuse.png';
-    const ao = new THREE.CanvasTexture(aoimg);
-    ao.flipY = false;
+    return new Promise((resolve) => {
+      const aoimg = new Image();
+      aoimg.src = '/api/assets/images/ao_diffuse.png';
 
-    return new THREE.MeshStandardMaterial({
-      map: texture,
-      aoMap: ao,
+      aoimg.onload = () => {
+        const ao = new THREE.CanvasTexture(aoimg);
+        ao.flipY = false;
+        resolve(
+          new THREE.MeshStandardMaterial({
+            map: texture,
+            aoMap: ao,
+          })
+        );
+      };
     });
   };
 
   // Initialize Renderer and newMaterial
   useEffect(() => {
     setRenderer(new THREE.WebGLRenderer({ antialias: true }));
-    setNewMaterial(createMaterial(texture));
+    async function createMat() {
+      const mat = await createMaterial(texture);
+      setNewMaterial(mat);
+    }
+    createMat();
   }, [texture]);
 
   // Build threeJS Scene

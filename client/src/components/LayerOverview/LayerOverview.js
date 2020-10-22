@@ -177,7 +177,7 @@ function LayerOverview({ props }) {
               ) : (
                 <div className='layer-list-item-right'>
                   <img
-                    src={`../assets/images/${layer.source}Mask.png`}
+                    src={`/api/assets/images/${layer.source}Mask.png`}
                     style={{
                       width: '100%',
                       height: '100%',
