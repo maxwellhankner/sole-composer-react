@@ -17,9 +17,6 @@ function Landing() {
     fetch('/api/outlines/mydesigns', { method: 'GET' })
       .then((res) => res.json())
       .then((data) => setMyDesigns(data));
-
-    // const data = await fetch(route, method)
-    // set(data)
   }, []);
 
   return (
@@ -36,12 +33,8 @@ function Landing() {
           <p className='landing-section-label'>Featured</p>
           <div className='feature-designs'>
             {featured
-              ? featured.featured.map((outline, key) => (
-                  <FeaturedDesignCard
-                    props={outline.outline}
-                    id={outline._id}
-                    key={key}
-                  />
+              ? featured.featured.map((design, key) => (
+                  <FeaturedDesignCard props={design} key={key} />
                 ))
               : null}
           </div>

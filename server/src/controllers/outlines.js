@@ -23,19 +23,25 @@ exports.getOutline = async (req, res, next) => {
     if (!outline) {
       return res.status(400).json({ error: 'No design outline found' });
     }
-    const config = await Config.findById('5f8926b2fe29a71d3ce1ef60');
+    const config = await Config.findById('5f925589cc6d6c16e44d5dfd');
+
     const design = {
-      id: outline._id,
-      outline: outline.outline,
-      config: config.config,
+      _id: outline._id,
+      author: outline.author,
+      title: outline.title,
+      modelName: config.modelName,
+      screenshot: outline.screenshot,
+      outlineData: outline.outlineData,
+      configData: config.configData,
     };
+
     return res.status(200).json(design);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 };
 
-// Add design
+// Add outline
 // POST /api/outlines/
 exports.addOutline = async (req, res, next) => {
   try {
@@ -52,7 +58,7 @@ exports.updateOutline = async (req, res, next) => {
   try {
     const outline = await Outline.findOneAndUpdate(
       { _id: req.params.id },
-      { outline: req.body.outline },
+      req.body,
       { new: true }
     );
     if (!outline) {

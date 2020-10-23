@@ -19,11 +19,13 @@ function ColorPicker({ props }) {
   useEffect(() => {
     const getDesignColors = () => {
       const colors = [];
-      for (const property in design.outline.parts) {
-        for (const layer in design.outline.parts[property].layers) {
-          if (design.outline.parts[property].layers[layer].type === 'color') {
+      for (const property in design.outlineData.parts) {
+        for (const layer in design.outlineData.parts[property].layers) {
+          if (
+            design.outlineData.parts[property].layers[layer].type === 'color'
+          ) {
             const thisColor =
-              design.outline.parts[property].layers[layer].color;
+              design.outlineData.parts[property].layers[layer].color;
             if (!colors.includes(thisColor)) {
               colors.push(thisColor);
             }
@@ -40,11 +42,11 @@ function ColorPicker({ props }) {
       currentPartName === 'innerOverlay'
     ) {
       setCurrentColor(
-        design.outline.overlays[currentPartName].layers[currentLayer].color
+        design.outlineData.overlays[currentPartName].layers[currentLayer].color
       );
     } else {
       setCurrentColor(
-        design.outline.parts[currentPartName].layers[currentLayer].color
+        design.outlineData.parts[currentPartName].layers[currentLayer].color
       );
     }
   }, [design, currentPartName, currentLayer, setColorsArray]);

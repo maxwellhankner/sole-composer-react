@@ -1,8 +1,8 @@
 export const createGraphicLayerCanvas = ({ design, layer, partName }) => {
   return new Promise((resolve) => {
-    const { mask } = design.config.partsObject[partName];
+    const { mask } = design.configData.partsObject[partName];
     const { link, x, y, scale, rotation } = layer;
-    const { canvasSize } = design.config;
+    const { canvasSize } = design.configData;
     // Create layerCanvas to be returned
     const layerCanvas = document.createElement('canvas');
     layerCanvas.width = canvasSize;

@@ -1,0 +1,53 @@
+{
+  "author": "Maxwell Hankner",
+  "title": "Tame Teal",
+  "configId": "5f925589cc6d6c16e44d5dfd",
+  "screenshot": "/api/assets/images/tameteal.png",
+  "outlineData": {
+    "overlays": {
+      "outerOverlay": { "layers": [] },
+      "innerOverlay": { "layers": [] }
+    },
+    "parts": {
+      "outerSwoosh": { "layers": [{ "type": "color", "color": "#5bd3d4" }] },
+      "innerSwoosh": { "layers": [{ "type": "color", "color": "#5bd3d4" }] },
+      "outerQuarter": { "layers": [{ "type": "color", "color": "#ffffff" }] },
+      "innerQuarter": { "layers": [{ "type": "color", "color": "#ffffff" }] },
+      "outerHeel": {
+        "layers": [
+          { "type": "color", "color": "#ade1e1" },
+          {
+            "type": "graphic",
+            "link": "/api/assets/images/japanese.png",
+            "rotation": 0,
+            "scale": 0.3875,
+            "x": -270,
+            "y": 180
+          }
+        ]
+      },
+      "innerHeel": { "layers": [{ "type": "color", "color": "#ade1e1" }] },
+      "outerSole": { "layers": [{ "type": "color", "color": "#ffffff" }] },
+      "innerSole": { "layers": [{ "type": "color", "color": "#ffffff" }] },
+      "sole": { "layers": [{ "type": "color", "color": "#ffffff" }] },
+      "toeBox": { "layers": [{ "type": "color", "color": "#5bd3d4" }] },
+      "toeCap": { "layers": [{ "type": "color", "color": "#ade1e1" }] },
+      "lace": { "layers": [{ "type": "color", "color": "#ffffff" }] },
+      "laceCage": { "layers": [{ "type": "color", "color": "#ffffff" }] },
+      "laceLock": { "layers": [{ "type": "color", "color": "#ffffff" }] },
+      "tongue": { "layers": [{ "type": "color", "color": "#ffffff" }] },
+      "heelWing": {
+        "layers": [
+          { "type": "color", "color": "#5bd3d4" },
+          {
+            "type": "mask",
+            "link": "/api/assets/images/heelWingLogoMask.png",
+            "color": "#ffffff"
+          }
+        ]
+      },
+      "heelTab": { "layers": [{ "type": "color", "color": "#5bd3d4" }] },
+      "sockLiner": { "layers": [{ "type": "color", "color": "#ffffff" }] }
+    }
+  }
+}

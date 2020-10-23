@@ -22,7 +22,8 @@ export const overlayChangeManager = ({
   const tempDesign = cloneDeep(design);
   if (type === 'graphic-moved') {
     const { partName, layerIndex, direction, distance } = changeObject;
-    const thisLayer = tempDesign.outline.overlays[partName].layers[layerIndex];
+    const thisLayer =
+      tempDesign.outlineData.overlays[partName].layers[layerIndex];
     if (direction === 'vert') {
       thisLayer.y += distance;
     } else if (direction === 'hor') {
@@ -53,7 +54,8 @@ export const overlayChangeManager = ({
     });
   } else if (type === 'color-changed') {
     const { partName, layerIndex, newColor } = changeObject;
-    let thisLayer = tempDesign.outline.overlays[partName].layers[layerIndex];
+    let thisLayer =
+      tempDesign.outlineData.overlays[partName].layers[layerIndex];
     thisLayer.color = newColor;
 
     setDesign(tempDesign);
@@ -72,23 +74,23 @@ export const overlayChangeManager = ({
   } else if (type === 'layer-added') {
     const { partName, layerType } = changeObject;
     // add layers to design if this is the first overlay layer added
-    if (design.outline.overlays[partName].layers.length === 0) {
-      const effectedParts = design.config.overlayParts[partName];
+    if (design.outlineData.overlays[partName].layers.length === 0) {
+      const effectedParts = design.configData.overlayParts[partName];
       for (let layer in effectedParts) {
         const currentPart = effectedParts[layer];
-        tempDesign.outline.parts[currentPart].layers.push({
+        tempDesign.outlineData.parts[currentPart].layers.push({
           type: 'overlay',
           source: partName,
         });
       }
     }
     if (layerType === 'Color') {
-      tempDesign.outline.overlays[partName].layers.push({
+      tempDesign.outlineData.overlays[partName].layers.push({
         type: 'color',
         color: '#777777',
       });
     } else {
-      tempDesign.outline.overlays[partName].layers.push({
+      tempDesign.outlineData.overlays[partName].layers.push({
         type: 'graphic',
         link: '/api/assets/images/japanese.png',
         x: 0,
@@ -102,7 +104,9 @@ export const overlayChangeManager = ({
     addLayerToOverlayCanvasObject({
       overlayCanvasObject,
       partName,
-      layerObject: tempDesign.outline.overlays[partName].layers.slice(-1)[0],
+      layerObject: tempDesign.outlineData.overlays[partName].layers.slice(
+        -1
+      )[0],
       overlayCanvas,
       texture,
       graphicVisualCanvas,
@@ -113,11 +117,11 @@ export const overlayChangeManager = ({
     });
   } else if (type === 'layer-moved') {
     const { partName, layerIndex, direction } = changeObject;
-    let array = tempDesign.outline.overlays[partName].layers;
+    let array = tempDesign.outlineData.overlays[partName].layers;
     let tempElement = array[layerIndex];
     array[layerIndex] = array[layerIndex + direction];
     array[layerIndex + direction] = tempElement;
-    tempDesign.outline.overlays[partName].layers = array;
+    tempDesign.outlineData.overlays[partName].layers = array;
 
     setDesign(tempDesign);
     moveLayerInOverlayCanvasObject({
@@ -134,26 +138,27 @@ export const overlayChangeManager = ({
     });
   } else if (type === 'layer-deleted') {
     const { partName, layerIndex } = changeObject;
-    tempDesign.outline.overlays[partName].layers.splice(layerIndex, 1);
-    if (tempDesign.outline.overlays[partName].layers.length === 0) {
+    tempDesign.outlineData.overlays[partName].layers.splice(layerIndex, 1);
+    if (tempDesign.outlineData.overlays[partName].layers.length === 0) {
       // remove layers from design if this is the last overlay layer deleted
-      const effectedParts = design.config.overlayParts[partName];
+      const effectedParts = design.configData.overlayParts[partName];
       for (let layer in effectedParts) {
         const currentPart = effectedParts[layer];
         for (
           let i = 0;
-          i < tempDesign.outline.parts[currentPart].layers.length;
+          i < tempDesign.outlineData.parts[currentPart].layers.length;
           i++
         ) {
           const layerIndex = i;
           if (
-            tempDesign.outline.parts[currentPart].layers[i].type === 'overlay'
+            tempDesign.outlineData.parts[currentPart].layers[i].type ===
+            'overlay'
           ) {
             if (
-              tempDesign.outline.parts[currentPart].layers[i].source ===
+              tempDesign.outlineData.parts[currentPart].layers[i].source ===
               partName
             ) {
-              tempDesign.outline.parts[currentPart].layers.splice(
+              tempDesign.outlineData.parts[currentPart].layers.splice(
                 layerIndex,
                 1
               );
@@ -192,7 +197,7 @@ const updateOverlayLayer = async ({
   canvasObject,
   textureCanvas,
 }) => {
-  const effectedParts = design.config.overlayParts[partName];
+  const effectedParts = design.configData.overlayParts[partName];
   // update canvasObject layer
   let layerCanvas;
   if (layerObject.type === 'color') {
@@ -222,13 +227,19 @@ const updateOverlayLayer = async ({
   // update effected layers in canvas object
   for (let part in effectedParts) {
     const currentPart = effectedParts[part];
-    for (let i = 0; i < design.outline.parts[currentPart].layers.length; i++) {
+    for (
+      let i = 0;
+      i < design.outlineData.parts[currentPart].layers.length;
+      i++
+    ) {
       const layerIndex = i;
-      if (design.outline.parts[currentPart].layers[i].type === 'overlay') {
-        if (design.outline.parts[currentPart].layers[i].source === partName) {
+      if (design.outlineData.parts[currentPart].layers[i].type === 'overlay') {
+        if (
+          design.outlineData.parts[currentPart].layers[i].source === partName
+        ) {
           const layerCanvas = await createOverlayLayerCanvas({
             design,
-            layer: design.outline.parts[currentPart].layers[i],
+            layer: design.outlineData.parts[currentPart].layers[i],
             partName: currentPart,
             overlayCanvas,
           });
@@ -282,22 +293,25 @@ const addLayerToOverlayCanvasObject = async ({
     graphicVisualCanvas,
   });
   // update effected layers in canvas object
-  const effectedParts = design.config.overlayParts[partName];
+  const effectedParts = design.configData.overlayParts[partName];
   for (let part in effectedParts) {
     const currentPart = effectedParts[part];
     for (
       let i = 0;
-      i < tempDesign.outline.parts[currentPart].layers.length;
+      i < tempDesign.outlineData.parts[currentPart].layers.length;
       i++
     ) {
       const layerIndex = i;
-      if (tempDesign.outline.parts[currentPart].layers[i].type === 'overlay') {
+      if (
+        tempDesign.outlineData.parts[currentPart].layers[i].type === 'overlay'
+      ) {
         if (
-          tempDesign.outline.parts[currentPart].layers[i].source === partName
+          tempDesign.outlineData.parts[currentPart].layers[i].source ===
+          partName
         ) {
           const layerCanvas = await createOverlayLayerCanvas({
             design,
-            layer: tempDesign.outline.parts[currentPart].layers[i],
+            layer: tempDesign.outlineData.parts[currentPart].layers[i],
             partName: currentPart,
             overlayCanvas,
           });
@@ -341,16 +355,22 @@ const moveLayerInOverlayCanvasObject = async ({
     graphicVisualCanvas,
   });
 
-  const effectedParts = design.config.overlayParts[partName];
+  const effectedParts = design.configData.overlayParts[partName];
   for (let part in effectedParts) {
     const currentPart = effectedParts[part];
-    for (let i = 0; i < design.outline.parts[currentPart].layers.length; i++) {
+    for (
+      let i = 0;
+      i < design.outlineData.parts[currentPart].layers.length;
+      i++
+    ) {
       const layerIndex = i;
-      if (design.outline.parts[currentPart].layers[i].type === 'overlay') {
-        if (design.outline.parts[currentPart].layers[i].source === partName) {
+      if (design.outlineData.parts[currentPart].layers[i].type === 'overlay') {
+        if (
+          design.outlineData.parts[currentPart].layers[i].source === partName
+        ) {
           const layerCanvas = await createOverlayLayerCanvas({
             design,
-            layer: design.outline.parts[currentPart].layers[i],
+            layer: design.outlineData.parts[currentPart].layers[i],
             partName: currentPart,
             overlayCanvas,
           });
@@ -390,22 +410,23 @@ const deleteLayerFromOverlayCanvasObject = async ({
     graphicVisualCanvas,
   });
 
-  const effectedParts = design.config.overlayParts[partName];
+  const effectedParts = design.configData.overlayParts[partName];
   for (let part in effectedParts) {
     const currentPart = effectedParts[part];
     for (
       let i = 0;
-      i < tempDesign.outline.parts[currentPart].layers.length;
+      i < tempDesign.outlineData.parts[currentPart].layers.length;
       i++
     ) {
       const layerIndex = i;
       if (
-        tempDesign.outline.parts[currentPart].layers[i].type === 'overlay' &&
-        tempDesign.outline.parts[currentPart].layers[i].source === partName
+        tempDesign.outlineData.parts[currentPart].layers[i].type ===
+          'overlay' &&
+        tempDesign.outlineData.parts[currentPart].layers[i].source === partName
       ) {
         const layerCanvas = await createOverlayLayerCanvas({
           design,
-          layer: design.outline.parts[currentPart].layers[i],
+          layer: design.outlineData.parts[currentPart].layers[i],
           partName: currentPart,
           overlayCanvas,
         });
@@ -430,8 +451,8 @@ const redrawOverlayCanvasObjectPart = ({
   design,
 }) => {
   const textureCanvasCTX = textureCanvas.getContext('2d');
-  const { x, y, width, height } = design.config.partsObject[partName];
-  const { divider } = design.config;
+  const { x, y, width, height } = design.configData.partsObject[partName];
+  const { divider } = design.configData;
   for (let layer in canvasObjectPart.layers) {
     const layerCanvas = canvasObjectPart.layers[layer];
     textureCanvasCTX.drawImage(

@@ -7,7 +7,7 @@ export const createTexture = (textureCanvas) => {
 };
 
 export const createCanvas = ({ design }) => {
-  const { canvasSize } = design.config;
+  const { canvasSize } = design.configData;
   const canvas = document.createElement('canvas');
   canvas.width = canvasSize;
   canvas.height = canvasSize;
@@ -18,7 +18,7 @@ export const createCanvas = ({ design }) => {
 };
 
 export const createGraphicVisualCanvas = ({ design }) => {
-  const { canvasSize } = design.config;
+  const { canvasSize } = design.configData;
   const canvas = document.createElement('canvas');
   canvas.id = 'graphic-visual-canvas';
   canvas.width = canvasSize;

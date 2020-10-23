@@ -20,8 +20,6 @@ exports.getConfig = async (req, res, next) => {
 // POST /api/configs/
 exports.addConfig = async (req, res, next) => {
   try {
-    // const { data } = req.body;
-
     const config = await Config.create(req.body);
 
     return res.status(200).json(config);

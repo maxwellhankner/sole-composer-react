@@ -9,7 +9,7 @@ function MaskTypes({ props }) {
         <p>Select Mask Type</p>
       </div>
 
-      {design.config.maskTypes[currentPartName].map((type, i) => (
+      {design.configData.maskTypes[currentPartName].map((type, i) => (
         <div key={i} className='standard-button'>
           <button
             onClick={() => {

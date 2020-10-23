@@ -8,7 +8,7 @@ function ChangeDesignName({ handleViewChange, design, setDesign }) {
     const newTitle = startCase(
       document.getElementById('design-name-input').value
     );
-    tempDesign.outline.title = newTitle;
+    tempDesign.title = newTitle;
     setDesign(tempDesign);
     handleViewChange('DesignPreview');
   };
@@ -23,7 +23,7 @@ function ChangeDesignName({ handleViewChange, design, setDesign }) {
           type='text'
           id='design-name-input'
           className='designer-input'
-          defaultValue={design.outline.title}
+          defaultValue={design.title}
         ></input>
       </div>
       <div className='standard-button'>
