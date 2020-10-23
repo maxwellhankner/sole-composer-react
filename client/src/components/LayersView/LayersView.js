@@ -16,7 +16,9 @@ function LayersView({
   const [focusLayer, setFocusLayer] = useState();
   const [layersView, setLayersView] = useState('PartList');
 
-  const currentPartName = Object.keys(design.config.partsObject)[currentPart];
+  const currentPartName = Object.keys(design.configData.partsObject)[
+    currentPart
+  ];
 
   let numberOfLayers;
   let allLayers;
@@ -25,11 +27,11 @@ function LayersView({
     currentPartName === 'outerOverlay' ||
     currentPartName === 'innerOverlay'
   ) {
-    numberOfLayers = design.outline.overlays[currentPartName].layers.length;
-    allLayers = design.outline.overlays[currentPartName].layers;
+    numberOfLayers = design.outlineData.overlays[currentPartName].layers.length;
+    allLayers = design.outlineData.overlays[currentPartName].layers;
   } else {
-    numberOfLayers = design.outline.parts[currentPartName].layers.length;
-    allLayers = design.outline.parts[currentPartName].layers;
+    numberOfLayers = design.outlineData.parts[currentPartName].layers.length;
+    allLayers = design.outlineData.parts[currentPartName].layers;
   }
 
   const handleAddLayer = (type) => {

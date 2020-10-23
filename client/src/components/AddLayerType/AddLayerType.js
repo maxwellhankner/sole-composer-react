@@ -8,7 +8,7 @@ function AddLayerType({ props }) {
       <div className='view-title'>
         <p>Select Layer Type</p>
       </div>
-      {design.config.layerTypes[currentPartName].types.map((type, i) => (
+      {design.configData.layerTypes[currentPartName].types.map((type, i) => (
         <div key={i} className='standard-button'>
           {type === 'Mask' ? (
             <button

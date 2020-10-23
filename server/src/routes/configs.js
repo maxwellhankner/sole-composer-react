@@ -3,6 +3,6 @@ const { getConfig, addConfig } = require('../controllers/configs');
 
 router.route('/').post(addConfig);
 
-router.route(':id').get(getConfig);
+router.route('/:id').get(getConfig);
 
 module.exports = router;

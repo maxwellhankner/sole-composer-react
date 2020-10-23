@@ -10,8 +10,8 @@ function PartSelector({
   setFocusLayer,
   setLayersView,
 }) {
-  const numberOfParts = design.config.partsArray.length;
-  const arrayOfParts = design.config.partsArray;
+  const numberOfParts = design.configData.partsArray.length;
+  const arrayOfParts = design.configData.partsArray;
 
   const handlePartChange = (i) => {
     if (currentPart === 0 && i < 0) {

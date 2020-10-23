@@ -5,12 +5,12 @@ export const createOverlayLayerCanvas = ({
   overlayCanvas,
 }) => {
   return new Promise((resolve) => {
-    const { mask } = design.config.partsObject[partName];
+    const { mask } = design.configData.partsObject[partName];
     const { source } = layer;
-    const { x, y, scale, rotation } = design.config.translations[source][
+    const { x, y, scale, rotation } = design.configData.translations[source][
       partName
     ];
-    const { canvasSize } = design.config;
+    const { canvasSize } = design.configData;
     const layerCanvas = document.createElement('canvas');
     layerCanvas.width = canvasSize;
     layerCanvas.height = canvasSize;

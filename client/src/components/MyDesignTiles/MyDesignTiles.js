@@ -9,17 +9,14 @@ function MyDesignTiles({ myDesigns }) {
         <p className='landing-section-label'>My Designs</p>
       </div>
       <div className='my-designs-grid'>
-        {myDesigns.map((outline, key) => (
+        {myDesigns.map((design, key) => (
           <Link
             key={key}
-            to={`/designer/${outline._id}`}
+            to={`/designer/${design._id}`}
             className='link-to-designer'
           >
             <div className='my-design-tile'>
-              <img
-                src='/api/assets/images/blankdesign.png'
-                alt='my-design-preview'
-              />
+              <img src={design.screenshot} alt='my-design-preview' />
             </div>
           </Link>
         ))}

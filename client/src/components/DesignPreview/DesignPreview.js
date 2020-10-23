@@ -11,14 +11,20 @@ import {
 
 function DesignPreview({ handleViewChange, design }) {
   const handleSaveDesign = () => {
-    if (design.id === '5f89fa848bad7310f40b1630') {
-      console.log('new design');
+    // If this is a new design, create it
+    if (design._id === '5f9256b47378785278621ee8') {
       fetch('/api/outlines', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ outline: design.outline }),
+        body: JSON.stringify({
+          author: design.author,
+          title: design.title,
+          screenshot: design.screenshot,
+          configId: '5f925589cc6d6c16e44d5dfd',
+          outlineData: design.outlineData,
+        }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -27,32 +33,36 @@ function DesignPreview({ handleViewChange, design }) {
     }
     // If the design already exists, update it
     else {
-      fetch(`/api/outlines/${design.id}`, {
+      fetch(`/api/outlines/${design._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ outline: design.outline }),
+        body: JSON.stringify({
+          author: design.author,
+          title: design.title,
+          screenshot: design.screenshot,
+          configId: '5f925589cc6d6c16e44d5dfd',
+          outlineData: design.outlineData,
+        }),
       });
     }
   };
 
   const handleDeleteDesign = () => {
-    const designId = window.location.pathname.split('/')[2];
-    fetch(`/api/outlines/${designId}`, {
+    fetch(`/api/outlines/${design._id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    // reroute user to landing
     window.location.href = '/';
   };
   return (
     <div className='design-preview-container'>
       <div className='design-preview-info'>
         <div className='design-title-container'>
-          <p className='design-title'>{design.outline.title}</p>
+          <p className='design-title'>{design.title}</p>
           <button
             className='edit-design-title-button'
             onClick={() => handleViewChange('ChangeDesignName')}
@@ -60,7 +70,7 @@ function DesignPreview({ handleViewChange, design }) {
             <FaPen />
           </button>
         </div>
-        <p className='design-model'>{design.outline.model}</p>
+        <p className='design-model'>{design.model}</p>
       </div>
       <div
         className='design-preview-button'
@@ -82,7 +92,7 @@ function DesignPreview({ handleViewChange, design }) {
         </div>
         <button>Save</button>
       </div>
-      {!(design.id === '5f89fa848bad7310f40b1630') && (
+      {!(design._id === '5f9256b47378785278621ee8') && (
         <div
           className='design-preview-button'
           onClick={() => {

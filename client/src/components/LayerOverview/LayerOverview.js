@@ -52,9 +52,9 @@ function LayerOverview({ props }) {
       currentPartName === 'outerOverlay' ||
       currentPartName === 'innerOverlay'
     ) {
-      array = tempDesign.outline.overlays[currentPartName].layers;
+      array = tempDesign.outlineData.overlays[currentPartName].layers;
     } else {
-      array = tempDesign.outline.parts[currentPartName].layers;
+      array = tempDesign.outlineData.parts[currentPartName].layers;
     }
 
     if (layer === array.length - 1 && direction === 1) {
@@ -69,9 +69,9 @@ function LayerOverview({ props }) {
         currentPartName === 'outerOverlay' ||
         currentPartName === 'innerOverlay'
       ) {
-        tempDesign.outline.overlays[currentPartName].layers = array;
+        tempDesign.outlineData.overlays[currentPartName].layers = array;
       } else {
-        tempDesign.outline.parts[currentPartName].layers = array;
+        tempDesign.outlineData.parts[currentPartName].layers = array;
       }
       handlePartChangeManager({
         type: 'layer-moved',
@@ -231,7 +231,7 @@ function LayerOverview({ props }) {
                   <button
                     onClick={() => {
                       setCurrentPart(
-                        design.config.partsArray.indexOf(layer.source)
+                        design.configData.partsArray.indexOf(layer.source)
                       );
                       setFocusLayer(-1);
                     }}

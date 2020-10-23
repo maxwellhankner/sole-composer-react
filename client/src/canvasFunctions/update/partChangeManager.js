@@ -19,7 +19,7 @@ export const partChangeManager = ({
   const tempDesign = cloneDeep(design);
   if (type === 'graphic-moved') {
     const { partName, layerIndex, direction, distance } = changeObject;
-    const thisLayer = tempDesign.outline.parts[partName].layers[layerIndex];
+    const thisLayer = tempDesign.outlineData.parts[partName].layers[layerIndex];
     if (direction === 'vert') {
       thisLayer.y += distance;
     } else if (direction === 'hor') {
@@ -50,9 +50,9 @@ export const partChangeManager = ({
     const { partName, layerIndex, newColor } = changeObject;
     let thisLayer;
     if (partName === 'outerOverlay' || partName === 'innerOverlay') {
-      thisLayer = tempDesign.outline.overlays[partName].layers[layerIndex];
+      thisLayer = tempDesign.outlineData.overlays[partName].layers[layerIndex];
     } else {
-      thisLayer = tempDesign.outline.parts[partName].layers[layerIndex];
+      thisLayer = tempDesign.outlineData.parts[partName].layers[layerIndex];
     }
 
     thisLayer.color = newColor;
@@ -70,12 +70,12 @@ export const partChangeManager = ({
   } else if (type === 'layer-added') {
     const { partName, layerType } = changeObject;
     if (layerType === 'Color') {
-      tempDesign.outline.parts[partName].layers.push({
+      tempDesign.outlineData.parts[partName].layers.push({
         type: 'color',
         color: '#777777',
       });
     } else if (layerType === 'Graphic') {
-      tempDesign.outline.parts[partName].layers.push({
+      tempDesign.outlineData.parts[partName].layers.push({
         type: 'graphic',
         link: '/api/assets/images/japanese.png',
         x: 0,
@@ -85,7 +85,7 @@ export const partChangeManager = ({
       });
     } else {
       const { maskLink } = changeObject;
-      tempDesign.outline.parts[partName].layers.push({
+      tempDesign.outlineData.parts[partName].layers.push({
         type: 'mask',
         link: maskLink,
         color: '#000000',
@@ -93,7 +93,9 @@ export const partChangeManager = ({
     }
 
     setDesign(tempDesign);
-    const layerObject = tempDesign.outline.parts[partName].layers.slice(-1)[0];
+    const layerObject = tempDesign.outlineData.parts[partName].layers.slice(
+      -1
+    )[0];
     addLayerToCanvasObject({
       canvasObject,
       graphicVisualCanvas,
@@ -105,11 +107,11 @@ export const partChangeManager = ({
     });
   } else if (type === 'layer-moved') {
     const { partName, layerIndex, direction } = changeObject;
-    let array = tempDesign.outline.parts[partName].layers;
+    let array = tempDesign.outlineData.parts[partName].layers;
     let tempElement = array[layerIndex];
     array[layerIndex] = array[layerIndex + direction];
     array[layerIndex + direction] = tempElement;
-    tempDesign.outline.parts[partName].layers = array;
+    tempDesign.outlineData.parts[partName].layers = array;
 
     setDesign(tempDesign);
     moveLayerInCanvasObject({
@@ -124,7 +126,7 @@ export const partChangeManager = ({
     });
   } else if (type === 'layer-deleted') {
     const { partName, layerIndex } = changeObject;
-    tempDesign.outline.parts[partName].layers.splice(layerIndex, 1);
+    tempDesign.outlineData.parts[partName].layers.splice(layerIndex, 1);
 
     setDesign(tempDesign);
     deleteLayerFromCanvasObject({
@@ -276,11 +278,11 @@ const redrawCanvasObjectPart = ({
   graphicCTX.clearRect(
     0,
     0,
-    design.config.canvasSize,
-    design.config.canvasSize
+    design.configData.canvasSize,
+    design.configData.canvasSize
   );
-  const { x, y, width, height } = design.config.partsObject[partName];
-  const { divider } = design.config;
+  const { x, y, width, height } = design.configData.partsObject[partName];
+  const { divider } = design.configData;
   for (let layer in canvasObjectPart.layers) {
     const layerCanvas = canvasObjectPart.layers[layer];
     textureCanvasCTX.drawImage(
@@ -294,8 +296,8 @@ const redrawCanvasObjectPart = ({
       layerCanvas,
       0,
       0,
-      design.config.canvasSize,
-      design.config.canvasSize
+      design.configData.canvasSize,
+      design.configData.canvasSize
     );
   }
   texture.needsUpdate = true;

@@ -27,7 +27,7 @@ function Designer() {
           setDesignSpec(data);
         });
     } else {
-      fetch('/api/outlines/5f89fa848bad7310f40b1630', { method: 'GET' })
+      fetch('/api/outlines/5f9256b47378785278621ee8', { method: 'GET' })
         .then((res) => res.json())
         .then((data) => {
           setDesignSpec(data);

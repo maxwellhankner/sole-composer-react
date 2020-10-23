@@ -65,19 +65,19 @@ export const designObjectToCanvasObject = ({ design, type, overlays }) => {
     const canvasObject = {};
     const createAllParts = async () => {
       if (type === 'partsCanvasObject') {
-        for (let partName in design.outline.parts) {
+        for (let partName in design.outlineData.parts) {
           canvasObject[partName] = await createCanvasObjectPart({
             design,
-            designLayers: design.outline.parts[partName].layers,
+            designLayers: design.outlineData.parts[partName].layers,
             partName,
             overlays,
           });
         }
       } else if (type === 'overlaysCanvasObject') {
-        for (let partName in design.outline.overlays) {
+        for (let partName in design.outlineData.overlays) {
           canvasObject[partName] = await createCanvasObjectPart({
             design,
-            designLayers: design.outline.overlays[partName].layers,
+            designLayers: design.outlineData.overlays[partName].layers,
             partName,
           });
         }
@@ -95,7 +95,7 @@ export const overlayCanvasObjectToTextureCanvas = ({
   partName,
   graphicVisualCanvas,
 }) => {
-  const { canvasSize } = design.config;
+  const { canvasSize } = design.configData;
   const overlayCanvasCTX = overlayCanvas.getContext('2d');
   const graphicCTX = graphicVisualCanvas.getContext('2d');
   graphicCTX.clearRect(0, 0, canvasSize, canvasSize);
@@ -114,7 +114,7 @@ export const updateGraphicVisualCanvas = ({
   partName,
   canvasObject,
 }) => {
-  const { canvasSize } = design.config;
+  const { canvasSize } = design.configData;
   const graphicCTX = graphicVisualCanvas.getContext('2d');
   graphicCTX.clearRect(0, 0, canvasSize, canvasSize);
   for (let layer in canvasObject[partName].layers) {

@@ -2,21 +2,17 @@ import React from 'react';
 import './FeaturedDesignCard.css';
 import { Link } from 'react-router-dom';
 
-function FeaturedDesignCard({ props, id }) {
-  const { title, model, author } = props;
-  const imageLink = title.toLowerCase().split(' ').join('');
+function FeaturedDesignCard({ props }) {
+  const { _id, title, configId, author, screenshot } = props;
   return (
-    <Link to={`/designer/${id}`} className='link-to-designer'>
+    <Link to={`/designer/${_id}`} className='link-to-designer'>
       <div className='featureddesigncard-container'>
         <div className='featureddesigncard-image'>
-          <img
-            src={`/api/assets/images/${imageLink}.png`}
-            alt='feature-design'
-          />
+          <img src={screenshot} alt='feature-design' />
         </div>
 
         <p className='featureddesigncard-title'>{title}</p>
-        <p className='featureddesigncard-model'>{model}</p>
+        <p className='featureddesigncard-model'>{configId.modelName}</p>
         <p className='featureddesigncard-author'>{author}</p>
       </div>
     </Link>

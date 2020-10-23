@@ -10,7 +10,7 @@ function PartList({ props }) {
         <p>Parts</p>
       </div>
       <div className='partlist-buttons'>
-        {design.config.partsArray.map((part, i) => (
+        {design.configData.partsArray.map((part, i) => (
           <div className='standard-button' key={i}>
             <button
               onClick={() => {
