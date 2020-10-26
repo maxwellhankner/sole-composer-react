@@ -14,7 +14,7 @@ function Landing() {
       .then((res) => res.json())
       .then((data) => setFeatured(data));
 
-    fetch('/api/outlines/mydesigns', { method: 'GET' })
+    fetch('/api/outlines/alldesigns', { method: 'GET' })
       .then((res) => res.json())
       .then((data) => setMyDesigns(data));
   }, []);

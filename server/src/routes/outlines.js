@@ -2,14 +2,17 @@ const router = require('express').Router();
 const {
   getOutline,
   addOutline,
-  getMyDesigns,
+  getAllDesigns,
   updateOutline,
   deleteOutline,
+  newOutline,
 } = require('../controllers/outlines');
 
 router.route('/').post(addOutline);
 
-router.route('/mydesigns').get(getMyDesigns);
+router.route('/alldesigns').get(getAllDesigns);
+
+router.route('/newdesign').get(newOutline);
 
 router.route('/:id').get(getOutline);
 

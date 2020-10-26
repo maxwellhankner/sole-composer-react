@@ -3,13 +3,39 @@ const Config = require('../models/configs');
 
 // Get my designs
 // GET /api/outlines/mydesigns
-exports.getMyDesigns = async (req, res, next) => {
+exports.getAllDesigns = async (req, res, next) => {
   try {
     const outlines = await Outline.find();
     if (!outlines) {
       return res.status(400).json({ error: 'No design outlines found' });
     }
     return res.status(200).json(outlines);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+// Get new design
+// GET /api/outlines/newdesign
+exports.newOutline = async (req, res, next) => {
+  try {
+    const outline = await Outline.findById('5f9256b47378785278621ee8');
+    if (!outline) {
+      return res.status(400).json({ error: 'No design outline found' });
+    }
+    const config = await Config.findById('5f925589cc6d6c16e44d5dfd');
+
+    const design = {
+      _id: outline._id,
+      author: outline.author,
+      title: outline.title,
+      modelName: config.modelName,
+      screenshot: outline.screenshot,
+      outlineData: outline.outlineData,
+      configData: config.configData,
+    };
+
+    return res.status(200).json(design);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
