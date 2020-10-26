@@ -1,6 +1,9 @@
 .interface-container {
-  height: 50%;
+  height: 100%;
+  /* flex: 1 0 0; */
+  /* flex-shrink: 1; */
+  /* flex-grow: 1; */
   color: #eee;
-  width: 100%;
+  /* width: 100%; */
   touch-action: none;
 }

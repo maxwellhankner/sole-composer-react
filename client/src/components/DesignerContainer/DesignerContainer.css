@@ -8,19 +8,25 @@
 
 /* Mobile Landscape */
 @media only screen and (orientation: landscape) {
+  body {
+    background-color: #000000;
+  }
   .designer-container {
     flex-direction: row;
   }
   .scene-container {
-    width: 60% !important;
+    width: 100vh !important;
     height: 100% !important;
+    flex-shrink: 0;
+    padding: 0px !important;
   }
   .interface-container {
-    width: 40% !important;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
     height: 100% !important;
   }
   #loading-screen {
-    width: 60% !important;
     height: 100% !important;
   }
 }
@@ -28,15 +34,17 @@
 /* Desktop Landscape */
 @media screen and (min-device-width: 1000px) and (orientation: landscape) {
   .scene-container {
-    width: 70% !important;
-    height: 100% !important;
+    width: 100vh !important;
+    height: 100%;
+    flex-shrink: 0;
+    padding: 0px !important;
   }
   .interface-container {
-    width: 30% !important;
+    max-width: 500px;
+    margin: auto;
     height: 100% !important;
   }
   #loading-screen {
-    width: 70% !important;
     height: 100% !important;
   }
 }

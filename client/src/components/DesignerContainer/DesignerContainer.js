@@ -20,6 +20,8 @@ function DesignerContainer({
   textureCanvas,
   initialLoaded,
   setInitialLoaded,
+  camera,
+  setCamera,
 }) {
   const [design, setDesign] = useState(designSpec);
 
@@ -130,6 +132,8 @@ function DesignerContainer({
         texture={texture}
         textureCanvas={textureCanvas}
         initialLoaded={initialLoaded}
+        camera={camera}
+        setCamera={setCamera}
       />
       <Interface
         design={design}
@@ -138,6 +142,7 @@ function DesignerContainer({
         handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
         handlePartChangeManager={handlePartChangeManager}
         setInitialLoaded={setInitialLoaded}
+        camera={camera}
       />
     </div>
   );

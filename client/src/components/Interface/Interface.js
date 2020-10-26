@@ -10,6 +10,7 @@ function Interface({
   graphicVisualCanvas,
   handleUpdateGraphicVisualCanvas,
   handlePartChangeManager,
+  camera,
 }) {
   const [currentPart, setCurrentPart] = useState(0);
   const [currentLayer, setCurrentLayer] = useState(0);
@@ -26,6 +27,7 @@ function Interface({
           handleViewChange={handleViewChange}
           design={design}
           setDesign={setDesign}
+          camera={camera}
         />
       </div>
     );
