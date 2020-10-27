@@ -1,9 +1,11 @@
 .partlist-container {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .partlist-buttons {
-  height: 70%;
+  /* height: 65%; */
   overflow: auto;
   overflow-x: hidden;
   margin-bottom: 10px;

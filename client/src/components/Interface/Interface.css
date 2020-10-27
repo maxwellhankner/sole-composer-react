@@ -1,8 +1,9 @@
 .interface-container {
-  height: 100%;
+  height: calc(100vh - 100vw);
   /* flex: 1 0 0; */
   /* flex-shrink: 1; */
-  /* flex-grow: 1; */
+  /* flex: 0 1 0; */
+  /* flex: 1 1 auto; */
   color: #eee;
   /* width: 100%; */
   touch-action: none;

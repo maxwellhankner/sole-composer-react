@@ -5,7 +5,9 @@
   /* ------------------------------------------------ */
   height: 100vw;
   /* height: 375px; */
-  flex-shrink: 0;
+  /* height: 50%; */
+  flex: 0 0 auto;
+  /* flex-shrink: 0; */
 }
 
 .scene-container canvas {

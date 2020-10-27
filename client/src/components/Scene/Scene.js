@@ -41,28 +41,24 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
   }, [texture]);
 
   useEffect(() => {
+    //===================================================== camera
     if (renderer && newMaterial) {
-      // create camera
       renderer.setSize(1080, 1080);
       threeCanvasRef.current.appendChild(renderer.domElement);
       console.log(threeCanvasRef.current.canvas);
-
-      // const width = threeCanvasRef.current.clientWidth;
-      // const height = threeCanvasRef.current.clientHeight;
-      // console.log(width, height);
-      const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 1000);
-      camera.position.z = 8.5;
+      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+      camera.position.z = 7.5;
       camera.position.y = 0;
       setCamera(camera);
     }
   }, [renderer, newMaterial, setCamera]);
 
   useEffect(() => {
+    //===================================================== orbit controls
     if (renderer && newMaterial && camera) {
-      // create orbit controls
       const controls = new OrbitControls(camera, renderer.domElement);
-      controls.maxDistance = 12;
-      controls.minDistance = 3;
+      controls.maxDistance = 10;
+      controls.minDistance = 4;
       controls.minPolarAngle = Math.PI * (1 / 5);
       controls.maxPolarAngle = Math.PI * (6 / 7);
       controls.enablePan = false;
@@ -74,30 +70,9 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
   // Build threeJS Scene
   useEffect(() => {
     if (renderer && newMaterial && camera && orbitControls) {
-      // threeCanvasRef.current.appendChild(renderer.domElement);
-      // const width = threeCanvasRef.current.clientWidth;
-      // const height = threeCanvasRef.current.clientHeight;
-
       //===================================================== scene
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0xf9f9f9);
-
-      //===================================================== camera
-      // const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
-      // camera.position.z = 8.5;
-      // camera.position.y = 0;
-
-      //===================================================== orbit controls
-      // const controls = new OrbitControls(camera, renderer.domElement);
-      // controls.maxDistance = 12;
-      // controls.minDistance = 3;
-      // controls.minPolarAngle = Math.PI * (1 / 5);
-      // controls.maxPolarAngle = Math.PI * (6 / 7);
-      // controls.enablePan = false;
-      // controls.update();
-
-      // camera.position.set(0, 0, 8.5);
-      // orbitControls.update();
 
       //===================================================== lights
       const light = new THREE.AmbientLight(0xffffff, 1);
@@ -122,26 +97,10 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
         scene.add(model);
       });
 
-      //===================================================== resize
-      // const resizecanvas = () => {
-      //   const canvas = renderer.domElement;
-      //   const width = canvas.clientWidth * 3;
-      //   const height = canvas.clientHeight * 3;
-      //   console.log(width, height);
-      //   if (canvas.width !== width || canvas.height !== height) {
-      //     renderer.setSize('1080', '1080', false);
-      //     // camera.aspect = width / height;
-      //     camera.updateProjectionMatrix();
-      //   }
-      // };
-
-      // window.addEventListener('resize', resizecanvas);
-
       //===================================================== animate
       const render = () => {
         renderer.render(scene, camera);
         requestAnimationFrame(render);
-        // resizecanvas();
         orbitControls.update();
       };
 

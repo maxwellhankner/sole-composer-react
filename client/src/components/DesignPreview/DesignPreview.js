@@ -61,7 +61,7 @@ function DesignPreview({ handleViewChange, design, camera }) {
   };
 
   const handleMoveCamera = () => {
-    camera.position.set(0, 0, 8.5);
+    camera.position.set(0, 0, 7.5);
   };
 
   return (
