@@ -7,9 +7,10 @@ import {
   FaTrashAlt,
   FaSave,
   FaTimes,
+  FaCamera,
 } from 'react-icons/fa';
 
-function DesignPreview({ handleViewChange, design }) {
+function DesignPreview({ handleViewChange, design, camera }) {
   const handleSaveDesign = () => {
     // If this is a new design, create it
     if (design._id === '5f9256b47378785278621ee8') {
@@ -58,6 +59,11 @@ function DesignPreview({ handleViewChange, design }) {
     });
     window.location.href = '/';
   };
+
+  const handleMoveCamera = () => {
+    camera.position.set(0, 0, 7.5);
+  };
+
   return (
     <div className='design-preview-container'>
       <div className='design-preview-info'>
@@ -80,6 +86,17 @@ function DesignPreview({ handleViewChange, design }) {
           <FaLayerGroup />
         </div>
         <button>Layers</button>
+      </div>
+      <div
+        className='design-preview-button'
+        onClick={() => {
+          handleMoveCamera();
+        }}
+      >
+        <div className='design-preview-button-icon'>
+          <FaCamera />
+        </div>
+        <button>Reset Camera</button>
       </div>
       <div
         className='design-preview-button'

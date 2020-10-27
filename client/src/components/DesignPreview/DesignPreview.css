@@ -1,15 +1,19 @@
+.design-preview-container {
+  width: 100%;
+}
+
 .view-title p {
   text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 16px;
+  margin-bottom: 16px;
   font-size: 18px;
 }
 
 .design-preview-info {
-  width: 90%;
-  margin: auto;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .design-title-container {
@@ -53,8 +57,8 @@
   /* width: 90%;
   margin: auto; */
   /* width: 100%; */
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 16px;
+  margin-right: 16px;
   margin-bottom: 10px;
 }
 
@@ -75,8 +79,8 @@
 
 /* Design Preview Button */
 .design-preview-button {
-  width: 90%;
-  margin: auto;
+  margin-left: 16px;
+  margin-right: 16px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;

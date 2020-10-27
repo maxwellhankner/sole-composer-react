@@ -1,11 +1,9 @@
 #loading-screen {
   background-color: #f9f9f9;
   position: fixed;
-  z-index: 0;
+  height: 100%;
   width: 100%;
-  height: 50%;
-  opacity: 1;
-  transition: 1s opacity;
+  z-index: 1;
 }
 
 #loader {
@@ -22,4 +20,13 @@
   width: 120px;
   height: 120px;
   animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

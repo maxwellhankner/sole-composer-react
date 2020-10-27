@@ -5,10 +5,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
-const Scene = ({ design, texture, initialLoaded }) => {
-  const canvasRef = useRef(null);
+const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
+  const threeCanvasRef = useRef(null);
   const [renderer, setRenderer] = useState(null);
   const [newMaterial, setNewMaterial] = useState(null);
+  const [orbitControls, setOrbitControls] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const createMaterial = (texture) => {
@@ -39,30 +40,39 @@ const Scene = ({ design, texture, initialLoaded }) => {
     createMat();
   }, [texture]);
 
-  // Build threeJS Scene
   useEffect(() => {
+    //===================================================== camera
     if (renderer && newMaterial) {
-      canvasRef.current.appendChild(renderer.domElement);
-      const width = canvasRef.current.clientWidth;
-      const height = canvasRef.current.clientHeight;
-
-      //===================================================== scene
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xf9f9f9);
-
-      //===================================================== camera
-      const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
-      camera.position.z = 8.5;
+      renderer.setSize(1080, 1080);
+      threeCanvasRef.current.appendChild(renderer.domElement);
+      console.log(threeCanvasRef.current.canvas);
+      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+      camera.position.z = 7.5;
       camera.position.y = 0;
+      setCamera(camera);
+    }
+  }, [renderer, newMaterial, setCamera]);
 
-      //===================================================== orbit controls
+  useEffect(() => {
+    //===================================================== orbit controls
+    if (renderer && newMaterial && camera) {
       const controls = new OrbitControls(camera, renderer.domElement);
-      controls.maxDistance = 12;
-      controls.minDistance = 3;
+      controls.maxDistance = 10;
+      controls.minDistance = 4;
       controls.minPolarAngle = Math.PI * (1 / 5);
       controls.maxPolarAngle = Math.PI * (6 / 7);
       controls.enablePan = false;
       controls.update();
+      setOrbitControls(controls);
+    }
+  }, [renderer, newMaterial, camera, setOrbitControls]);
+
+  // Build threeJS Scene
+  useEffect(() => {
+    if (renderer && newMaterial && camera && orbitControls) {
+      //===================================================== scene
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xf9f9f9);
 
       //===================================================== lights
       const light = new THREE.AmbientLight(0xffffff, 1);
@@ -87,26 +97,11 @@ const Scene = ({ design, texture, initialLoaded }) => {
         scene.add(model);
       });
 
-      //===================================================== resize
-      const resizecanvas = () => {
-        const canvas = renderer.domElement;
-        const width = canvas.clientWidth * 2;
-        const height = canvas.clientHeight * 2;
-        if (canvas.width !== width || canvas.height !== height) {
-          renderer.setSize(width, height, false);
-          camera.aspect = width / height;
-          camera.updateProjectionMatrix();
-        }
-      };
-
-      window.addEventListener('resize', resizecanvas);
-
       //===================================================== animate
       const render = () => {
         renderer.render(scene, camera);
         requestAnimationFrame(render);
-        resizecanvas();
-        controls.update();
+        orbitControls.update();
       };
 
       render();
@@ -114,15 +109,15 @@ const Scene = ({ design, texture, initialLoaded }) => {
       //===================================================== cleanup
       const cleanup = () => {
         cancelAnimationFrame(render);
-        controls.dispose();
+        orbitControls.dispose();
       };
 
       return cleanup;
     }
-  }, [newMaterial, renderer, design.configData.source]);
+  }, [newMaterial, renderer, camera, orbitControls, design.configData.source]);
 
   return (
-    <div className='scene-container' ref={canvasRef}>
+    <div className='scene-container' ref={threeCanvasRef}>
       {!isLoading && initialLoaded ? null : <LoadingSpinner />}
     </div>
   );

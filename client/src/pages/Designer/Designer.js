@@ -16,6 +16,7 @@ function Designer() {
   const [textureCanvas, setTextureCanvas] = useState(null);
   const [texture, setTexture] = useState(null);
   const [initialLoaded, setInitialLoaded] = useState(false);
+  const [camera, setCamera] = useState(null);
 
   const { id } = useParams();
 
@@ -70,6 +71,8 @@ function Designer() {
           textureCanvas={textureCanvas}
           initialLoaded={initialLoaded}
           setInitialLoaded={setInitialLoaded}
+          camera={camera}
+          setCamera={setCamera}
         />
       </div>
     );
