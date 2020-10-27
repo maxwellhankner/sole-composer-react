@@ -21,11 +21,15 @@
   width: 100%;
 }
 
-/* Desktop Landscape */
-@media screen and (min-device-width: 1000px) and (orientation: landscape) {
+/* Mobile Landscape */
+@media only screen and (orientation: landscape) {
   .my-designs-grid {
     grid-template-columns: 1fr 1fr 1fr;
   }
+}
+
+/* Desktop Landscape */
+@media screen and (min-device-width: 1000px) and (orientation: landscape) {
   .my-design-tile {
     height: 200px;
   }
