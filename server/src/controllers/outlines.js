@@ -2,7 +2,7 @@ const Outline = require('../models/outlines');
 const Config = require('../models/configs');
 
 // Get my designs
-// GET /api/outlines/mydesigns
+// GET /api/outlines/getalldesigns
 exports.getAllDesigns = async (req, res, next) => {
   try {
     const outlines = await Outline.find();
