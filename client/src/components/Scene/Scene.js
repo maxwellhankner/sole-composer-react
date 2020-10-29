@@ -9,7 +9,6 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
   const threeCanvasRef = useRef(null);
   const [renderer, setRenderer] = useState(null);
   const [newMaterial, setNewMaterial] = useState(null);
-  const [orbitControls, setOrbitControls] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const createMaterial = (texture) => {
@@ -53,23 +52,9 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
     }
   }, [renderer, newMaterial, setCamera]);
 
-  useEffect(() => {
-    //===================================================== orbit controls
-    if (renderer && newMaterial && camera) {
-      const controls = new OrbitControls(camera, renderer.domElement);
-      controls.maxDistance = 10;
-      controls.minDistance = 4;
-      controls.minPolarAngle = Math.PI * (1 / 5);
-      controls.maxPolarAngle = Math.PI * (6 / 7);
-      controls.enablePan = false;
-      controls.update();
-      setOrbitControls(controls);
-    }
-  }, [renderer, newMaterial, camera, setOrbitControls]);
-
   // Build threeJS Scene
   useEffect(() => {
-    if (renderer && newMaterial && camera && orbitControls) {
+    if (renderer && newMaterial && camera) {
       //===================================================== scene
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0xf9f9f9);
@@ -77,6 +62,15 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
       //===================================================== lights
       const light = new THREE.AmbientLight(0xffffff, 1);
       scene.add(light);
+
+      //===================================================== orbit controls
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.maxDistance = 10;
+      controls.minDistance = 4;
+      controls.minPolarAngle = Math.PI * (1 / 5);
+      controls.maxPolarAngle = Math.PI * (6 / 7);
+      controls.enablePan = false;
+      controls.update();
 
       //===================================================== loading mananger
       const manager = new THREE.LoadingManager();
@@ -101,7 +95,7 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
       const render = () => {
         renderer.render(scene, camera);
         requestAnimationFrame(render);
-        orbitControls.update();
+        controls.update();
       };
 
       render();
@@ -109,12 +103,12 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
       //===================================================== cleanup
       const cleanup = () => {
         cancelAnimationFrame(render);
-        orbitControls.dispose();
+        controls.dispose();
       };
 
       return cleanup;
     }
-  }, [newMaterial, renderer, camera, orbitControls, design.configData.source]);
+  }, [newMaterial, renderer, camera, design.configData.source]);
 
   return (
     <div className='scene-container' ref={threeCanvasRef}>
