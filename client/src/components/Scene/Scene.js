@@ -31,7 +31,13 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
 
   // Initialize Renderer and newMaterial
   useEffect(() => {
-    setRenderer(new THREE.WebGLRenderer({ antialias: true }));
+    setRenderer(
+      new THREE.WebGLRenderer({
+        antialias: true,
+        preserveDrawingBuffer: true,
+        alpha: true,
+      })
+    );
     async function createMat() {
       const mat = await createMaterial(texture);
       setNewMaterial(mat);
@@ -56,7 +62,7 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
     if (renderer && newMaterial && camera) {
       //===================================================== scene
       const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xf9f9f9);
+      // scene.background = new THREE.Color(0xf9f9f9);
 
       //===================================================== lights
       const light = new THREE.AmbientLight(0xffffff, 1);
@@ -110,7 +116,11 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
   }, [newMaterial, renderer, camera, design.configData.source]);
 
   return (
-    <div className='scene-container' ref={threeCanvasRef}>
+    <div
+      className='scene-container'
+      id='scene-container-id'
+      ref={threeCanvasRef}
+    >
       {!isLoading && initialLoaded ? null : <LoadingSpinner />}
     </div>
   );
