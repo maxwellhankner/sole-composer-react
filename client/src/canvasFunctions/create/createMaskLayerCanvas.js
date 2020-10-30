@@ -7,7 +7,7 @@ export const createMaskLayerCanvas = ({ design, layer }) => {
     layerCanvas.height = canvasSize;
     const layerCanvasCTX = layerCanvas.getContext('2d');
     const graphicImg = new Image();
-    graphicImg.src = link;
+    graphicImg.src = `/api/assets/images/${link}`;
     graphicImg.onload = () => {
       layerCanvasCTX.drawImage(graphicImg, 0, 0, canvasSize, canvasSize);
       layerCanvasCTX.globalCompositeOperation = 'source-in';

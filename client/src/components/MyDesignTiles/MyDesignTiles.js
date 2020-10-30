@@ -16,7 +16,10 @@ function MyDesignTiles({ myDesigns }) {
             className='link-to-designer'
           >
             <div className='my-design-tile'>
-              <img src={design.screenshot} alt='my-design-preview' />
+              <img
+                src={`/api/assets/images/${design.screenshot}`}
+                alt='my-design-preview'
+              />
             </div>
           </Link>
         ))}
