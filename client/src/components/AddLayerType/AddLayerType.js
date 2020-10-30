@@ -18,9 +18,18 @@ function AddLayerType({ props }) {
             >
               {type}
             </button>
+          ) : type === 'Graphic' ? (
+            <button
+              onClick={() => {
+                setLayersView('UploadImage');
+              }}
+            >
+              {type}
+            </button>
           ) : (
             <button
               onClick={() => {
+                console.log(type);
                 handleAddLayer(type);
                 setLayersView('LayerOverview');
               }}

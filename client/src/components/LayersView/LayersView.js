@@ -34,13 +34,23 @@ function LayersView({
     allLayers = design.outlineData.parts[currentPartName].layers;
   }
 
-  const handleAddLayer = (type) => {
-    handlePartChangeManager({
-      type: 'layer-added',
-      partName: currentPartName,
-      layerType: type,
-    });
-    setFocusLayer(numberOfLayers);
+  const handleAddLayer = (type, fileName) => {
+    if (fileName) {
+      handlePartChangeManager({
+        type: 'layer-added',
+        partName: currentPartName,
+        layerType: type,
+        fileName: fileName,
+      });
+      setFocusLayer(numberOfLayers);
+    } else {
+      handlePartChangeManager({
+        type: 'layer-added',
+        partName: currentPartName,
+        layerType: type,
+      });
+      setFocusLayer(numberOfLayers);
+    }
   };
 
   const handleAddMaskLayer = (maskType, maskLink) => {

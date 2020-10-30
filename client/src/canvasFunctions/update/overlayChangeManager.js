@@ -92,7 +92,7 @@ export const overlayChangeManager = ({
     } else {
       tempDesign.outlineData.overlays[partName].layers.push({
         type: 'graphic',
-        link: '/api/assets/images/japanese.png',
+        link: 'japanese.png',
         x: 0,
         y: 0,
         scale: 1,

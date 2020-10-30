@@ -153,7 +153,7 @@ function LayerOverview({ props }) {
               ) : layer.type === 'graphic' ? (
                 <div className='layer-list-item-right'>
                   <img
-                    src={layer.link}
+                    src={`/api/assets/images/${layer.link}`}
                     style={{
                       width: '100%',
                       height: '100%',
@@ -165,7 +165,7 @@ function LayerOverview({ props }) {
               ) : layer.type === 'mask' ? (
                 <div className='layer-list-item-right'>
                   <img
-                    src={layer.link}
+                    src={`/api/assets/images/${layer.link}`}
                     style={{
                       width: '100%',
                       height: '100%',

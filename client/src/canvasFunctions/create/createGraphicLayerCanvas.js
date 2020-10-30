@@ -9,7 +9,7 @@ export const createGraphicLayerCanvas = ({ design, layer, partName }) => {
     layerCanvas.height = canvasSize;
     const layerCanvasCTX = layerCanvas.getContext('2d');
     const graphicImg = new Image();
-    graphicImg.src = link;
+    graphicImg.src = `/api/assets/images/${link}`;
     graphicImg.onload = () => {
       // Get graphic's diagnal length (pythagorean)
       const graphicWidth = graphicImg.width;
@@ -38,7 +38,7 @@ export const createGraphicLayerCanvas = ({ design, layer, partName }) => {
         graphicImg.height
       );
       const maskImg = new Image();
-      maskImg.src = mask;
+      maskImg.src = `/api/assets/images/${mask}`;
       maskImg.onload = function () {
         layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
         layerCanvasCTX.globalCompositeOperation = 'source-in';

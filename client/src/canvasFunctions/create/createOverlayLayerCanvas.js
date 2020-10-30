@@ -16,7 +16,7 @@ export const createOverlayLayerCanvas = ({
     layerCanvas.height = canvasSize;
     const layerCanvasCTX = layerCanvas.getContext('2d');
     const maskImg = new Image();
-    maskImg.src = mask;
+    maskImg.src = `/api/assets/images/${mask}`;
     maskImg.onload = () => {
       layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
       layerCanvasCTX.globalCompositeOperation = 'source-in';

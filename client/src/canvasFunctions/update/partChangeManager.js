@@ -15,7 +15,7 @@ export const partChangeManager = ({
   graphicVisualCanvas,
   canvasObject,
 }) => {
-  const { type } = changeObject;
+  const { type, fileName } = changeObject;
   const tempDesign = cloneDeep(design);
   if (type === 'graphic-moved') {
     const { partName, layerIndex, direction, distance } = changeObject;
@@ -77,7 +77,7 @@ export const partChangeManager = ({
     } else if (layerType === 'Graphic') {
       tempDesign.outlineData.parts[partName].layers.push({
         type: 'graphic',
-        link: '/api/assets/images/japanese.png',
+        link: fileName,
         x: 0,
         y: 0,
         scale: 1,

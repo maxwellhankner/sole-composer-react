@@ -44,7 +44,6 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
     if (renderer && newMaterial) {
       renderer.setSize(1080, 1080);
       threeCanvasRef.current.appendChild(renderer.domElement);
-      console.log(threeCanvasRef.current.canvas);
       const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
       camera.position.z = 7.5;
       camera.position.y = 0;
@@ -80,7 +79,7 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
 
       //===================================================== model
       const loader = new GLTFLoader(manager);
-      loader.load(design.configData.source, (gltf) => {
+      loader.load(`/api/assets/models/${design.configData.source}`, (gltf) => {
         gltf.scene.traverse((node) => {
           if (node.isMesh) node.material = newMaterial;
         });
