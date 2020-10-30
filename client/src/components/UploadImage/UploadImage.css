@@ -17,3 +17,22 @@
 #image-input-id {
   display: none;
 }
+
+.file-size-warning {
+  text-align: center;
+  font-size: 13px;
+  color: #ff5555;
+}
+
+#loading-small {
+  width: 100%;
+  height: calc(100vh - 100vw);
+}
+
+/* Mobile and Desktop Landscape */
+@media only screen and (orientation: landscape) {
+  #loading-small {
+    width: 100%;
+    height: 100vh;
+  }
+}
