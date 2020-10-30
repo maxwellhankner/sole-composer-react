@@ -10,7 +10,6 @@ aws.config.update({
   region: 'us-east-2',
 });
 
-// max file size - file.size
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
     cb(null, true);
@@ -18,6 +17,8 @@ const fileFilter = (req, file, cb) => {
     cb(new Error('Invalid file type, only JPEG and PNG is allowed!'), false);
   }
 };
+
+// max file size - file.size
 
 const upload = multer({
   fileFilter,

@@ -1,27 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './UploadImage.css';
 import { uploadImage } from '../../helpers/imageUpload';
 
 function UploadImage({ props }) {
   const { setLayersView, handleAddLayer } = props;
 
+  const [warning, setWarning] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const onFileChange = async (e) => {
-    // show loading spinner
-    const file = e.target.files[0];
-    let awsLocation;
-    await uploadImage(file).then((data) => (awsLocation = data.image));
-    let awsFileName = awsLocation.split('/');
-    awsFileName = awsFileName[awsFileName.length - 1];
-    handleAddGraphicLayer(awsFileName);
+    const fileSize = (e.target.files[0].size / 1024 / 1024).toFixed(4); // MB
+    if (fileSize < 2) {
+      // show loading spinner
+      setIsLoading(true);
+      const file = e.target.files[0];
+      await uploadImage(file).then((data) => {
+        let awsLocation = data.image;
+        let awsFileName = awsLocation.split('/');
+        awsFileName = awsFileName[awsFileName.length - 1];
+        handleAddGraphicLayer(awsFileName);
+      });
+    } else {
+      setWarning(true);
+    }
   };
 
   const handleAddGraphicLayer = (fileName) => {
-    // add layer
     handleAddLayer('Graphic', fileName);
-
-    // setLayersView('LayerOverview')
     setLayersView('LayerOverview');
   };
+
+  if (isLoading) {
+    return (
+      <div className='upload-image-container'>
+        <div id='loading-small'>
+          <div id='loader'></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className='upload-image-container'>
@@ -40,6 +57,12 @@ function UploadImage({ props }) {
           Upload
         </label>
       </div>
+
+      {warning && (
+        <div className='file-size-warning'>
+          <p>file must be less that 2MB.</p>
+        </div>
+      )}
 
       <div className='standard-button'>
         <button onClick={() => setLayersView('LayerOverview')}>Cancel</button>
