@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './UploadImage.css';
-import { uploadImage } from '../../helpers/imageUpload';
+import { uploadImage } from '../../helpers/uploadImage';
+import { convertAwsLink } from '../../helpers/convertAwsLink';
 
 function UploadImage({ props }) {
   const { setLayersView, handleAddLayer } = props;
@@ -15,9 +16,7 @@ function UploadImage({ props }) {
       setIsLoading(true);
       const file = e.target.files[0];
       await uploadImage(file).then((data) => {
-        let awsLocation = data.image;
-        let awsFileName = awsLocation.split('/');
-        awsFileName = awsFileName[awsFileName.length - 1];
+        const awsFileName = convertAwsLink(data.image);
         handleAddGraphicLayer(awsFileName);
       });
     } else {

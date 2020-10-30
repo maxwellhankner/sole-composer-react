@@ -13,11 +13,11 @@
 .my-design-tile {
   width: 100%;
   background-color: #f0f0f0;
-  height: 180px;
+  /* height: 180px; */
 }
 
 .my-design-tile img {
-  margin-top: 34px;
+  /* margin-top: 34px; */
   width: 100%;
 }
 

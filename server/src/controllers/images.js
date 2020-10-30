@@ -1,6 +1,6 @@
 const request = require('request');
 
-const upload = require('../middleware/imageUpload');
+const upload = require('../middleware/uploadImage');
 const singleUpload = upload.single('image');
 
 // Get Image

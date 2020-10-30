@@ -1,6 +1,9 @@
 import React from 'react';
 import './DesignPreview.css';
 import { Link } from 'react-router-dom';
+import { uploadImage } from '../../helpers/uploadImage';
+import { takeScreenshot } from '../../helpers/takeScreenshot';
+import { convertAwsLink } from '../../helpers/convertAwsLink';
 import {
   FaPen,
   FaLayerGroup,
@@ -12,42 +15,48 @@ import {
 
 function DesignPreview({ handleViewChange, design, camera }) {
   const handleSaveDesign = () => {
-    // If this is a new design, create it
-    if (design._id === '5f9256b47378785278621ee8') {
-      fetch('/api/outlines', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          author: design.author,
-          title: design.title,
-          screenshot: design.screenshot,
-          configId: '5f925589cc6d6c16e44d5dfd',
-          outlineData: design.outlineData,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          window.location.href = `/designer/${data._id}`;
+    const file = takeScreenshot(camera);
+
+    uploadImage(file).then((data) => {
+      const imageName = convertAwsLink(data.image);
+
+      // If this is a new design, create it
+      if (design._id === '5f9256b47378785278621ee8') {
+        fetch('/api/outlines', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            author: design.author,
+            title: design.title,
+            screenshot: imageName,
+            configId: '5f925589cc6d6c16e44d5dfd',
+            outlineData: design.outlineData,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            window.location.href = `/designer/${data._id}`;
+          });
+      }
+      // If the design already exists, update it
+      else {
+        fetch(`/api/outlines/${design._id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            author: design.author,
+            title: design.title,
+            screenshot: imageName,
+            configId: '5f925589cc6d6c16e44d5dfd',
+            outlineData: design.outlineData,
+          }),
         });
-    }
-    // If the design already exists, update it
-    else {
-      fetch(`/api/outlines/${design._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          author: design.author,
-          title: design.title,
-          screenshot: design.screenshot,
-          configId: '5f925589cc6d6c16e44d5dfd',
-          outlineData: design.outlineData,
-        }),
-      });
-    }
+      }
+    });
   };
 
   const handleDeleteDesign = () => {
