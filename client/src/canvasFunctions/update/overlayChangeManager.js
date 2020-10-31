@@ -18,7 +18,7 @@ export const overlayChangeManager = ({
   overlayCanvas,
   overlayCanvasObject,
 }) => {
-  const { type } = changeObject;
+  const { type, fileName } = changeObject;
   const tempDesign = cloneDeep(design);
   if (type === 'graphic-moved') {
     const { partName, layerIndex, direction, distance } = changeObject;
@@ -92,7 +92,7 @@ export const overlayChangeManager = ({
     } else {
       tempDesign.outlineData.overlays[partName].layers.push({
         type: 'graphic',
-        link: 'japanese.png',
+        link: fileName,
         x: 0,
         y: 0,
         scale: 1,
