@@ -48,7 +48,7 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
   useEffect(() => {
     //===================================================== camera
     if (renderer && newMaterial) {
-      renderer.setSize(1080, 1080);
+      renderer.setSize(2048, 2048);
       threeCanvasRef.current.appendChild(renderer.domElement);
       const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
       camera.position.z = 7.5;
