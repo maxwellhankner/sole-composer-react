@@ -1,3 +1,7 @@
+.upload-image-container {
+  padding-top: 16px;
+}
+
 .upload-image-input {
   padding-top: 7px;
   padding-bottom: 9px;
@@ -27,6 +31,12 @@
 #loading-small {
   width: 100%;
   height: calc(100vh - 100vw);
+}
+
+.used-graphics {
+  width: 100%;
+  /* margin-top: 16px; */
+  margin-bottom: 16px;
 }
 
 /* Mobile and Desktop Landscape */

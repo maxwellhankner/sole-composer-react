@@ -21,9 +21,8 @@ function ColorPicker({ props }) {
       const colors = [];
       for (const property in design.outlineData.parts) {
         for (const layer in design.outlineData.parts[property].layers) {
-          if (
-            design.outlineData.parts[property].layers[layer].type === 'color'
-          ) {
+          const type = design.outlineData.parts[property].layers[layer].type;
+          if (type === 'color' || type === 'mask') {
             const thisColor =
               design.outlineData.parts[property].layers[layer].color;
             if (!colors.includes(thisColor)) {
@@ -32,6 +31,20 @@ function ColorPicker({ props }) {
           }
         }
       }
+      for (const property in design.outlineData.overlays) {
+        for (const layer in design.outlineData.overlays[property].layers) {
+          if (
+            design.outlineData.overlays[property].layers[layer].type === 'color'
+          ) {
+            const thisColor =
+              design.outlineData.overlays[property].layers[layer].color;
+            if (!colors.includes(thisColor)) {
+              colors.push(thisColor);
+            }
+          }
+        }
+      }
+
       return colors;
     };
 

@@ -4,7 +4,7 @@ import GraphicEditor from '../GraphicEditor/GraphicEditor';
 import LayerOverview from '../LayerOverview/LayerOverview';
 import MaskTypes from '../MaskTypes/MaskTypes';
 import PartList from '../PartList/PartList';
-import UploadImage from '../UploadImage/UploadImage';
+import GraphicPicker from '../GraphicPicker/GraphicPicker';
 
 const LayerDictionary = {
   AddLayerType: AddLayerType,
@@ -13,7 +13,7 @@ const LayerDictionary = {
   LayerOverview: LayerOverview,
   MaskTypes: MaskTypes,
   PartList: PartList,
-  UploadImage: UploadImage,
+  GraphicPicker: GraphicPicker,
 };
 
 export default LayerDictionary;

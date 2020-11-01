@@ -1,13 +1,42 @@
-import React, { useState } from 'react';
-import './UploadImage.css';
+import React, { useState, useEffect } from 'react';
+import './GraphicPicker.css';
 import { uploadImage } from '../../helpers/uploadImage';
 import { convertAwsLink } from '../../helpers/convertAwsLink';
+import CurrentGraphics from '../CurrentGraphics/CurrentGraphics';
 
-function UploadImage({ props }) {
-  const { setLayersView, handleAddLayer } = props;
+function GraphicPicker({ props }) {
+  const { setLayersView, handleAddLayer, design } = props;
 
   const [warning, setWarning] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [graphicsArray, setGraphicsArray] = useState();
+
+  useEffect(() => {
+    const getGraphicsArray = () => {
+      const graphics = [];
+
+      for (const property in design.outlineData.parts) {
+        for (const layer in design.outlineData.parts[property].layers) {
+          if (
+            design.outlineData.parts[property].layers[layer].type === 'graphic'
+          ) {
+            const thisGraphic =
+              design.outlineData.parts[property].layers[layer].link;
+            if (!graphics.includes(thisGraphic)) {
+              graphics.push(thisGraphic);
+            }
+          }
+        }
+      }
+      if (!graphics[0]) {
+        return null;
+      } else {
+        return graphics;
+      }
+    };
+
+    setGraphicsArray(getGraphicsArray());
+  }, [design]);
 
   const onFileChange = async (e) => {
     const fileSize = (e.target.files[0].size / 1024 / 1024).toFixed(4); // MB
@@ -41,9 +70,18 @@ function UploadImage({ props }) {
 
   return (
     <div className='upload-image-container'>
-      <div className='view-title'>
+      {graphicsArray && (
+        <div className='used-graphics'>
+          <CurrentGraphics
+            graphicsArray={graphicsArray}
+            handleAddGraphicLayer={handleAddGraphicLayer}
+          />
+        </div>
+      )}
+
+      {/* <div className='view-title'>
         <p>Upload Image</p>
-      </div>
+      </div> */}
       <div className='upload-image-input'>
         <label htmlFor='image-input-id' className='upload-image-label'>
           <input
@@ -70,4 +108,4 @@ function UploadImage({ props }) {
   );
 }
 
-export default UploadImage;
+export default GraphicPicker;

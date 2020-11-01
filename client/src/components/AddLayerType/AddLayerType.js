@@ -21,7 +21,7 @@ function AddLayerType({ props }) {
           ) : type === 'Graphic' ? (
             <button
               onClick={() => {
-                setLayersView('UploadImage');
+                setLayersView('GraphicPicker');
               }}
             >
               {type}
