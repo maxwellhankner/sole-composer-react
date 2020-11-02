@@ -20,9 +20,9 @@ function DesignPreview({
   canSave,
   setCanSave,
 }) {
-  const handleSaveDesign = () => {
+  const handleSaveDesign = async () => {
     setCanSave(false);
-    const file = takeScreenshot(camera);
+    const file = await takeScreenshot(camera);
 
     uploadImage(file).then((data) => {
       const imageName = convertAwsLink(data.image);

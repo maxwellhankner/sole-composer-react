@@ -28,7 +28,7 @@ function ChangeDesignName({ handleViewChange, design, setDesign, setCanSave }) {
         ></input>
       </div>
       <div className='standard-button'>
-        <button onClick={() => handleUpdateDesignName()}>Save</button>
+        <button onClick={() => handleUpdateDesignName()}>Done</button>
       </div>
     </div>
   );
