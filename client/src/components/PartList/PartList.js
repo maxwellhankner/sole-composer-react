@@ -23,7 +23,7 @@ function PartList({ props }) {
           </div>
         ))}
       </div>
-      <div className='standard-button'>
+      <div className='standard-button bottom-button'>
         <button onClick={() => handleViewChange('DesignPreview')}>Back</button>
       </div>
     </div>
