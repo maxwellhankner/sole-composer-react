@@ -2,13 +2,14 @@ import React from 'react';
 import './ChangeDesignName.css';
 import { cloneDeep, startCase } from 'lodash';
 
-function ChangeDesignName({ handleViewChange, design, setDesign }) {
+function ChangeDesignName({ handleViewChange, design, setDesign, setCanSave }) {
   const handleUpdateDesignName = () => {
     const tempDesign = cloneDeep(design);
     const newTitle = startCase(
       document.getElementById('design-name-input').value
     );
     tempDesign.title = newTitle;
+    setCanSave(true);
     setDesign(tempDesign);
     handleViewChange('DesignPreview');
   };

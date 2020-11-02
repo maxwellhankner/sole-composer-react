@@ -13,8 +13,15 @@ import {
   FaCamera,
 } from 'react-icons/fa';
 
-function DesignPreview({ handleViewChange, design, camera }) {
+function DesignPreview({
+  handleViewChange,
+  design,
+  camera,
+  canSave,
+  setCanSave,
+}) {
   const handleSaveDesign = () => {
+    setCanSave(false);
     const file = takeScreenshot(camera);
 
     uploadImage(file).then((data) => {
@@ -107,17 +114,27 @@ function DesignPreview({ handleViewChange, design, camera }) {
         </div>
         <button>Reset Camera</button>
       </div>
-      <div
-        className='design-preview-button'
-        onClick={() => {
-          handleSaveDesign();
-        }}
-      >
-        <div className='design-preview-button-icon'>
-          <FaSave />
+      {canSave ? (
+        <div
+          className='design-preview-button'
+          onClick={() => {
+            handleSaveDesign();
+          }}
+        >
+          <div className='design-preview-button-icon'>
+            <FaSave />
+          </div>
+          <button>Save</button>
         </div>
-        <button>Save</button>
-      </div>
+      ) : (
+        <div className='design-preview-button save-deactivated'>
+          <div className='design-preview-button-icon'>
+            <FaSave />
+          </div>
+          <button>Save</button>
+        </div>
+      )}
+
       {!(design._id === '5f9256b47378785278621ee8') && (
         <div
           className='design-preview-button'

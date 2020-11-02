@@ -109,3 +109,11 @@
 .design-preview-button button:focus {
   outline: none;
 }
+
+.save-deactivated button {
+  color: #999999;
+}
+
+.save-deactivated svg {
+  color: #999999;
+}

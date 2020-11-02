@@ -11,6 +11,7 @@ function ColorPicker({ props }) {
     design,
     handlePartChangeManager,
     setLayersView,
+    setCanSave,
   } = props;
 
   const [currentColor, setCurrentColor] = useState('#ffffaa');
@@ -65,6 +66,7 @@ function ColorPicker({ props }) {
   }, [design, currentPartName, currentLayer, setColorsArray]);
 
   const handleColorChange = (color) => {
+    setCanSave(true);
     const newColor = color.hex || color;
     setCurrentColor(color);
     handlePartChangeManager({

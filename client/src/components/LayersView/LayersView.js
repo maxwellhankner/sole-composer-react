@@ -12,6 +12,7 @@ function LayersView({
   handleViewChange,
   setCurrentLayer,
   setCurrentPart,
+  setCanSave,
 }) {
   const [focusLayer, setFocusLayer] = useState();
   const [layersView, setLayersView] = useState('PartList');
@@ -35,6 +36,7 @@ function LayersView({
   }
 
   const handleAddLayer = (type, fileName) => {
+    setCanSave(true);
     if (fileName) {
       handlePartChangeManager({
         type: 'layer-added',
@@ -54,6 +56,7 @@ function LayersView({
   };
 
   const handleAddMaskLayer = (maskType, maskLink) => {
+    setCanSave(true);
     handlePartChangeManager({
       type: 'layer-added',
       partName: currentPartName,
@@ -84,6 +87,7 @@ function LayersView({
     setFocusLayer,
     setLayersView,
     numberOfLayers,
+    setCanSave,
   };
 
   return <Component props={propsToPassDown} />;

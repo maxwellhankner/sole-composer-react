@@ -15,6 +15,7 @@ function Interface({
   const [currentPart, setCurrentPart] = useState(0);
   const [currentLayer, setCurrentLayer] = useState(0);
   const [view, setView] = useState('DesignPreview');
+  const [canSave, setCanSave] = useState(false);
 
   const handleViewChange = (viewChange) => {
     setView(viewChange);
@@ -28,6 +29,8 @@ function Interface({
           design={design}
           setDesign={setDesign}
           camera={camera}
+          canSave={canSave}
+          setCanSave={setCanSave}
         />
       </div>
     );
@@ -45,6 +48,7 @@ function Interface({
           graphicVisualCanvas={graphicVisualCanvas}
           handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
           handlePartChangeManager={handlePartChangeManager}
+          setCanSave={setCanSave}
         />
       </div>
     );
@@ -55,6 +59,7 @@ function Interface({
           handleViewChange={handleViewChange}
           design={design}
           setDesign={setDesign}
+          setCanSave={setCanSave}
         />
       </div>
     );
