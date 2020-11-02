@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './DesignPreview.css';
 import { Link } from 'react-router-dom';
 import { uploadImage } from '../../helpers/uploadImage';
@@ -20,15 +20,16 @@ function DesignPreview({
   canSave,
   setCanSave,
 }) {
+  const [loading, setLoading] = useState(false);
+
   const handleSaveDesign = async () => {
     setCanSave(false);
-    const file = await takeScreenshot(camera);
-
-    uploadImage(file).then((data) => {
-      const imageName = convertAwsLink(data.image);
-
-      // If this is a new design, create it
-      if (design._id === '5f9256b47378785278621ee8') {
+    if (design._id === '5f9256b47378785278621ee8') {
+      setLoading(true);
+      const file = await takeScreenshot(camera);
+      uploadImage(file).then((data) => {
+        const imageName = convertAwsLink(data.image);
+        // If this is a new design, create it
         fetch('/api/outlines', {
           method: 'POST',
           headers: {
@@ -46,9 +47,12 @@ function DesignPreview({
           .then((data) => {
             window.location.href = `/designer/${data._id}`;
           });
-      }
-      // If the design already exists, update it
-      else {
+      });
+    } else {
+      const file = await takeScreenshot(camera);
+      uploadImage(file).then((data) => {
+        const imageName = convertAwsLink(data.image);
+        // If the design already exists, update it
         fetch(`/api/outlines/${design._id}`, {
           method: 'PUT',
           headers: {
@@ -62,8 +66,8 @@ function DesignPreview({
             outlineData: design.outlineData,
           }),
         });
-      }
-    });
+      });
+    }
   };
 
   const handleDeleteDesign = () => {
@@ -80,84 +84,94 @@ function DesignPreview({
     camera.position.set(0, 0, 7.5);
   };
 
-  return (
-    <div className='design-preview-container'>
-      <div className='design-preview-info'>
-        <div className='design-title-container'>
-          <p className='design-title'>{design.title}</p>
-          <button
-            className='edit-design-title-button'
-            onClick={() => handleViewChange('ChangeDesignName')}
+  if (loading) {
+    return (
+      <div className='design-preview-container'>
+        <div id='loading-small'>
+          <div id='loader'></div>
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <div className='design-preview-container'>
+        <div className='design-preview-info'>
+          <div className='design-title-container'>
+            <p className='design-title'>{design.title}</p>
+            <button
+              className='edit-design-title-button'
+              onClick={() => handleViewChange('ChangeDesignName')}
+            >
+              <FaPen />
+            </button>
+          </div>
+          <p className='design-model'>{design.model}</p>
+        </div>
+        <div
+          className='design-preview-button'
+          onClick={() => handleViewChange('Layers')}
+        >
+          <div className='design-preview-button-icon'>
+            <FaLayerGroup />
+          </div>
+          <button>Layers</button>
+        </div>
+        <div
+          className='design-preview-button'
+          onClick={() => {
+            handleMoveCamera();
+          }}
+        >
+          <div className='design-preview-button-icon'>
+            <FaCamera />
+          </div>
+          <button>Reset Camera</button>
+        </div>
+        {canSave ? (
+          <div
+            className='design-preview-button'
+            onClick={() => {
+              handleSaveDesign();
+            }}
           >
-            <FaPen />
-          </button>
-        </div>
-        <p className='design-model'>{design.model}</p>
-      </div>
-      <div
-        className='design-preview-button'
-        onClick={() => handleViewChange('Layers')}
-      >
-        <div className='design-preview-button-icon'>
-          <FaLayerGroup />
-        </div>
-        <button>Layers</button>
-      </div>
-      <div
-        className='design-preview-button'
-        onClick={() => {
-          handleMoveCamera();
-        }}
-      >
-        <div className='design-preview-button-icon'>
-          <FaCamera />
-        </div>
-        <button>Reset Camera</button>
-      </div>
-      {canSave ? (
-        <div
-          className='design-preview-button'
-          onClick={() => {
-            handleSaveDesign();
-          }}
-        >
-          <div className='design-preview-button-icon'>
-            <FaSave />
+            <div className='design-preview-button-icon'>
+              <FaSave />
+            </div>
+            <button>Save</button>
           </div>
-          <button>Save</button>
-        </div>
-      ) : (
-        <div className='design-preview-button save-deactivated'>
-          <div className='design-preview-button-icon'>
-            <FaSave />
+        ) : (
+          <div className='design-preview-button save-deactivated'>
+            <div className='design-preview-button-icon'>
+              <FaSave />
+            </div>
+            <button>Save</button>
           </div>
-          <button>Save</button>
-        </div>
-      )}
+        )}
 
-      {!(design._id === '5f9256b47378785278621ee8') && (
-        <div
-          className='design-preview-button'
-          onClick={() => {
-            handleDeleteDesign();
-          }}
-        >
-          <div className='design-preview-button-icon'>
-            <FaTrashAlt />
+        {!(design._id === '5f9256b47378785278621ee8') && (
+          <div
+            className='design-preview-button'
+            onClick={() => {
+              handleDeleteDesign();
+            }}
+          >
+            <div className='design-preview-button-icon'>
+              <FaTrashAlt />
+            </div>
+            <button>Delete</button>
           </div>
-          <button>Delete</button>
-        </div>
-      )}
-      <Link to='/'>
-        <div className='design-preview-button'>
-          <div className='design-preview-button-icon'>
-            <FaTimes />
+        )}
+        <Link to='/'>
+          <div className='design-preview-button'>
+            <div className='design-preview-button-icon'>
+              <FaTimes />
+            </div>
+            <button>Exit</button>
           </div>
-          <button>Exit</button>
-        </div>
-      </Link>
-    </div>
-  );
+        </Link>
+      </div>
+    );
+  }
 }
 
 export default DesignPreview;
