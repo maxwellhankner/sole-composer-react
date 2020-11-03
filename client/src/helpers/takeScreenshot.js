@@ -1,5 +1,6 @@
-export const takeScreenshot = (camera) => {
+export const takeScreenshot = (camera, fileName) => {
   return new Promise((resolve) => {
+    console.log(fileName);
     camera.position.set(0, 0, 7.5);
     setTimeout(() => {
       const threeCanvas = document.getElementById('scene-container-id')
@@ -14,7 +15,7 @@ export const takeScreenshot = (camera) => {
       var blob = new Blob([new Uint8Array(array)], { type: 'image/png' });
       blob.name = 'theBlob';
       blob.lastModifiedDate = new Date();
-      var file = new File([blob], 'theImage', { type: 'image/png' });
+      var file = new File([blob], fileName, { type: 'image/png' });
       resolve(file);
     }, 500);
   });
