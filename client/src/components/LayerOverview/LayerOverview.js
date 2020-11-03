@@ -19,6 +19,7 @@ function LayerOverview({ props }) {
     setCurrentPart,
     setFocusLayer,
     setLayersView,
+    setCanSave,
   } = props;
 
   const handleFocusLayer = (i) => {
@@ -36,6 +37,7 @@ function LayerOverview({ props }) {
   };
 
   const handleDeleteLayer = (layer) => {
+    setCanSave(true);
     handlePartChangeManager({
       type: 'layer-deleted',
       partName: currentPartName,
@@ -45,6 +47,7 @@ function LayerOverview({ props }) {
   };
 
   const handleMoveLayer = (layer, direction) => {
+    setCanSave(true);
     const tempDesign = cloneDeep(design);
     let array;
 

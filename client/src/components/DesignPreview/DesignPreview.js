@@ -26,8 +26,8 @@ function DesignPreview({
     setCanSave(false);
     if (design._id === '5f9256b47378785278621ee8') {
       setLoading(true);
-      const file = await takeScreenshot(camera);
-      uploadImage(file).then((data) => {
+      const file = await takeScreenshot(camera, 'newImage');
+      uploadImage(file, true).then((data) => {
         const imageName = convertAwsLink(data.image);
         // If this is a new design, create it
         fetch('/api/outlines', {
@@ -49,8 +49,8 @@ function DesignPreview({
           });
       });
     } else {
-      const file = await takeScreenshot(camera);
-      uploadImage(file).then((data) => {
+      const file = await takeScreenshot(camera, design.screenshot);
+      uploadImage(file, false).then((data) => {
         const imageName = convertAwsLink(data.image);
         // If the design already exists, update it
         fetch(`/api/outlines/${design._id}`, {

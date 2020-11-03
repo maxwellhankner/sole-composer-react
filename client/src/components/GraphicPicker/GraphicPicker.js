@@ -44,7 +44,10 @@ function GraphicPicker({ props }) {
       // show loading spinner
       setIsLoading(true);
       const file = e.target.files[0];
-      await uploadImage(file).then((data) => {
+
+      // file.name = 'newImage';
+      // console.log(file);
+      await uploadImage(file, true).then((data) => {
         const awsFileName = convertAwsLink(data.image);
         handleAddGraphicLayer(awsFileName);
       });

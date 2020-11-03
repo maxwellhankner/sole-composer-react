@@ -2,9 +2,7 @@ const aws = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
 
-const s3 = new aws.S3();
-
-aws.config.update({
+const s3 = new aws.S3({
   secretAccessKey: process.env.S3_ACCESS_SECRET,
   accessKeyId: process.env.S3_ACCESS_KEY,
   region: 'us-east-2',
@@ -12,13 +10,12 @@ aws.config.update({
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    // max file size - file.size - if (this)
     cb(null, true);
   } else {
     cb(new Error('Invalid file type, only JPEG and PNG is allowed!'), false);
   }
 };
-
-// max file size - file.size
 
 const upload = multer({
   fileFilter,
@@ -30,8 +27,15 @@ const upload = multer({
       cb(null, { fieldName: 'TESTING_METADATA' });
     },
     key: function (req, file, cb) {
-      const ext = file.mimetype === 'image/png' ? '.png' : '.jpg';
-      cb(null, `${Date.now().toString()}${ext}`);
+      // If new image, generate file name
+      if (file.originalname === 'newImage') {
+        const ext = file.mimetype === 'image/png' ? '.png' : '.jpg';
+        cb(null, `${Date.now().toString()}${ext}`);
+      }
+      // Else, update existing file
+      else {
+        cb(null, file.originalname);
+      }
     },
   }),
 });

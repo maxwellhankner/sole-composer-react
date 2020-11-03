@@ -29,7 +29,6 @@ function AddLayerType({ props }) {
           ) : (
             <button
               onClick={() => {
-                console.log(type);
                 handleAddLayer(type);
                 setLayersView('LayerOverview');
               }}
