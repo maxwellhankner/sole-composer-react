@@ -118,6 +118,15 @@ function DesignPreview({
         </div>
         <div
           className='design-preview-button'
+          onClick={() => handleViewChange('ChangeBaseColor')}
+        >
+          <div className='design-preview-button-icon'>
+            <FaLayerGroup />
+          </div>
+          <button>BaseColor</button>
+        </div>
+        <div
+          className='design-preview-button'
           onClick={() => {
             handleMoveCamera();
           }}

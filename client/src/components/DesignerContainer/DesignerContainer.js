@@ -18,15 +18,14 @@ function DesignerContainer({
   outerOverlayCanvas,
   texture,
   textureCanvas,
-  initialLoaded,
-  setInitialLoaded,
-  camera,
-  setCamera,
 }) {
   const [design, setDesign] = useState(designSpec);
+  const [camera, setCamera] = useState(null);
+  const [initialLoaded, setInitialLoaded] = useState(false);
 
   const canvasObjectRef = useRef();
   const overlaysCanvasObjectRef = useRef();
+  const baseColorCanvasObjectRef = useRef();
 
   const handleUpdateGraphicVisualCanvas = (partName) => {
     if (partName === 'outerOverlay' || partName === 'innerOverlay') {
@@ -59,6 +58,7 @@ function DesignerContainer({
         canvasObject: canvasObjectRef.current,
         overlayCanvas: outerOverlayCanvas,
         overlayCanvasObject: overlaysCanvasObjectRef.current,
+        baseColorCanvasObject: baseColorCanvasObjectRef.current,
       });
     } else if (partName === 'innerOverlay') {
       overlayChangeManager({
@@ -71,6 +71,7 @@ function DesignerContainer({
         canvasObject: canvasObjectRef.current,
         overlayCanvas: innerOverlayCanvas,
         overlayCanvasObject: overlaysCanvasObjectRef.current,
+        baseColorCanvasObject: baseColorCanvasObjectRef.current,
       });
     } else {
       partChangeManager({
@@ -81,17 +82,40 @@ function DesignerContainer({
         textureCanvas,
         graphicVisualCanvas,
         canvasObject: canvasObjectRef.current,
+        baseColorCanvasObject: baseColorCanvasObjectRef.current,
       });
     }
+  };
+
+  const handleUpdateBaseColor = async (tempDesign) => {
+    // baseColor to baseColor Canvas Object
+    baseColorCanvasObjectRef.current = await designObjectToCanvasObject({
+      design: tempDesign,
+      type: 'baseColorCanvasObject',
+    });
+    console.log('base color', baseColorCanvasObjectRef.current);
+    // Canvas Object to Canvas
+    const newCanvas = canvasObjectToTextureCanvas({
+      canvasObject: canvasObjectRef.current,
+      baseColorCanvasObject: baseColorCanvasObjectRef.current,
+      size: textureCanvas.height,
+      design,
+    });
+    // Canvas to Texture Canvas
+    textureCanvas.getContext('2d').drawImage(newCanvas, 0, 0);
+    texture.needsUpdate = true;
   };
 
   useEffect(() => {
     if (!canvasObjectRef.current) {
       const buildTexture = async () => {
+        // Overlay Canvas Object Created
         overlaysCanvasObjectRef.current = await designObjectToCanvasObject({
           design,
           type: 'overlaysCanvasObject',
         });
+        console.log('overlay canvas object', overlaysCanvasObjectRef.current);
+        // Outer Overlay Canvas Object to Texture Canvas
         overlayCanvasObjectToTextureCanvas({
           design,
           overlayCanvasObject: overlaysCanvasObjectRef.current,
@@ -99,6 +123,7 @@ function DesignerContainer({
           partName: 'outerOverlay',
           graphicVisualCanvas,
         });
+        // Inner Overlay Canvas Object to Texture Canvas
         overlayCanvasObjectToTextureCanvas({
           design,
           overlayCanvasObject: overlaysCanvasObjectRef.current,
@@ -106,17 +131,27 @@ function DesignerContainer({
           partName: 'innerOverlay',
           graphicVisualCanvas,
         });
-
+        // Design Object to Canvas Object
         canvasObjectRef.current = await designObjectToCanvasObject({
           design,
           type: 'partsCanvasObject',
           overlays: [outerOverlayCanvas, innerOverlayCanvas],
         });
+        console.log('hey', canvasObjectRef.current);
+        // baseColor to baseColor Canvas Object
+        baseColorCanvasObjectRef.current = await designObjectToCanvasObject({
+          design,
+          type: 'baseColorCanvasObject',
+        });
+        console.log('base color', baseColorCanvasObjectRef.current);
+        // Canvas Object to Canvas
         const newCanvas = canvasObjectToTextureCanvas({
           canvasObject: canvasObjectRef.current,
+          baseColorCanvasObject: baseColorCanvasObjectRef.current,
           size: textureCanvas.height,
           design,
         });
+        // Canvas to Texture Canvas
         textureCanvas.getContext('2d').drawImage(newCanvas, 0, 0);
         texture.needsUpdate = true;
         setInitialLoaded(true);
@@ -143,6 +178,7 @@ function DesignerContainer({
         handlePartChangeManager={handlePartChangeManager}
         setInitialLoaded={setInitialLoaded}
         camera={camera}
+        handleUpdateBaseColor={handleUpdateBaseColor}
       />
     </div>
   );

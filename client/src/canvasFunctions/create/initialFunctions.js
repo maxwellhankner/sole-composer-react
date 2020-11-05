@@ -13,6 +13,8 @@ const createCanvasObjectPart = async ({
   overlays,
 }) => {
   const canvasLayers = [];
+
+  // For each layer in part of design object
   for (let layer in designLayers) {
     if (designLayers[layer].type === 'color') {
       const thisLayer = await createColorLayerCanvas({
@@ -59,6 +61,16 @@ const createCanvasObjectPart = async ({
   return { layers: canvasLayers };
 };
 
+// Create Base Color Canvas Object
+const createBaseColorCanvasObjectPart = async ({ design, partName }) => {
+  const canvas = await createColorLayerCanvas({
+    design,
+    layer: { color: design.outlineData.baseColor },
+    partName,
+  });
+  return canvas;
+};
+
 // turn designObject into canvasObject
 export const designObjectToCanvasObject = ({ design, type, overlays }) => {
   return new Promise((resolve, reject) => {
@@ -78,6 +90,14 @@ export const designObjectToCanvasObject = ({ design, type, overlays }) => {
           canvasObject[partName] = await createCanvasObjectPart({
             design,
             designLayers: design.outlineData.overlays[partName].layers,
+            partName,
+          });
+        }
+      } else if (type === 'baseColorCanvasObject') {
+        console.log('inside designObjectToCanvasObject');
+        for (let partName in design.outlineData.parts) {
+          canvasObject[partName] = await createBaseColorCanvasObjectPart({
+            design,
             partName,
           });
         }
