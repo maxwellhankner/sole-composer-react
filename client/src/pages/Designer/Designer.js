@@ -58,7 +58,6 @@ function Designer() {
     texture;
 
   if (initialized) {
-    console.log('yo');
     return (
       <div className='designer-root-container'>
         <DesignerContainer

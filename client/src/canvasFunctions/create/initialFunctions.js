@@ -94,7 +94,6 @@ export const designObjectToCanvasObject = ({ design, type, overlays }) => {
           });
         }
       } else if (type === 'baseColorCanvasObject') {
-        console.log('inside designObjectToCanvasObject');
         for (let partName in design.outlineData.parts) {
           canvasObject[partName] = await createBaseColorCanvasObjectPart({
             design,

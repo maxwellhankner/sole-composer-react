@@ -93,7 +93,6 @@ function DesignerContainer({
       design: tempDesign,
       type: 'baseColorCanvasObject',
     });
-    console.log('base color', baseColorCanvasObjectRef.current);
     // Canvas Object to Canvas
     const newCanvas = canvasObjectToTextureCanvas({
       canvasObject: canvasObjectRef.current,
@@ -114,7 +113,6 @@ function DesignerContainer({
           design,
           type: 'overlaysCanvasObject',
         });
-        console.log('overlay canvas object', overlaysCanvasObjectRef.current);
         // Outer Overlay Canvas Object to Texture Canvas
         overlayCanvasObjectToTextureCanvas({
           design,
@@ -137,13 +135,11 @@ function DesignerContainer({
           type: 'partsCanvasObject',
           overlays: [outerOverlayCanvas, innerOverlayCanvas],
         });
-        console.log('hey', canvasObjectRef.current);
         // baseColor to baseColor Canvas Object
         baseColorCanvasObjectRef.current = await designObjectToCanvasObject({
           design,
           type: 'baseColorCanvasObject',
         });
-        console.log('base color', baseColorCanvasObjectRef.current);
         // Canvas Object to Canvas
         const newCanvas = canvasObjectToTextureCanvas({
           canvasObject: canvasObjectRef.current,
