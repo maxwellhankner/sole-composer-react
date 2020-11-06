@@ -8,6 +8,7 @@ export const createTexture = (textureCanvas) => {
 
 export const createCanvas = ({ design }) => {
   const { canvasSize } = design.configData;
+  // const { baseColor } = design.outlineData;
   const canvas = document.createElement('canvas');
   canvas.width = canvasSize;
   canvas.height = canvasSize;

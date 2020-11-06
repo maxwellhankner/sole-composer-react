@@ -15,8 +15,6 @@ function Designer() {
   const [outerOverlayCanvas, setOuterOverlayCanvas] = useState(null);
   const [textureCanvas, setTextureCanvas] = useState(null);
   const [texture, setTexture] = useState(null);
-  const [initialLoaded, setInitialLoaded] = useState(false);
-  const [camera, setCamera] = useState(null);
 
   const { id } = useParams();
 
@@ -69,10 +67,6 @@ function Designer() {
           outerOverlayCanvas={outerOverlayCanvas}
           texture={texture}
           textureCanvas={textureCanvas}
-          initialLoaded={initialLoaded}
-          setInitialLoaded={setInitialLoaded}
-          camera={camera}
-          setCamera={setCamera}
         />
       </div>
     );

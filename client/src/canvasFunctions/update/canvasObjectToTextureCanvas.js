@@ -1,5 +1,10 @@
 // turn canvasObject into a finalTexture
-export const canvasObjectToTextureCanvas = ({ canvasObject, size, design }) => {
+export const canvasObjectToTextureCanvas = ({
+  canvasObject,
+  baseColorCanvasObject,
+  size,
+  design,
+}) => {
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
@@ -8,6 +13,13 @@ export const canvasObjectToTextureCanvas = ({ canvasObject, size, design }) => {
   for (let property in canvasObject) {
     const { x, y, width, height } = design.configData.partsObject[property];
     const { divider } = design.configData;
+    finalCanvasCTX.drawImage(
+      baseColorCanvasObject[property],
+      x / divider,
+      y / divider,
+      width / divider,
+      height / divider
+    );
     for (let layer in canvasObject[property].layers) {
       const layerCanvas = canvasObject[property].layers[layer];
       finalCanvasCTX.drawImage(

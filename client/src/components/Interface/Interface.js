@@ -3,6 +3,7 @@ import './Interface.css';
 import DesignPreview from '../DesignPreview/DesignPreview';
 import LayersView from '../LayersView/LayersView';
 import ChangeDesignName from '../ChangeDesignName/ChangeDesignName';
+import ChangeBaseColor from '../ChangeBaseColor/ChangeBaseColor';
 
 function Interface({
   design,
@@ -11,6 +12,7 @@ function Interface({
   handleUpdateGraphicVisualCanvas,
   handlePartChangeManager,
   camera,
+  handleUpdateBaseColor,
 }) {
   const [currentPart, setCurrentPart] = useState(0);
   const [currentLayer, setCurrentLayer] = useState(0);
@@ -60,6 +62,18 @@ function Interface({
           design={design}
           setDesign={setDesign}
           setCanSave={setCanSave}
+        />
+      </div>
+    );
+  } else if (view === 'ChangeBaseColor') {
+    return (
+      <div className='interface-container'>
+        <ChangeBaseColor
+          handleViewChange={handleViewChange}
+          design={design}
+          setDesign={setDesign}
+          setCanSave={setCanSave}
+          handleUpdateBaseColor={handleUpdateBaseColor}
         />
       </div>
     );

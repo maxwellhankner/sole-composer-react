@@ -17,6 +17,7 @@ export const overlayChangeManager = ({
   canvasObject,
   overlayCanvas,
   overlayCanvasObject,
+  baseColorCanvasObject,
 }) => {
   const { type, fileName } = changeObject;
   const tempDesign = cloneDeep(design);
@@ -51,6 +52,7 @@ export const overlayChangeManager = ({
       design,
       canvasObject,
       textureCanvas,
+      baseColorCanvasObject,
     });
   } else if (type === 'color-changed') {
     const { partName, layerIndex, newColor } = changeObject;
@@ -70,6 +72,7 @@ export const overlayChangeManager = ({
       design,
       canvasObject,
       textureCanvas,
+      baseColorCanvasObject,
     });
   } else if (type === 'layer-added') {
     const { partName, layerType } = changeObject;
@@ -114,6 +117,7 @@ export const overlayChangeManager = ({
       textureCanvas,
       canvasObject,
       tempDesign,
+      baseColorCanvasObject,
     });
   } else if (type === 'layer-moved') {
     const { partName, layerIndex, direction } = changeObject;
@@ -135,6 +139,7 @@ export const overlayChangeManager = ({
       design,
       textureCanvas,
       canvasObject,
+      baseColorCanvasObject,
     });
   } else if (type === 'layer-deleted') {
     const { partName, layerIndex } = changeObject;
@@ -181,6 +186,7 @@ export const overlayChangeManager = ({
       textureCanvas,
       canvasObject,
       tempDesign,
+      baseColorCanvasObject,
     });
   }
 };
@@ -196,6 +202,7 @@ const updateOverlayLayer = async ({
   design,
   canvasObject,
   textureCanvas,
+  baseColorCanvasObject,
 }) => {
   const effectedParts = design.configData.overlayParts[partName];
   // update canvasObject layer
@@ -250,6 +257,7 @@ const updateOverlayLayer = async ({
             canvasObjectPart: canvasObject[currentPart],
             partName: currentPart,
             design,
+            baseColorCanvasObject,
           });
         }
       }
@@ -269,6 +277,7 @@ const addLayerToOverlayCanvasObject = async ({
   textureCanvas,
   canvasObject,
   tempDesign,
+  baseColorCanvasObject,
 }) => {
   if (layerObject.type === 'color') {
     const newLayerCanvas = await createColorLayerCanvas({
@@ -322,6 +331,7 @@ const addLayerToOverlayCanvasObject = async ({
             canvasObjectPart: canvasObject[currentPart],
             partName: currentPart,
             design,
+            baseColorCanvasObject,
           });
         }
       }
@@ -341,6 +351,7 @@ const moveLayerInOverlayCanvasObject = async ({
   design,
   textureCanvas,
   canvasObject,
+  baseColorCanvasObject,
 }) => {
   let array = overlayCanvasObject[partName].layers;
   let tempElement = array[layerIndex];
@@ -381,6 +392,7 @@ const moveLayerInOverlayCanvasObject = async ({
             canvasObjectPart: canvasObject[currentPart],
             partName: currentPart,
             design,
+            baseColorCanvasObject,
           });
         }
       }
@@ -400,6 +412,7 @@ const deleteLayerFromOverlayCanvasObject = async ({
   textureCanvas,
   canvasObject,
   tempDesign,
+  baseColorCanvasObject,
 }) => {
   overlayCanvasObject[partName].layers.splice(layerIndex, 1);
   overlayCanvasObjectToTextureCanvas({
@@ -439,6 +452,7 @@ const deleteLayerFromOverlayCanvasObject = async ({
       canvasObjectPart: canvasObject[currentPart],
       partName: currentPart,
       design,
+      baseColorCanvasObject,
     });
   }
   texture.needsUpdate = true;
@@ -449,10 +463,18 @@ const redrawOverlayCanvasObjectPart = ({
   canvasObjectPart,
   partName,
   design,
+  baseColorCanvasObject,
 }) => {
   const textureCanvasCTX = textureCanvas.getContext('2d');
   const { x, y, width, height } = design.configData.partsObject[partName];
   const { divider } = design.configData;
+  textureCanvasCTX.drawImage(
+    baseColorCanvasObject[partName],
+    x / divider,
+    y / divider,
+    width / divider,
+    height / divider
+  );
   for (let layer in canvasObjectPart.layers) {
     const layerCanvas = canvasObjectPart.layers[layer];
     textureCanvasCTX.drawImage(

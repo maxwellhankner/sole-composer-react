@@ -11,6 +11,7 @@ import {
   FaSave,
   FaTimes,
   FaCamera,
+  FaSquare,
 } from 'react-icons/fa';
 
 function DesignPreview({
@@ -24,7 +25,7 @@ function DesignPreview({
 
   const handleSaveDesign = async () => {
     setCanSave(false);
-    if (design._id === '5f9256b47378785278621ee8') {
+    if (design._id === '5fa4a692621b8c5620b39d4b') {
       setLoading(true);
       const file = await takeScreenshot(camera, 'newImage');
       uploadImage(file, true).then((data) => {
@@ -106,6 +107,18 @@ function DesignPreview({
             </button>
           </div>
           <p className='design-model'>{design.model}</p>
+        </div>
+        <div
+          className='design-preview-button'
+          onClick={() => handleViewChange('ChangeBaseColor')}
+        >
+          <div
+            className='design-preview-button-icon'
+            style={{ color: design.outlineData.baseColor }}
+          >
+            <FaSquare />
+          </div>
+          <button>BaseColor</button>
         </div>
         <div
           className='design-preview-button'

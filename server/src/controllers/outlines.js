@@ -19,7 +19,7 @@ exports.getAllDesigns = async (req, res, next) => {
 // GET /api/outlines/newdesign
 exports.newOutline = async (req, res, next) => {
   try {
-    const outline = await Outline.findById('5f9256b47378785278621ee8');
+    const outline = await Outline.findById('5fa4a692621b8c5620b39d4b');
     if (!outline) {
       return res.status(400).json({ error: 'No design outline found' });
     }

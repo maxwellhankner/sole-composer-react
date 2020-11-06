@@ -41,12 +41,8 @@ function GraphicPicker({ props }) {
   const onFileChange = async (e) => {
     const fileSize = (e.target.files[0].size / 1024 / 1024).toFixed(4); // MB
     if (fileSize < 2) {
-      // show loading spinner
       setIsLoading(true);
       const file = e.target.files[0];
-
-      // file.name = 'newImage';
-      // console.log(file);
       await uploadImage(file, true).then((data) => {
         const awsFileName = convertAwsLink(data.image);
         handleAddGraphicLayer(awsFileName);
