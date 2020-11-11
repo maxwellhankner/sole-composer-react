@@ -6,6 +6,7 @@ import {
   createCanvas,
   createGraphicVisualCanvas,
 } from '../../canvasFunctions';
+import { simpleFetch } from '../../helpers/fetchHelpers';
 import { useParams } from 'react-router-dom';
 
 function Designer() {
@@ -20,13 +21,13 @@ function Designer() {
 
   useEffect(() => {
     if (id) {
-      fetch(`/api/outlines/${id}`, { method: 'GET' })
+      simpleFetch(`/api/outlines/${id}`, 'GET')
         .then((res) => res.json())
         .then((data) => {
           setDesignSpec(data);
         });
     } else {
-      fetch('/api/outlines/newdesign', { method: 'GET' })
+      simpleFetch('/api/outlines/newdesign', 'GET')
         .then((res) => res.json())
         .then((data) => {
           setDesignSpec(data);

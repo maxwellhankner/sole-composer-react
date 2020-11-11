@@ -1,7 +1,7 @@
 const Outline = require('../models/outlines');
 const Config = require('../models/configs');
 
-// Get my designs
+// Get all designs
 // GET /api/outlines/getalldesigns
 exports.getAllDesigns = async (req, res, next) => {
   try {
@@ -9,6 +9,21 @@ exports.getAllDesigns = async (req, res, next) => {
     if (!outlines) {
       return res.status(400).json({ error: 'No design outlines found' });
     }
+    return res.status(200).json(outlines);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+// Get my designs
+// GET /api/outlines/getmydesigns
+exports.getMyDesigns = async (req, res, next) => {
+  try {
+    const outlines = await Outline.find({ author: req.session.passport.user });
+    if (!outlines) {
+      return res.status(400).json({ error: 'No design outlines found' });
+    }
+    console.log('getMyDesigns', outlines);
     return res.status(200).json(outlines);
   } catch (error) {
     return res.status(500).json({ error: error.message });

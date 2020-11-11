@@ -16,3 +16,9 @@
 .basic-button button:focus {
   outline: none;
 }
+
+.simple-paragraph {
+  margin: 16px;
+  padding: 0px;
+  text-align: center;
+}

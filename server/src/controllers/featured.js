@@ -9,12 +9,19 @@ exports.getFeatured = async (req, res, next) => {
     ).populate({
       path: 'featured',
       model: 'Outline',
-      select: ['_id', 'author', 'title', 'screenshot', 'configId'],
-      populate: {
-        path: 'configId',
-        model: 'Config',
-        select: 'modelName',
-      },
+      select: ['_id', 'title', 'author', 'screenshot', 'configId'],
+      populate: [
+        {
+          path: 'configId',
+          model: 'Config',
+          select: 'modelName',
+        },
+        {
+          path: 'author',
+          model: 'User',
+          select: 'firstName',
+        },
+      ],
     });
 
     if (!featured) {

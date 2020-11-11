@@ -14,7 +14,7 @@ function FeaturedDesignCard({ props }) {
 
         <p className='featureddesigncard-title'>{title}</p>
         <p className='featureddesigncard-model'>{configId.modelName}</p>
-        <p className='featureddesigncard-author'>{author}</p>
+        <p className='featureddesigncard-author'>{author.firstName}</p>
       </div>
     </Link>
   );

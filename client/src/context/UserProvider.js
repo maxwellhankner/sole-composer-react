@@ -12,9 +12,7 @@ const UserProvider = ({ children }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.err) {
-          console.log(data);
         } else {
-          console.log(data);
           setUser(data);
         }
       });

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './DesignPreview.css';
 import { Link } from 'react-router-dom';
 import { uploadImage } from '../../helpers/uploadImage';
 import { takeScreenshot } from '../../helpers/takeScreenshot';
 import { convertAwsLink } from '../../helpers/convertAwsLink';
+import { designFetch } from '../../helpers/fetchHelpers';
 import {
   FaPen,
   FaLayerGroup,
@@ -13,6 +14,7 @@ import {
   FaCamera,
   FaSquare,
 } from 'react-icons/fa';
+import UserProvider from '../../context/UserProvider';
 
 function DesignPreview({
   handleViewChange,
@@ -21,6 +23,7 @@ function DesignPreview({
   canSave,
   setCanSave,
 }) {
+  const userData = useContext(UserProvider.context);
   const [loading, setLoading] = useState(false);
 
   const handleSaveDesign = async () => {
@@ -31,42 +34,52 @@ function DesignPreview({
       uploadImage(file, true).then((data) => {
         const imageName = convertAwsLink(data.image);
         // If this is a new design, create it
-        fetch('/api/outlines', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            author: design.author,
-            title: design.title,
-            screenshot: imageName,
-            configId: '5f925589cc6d6c16e44d5dfd',
-            outlineData: design.outlineData,
-          }),
-        })
+        const body = {
+          author: userData._id,
+          title: design.title,
+          screenshot: imageName,
+          configId: '5f925589cc6d6c16e44d5dfd',
+          outlineData: design.outlineData,
+        };
+        designFetch('/api/outlines', 'POST', body)
           .then((res) => res.json())
           .then((data) => {
             window.location.href = `/designer/${data._id}`;
           });
       });
-    } else {
+    }
+    // if its mine
+    else if (design.author === userData._id) {
+      console.log('its mine');
       const file = await takeScreenshot(camera, design.screenshot);
       uploadImage(file, false).then((data) => {
         const imageName = convertAwsLink(data.image);
         // If the design already exists, update it
-        fetch(`/api/outlines/${design._id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            author: design.author,
-            title: design.title,
-            screenshot: imageName,
-            configId: '5f925589cc6d6c16e44d5dfd',
-            outlineData: design.outlineData,
-          }),
-        });
+        const body = {
+          author: design.author,
+          title: design.title,
+          screenshot: imageName,
+          configId: '5f925589cc6d6c16e44d5dfd',
+          outlineData: design.outlineData,
+        };
+        designFetch(`/api/outlines/${design._id}`, 'PUT', body);
+      });
+    }
+    // if it's not mine
+    else {
+      console.log('its NOT mine');
+      const file = await takeScreenshot(camera, design.screenshot);
+      uploadImage(file, true).then((data) => {
+        const imageName = convertAwsLink(data.image);
+        // If the design already exists, update it
+        const body = {
+          author: userData._id,
+          title: design.title,
+          screenshot: imageName,
+          configId: '5f925589cc6d6c16e44d5dfd',
+          outlineData: design.outlineData,
+        };
+        designFetch(`/api/outlines/`, 'POST', body);
       });
     }
   };

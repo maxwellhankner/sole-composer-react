@@ -1,7 +1,10 @@
 const router = require('express').Router();
-const { getSession, logout } = require('../controllers/auth');
-// const express = require('express');
-// const router = express.Router();
+const {
+  getSession,
+  // google,
+  // googleCallback,
+  logout,
+} = require('../controllers/auth');
 
 router.route('/getsession').get(getSession);
 
