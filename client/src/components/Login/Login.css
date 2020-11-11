@@ -1,10 +1,10 @@
-.basic-button {
+.login-google-button {
   margin: 16px;
 }
 
-.basic-button button {
+.login-google-button button {
   height: 40px;
-  background-color: #000000;
+  background-color: #4285f4;
   color: #ffffff;
   border: none;
   padding: 8px;
@@ -13,6 +13,6 @@
   text-transform: capitalize;
 }
 
-.basic-button button:focus {
+.login-google-button button:focus {
   outline: none;
 }

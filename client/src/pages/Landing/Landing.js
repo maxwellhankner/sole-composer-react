@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Landing.css';
 import NewDesignButton from '../../components/NewDesignButton/NewDesignButton';
 import FeaturedDesignCard from '../../components/FeaturedDesignCard/FeaturedDesignCard';
 import MyDesignTiles from '../../components/MyDesignTiles/MyDesignTiles';
-import { FaBars } from 'react-icons/fa';
+import UserProvider from '../../context/UserProvider';
+// import { FaBars } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 function Landing() {
+  const userData = useContext(UserProvider.context);
   const [featured, setFeatured] = useState();
   const [myDesigns, setMyDesigns] = useState();
 
@@ -25,7 +28,13 @@ function Landing() {
         <p>
           <strong>Sole</strong> Composer
         </p>
-        <FaBars />
+        {userData ? (
+          <Link to='/profile'>{userData.firstName}</Link>
+        ) : (
+          <Link to='/login'>Login</Link>
+        )}
+
+        {/* <FaBars /> */}
       </div>
 
       <div className='landing-content'>
