@@ -1,7 +1,8 @@
 {
+  "_id": { "$oid": "5f925589cc6d6c16e44d5dfd" },
   "modelName": "Air Force One",
   "configData": {
-    "source": "/api/assets/models/af1",
+    "source": "af1_ao.gltf",
     "partsArray": [
       "outerSwoosh",
       "innerSwoosh",
@@ -51,329 +52,290 @@
     "translations": {
       "outerOverlay": {
         "outerHeel": {
-          "x": -0.15,
-          "y": -0.54,
-          "scale": 2.28,
-          "rotation": 0
+          "x": { "$numberDouble": "-0.15" },
+          "y": { "$numberDouble": "-0.54" },
+          "scale": { "$numberDouble": "2.28" },
+          "rotation": { "$numberInt": "0" }
         },
         "outerQuarter": {
-          "x": -1.07,
-          "y": -0.96,
-          "scale": 3.12,
-          "rotation": 0
+          "x": { "$numberDouble": "-1.07" },
+          "y": { "$numberDouble": "-0.96" },
+          "scale": { "$numberDouble": "3.12" },
+          "rotation": { "$numberInt": "0" }
         },
         "outerSwoosh": {
-          "x": -0.28,
-          "y": -0.45,
-          "scale": 2.12,
-          "rotation": 0
+          "x": { "$numberDouble": "-0.28" },
+          "y": { "$numberDouble": "-0.45" },
+          "scale": { "$numberDouble": "2.12" },
+          "rotation": { "$numberInt": "0" }
         },
         "outerSole": {
-          "x": 0.015,
-          "y": -0.03,
-          "scale": 0.83,
-          "rotation": 0
+          "x": { "$numberDouble": "0.015" },
+          "y": { "$numberDouble": "-0.03" },
+          "scale": { "$numberDouble": "0.83" },
+          "rotation": { "$numberInt": "0" }
         },
         "toeBox": {
-          "x": 0.5,
-          "y": -2.1,
-          "scale": 2.71,
-          "rotation": 1.13
+          "x": { "$numberDouble": "0.5" },
+          "y": { "$numberDouble": "-2.1" },
+          "scale": { "$numberDouble": "2.71" },
+          "rotation": { "$numberDouble": "1.13" }
         },
         "toeCap": {
-          "x": -0.37,
-          "y": 0.1,
-          "scale": 0.79,
-          "rotation": 0
+          "x": { "$numberDouble": "-0.37" },
+          "y": { "$numberDouble": "0.1" },
+          "scale": { "$numberDouble": "0.79" },
+          "rotation": { "$numberInt": "0" }
         },
         "laceCage": {
-          "x": 0.46,
-          "y": -1.025,
-          "scale": 2.14,
-          "rotation": 1.13
+          "x": { "$numberDouble": "0.46" },
+          "y": { "$numberDouble": "-1.025" },
+          "scale": { "$numberDouble": "2.14" },
+          "rotation": { "$numberDouble": "1.13" }
         },
         "heelWing": {
-          "x": 0.305,
-          "y": -0.71,
-          "scale": 2.86,
-          "rotation": 0
+          "x": { "$numberDouble": "0.305" },
+          "y": { "$numberDouble": "-0.71" },
+          "scale": { "$numberDouble": "2.86" },
+          "rotation": { "$numberInt": "0" }
         },
         "heelTab": {
-          "x": -0.1,
-          "y": -4.28,
-          "scale": 8.93,
-          "rotation": 0
+          "x": { "$numberDouble": "-0.1" },
+          "y": { "$numberDouble": "-4.28" },
+          "scale": { "$numberDouble": "8.93" },
+          "rotation": { "$numberInt": "0" }
         }
       },
       "innerOverlay": {
         "innerHeel": {
-          "x": -1.1,
-          "y": -0.52,
-          "scale": 2.22,
-          "rotation": 0
+          "x": { "$numberDouble": "-1.1" },
+          "y": { "$numberDouble": "-0.52" },
+          "scale": { "$numberDouble": "2.22" },
+          "rotation": { "$numberInt": "0" }
         },
         "innerQuarter": {
-          "x": -0.98,
-          "y": -0.88,
-          "scale": 2.95,
-          "rotation": 0
+          "x": { "$numberDouble": "-0.98" },
+          "y": { "$numberDouble": "-0.88" },
+          "scale": { "$numberDouble": "2.95" },
+          "rotation": { "$numberInt": "0" }
         },
         "innerSwoosh": {
-          "x": -0.81,
-          "y": -0.41,
-          "scale": 2.04,
-          "rotation": 0
+          "x": { "$numberDouble": "-0.81" },
+          "y": { "$numberDouble": "-0.41" },
+          "scale": { "$numberDouble": "2.04" },
+          "rotation": { "$numberInt": "0" }
         },
         "innerSole": {
-          "x": 0.086,
-          "y": 0.08,
-          "scale": 0.82,
-          "rotation": -0.16
+          "x": { "$numberDouble": "0.086" },
+          "y": { "$numberDouble": "0.08" },
+          "scale": { "$numberDouble": "0.82" },
+          "rotation": { "$numberDouble": "-0.16" }
         },
         "toeBox": {
-          "x": -0.46,
-          "y": 0.37,
-          "scale": 2.46,
-          "rotation": -1.2
+          "x": { "$numberDouble": "-0.46" },
+          "y": { "$numberDouble": "0.37" },
+          "scale": { "$numberDouble": "2.46" },
+          "rotation": { "$numberDouble": "-1.2" }
         },
         "toeCap": {
-          "x": 0.54,
-          "y": 0.135,
-          "scale": 0.79,
-          "rotation": -0.11
+          "x": { "$numberDouble": "0.54" },
+          "y": { "$numberDouble": "0.135" },
+          "scale": { "$numberDouble": "0.79" },
+          "rotation": { "$numberDouble": "-0.11" }
         },
         "laceCage": {
-          "x": -0.42,
-          "y": 0.81,
-          "scale": 2.06,
-          "rotation": -1.04
+          "x": { "$numberDouble": "-0.42" },
+          "y": { "$numberDouble": "0.81" },
+          "scale": { "$numberDouble": "2.06" },
+          "rotation": { "$numberDouble": "-1.04" }
         },
         "heelWing": {
-          "x": -2.17,
-          "y": -0.7,
-          "scale": 2.82,
-          "rotation": 0
+          "x": { "$numberDouble": "-2.17" },
+          "y": { "$numberDouble": "-0.7" },
+          "scale": { "$numberDouble": "2.82" },
+          "rotation": { "$numberInt": "0" }
         },
         "heelTab": {
-          "x": -7.9,
-          "y": -4.35,
-          "scale": 8.9,
-          "rotation": 0
+          "x": { "$numberDouble": "-7.9" },
+          "y": { "$numberDouble": "-4.35" },
+          "scale": { "$numberDouble": "8.9" },
+          "rotation": { "$numberInt": "0" }
         }
       }
     },
-    "divider": 4,
-    "canvasSize": 1024,
+    "divider": { "$numberInt": "4" },
+    "canvasSize": { "$numberInt": "1024" },
     "partsObject": {
       "outerSwoosh": {
-        "mask": "/api/assets/images/outerSwooshMask.png",
-        "x": 2015,
-        "y": -359,
-        "width": 1500,
-        "height": 1500
+        "mask": "outerSwooshMask.png",
+        "x": { "$numberInt": "2015" },
+        "y": { "$numberInt": "-359" },
+        "width": { "$numberInt": "1500" },
+        "height": { "$numberInt": "1500" }
       },
       "innerSwoosh": {
-        "mask": "/api/assets/images/innerSwooshMask.png",
-        "x": 138,
-        "y": -384,
-        "width": 1520,
-        "height": 1520
+        "mask": "innerSwooshMask.png",
+        "x": { "$numberInt": "138" },
+        "y": { "$numberInt": "-384" },
+        "width": { "$numberInt": "1520" },
+        "height": { "$numberInt": "1520" }
       },
       "outerQuarter": {
-        "mask": "/api/assets/images/outerQuarterMask.png",
-        "x": 2679,
-        "y": -50,
-        "width": 1019,
-        "height": 1019
+        "mask": "outerQuarterMask.png",
+        "x": { "$numberInt": "2679" },
+        "y": { "$numberInt": "-50" },
+        "width": { "$numberInt": "1019" },
+        "height": { "$numberInt": "1019" }
       },
       "innerQuarter": {
-        "mask": "/api/assets/images/innerQuarterMask.png",
-        "x": -50,
-        "y": -74,
-        "width": 1021,
-        "height": 1021
+        "mask": "innerQuarterMask.png",
+        "x": { "$numberInt": "-50" },
+        "y": { "$numberInt": "-74" },
+        "width": { "$numberInt": "1021" },
+        "height": { "$numberInt": "1021" }
       },
       "outerHeel": {
-        "mask": "/api/assets/images/outerHeelMask.png",
-        "x": 1803,
-        "y": -272,
-        "width": 1385,
-        "height": 1385
+        "mask": "outerHeelMask.png",
+        "x": { "$numberInt": "1803" },
+        "y": { "$numberInt": "-272" },
+        "width": { "$numberInt": "1385" },
+        "height": { "$numberInt": "1385" }
       },
       "innerHeel": {
-        "mask": "/api/assets/images/innerHeelMask.png",
-        "x": 461,
-        "y": -270,
-        "width": 1360,
-        "height": 1360
+        "mask": "innerHeelMask.png",
+        "x": { "$numberInt": "461" },
+        "y": { "$numberInt": "-270" },
+        "width": { "$numberInt": "1360" },
+        "height": { "$numberInt": "1360" }
       },
       "outerSole": {
-        "mask": "/api/assets/images/outerSoleMask.png",
-        "x": -197,
-        "y": 1142,
-        "width": 3760,
-        "height": 3760
+        "mask": "outerSoleMask.png",
+        "x": { "$numberInt": "-197" },
+        "y": { "$numberInt": "1142" },
+        "width": { "$numberInt": "3760" },
+        "height": { "$numberInt": "3760" }
       },
       "innerSole": {
-        "mask": "/api/assets/images/innerSoleMask.png",
-        "x": -200,
-        "y": 1486,
-        "width": 3760,
-        "height": 3760
+        "mask": "innerSoleMask.png",
+        "x": { "$numberInt": "-200" },
+        "y": { "$numberInt": "1486" },
+        "width": { "$numberInt": "3760" },
+        "height": { "$numberInt": "3760" }
       },
       "sole": {
-        "mask": "/api/assets/images/soleMask.png",
-        "x": -150,
-        "y": -110,
-        "width": 2800,
-        "height": 2800
+        "mask": "soleMask.png",
+        "x": { "$numberInt": "-150" },
+        "y": { "$numberInt": "-110" },
+        "width": { "$numberInt": "2800" },
+        "height": { "$numberInt": "2800" }
       },
       "toeBox": {
-        "mask": "/api/assets/images/toeBoxMask.png",
-        "x": 2937,
-        "y": 1891,
-        "width": 1151,
-        "height": 1151
+        "mask": "toeBoxMask.png",
+        "x": { "$numberInt": "2937" },
+        "y": { "$numberInt": "1891" },
+        "width": { "$numberInt": "1151" },
+        "height": { "$numberInt": "1151" }
       },
       "toeCap": {
-        "mask": "/api/assets/images/toeCapMask.png",
-        "x": -217,
-        "y": 1831,
-        "width": 3920,
-        "height": 3920
+        "mask": "toeCapMask.png",
+        "x": { "$numberInt": "-217" },
+        "y": { "$numberInt": "1831" },
+        "width": { "$numberInt": "3920" },
+        "height": { "$numberInt": "3920" }
       },
       "lace": {
-        "mask": "/api/assets/images/laceMask.png",
-        "x": 2932,
-        "y": 1025,
-        "width": 1264,
-        "height": 1264
+        "mask": "laceMask.png",
+        "x": { "$numberInt": "2932" },
+        "y": { "$numberInt": "1025" },
+        "width": { "$numberInt": "1264" },
+        "height": { "$numberInt": "1264" }
       },
       "laceCage": {
-        "mask": "/api/assets/images/laceCageMask.png",
-        "x": 2821,
-        "y": 950,
-        "width": 1497,
-        "height": 1497
+        "mask": "laceCageMask.png",
+        "x": { "$numberInt": "2821" },
+        "y": { "$numberInt": "950" },
+        "width": { "$numberInt": "1497" },
+        "height": { "$numberInt": "1497" }
       },
       "laceLock": {
-        "mask": "/api/assets/images/laceLockMask.png",
-        "x": 3355,
-        "y": 1996,
-        "width": 326,
-        "height": 326
+        "mask": "laceLockMask.png",
+        "x": { "$numberInt": "3355" },
+        "y": { "$numberInt": "1996" },
+        "width": { "$numberInt": "326" },
+        "height": { "$numberInt": "326" }
       },
       "tongue": {
-        "mask": "/api/assets/images/tongueMask.png",
-        "x": 2840,
-        "y": 721,
-        "width": 1457,
-        "height": 1457
+        "mask": "tongueMask.png",
+        "x": { "$numberInt": "2840" },
+        "y": { "$numberInt": "721" },
+        "width": { "$numberInt": "1457" },
+        "height": { "$numberInt": "1457" }
       },
       "heelWing": {
-        "mask": "/api/assets/images/heelWingMask.png",
-        "x": 1281,
-        "y": -235,
-        "width": 1084,
-        "height": 1084
+        "mask": "heelWingMask.png",
+        "x": { "$numberInt": "1281" },
+        "y": { "$numberInt": "-235" },
+        "width": { "$numberInt": "1084" },
+        "height": { "$numberInt": "1084" }
       },
       "heelTab": {
-        "mask": "/api/assets/images/heelTabMask.png",
-        "x": 1642,
-        "y": 495,
-        "width": 344,
-        "height": 344
+        "mask": "heelTabMask.png",
+        "x": { "$numberInt": "1642" },
+        "y": { "$numberInt": "495" },
+        "width": { "$numberInt": "344" },
+        "height": { "$numberInt": "344" }
       },
       "sockLiner": {
-        "mask": "/api/assets/images/sockLinerMask.png",
-        "x": -157,
-        "y": 640,
-        "width": 2660,
-        "height": 2660
+        "mask": "sockLinerMask.png",
+        "x": { "$numberInt": "-157" },
+        "y": { "$numberInt": "640" },
+        "width": { "$numberInt": "2660" },
+        "height": { "$numberInt": "2660" }
       },
       "outerOverlay": {
-        "mask": "/api/assets/images/outerOverlayMask.png",
-        "x": 1790,
-        "y": -550,
-        "width": 1940,
-        "height": 1940
+        "mask": "outerOverlayMask.png",
+        "x": { "$numberInt": "1790" },
+        "y": { "$numberInt": "-550" },
+        "width": { "$numberInt": "1940" },
+        "height": { "$numberInt": "1940" }
       },
       "innerOverlay": {
-        "mask": "/api/assets/images/innerOverlayMask.png",
-        "x": 1590,
-        "y": -550,
-        "width": 1940,
-        "height": 1940
+        "mask": "innerOverlayMask.png",
+        "x": { "$numberInt": "1590" },
+        "y": { "$numberInt": "-550" },
+        "width": { "$numberInt": "1940" },
+        "height": { "$numberInt": "1940" }
       }
     },
     "layerTypes": {
-      "outerSwoosh": {
-        "types": ["Color", "Graphic"]
-      },
-      "innerSwoosh": {
-        "types": ["Color", "Graphic"]
-      },
-      "outerQuarter": {
-        "types": ["Color", "Graphic"]
-      },
-      "innerQuarter": {
-        "types": ["Color", "Graphic"]
-      },
-      "outerHeel": {
-        "types": ["Color", "Graphic"]
-      },
-      "innerHeel": {
-        "types": ["Color", "Graphic"]
-      },
-      "outerSole": {
-        "types": ["Color", "Graphic"]
-      },
-      "innerSole": {
-        "types": ["Color", "Graphic"]
-      },
-      "sole": {
-        "types": ["Color", "Graphic"]
-      },
-      "toeBox": {
-        "types": ["Color", "Graphic"]
-      },
-      "toeCap": {
-        "types": ["Color", "Graphic"]
-      },
-      "lace": {
-        "types": ["Color"]
-      },
-      "laceCage": {
-        "types": ["Color", "Graphic"]
-      },
-      "laceLock": {
-        "types": ["Color"]
-      },
-      "tongue": {
-        "types": ["Color", "Graphic", "Mask"]
-      },
-      "heelWing": {
-        "types": ["Color", "Graphic", "Mask"]
-      },
-      "heelTab": {
-        "types": ["Color", "Graphic"]
-      },
-      "sockLiner": {
-        "types": ["Color", "Graphic"]
-      },
-      "outerOverlay": {
-        "types": ["Color", "Graphic"]
-      },
-      "innerOverlay": {
-        "types": ["Color", "Graphic"]
-      }
+      "outerSwoosh": { "types": ["Color", "Graphic"] },
+      "innerSwoosh": { "types": ["Color", "Graphic"] },
+      "outerQuarter": { "types": ["Color", "Graphic"] },
+      "innerQuarter": { "types": ["Color", "Graphic"] },
+      "outerHeel": { "types": ["Color", "Graphic"] },
+      "innerHeel": { "types": ["Color", "Graphic"] },
+      "outerSole": { "types": ["Color", "Graphic"] },
+      "innerSole": { "types": ["Color", "Graphic"] },
+      "sole": { "types": ["Color", "Graphic"] },
+      "toeBox": { "types": ["Color", "Graphic"] },
+      "toeCap": { "types": ["Color", "Graphic"] },
+      "lace": { "types": ["Color"] },
+      "laceCage": { "types": ["Color", "Graphic"] },
+      "laceLock": { "types": ["Color"] },
+      "tongue": { "types": ["Color", "Graphic", "Mask"] },
+      "heelWing": { "types": ["Color", "Graphic", "Mask"] },
+      "heelTab": { "types": ["Color", "Graphic"] },
+      "sockLiner": { "types": ["Color", "Graphic"] },
+      "outerOverlay": { "types": ["Color", "Graphic"] },
+      "innerOverlay": { "types": ["Color", "Graphic"] }
     },
     "maskTypes": {
-      "tongue": [["logo", "/api/assets/images/tongueLogoMask.png"]],
+      "tongue": [["logo", "tongueLogoMask.png"]],
       "heelWing": [
-        ["logo", "/api/assets/images/heelWingLogoMask.png"],
-        ["stitch", "/api/assets/images/heelWingStitchMask.png"]
+        ["logo", "heelWingLogoMask.png"],
+        ["stitch", "heelWingStitchMask.png"]
       ]
     }
-  }
+  },
+  "__v": { "$numberInt": "0" }
 }

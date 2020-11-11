@@ -1,162 +1,35 @@
 {
-  "author": "Maxwell Hankner",
+  "_id": { "$oid": "5fa4a692621b8c5620b39d4b" },
+  "author": "n/a",
   "title": "New Design",
-  "configId": "5f925589cc6d6c16e44d5dfd",
-  "screenshot": "/api/assets/images/newDesign.png",
+  "screenshot": "1604626065863.png",
+  "configId": { "$oid": "5f925589cc6d6c16e44d5dfd" },
   "outlineData": {
     "overlays": {
-      "outerOverlay": {
-        "layers": []
-      },
-      "innerOverlay": {
-        "layers": []
-      }
+      "outerOverlay": { "layers": [] },
+      "innerOverlay": { "layers": [] }
     },
     "parts": {
-      "outerSwoosh": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "innerSwoosh": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "outerQuarter": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "innerQuarter": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "outerHeel": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "innerHeel": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "outerSole": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "innerSole": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "sole": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "toeBox": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "toeCap": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "lace": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "laceCage": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "laceLock": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "tongue": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "heelWing": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "heelTab": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      },
-      "sockLiner": {
-        "layers": [
-          {
-            "type": "color",
-            "color": "#ffffff"
-          }
-        ]
-      }
-    }
-  }
+      "outerSwoosh": { "layers": [] },
+      "innerSwoosh": { "layers": [] },
+      "outerQuarter": { "layers": [] },
+      "innerQuarter": { "layers": [] },
+      "outerHeel": { "layers": [] },
+      "innerHeel": { "layers": [] },
+      "outerSole": { "layers": [] },
+      "innerSole": { "layers": [] },
+      "sole": { "layers": [] },
+      "toeBox": { "layers": [] },
+      "toeCap": { "layers": [] },
+      "lace": { "layers": [] },
+      "laceCage": { "layers": [] },
+      "laceLock": { "layers": [] },
+      "tongue": { "layers": [] },
+      "heelWing": { "layers": [] },
+      "heelTab": { "layers": [] },
+      "sockLiner": { "layers": [] }
+    },
+    "baseColor": "#ffffff"
+  },
+  "__v": { "$numberInt": "0" }
 }
