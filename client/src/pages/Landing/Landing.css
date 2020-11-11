@@ -17,6 +17,11 @@
   margin: 0;
 }
 
+.landing-header a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .landing-content {
   width: 100%;
   max-width: 700px;
