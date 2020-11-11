@@ -4,9 +4,10 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const passport = require('passport');
+require('./src/middleware/googleAuth');
+// const passport = require('./src/middleware/googleAuth');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
-require('./src/middleware/googleAuth');
 
 const port = process.env.PORT || 8000;
 const app = express();
@@ -24,14 +25,7 @@ app.use(
 
 app.use(cookieParser());
 
-app.use(
-  cors()
-  // {
-  //   origin: "http://localhost:3000",
-  //   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  //   credentials: true // allow session cookie from browser to pass through
-  // }
-);
+app.use(cors());
 
 app.use(express.json());
 

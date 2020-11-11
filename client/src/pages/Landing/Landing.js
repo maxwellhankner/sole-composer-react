@@ -4,6 +4,7 @@ import NewDesignButton from '../../components/NewDesignButton/NewDesignButton';
 import FeaturedDesignCard from '../../components/FeaturedDesignCard/FeaturedDesignCard';
 import MyDesignTiles from '../../components/MyDesignTiles/MyDesignTiles';
 import UserProvider from '../../context/UserProvider';
+import { simpleFetch } from '../../helpers/fetchHelpers';
 // import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -13,14 +14,16 @@ function Landing() {
   const [myDesigns, setMyDesigns] = useState();
 
   useEffect(() => {
-    fetch('/api/featured', { method: 'GET' })
+    simpleFetch('/api/featured', 'GET')
       .then((res) => res.json())
       .then((data) => setFeatured(data));
 
-    fetch('/api/outlines/alldesigns', { method: 'GET' })
-      .then((res) => res.json())
-      .then((data) => setMyDesigns(data));
-  }, []);
+    if (userData) {
+      simpleFetch('/api/outlines/mydesigns', 'GET')
+        .then((res) => res.json())
+        .then((data) => setMyDesigns(data));
+    }
+  }, [userData]);
 
   return (
     <div className='landing-container'>

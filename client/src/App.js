@@ -7,19 +7,22 @@ import Designer from './pages/Designer/Designer';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 
+import NoPage from './components/NoPage/NoPage';
+
 function App() {
   return (
     <div className='app-container'>
       <Router>
-        <Switch>
-          <UserProvider>
+        <UserProvider>
+          <Switch>
             <Route exact path='/' component={Landing} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/designer' component={Designer} />
             <Route exact path='/designer/:id' component={Designer} />
-          </UserProvider>
-        </Switch>
+            <Route path='*' component={NoPage} />
+          </Switch>
+        </UserProvider>
       </Router>
     </div>
   );
