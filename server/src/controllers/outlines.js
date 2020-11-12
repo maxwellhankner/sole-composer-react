@@ -23,7 +23,6 @@ exports.getMyDesigns = async (req, res, next) => {
     if (!outlines) {
       return res.status(400).json({ error: 'No design outlines found' });
     }
-    console.log('getMyDesigns', outlines);
     return res.status(200).json(outlines);
   } catch (error) {
     return res.status(500).json({ error: error.message });

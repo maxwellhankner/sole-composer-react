@@ -5,7 +5,6 @@ import FeaturedDesignCard from '../../components/FeaturedDesignCard/FeaturedDesi
 import MyDesignTiles from '../../components/MyDesignTiles/MyDesignTiles';
 import UserProvider from '../../context/UserProvider';
 import { simpleFetch } from '../../helpers/fetchHelpers';
-// import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 function Landing() {
@@ -36,26 +35,29 @@ function Landing() {
         ) : (
           <Link to='/login'>Login</Link>
         )}
-
-        {/* <FaBars /> */}
       </div>
-
-      <div className='landing-content'>
-        <div className='featured-designs-container'>
-          <p className='landing-section-label'>Featured</p>
-          <div className='feature-designs'>
-            {featured
-              ? featured.featured.map((design, key) => (
-                  <FeaturedDesignCard props={design} key={key} />
-                ))
-              : null}
+      {userData ? (
+        <div className='landing-content'>
+          <div className='featured-designs-container'>
+            <p className='landing-section-label'>Featured</p>
+            <div className='feature-designs'>
+              {featured
+                ? featured.featured.map((design, key) => (
+                    <FeaturedDesignCard props={design} key={key} />
+                  ))
+                : null}
+            </div>
           </div>
+
+          <NewDesignButton />
+
+          {myDesigns && <MyDesignTiles myDesigns={myDesigns} />}
         </div>
-
-        <NewDesignButton />
-
-        {myDesigns && <MyDesignTiles myDesigns={myDesigns} />}
-      </div>
+      ) : (
+        <div>
+          <p className='simple-paragraph'>Please Login</p>
+        </div>
+      )}
     </div>
   );
 }
