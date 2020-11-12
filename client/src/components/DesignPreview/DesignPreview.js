@@ -28,12 +28,12 @@ function DesignPreview({
 
   const handleSaveDesign = async () => {
     setCanSave(false);
-    if (design._id === '5fa4a692621b8c5620b39d4b') {
+    // if new design
+    if (!design.author) {
       setLoading(true);
       const file = await takeScreenshot(camera, 'newImage');
       uploadImage(file, true).then((data) => {
         const imageName = convertAwsLink(data.image);
-        // If this is a new design, create it
         const body = {
           author: userData._id,
           title: design.title,
@@ -48,13 +48,11 @@ function DesignPreview({
           });
       });
     }
-    // if its mine
+    // if design is mine
     else if (design.author === userData._id) {
-      console.log('its mine');
       const file = await takeScreenshot(camera, design.screenshot);
       uploadImage(file, false).then((data) => {
         const imageName = convertAwsLink(data.image);
-        // If the design already exists, update it
         const body = {
           author: design.author,
           title: design.title,
@@ -65,13 +63,12 @@ function DesignPreview({
         designFetch(`/api/outlines/${design._id}`, 'PUT', body);
       });
     }
-    // if it's not mine
+    // if design is not mine
     else {
-      console.log('its NOT mine');
+      setLoading(true);
       const file = await takeScreenshot(camera, design.screenshot);
       uploadImage(file, true).then((data) => {
         const imageName = convertAwsLink(data.image);
-        // If the design already exists, update it
         const body = {
           author: userData._id,
           title: design.title,
@@ -79,19 +76,25 @@ function DesignPreview({
           configId: '5f925589cc6d6c16e44d5dfd',
           outlineData: design.outlineData,
         };
-        designFetch(`/api/outlines/`, 'POST', body);
+        designFetch(`/api/outlines/`, 'POST', body)
+          .then((res) => res.json())
+          .then((data) => {
+            window.location.href = `/designer/${data._id}`;
+          });
       });
     }
   };
 
   const handleDeleteDesign = () => {
-    fetch(`/api/outlines/${design._id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    window.location.href = '/';
+    if (userData._id === design.author) {
+      fetch(`/api/outlines/${design._id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      window.location.href = '/';
+    }
   };
 
   const handleMoveCamera = () => {
@@ -173,8 +176,7 @@ function DesignPreview({
             <button>Save</button>
           </div>
         )}
-
-        {!(design._id === '5f9256b47378785278621ee8') && (
+        {design.author === userData._id && (
           <div
             className='design-preview-button'
             onClick={() => {

@@ -29,7 +29,6 @@ passport.use(
         googleId: profile._json.sub,
       });
       if (!currentUser) {
-        console.log('new user', profile._json);
         const newUser = await new User({
           googleId: profile._json.sub,
           firstName: profile._json.given_name,
@@ -39,7 +38,6 @@ passport.use(
           return done(null, newUser);
         }
       }
-      console.log('user exists', profile._json);
       return done(null, currentUser);
     }
   )
