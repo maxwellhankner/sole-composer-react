@@ -39,7 +39,7 @@ function Landing() {
       {userData ? (
         <div className='landing-content'>
           <div className='featured-designs-container'>
-            <p className='landing-section-label'>Featured</p>
+            <p className='landing-section-label'>FEATURED</p>
             <div className='feature-designs'>
               {featured
                 ? featured.featured.map((design, key) => (

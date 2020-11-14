@@ -6,7 +6,7 @@ function MyDesignTiles({ myDesigns }) {
   return (
     <div className='mydesigntiles-container'>
       <div>
-        <p className='landing-section-label'>My Designs</p>
+        <p className='landing-section-label'>MY DESIGNS</p>
       </div>
       <div className='my-designs-grid'>
         {myDesigns.map((design, key) => (
