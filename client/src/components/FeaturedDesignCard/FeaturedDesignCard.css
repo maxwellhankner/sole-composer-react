@@ -4,7 +4,8 @@
 
 .featureddesigncard-container {
   width: 200px;
-  margin: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
   margin-top: 0px;
   flex: 0 0 auto;
 }
@@ -19,33 +20,34 @@
 
 .featureddesigncard-image {
   width: 100%;
-  /* height: 150px; */
   background-color: #f0f0f0;
   border-radius: 8px;
 }
 
 .featureddesigncard-image img {
-  /* margin-top: 20px; */
   width: 100%;
 }
 
 .featureddesigncard-title {
   color: #000000;
   font-size: 22px;
-  margin-top: 10px;
+  margin-top: 9px;
   margin-bottom: 0px;
+  margin-left: 5px;
 }
 
 .featureddesigncard-model {
   color: #000000;
   font-size: 14px;
-  margin-top: 8px;
+  margin-top: 6px;
   margin-bottom: 0px;
+  margin-left: 5px;
 }
 
 .featureddesigncard-author {
-  color: #666666;
+  color: #777;
   font-size: 14px;
-  margin-top: 8px;
+  margin-top: 6px;
   margin-bottom: 0px;
+  margin-left: 5px;
 }
