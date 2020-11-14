@@ -11,9 +11,9 @@ function Profile() {
   };
 
   return (
-    <div id='login-container'>
-      <p className='simple-paragraph'>{userData.firstName}</p>
-      <p className='simple-paragraph'>{userData.email}</p>
+    <div className='profile-container'>
+      <p className='basic-paragraph'>{userData.firstName}</p>
+      <p className='basic-paragraph'>{userData.email}</p>
       <div className='basic-button'>
         <button onClick={() => handleLogout()}>Log Out</button>
       </div>

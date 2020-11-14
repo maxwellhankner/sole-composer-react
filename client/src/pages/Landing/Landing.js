@@ -55,7 +55,7 @@ function Landing() {
         </div>
       ) : (
         <div>
-          <p className='simple-paragraph'>Please Login</p>
+          <p className='basic-paragraph'>Please Login</p>
         </div>
       )}
     </div>

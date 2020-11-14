@@ -8,6 +8,7 @@
   margin-right: 8px;
   margin-top: 0px;
   flex: 0 0 auto;
+  font-family: 'Mavin Pro', 'Arial Narrow', Arial, sans-serif;
 }
 
 .feature-designs a:first-child {
@@ -15,7 +16,7 @@
 }
 
 .feature-designs a:last-child {
-  margin-right: 8px;
+  padding-right: 8px;
 }
 
 .featureddesigncard-image {

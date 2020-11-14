@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function NoPage() {
   return (
     <div className='no-page-container'>
-      <p className='simple-paragraph'>404 - PAGE NOT FOUND</p>
+      <p className='basic-paragraph'>404 - PAGE NOT FOUND</p>
       <Link to='/'>
         <div className='basic-button'>
           <button>Home</button>

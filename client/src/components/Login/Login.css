@@ -1,3 +1,12 @@
+.login-container {
+  max-width: 400px;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .login-google-button {
   margin: 16px;
 }
