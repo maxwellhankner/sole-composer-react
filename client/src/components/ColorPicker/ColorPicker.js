@@ -46,6 +46,12 @@ function ColorPicker({ props }) {
         }
       }
 
+      const baseColor = design.outlineData.baseColor;
+
+      if (!colors.includes(baseColor)) {
+        colors.push(baseColor);
+      }
+
       return colors;
     };
 

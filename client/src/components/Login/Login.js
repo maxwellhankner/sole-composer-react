@@ -8,7 +8,7 @@ function Login() {
   };
 
   return (
-    <div id='login-container'>
+    <div className='login-container'>
       <div className='login-google-button'>
         <button onClick={() => loginWithGoogle()}>Login With Google</button>
       </div>

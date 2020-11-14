@@ -34,8 +34,8 @@
 }
 .feature-designs {
   display: flex;
-  flex-wrap: nowrap;
   overflow-x: auto;
+  padding-bottom: 5px;
 }
 .landing-section-label {
   font-family: 'Poppins', 'Roboto', 'Ariel';

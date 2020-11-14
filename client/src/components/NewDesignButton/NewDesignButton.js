@@ -6,7 +6,7 @@ function NewDesignButton() {
   return (
     <div className='new-design-button standard-button'>
       <Link to='/designer'>
-        <button>NEW DESIGN</button>
+        <button>N E W &nbsp; D E S I G N</button>
       </Link>
     </div>
   );

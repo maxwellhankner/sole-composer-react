@@ -28,6 +28,21 @@ function GraphicPicker({ props }) {
           }
         }
       }
+      for (const property in design.outlineData.overlays) {
+        for (const layer in design.outlineData.overlays[property].layers) {
+          if (
+            design.outlineData.overlays[property].layers[layer].type ===
+            'graphic'
+          ) {
+            const thisGraphic =
+              design.outlineData.overlays[property].layers[layer].link;
+            if (!graphics.includes(thisGraphic)) {
+              graphics.push(thisGraphic);
+            }
+          }
+        }
+      }
+
       if (!graphics[0]) {
         return null;
       } else {
