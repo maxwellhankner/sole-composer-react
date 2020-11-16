@@ -11,12 +11,11 @@
   font-family: 'Mavin Pro', 'Arial Narrow', Arial, sans-serif;
 }
 
-.feature-designs a:first-child {
-  margin-left: 8px;
+.featureddesigncard-container:first-child {
+  padding-left: 8px;
 }
-
-.feature-designs a:last-child {
-  padding-right: 8px;
+.featureddesigncard-container:last-child {
+  padding-right: 16px;
 }
 
 .featureddesigncard-image {

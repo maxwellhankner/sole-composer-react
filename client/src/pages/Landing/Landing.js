@@ -36,28 +36,29 @@ function Landing() {
           <Link to='/login'>Login</Link>
         )}
       </div>
-      {userData ? (
-        <div className='landing-content'>
-          <div className='featured-designs-container'>
-            <p className='landing-section-label'>FEATURED</p>
-            <div className='feature-designs'>
-              {featured
-                ? featured.featured.map((design, key) => (
-                    <FeaturedDesignCard props={design} key={key} />
-                  ))
-                : null}
-            </div>
-          </div>
-
-          <NewDesignButton />
-
-          {myDesigns && <MyDesignTiles myDesigns={myDesigns} />}
-        </div>
-      ) : (
+      {userData ? null : (
         <div>
           <p className='basic-paragraph'>Please Login</p>
         </div>
       )}
+      <div className='landing-content'>
+        <div className='featured-designs-container'>
+          <p className='landing-section-label'>FEATURED</p>
+          <div className='feature-designs'>
+            {featured
+              ? featured.featured.map((design, key) => (
+                  <FeaturedDesignCard
+                    props={design}
+                    userData={userData}
+                    key={key}
+                  />
+                ))
+              : null}
+          </div>
+        </div>
+        <NewDesignButton userData={userData} />
+        {myDesigns && <MyDesignTiles myDesigns={myDesigns} />}
+      </div>
     </div>
   );
 }

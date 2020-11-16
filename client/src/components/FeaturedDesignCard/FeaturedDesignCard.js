@@ -1,21 +1,28 @@
 import React from 'react';
 import './FeaturedDesignCard.css';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-function FeaturedDesignCard({ props }) {
+function FeaturedDesignCard({ props, userData }) {
   const { _id, title, configId, author, screenshot } = props;
-  return (
-    <Link to={`/designer/${_id}`} className='link-to-designer'>
-      <div className='featureddesigncard-container'>
-        <div className='featureddesigncard-image'>
-          <img src={`api/assets/images/${screenshot}`} alt='feature-design' />
-        </div>
 
-        <p className='featureddesigncard-title'>{title}</p>
-        <p className='featureddesigncard-model'>{configId.modelName}</p>
-        <p className='featureddesigncard-author'>{author.firstName}</p>
+  const history = useHistory();
+
+  const handleClick = () => {
+    if (userData) {
+      history.push(`/designer/${_id}`);
+    }
+  };
+
+  return (
+    <div className='featureddesigncard-container' onClick={() => handleClick()}>
+      <div className='featureddesigncard-image'>
+        <img src={`api/assets/images/${screenshot}`} alt='feature-design' />
       </div>
-    </Link>
+
+      <p className='featureddesigncard-title'>{title}</p>
+      <p className='featureddesigncard-model'>{configId.modelName}</p>
+      <p className='featureddesigncard-author'>{author.firstName}</p>
+    </div>
   );
 }
 
