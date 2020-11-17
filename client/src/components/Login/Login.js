@@ -6,10 +6,15 @@ const production = process.env.NODE_ENV === 'production';
 const url = production
   ? process.env.URL
   : `http://localhost:${process.env.PORT}/`;
+console.log('login', url);
+console.log('prod', production);
 
 function Login() {
   const loginWithGoogle = () => {
-    window.open(`${url}/auth/google`, '_self');
+    window.open(
+      `http://solecomposer-env.eba-ymcibxmu.us-east-2.elasticbeanstalk.com/auth/google`,
+      '_self'
+    );
   };
 
   return (

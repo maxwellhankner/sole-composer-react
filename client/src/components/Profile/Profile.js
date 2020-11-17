@@ -12,7 +12,10 @@ function Profile() {
   const userData = useContext(UserProvider.context);
 
   const handleLogout = () => {
-    window.open(`${url}/auth/logout`, '_self');
+    window.open(
+      `http://solecomposer-env.eba-ymcibxmu.us-east-2.elasticbeanstalk.com/auth/logout`,
+      '_self'
+    );
   };
 
   return (
