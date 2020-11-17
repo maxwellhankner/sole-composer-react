@@ -2,9 +2,14 @@ import React from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
 
+const production = process.env.NODE_ENV === 'production';
+const url = production
+  ? process.env.URL
+  : `http://localhost:${process.env.PORT}/`;
+
 function Login() {
   const loginWithGoogle = () => {
-    window.open('/auth/google', '_self');
+    window.open(`${url}/auth/google`, '_self');
   };
 
   return (
