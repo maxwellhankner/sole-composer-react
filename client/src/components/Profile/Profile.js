@@ -7,7 +7,7 @@ function Profile() {
   const userData = useContext(UserProvider.context);
 
   const handleLogout = () => {
-    window.open('http://localhost:8000/auth/logout', '_self');
+    window.open('/auth/logout', '_self');
   };
 
   return (
