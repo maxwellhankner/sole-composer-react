@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -16,12 +17,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(
-  cookieSession({
-    maxAge: 24 * 60 * 60 * 1000 * 1000, // 1000 day
-    name: 'session',
-    keys: ['key1', 'key2'],
-  })
+	cookieSession({
+		maxAge: 24 * 60 * 60 * 1000 * 1000, // 1000 day
+		name: 'session',
+		keys: ['key1', 'key2'],
+	})
 );
+
+const production = process.env.NODE_ENV === 'production';
+const redirectUrl = production
+	? process.env.URL
+	: `http://localhost:${process.env.PORT}/`;
 
 app.use(cookieParser());
 
@@ -29,16 +35,18 @@ app.use(cors());
 
 app.use(express.json());
 
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
+	useNewUrlParser: true,
+	useCreateIndex: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false,
 });
 const connection = mongoose.connection;
 connection.once('open', () => {
-  console.log('MongoDB connection established successfully');
+	console.log('MongoDB connection established successfully');
 });
 
 // Routes
@@ -57,18 +65,22 @@ app.use('/auth', authRoutes);
 
 // Authentication
 app.get(
-  '/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
+	'/auth/google',
+	passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
 app.get(
-  '/auth/google/callback',
-  passport.authenticate('google', {
-    successRedirect: 'http://localhost:3000/',
-    failureRedirect: '/auth/login/failed',
-  })
+	'/auth/google/callback',
+	passport.authenticate('google', {
+		successRedirect: redirectUrl,
+		failureRedirect: '/auth/login/failed',
+	})
 );
 
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
 app.listen(port, () => {
-  console.log('App is listening on port:', port);
+	console.log('App is listening on port:', port);
 });
