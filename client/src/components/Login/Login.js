@@ -7,7 +7,6 @@ const url = production
   ? process.env.URL
   : `http://localhost:${process.env.PORT}/`;
 console.log('login', url);
-console.log('prod', production);
 
 function Login() {
   const loginWithGoogle = () => {
