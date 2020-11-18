@@ -2,18 +2,9 @@ import React from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
 
-const production = process.env.NODE_ENV === 'production';
-const url = production
-  ? process.env.URL
-  : `http://localhost:${process.env.PORT}/`;
-console.log('please login', url);
-
 function Login() {
   const loginWithGoogle = () => {
-    window.open(
-      `http://solecomposer-env.eba-ymcibxmu.us-east-2.elasticbeanstalk.com/auth/google`,
-      '_self'
-    );
+    window.open(`http://solecomposer.com/auth/google`, '_self');
   };
 
   return (
