@@ -14,7 +14,7 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
   const createMaterial = (texture) => {
     return new Promise((resolve) => {
       const aoimg = new Image();
-      aoimg.src = '/api/assets/images/ao_diffuse.png';
+      aoimg.src = '/api/assets/images/ao_map.png';
 
       aoimg.onload = () => {
         const ao = new THREE.CanvasTexture(aoimg);

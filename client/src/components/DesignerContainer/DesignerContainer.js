@@ -34,6 +34,7 @@ function DesignerContainer({
         graphicVisualCanvas,
         partName,
         canvasObject: overlaysCanvasObjectRef.current,
+        baseColorCanvasObject: baseColorCanvasObjectRef.current,
       });
     } else {
       updateGraphicVisualCanvas({
@@ -41,6 +42,7 @@ function DesignerContainer({
         graphicVisualCanvas,
         partName,
         canvasObject: canvasObjectRef.current,
+        baseColorCanvasObject: baseColorCanvasObjectRef.current,
       });
     }
   };
