@@ -132,10 +132,16 @@ export const updateGraphicVisualCanvas = ({
   graphicVisualCanvas,
   partName,
   canvasObject,
+  baseColorCanvasObject,
 }) => {
   const { canvasSize } = design.configData;
   const graphicCTX = graphicVisualCanvas.getContext('2d');
   graphicCTX.clearRect(0, 0, canvasSize, canvasSize);
+  if (baseColorCanvasObject[partName]) {
+    const baseColorCanvas = baseColorCanvasObject[partName];
+    graphicCTX.drawImage(baseColorCanvas, 0, 0, canvasSize, canvasSize);
+  }
+
   for (let layer in canvasObject[partName].layers) {
     const layerCanvas = canvasObject[partName].layers[layer];
     graphicCTX.drawImage(layerCanvas, 0, 0, canvasSize, canvasSize);
