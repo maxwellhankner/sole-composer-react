@@ -28,18 +28,15 @@ app.use(
   })
 );
 
-const production = process.env.NODE_ENV === 'production';
-const redirectUrl = production
-  ? process.env.URL
-  : `http://localhost:${process.env.PORT}/`;
-
 app.use(cookieParser());
 
 app.use(cors());
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, '../client/build')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+}
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
@@ -73,6 +70,13 @@ app.get(
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
+const redirectUrl =
+  process.env.NODE_ENV === 'production'
+    ? process.env.URL
+    : `http://localhost:3000/`;
+
+console.log('redirect', redirectUrl);
+
 app.get(
   '/auth/google/callback',
   passport.authenticate('google', {
@@ -81,9 +85,12 @@ app.get(
   })
 );
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+  console.log('production');
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+}
 
 app.listen(port, () => {
   console.log('App is listening on port:', port);

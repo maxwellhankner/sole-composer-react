@@ -1,5 +1,6 @@
 const passport = require('passport');
 const User = require('../models/user');
+const { cookie } = require('request');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 passport.serializeUser(function (user, done) {
@@ -17,12 +18,19 @@ passport.deserializeUser(function (id, done) {
   done(null, user);
 });
 
+let callback;
+if (process.env.NODE_ENV === 'production') {
+  callback = 'http://solecomposer.com/auth/google/callback';
+} else {
+  callback = 'http://localhost:8000/auth/google/callback';
+}
+
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: '/auth/google/callback',
+      callbackURL: callback,
     },
     async (token, tokenSecret, profile, done) => {
       currentUser = await User.findOne({
