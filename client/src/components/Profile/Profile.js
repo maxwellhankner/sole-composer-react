@@ -7,7 +7,11 @@ function Profile() {
   const userData = useContext(UserProvider.context);
 
   const handleLogout = () => {
-    window.open(`http://solecomposer.com/auth/logout`, '_self');
+    if (process.env.NODE_ENV === 'production') {
+      window.open(`http://solecomposer.com/auth/logout`, '_self');
+    } else {
+      window.open(`http://localhost:8000/auth/logout`, '_self');
+    }
   };
 
   return (

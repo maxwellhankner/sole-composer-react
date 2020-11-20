@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 
 function Login() {
   const loginWithGoogle = () => {
-    window.open(`http://solecomposer.com/auth/google`, '_self');
+    if (process.env.NODE_ENV === 'production') {
+      window.open(`http://solecomposer.com/auth/google`, '_self');
+    } else {
+      window.open(`http://localhost:8000/auth/google`, '_self');
+    }
   };
 
   return (

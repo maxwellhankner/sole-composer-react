@@ -36,6 +36,11 @@ function Landing() {
           <Link to='/login'>Login</Link>
         )}
       </div>
+      <div>
+        <p className='basic-paragraph'>
+          You are running {process.env.NODE_ENV}
+        </p>
+      </div>
       {userData ? null : (
         <div>
           <p className='basic-paragraph'>Please Login</p>
