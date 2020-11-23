@@ -4,7 +4,13 @@ export const takeScreenshot = (camera, fileName) => {
     setTimeout(() => {
       const threeCanvas = document.getElementById('scene-container-id')
         .firstElementChild;
-      const dataUrl = threeCanvas.toDataURL('image/png');
+      const newCanvas = document.createElement('canvas');
+      newCanvas.width = 1024;
+      newCanvas.height = 1024;
+      const newCanvasCtx = newCanvas.getContext('2d');
+      newCanvasCtx.drawImage(threeCanvas, 0, 0, 1024, 1024);
+
+      const dataUrl = newCanvas.toDataURL('image/png');
 
       var blobBin = atob(dataUrl.split(',')[1]);
       var array = [];
