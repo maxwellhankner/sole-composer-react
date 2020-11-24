@@ -50,6 +50,7 @@ function DesignPreview({
     }
     // if design is mine
     else if (design.author === userData._id) {
+      setLoading(true);
       const file = await takeScreenshot(camera, design.screenshot);
       uploadImage(file, false).then((data) => {
         const imageName = convertAwsLink(data.image);
@@ -61,6 +62,7 @@ function DesignPreview({
           outlineData: design.outlineData,
         };
         designFetch(`/api/outlines/${design._id}`, 'PUT', body);
+        setLoading(false);
       });
     }
     // if design is not mine
