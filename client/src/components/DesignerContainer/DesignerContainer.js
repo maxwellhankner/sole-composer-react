@@ -22,7 +22,6 @@ function DesignerContainer({
   const [design, setDesign] = useState(designSpec);
   const [camera, setCamera] = useState(null);
   const [initialLoaded, setInitialLoaded] = useState(false);
-
   const canvasObjectRef = useRef();
   const overlaysCanvasObjectRef = useRef();
   const baseColorCanvasObjectRef = useRef();
@@ -158,28 +157,32 @@ function DesignerContainer({
     }
   });
 
-  return (
-    <div className='designer-container'>
-      <Scene
-        design={design}
-        texture={texture}
-        textureCanvas={textureCanvas}
-        initialLoaded={initialLoaded}
-        camera={camera}
-        setCamera={setCamera}
-      />
-      <Interface
-        design={design}
-        setDesign={setDesign}
-        graphicVisualCanvas={graphicVisualCanvas}
-        handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
-        handlePartChangeManager={handlePartChangeManager}
-        setInitialLoaded={setInitialLoaded}
-        camera={camera}
-        handleUpdateBaseColor={handleUpdateBaseColor}
-      />
-    </div>
-  );
+  if (design) {
+    return (
+      <div className='designer-container'>
+        <Scene
+          design={design}
+          texture={texture}
+          textureCanvas={textureCanvas}
+          initialLoaded={initialLoaded}
+          camera={camera}
+          setCamera={setCamera}
+        />
+        <Interface
+          design={design}
+          setDesign={setDesign}
+          graphicVisualCanvas={graphicVisualCanvas}
+          handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
+          handlePartChangeManager={handlePartChangeManager}
+          setInitialLoaded={setInitialLoaded}
+          camera={camera}
+          handleUpdateBaseColor={handleUpdateBaseColor}
+        />
+      </div>
+    );
+  } else {
+    return <div>hi</div>;
+  }
 }
 
 export default DesignerContainer;

@@ -44,9 +44,9 @@ function DesignPreview({
         designFetch('/api/outlines', 'POST', body)
           .then((res) => res.json())
           .then((data) => {
-            setTimeout(() => {
-              window.location.href = `/designer/${data._id}`;
-            }, 500);
+            // setTimeout(() => {
+            window.location.href = `/designer/${data._id}`;
+            // }, 500);
           });
       });
     }
@@ -113,7 +113,7 @@ function DesignPreview({
         </div>
       </div>
     );
-  } else {
+  } else if (userData) {
     return (
       <div className='design-preview-container'>
         <div className='design-preview-info'>
@@ -203,6 +203,8 @@ function DesignPreview({
         </Link>
       </div>
     );
+  } else {
+    return <div>no data</div>;
   }
 }
 

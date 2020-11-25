@@ -24,7 +24,6 @@ function Designer() {
       simpleFetch(`/api/outlines/${id}`, 'GET')
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setDesignSpec(data);
         });
     } else {
