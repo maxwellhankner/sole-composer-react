@@ -44,7 +44,9 @@ function DesignPreview({
         designFetch('/api/outlines', 'POST', body)
           .then((res) => res.json())
           .then((data) => {
-            window.location.href = `/designer/${data._id}`;
+            setTimeout(() => {
+              window.location.href = `/designer/${data._id}`;
+            }, 500);
           });
       });
     }
