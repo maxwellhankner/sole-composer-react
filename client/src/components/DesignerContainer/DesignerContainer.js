@@ -169,6 +169,7 @@ function DesignerContainer({
           initialLoaded={initialLoaded}
           camera={camera}
           setCamera={setCamera}
+          userData={userData}
         />
         <Interface
           design={design}

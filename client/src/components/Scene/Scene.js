@@ -5,7 +5,14 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
-const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
+const Scene = ({
+  design,
+  texture,
+  initialLoaded,
+  camera,
+  setCamera,
+  userData,
+}) => {
   const threeCanvasRef = useRef(null);
   const [renderer, setRenderer] = useState(null);
   const [newMaterial, setNewMaterial] = useState(null);
@@ -121,7 +128,8 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
       id='scene-container-id'
       ref={threeCanvasRef}
     >
-      {!isLoading && initialLoaded ? null : <LoadingSpinner />}
+      {/* {!isLoading && initialLoaded ? null : <LoadingSpinner />} */}
+      {!isLoading && initialLoaded ? null : <div>{userData._id}</div>}
     </div>
   );
 };
