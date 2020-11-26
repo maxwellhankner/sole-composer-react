@@ -19,7 +19,7 @@ passport.deserializeUser(function (id, done) {
 });
 
 let callback;
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'development') {
   callback = 'http://solecomposer.com/auth/google/callback';
 } else {
   callback = 'http://localhost:8000/auth/google/callback';

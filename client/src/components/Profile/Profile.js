@@ -7,7 +7,7 @@ function Profile() {
   const userData = useContext(UserProvider.context);
 
   const handleLogout = () => {
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === 'development') {
       window.open(`http://solecomposer.com/auth/logout`, '_self');
     } else {
       window.open(`http://localhost:8000/auth/logout`, '_self');
