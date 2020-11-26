@@ -20,7 +20,6 @@ function DesignerContainer({
   textureCanvas,
   userData,
 }) {
-  console.log('DesignContainer', userData);
   const [design, setDesign] = useState(designSpec);
   const [camera, setCamera] = useState(null);
   const [initialLoaded, setInitialLoaded] = useState(false);
@@ -169,7 +168,6 @@ function DesignerContainer({
           initialLoaded={initialLoaded}
           camera={camera}
           setCamera={setCamera}
-          userData={userData}
         />
         <Interface
           design={design}

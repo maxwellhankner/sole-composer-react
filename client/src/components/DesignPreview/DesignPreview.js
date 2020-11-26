@@ -25,7 +25,6 @@ function DesignPreview({
   userData,
 }) {
   // const userData = useContext(UserProvider.context);
-  console.log('DesignPreview', userData);
   const [loading, setLoading] = useState(false);
 
   const handleSaveDesign = async () => {

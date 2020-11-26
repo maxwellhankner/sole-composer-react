@@ -21,11 +21,9 @@ function Designer() {
   const { id } = useParams();
 
   const userData = useContext(UserProvider.context);
-  console.log('userData', userData);
 
   useEffect(() => {
     if (id) {
-      console.log('hey');
       simpleFetch(`/api/outlines/${id}`, 'GET')
         .then((res) => res.json())
         .then((data) => {
@@ -65,7 +63,6 @@ function Designer() {
     userData;
 
   if (initialized) {
-    console.log('initialized', userData);
     return (
       <div className='designer-root-container'>
         <DesignerContainer
