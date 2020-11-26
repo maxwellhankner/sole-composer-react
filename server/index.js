@@ -34,7 +34,7 @@ app.use(cors());
 
 app.use(express.json());
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
@@ -71,10 +71,9 @@ app.get(
 );
 
 const redirectUrl =
-  process.env.NODE_ENV === 'development'
+  process.env.NODE_ENV === 'production'
     ? process.env.URL
     : `http://localhost:3000/`;
-// const redirectUrl = process.env.URL;
 
 console.log('redirect', redirectUrl);
 
@@ -86,7 +85,7 @@ app.get(
   })
 );
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
   });

@@ -1,7 +1,7 @@
 const User = require('../models/user');
 // const passport = require('passport');
 const passport = require('../middleware/googleAuth');
-const production = process.env.NODE_ENV === 'development';
+const production = process.env.NODE_ENV === 'production';
 const redirectUrl = production ? process.env.URL : `http://localhost:3000/`;
 
 exports.getSession = async (req, res, next) => {
