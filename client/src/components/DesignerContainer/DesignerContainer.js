@@ -18,7 +18,9 @@ function DesignerContainer({
   outerOverlayCanvas,
   texture,
   textureCanvas,
+  userData,
 }) {
+  console.log('DesignContainer', userData);
   const [design, setDesign] = useState(designSpec);
   const [camera, setCamera] = useState(null);
   const [initialLoaded, setInitialLoaded] = useState(false);
@@ -157,7 +159,7 @@ function DesignerContainer({
     }
   });
 
-  if (design) {
+  if (design && userData) {
     return (
       <div className='designer-container'>
         <Scene
@@ -177,6 +179,7 @@ function DesignerContainer({
           setInitialLoaded={setInitialLoaded}
           camera={camera}
           handleUpdateBaseColor={handleUpdateBaseColor}
+          userData={userData}
         />
       </div>
     );

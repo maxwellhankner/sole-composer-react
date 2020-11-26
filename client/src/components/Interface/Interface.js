@@ -13,6 +13,7 @@ function Interface({
   handlePartChangeManager,
   camera,
   handleUpdateBaseColor,
+  userData,
 }) {
   const [currentPart, setCurrentPart] = useState(0);
   const [currentLayer, setCurrentLayer] = useState(0);
@@ -33,6 +34,7 @@ function Interface({
           camera={camera}
           canSave={canSave}
           setCanSave={setCanSave}
+          userData={userData}
         />
       </div>
     );

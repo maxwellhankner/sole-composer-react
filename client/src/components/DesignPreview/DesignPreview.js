@@ -14,7 +14,7 @@ import {
   FaCamera,
   FaSquare,
 } from 'react-icons/fa';
-import UserProvider from '../../context/UserProvider';
+// import UserProvider from '../../context/UserProvider';
 
 function DesignPreview({
   handleViewChange,
@@ -22,8 +22,10 @@ function DesignPreview({
   camera,
   canSave,
   setCanSave,
+  userData,
 }) {
-  const userData = useContext(UserProvider.context);
+  // const userData = useContext(UserProvider.context);
+  console.log('DesignPreview', userData);
   const [loading, setLoading] = useState(false);
 
   const handleSaveDesign = async () => {
