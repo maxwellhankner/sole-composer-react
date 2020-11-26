@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './Designer.css';
 import DesignerContainer from '../../components/DesignerContainer/DesignerContainer';
 import {
@@ -8,6 +8,7 @@ import {
 } from '../../canvasFunctions';
 import { simpleFetch } from '../../helpers/fetchHelpers';
 import { useParams } from 'react-router-dom';
+import UserProvider from '../../context/UserProvider';
 
 function Designer() {
   const [designSpec, setDesignSpec] = useState(null);
@@ -18,6 +19,8 @@ function Designer() {
   const [texture, setTexture] = useState(null);
 
   const { id } = useParams();
+
+  const userData = useContext(UserProvider.context);
 
   useEffect(() => {
     if (id) {
@@ -56,7 +59,8 @@ function Designer() {
     innerOverlayCanvas &&
     outerOverlayCanvas &&
     textureCanvas &&
-    texture;
+    texture &&
+    userData;
 
   if (initialized) {
     return (
@@ -72,7 +76,7 @@ function Designer() {
       </div>
     );
   } else {
-    return <div></div>;
+    return <div>not initialized</div>;
   }
 }
 

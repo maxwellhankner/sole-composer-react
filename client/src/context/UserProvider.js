@@ -5,6 +5,7 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState();
 
   useEffect(() => {
+    console.log('getting user data');
     fetch('/auth/getsession', {
       method: 'GET',
       credentials: 'include',
