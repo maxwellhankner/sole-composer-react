@@ -27,7 +27,6 @@ function Designer() {
       simpleFetch(`/api/outlines/${id}`, 'GET')
         .then((res) => res.json())
         .then((data) => {
-          alert(data._id);
           setDesignSpec(data);
         });
     } else {
@@ -64,6 +63,7 @@ function Designer() {
     userData;
 
   if (initialized) {
+    alert(`${designSpec._id} + ${userData._id}`);
     return (
       <div className='designer-root-container'>
         <DesignerContainer
