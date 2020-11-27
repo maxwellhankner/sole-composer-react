@@ -9,7 +9,6 @@ import {
 import { simpleFetch } from '../../helpers/fetchHelpers';
 import { useParams } from 'react-router-dom';
 import UserProvider from '../../context/UserProvider';
-// import ErrorCatcher from '../../components/ErrorCatcher/ErrorCatcher';
 
 function Designer() {
   const [designSpec, setDesignSpec] = useState(null);
@@ -66,7 +65,6 @@ function Designer() {
   if (initialized) {
     return (
       <div className='designer-root-container'>
-        {/* <ErrorCatcher> */}
         <DesignerContainer
           designSpec={designSpec}
           graphicVisualCanvas={graphicVisualCanvas}
@@ -76,7 +74,6 @@ function Designer() {
           textureCanvas={textureCanvas}
           userData={userData}
         />
-        {/* </ErrorCatcher> */}
       </div>
     );
   } else {

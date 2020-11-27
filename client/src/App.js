@@ -9,26 +9,9 @@ import Profile from './components/Profile/Profile';
 
 import NoPage from './components/NoPage/NoPage';
 
-// import ErrorCatcher from './components/ErrorCatcher/ErrorCatcher';
-
 function App() {
-  // window.onerror = (message, file, line) => {
-  //   console.log('got an error', message);
-  //   return true;
-  // };
-
-  // window.addEventListener('error', function (event) {
-  //   if (event.error.hasBeenCaught !== undefined) {
-  //     return false;
-  //   }
-  //   event.error.hasBeenCaught = true;
-  //   // ... your useful code here
-  //   console.log(event.error);
-  // });
-
   return (
     <div className='app-container'>
-      {/* <ErrorCatcher> */}
       <Router>
         <UserProvider>
           <Switch>
@@ -36,14 +19,11 @@ function App() {
             <Route exact path='/login' component={Login} />
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/designer' component={Designer} />
-
             <Route exact path='/designer/:id' component={Designer} />
-
             <Route path='*' component={NoPage} />
           </Switch>
         </UserProvider>
       </Router>
-      {/* </ErrorCatcher> */}
     </div>
   );
 }

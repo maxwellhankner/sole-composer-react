@@ -105,7 +105,6 @@ function DesignerContainer({
     // Canvas to Texture Canvas
     textureCanvas.getContext('2d').drawImage(newCanvas, 0, 0);
     texture.needsUpdate = true;
-    // throw new Error('I crashed');
   };
 
   useEffect(() => {
