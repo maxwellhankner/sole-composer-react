@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './DesignPreview.css';
 import { Link } from 'react-router-dom';
 import { uploadImage } from '../../helpers/uploadImage';
