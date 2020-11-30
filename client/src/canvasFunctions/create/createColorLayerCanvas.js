@@ -7,14 +7,21 @@ export const createColorLayerCanvas = ({ design, layer, partName }) => {
     layerCanvas.width = canvasSize;
     layerCanvas.height = canvasSize;
     const layerCanvasCTX = layerCanvas.getContext('2d');
-    const maskImg = new Image();
-    maskImg.src = `/api/assets/images/${mask}`;
-    maskImg.onload = () => {
-      layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
-      layerCanvasCTX.globalCompositeOperation = 'source-in';
-      layerCanvasCTX.fillStyle = color;
-      layerCanvasCTX.fillRect(0, 0, canvasSize, canvasSize);
-      resolve(layerCanvas);
-    };
+    function waitForElement() {
+      if (typeof finalCanvasCTX !== 'undefined') {
+        const maskImg = new Image();
+        maskImg.src = `/api/assets/images/${mask}`;
+        maskImg.onload = () => {
+          layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
+          layerCanvasCTX.globalCompositeOperation = 'source-in';
+          layerCanvasCTX.fillStyle = color;
+          layerCanvasCTX.fillRect(0, 0, canvasSize, canvasSize);
+          resolve(layerCanvas);
+        };
+      } else {
+        setTimeout(waitForElement, 250);
+      }
+    }
+    waitForElement();
   });
 };

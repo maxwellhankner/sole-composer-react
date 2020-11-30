@@ -9,14 +9,10 @@ export const canvasObjectToTextureCanvas = ({
     const canvas = document.createElement('canvas');
     canvas.width = size;
     canvas.height = size;
-
-    // setTimeout(() => {
-
     const finalCanvasCTX = canvas.getContext('2d');
 
     function waitForElement() {
       if (typeof finalCanvasCTX !== 'undefined') {
-        //variable exists, do what you want
         for (let property in canvasObject) {
           const { x, y, width, height } = design.configData.partsObject[
             property
@@ -45,9 +41,6 @@ export const canvasObjectToTextureCanvas = ({
         setTimeout(waitForElement, 250);
       }
     }
-
     waitForElement();
-
-    // }, 2000);
   });
 };
