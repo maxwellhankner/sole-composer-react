@@ -9,9 +9,9 @@ export const canvasObjectToTextureCanvas = ({
     const canvas = document.createElement('canvas');
     canvas.width = size;
     canvas.height = size;
-    const finalCanvasCTX = canvas.getContext('2d');
 
     setTimeout(() => {
+      const finalCanvasCTX = canvas.getContext('2d');
       for (let property in canvasObject) {
         const { x, y, width, height } = design.configData.partsObject[property];
         const { divider } = design.configData;
