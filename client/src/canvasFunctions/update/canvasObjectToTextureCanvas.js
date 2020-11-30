@@ -10,31 +10,44 @@ export const canvasObjectToTextureCanvas = ({
     canvas.width = size;
     canvas.height = size;
 
-    setTimeout(() => {
-      const finalCanvasCTX = canvas.getContext('2d');
-      for (let property in canvasObject) {
-        const { x, y, width, height } = design.configData.partsObject[property];
-        const { divider } = design.configData;
-        finalCanvasCTX.drawImage(
-          baseColorCanvasObject[property],
-          x / divider,
-          y / divider,
-          width / divider,
-          height / divider
-        );
-        for (let layer in canvasObject[property].layers) {
-          const layerCanvas = canvasObject[property].layers[layer];
+    // setTimeout(() => {
+
+    const finalCanvasCTX = canvas.getContext('2d');
+
+    function waitForElement() {
+      if (typeof finalCanvasCTX !== 'undefined') {
+        //variable exists, do what you want
+        for (let property in canvasObject) {
+          const { x, y, width, height } = design.configData.partsObject[
+            property
+          ];
+          const { divider } = design.configData;
           finalCanvasCTX.drawImage(
-            layerCanvas,
+            baseColorCanvasObject[property],
             x / divider,
             y / divider,
             width / divider,
             height / divider
           );
+          for (let layer in canvasObject[property].layers) {
+            const layerCanvas = canvasObject[property].layers[layer];
+            finalCanvasCTX.drawImage(
+              layerCanvas,
+              x / divider,
+              y / divider,
+              width / divider,
+              height / divider
+            );
+          }
         }
+        resolve(canvas);
+      } else {
+        setTimeout(waitForElement, 250);
       }
-      // return canvas;
-      resolve(canvas);
-    }, 2000);
+    }
+
+    waitForElement();
+
+    // }, 2000);
   });
 };
