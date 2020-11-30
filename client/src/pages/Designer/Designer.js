@@ -63,7 +63,6 @@ function Designer() {
     userData;
 
   if (initialized) {
-    alert(`${designSpec._id} + ${userData._id}`);
     return (
       <div className='designer-root-container'>
         <DesignerContainer
@@ -78,7 +77,7 @@ function Designer() {
       </div>
     );
   } else {
-    return <div>not initialized</div>;
+    return <div></div>;
   }
 }
 
