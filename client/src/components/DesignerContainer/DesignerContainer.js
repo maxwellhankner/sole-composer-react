@@ -96,7 +96,7 @@ function DesignerContainer({
       type: 'baseColorCanvasObject',
     });
     // Canvas Object to Canvas
-    const newCanvas = canvasObjectToTextureCanvas({
+    const newCanvas = await canvasObjectToTextureCanvas({
       canvasObject: canvasObjectRef.current,
       baseColorCanvasObject: baseColorCanvasObjectRef.current,
       size: textureCanvas.height,
@@ -143,7 +143,7 @@ function DesignerContainer({
           type: 'baseColorCanvasObject',
         });
         // Canvas Object to Canvas
-        const newCanvas = canvasObjectToTextureCanvas({
+        const newCanvas = await canvasObjectToTextureCanvas({
           canvasObject: canvasObjectRef.current,
           baseColorCanvasObject: baseColorCanvasObjectRef.current,
           size: textureCanvas.height,
