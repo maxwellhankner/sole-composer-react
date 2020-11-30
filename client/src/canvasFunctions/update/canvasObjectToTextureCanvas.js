@@ -35,6 +35,6 @@ export const canvasObjectToTextureCanvas = ({
       }
       // return canvas;
       resolve(canvas);
-    }, 500);
+    }, 2000);
   });
 };
