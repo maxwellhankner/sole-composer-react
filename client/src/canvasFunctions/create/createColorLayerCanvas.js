@@ -11,18 +11,18 @@ export const createColorLayerCanvas = ({ design, layer, partName }) => {
     const maskImg = new Image();
     maskImg.src = `/api/assets/images/${mask}`;
     maskImg.onload = () => {
-      // function waitForElement() {
-      //   if (typeof finalCanvasCTX !== 'undefined') {
-      layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
-      layerCanvasCTX.globalCompositeOperation = 'source-in';
-      layerCanvasCTX.fillStyle = color;
-      layerCanvasCTX.fillRect(0, 0, canvasSize, canvasSize);
-      resolve(layerCanvas);
-      //   } else {
-      //     setTimeout(waitForElement, 250);
-      //   }
-      // }
-      // waitForElement();
+      function waitForElement() {
+        if (typeof layerCanvasCTX !== 'undefined') {
+          layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
+          layerCanvasCTX.globalCompositeOperation = 'source-in';
+          layerCanvasCTX.fillStyle = color;
+          layerCanvasCTX.fillRect(0, 0, canvasSize, canvasSize);
+          resolve(layerCanvas);
+        } else {
+          setTimeout(waitForElement, 250);
+        }
+      }
+      waitForElement();
     };
   });
 };
