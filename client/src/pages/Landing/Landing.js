@@ -36,11 +36,6 @@ function Landing() {
           <Link to='/login'>Login</Link>
         )}
       </div>
-      {userData ? null : (
-        <div>
-          <p className='basic-paragraph'>Please Login</p>
-        </div>
-      )}
       <div className='landing-content'>
         <div className='featured-designs-container'>
           <p className='landing-section-label'>FEATURED</p>
@@ -59,6 +54,11 @@ function Landing() {
         <NewDesignButton userData={userData} />
         {myDesigns && <MyDesignTiles myDesigns={myDesigns} />}
       </div>
+      {userData ? null : (
+        <div>
+          <p className='basic-paragraph'>Please Login</p>
+        </div>
+      )}
     </div>
   );
 }
