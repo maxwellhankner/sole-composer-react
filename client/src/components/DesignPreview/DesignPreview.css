@@ -1,5 +1,10 @@
 .design-preview-container {
   width: 100%;
+  /* needs fix */
+  /* height: 300px; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .view-title p {
@@ -12,7 +17,8 @@
 .design-preview-info {
   margin-left: 16px;
   margin-right: 16px;
-  margin-top: 16px;
+  padding-top: 12px;
+  /* margin-top: 12px; */
   margin-bottom: 16px;
 }
 
@@ -25,7 +31,7 @@
 .design-title {
   font-size: 1.2rem;
   margin: 0px;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
 }
 
 .edit-design-title-button {
@@ -43,14 +49,14 @@
   color: #ffffff;
 }
 
-.design-model {
-  margin: 0px;
-  font-size: 13px;
-  color: #999999;
-}
-
 .design-preview-container a {
   text-decoration: none;
+}
+
+.design-preview-buttons {
+  overflow: auto;
+  overflow-x: hidden;
+  /* margin-bottom: 10px; */
 }
 
 /* Standard Button */

@@ -43,6 +43,10 @@
   overflow-x: auto;
   padding-bottom: 5px;
 }
+.feature-designs::-webkit-scrollbar {
+  display: none;
+}
+
 .landing-section-label {
   font-family: 'Poppins', 'Roboto', 'Ariel';
   margin: 0px;

@@ -127,81 +127,82 @@ function DesignPreview({
               <FaPen />
             </button>
           </div>
-          <p className='design-model'>{design.model}</p>
         </div>
-        <div
-          className='design-preview-button'
-          onClick={() => handleViewChange('ChangeBaseColor')}
-        >
+        <div className='design-preview-buttons'>
           <div
-            className='design-preview-button-icon'
-            style={{ color: design.outlineData.baseColor }}
+            className='design-preview-button'
+            onClick={() => handleViewChange('ChangeBaseColor')}
           >
-            <FaSquare />
+            <div
+              className='design-preview-button-icon'
+              style={{ color: design.outlineData.baseColor }}
+            >
+              <FaSquare />
+            </div>
+            <button>Base Color</button>
           </div>
-          <button>BaseColor</button>
-        </div>
-        <div
-          className='design-preview-button'
-          onClick={() => handleViewChange('Layers')}
-        >
-          <div className='design-preview-button-icon'>
-            <FaLayerGroup />
+          <div
+            className='design-preview-button'
+            onClick={() => handleViewChange('Layers')}
+          >
+            <div className='design-preview-button-icon'>
+              <FaLayerGroup />
+            </div>
+            <button>Layers</button>
           </div>
-          <button>Layers</button>
-        </div>
-        <div
-          className='design-preview-button'
-          onClick={() => {
-            handleMoveCamera();
-          }}
-        >
-          <div className='design-preview-button-icon'>
-            <FaCamera />
-          </div>
-          <button>Reset Camera</button>
-        </div>
-        {canSave ? (
           <div
             className='design-preview-button'
             onClick={() => {
-              handleSaveDesign();
+              handleMoveCamera();
             }}
           >
             <div className='design-preview-button-icon'>
-              <FaSave />
+              <FaCamera />
             </div>
-            <button>Save</button>
+            <button>Reset Camera</button>
           </div>
-        ) : (
-          <div className='design-preview-button save-deactivated'>
-            <div className='design-preview-button-icon'>
-              <FaSave />
+          {canSave ? (
+            <div
+              className='design-preview-button'
+              onClick={() => {
+                handleSaveDesign();
+              }}
+            >
+              <div className='design-preview-button-icon'>
+                <FaSave />
+              </div>
+              <button>Save</button>
             </div>
-            <button>Save</button>
-          </div>
-        )}
-        {design.author === userData._id && (
-          <div
-            className='design-preview-button'
-            onClick={() => {
-              handleDeleteDesign();
-            }}
-          >
-            <div className='design-preview-button-icon'>
-              <FaTrashAlt />
+          ) : (
+            <div className='design-preview-button save-deactivated'>
+              <div className='design-preview-button-icon'>
+                <FaSave />
+              </div>
+              <button>Save</button>
             </div>
-            <button>Delete</button>
-          </div>
-        )}
-        <Link to='/'>
-          <div className='design-preview-button'>
-            <div className='design-preview-button-icon'>
-              <FaTimes />
+          )}
+          {design.author === userData._id && (
+            <div
+              className='design-preview-button'
+              onClick={() => {
+                handleDeleteDesign();
+              }}
+            >
+              <div className='design-preview-button-icon'>
+                <FaTrashAlt />
+              </div>
+              <button>Delete</button>
             </div>
-            <button>Exit</button>
-          </div>
-        </Link>
+          )}
+          <Link to='/'>
+            <div className='design-preview-button'>
+              <div className='design-preview-button-icon'>
+                <FaTimes />
+              </div>
+              <button>Exit</button>
+            </div>
+          </Link>
+        </div>
       </div>
     );
   } else {
