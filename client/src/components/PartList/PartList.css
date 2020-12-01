@@ -5,7 +5,6 @@
 }
 
 .partlist-buttons {
-  /* height: 65%; */
   overflow: auto;
   overflow-x: hidden;
   margin-bottom: 10px;

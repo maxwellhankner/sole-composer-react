@@ -1,7 +1,6 @@
 .design-preview-container {
   width: 100%;
-  /* needs fix */
-  /* height: 300px; */
+  /* might need height fix */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -18,7 +17,6 @@
   margin-left: 16px;
   margin-right: 16px;
   padding-top: 12px;
-  /* margin-top: 12px; */
   margin-bottom: 16px;
 }
 
@@ -31,7 +29,6 @@
 .design-title {
   font-size: 1.2rem;
   margin: 0px;
-  /* margin-bottom: 5px; */
 }
 
 .edit-design-title-button {
@@ -56,7 +53,6 @@
 .design-preview-buttons {
   overflow: auto;
   overflow-x: hidden;
-  /* margin-bottom: 10px; */
 }
 
 /* Standard Button */

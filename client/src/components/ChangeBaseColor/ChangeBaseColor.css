@@ -5,13 +5,14 @@
 .base-color-buttons {
   display: flex;
   flex-direction: row;
-  gap: 8px;
-  margin-left: 16px;
-  margin-right: 16px;
+  margin-left: 12px;
+  margin-right: 12px;
 }
 
 .base-color-button {
   width: 100%;
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
 .base-color-button button {
