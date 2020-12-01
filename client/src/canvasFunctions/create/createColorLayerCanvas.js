@@ -19,7 +19,7 @@ export const createColorLayerCanvas = ({ design, layer, partName }) => {
           layerCanvasCTX.fillRect(0, 0, canvasSize, canvasSize);
           resolve(layerCanvas);
         } else {
-          setTimeout(waitForElement, 250);
+          setTimeout(waitForElement, 100);
         }
       }
       waitForElement();

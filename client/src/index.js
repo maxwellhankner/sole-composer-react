@@ -10,9 +10,6 @@ Sentry.init({
   dsn:
     'https://d98f16c7cc0f4230b7ba30f6a76ef259@o484792.ingest.sentry.io/5538538',
   integrations: [new Integrations.BrowserTracing()],
-
-  // We recommend adjusting this value in production, or using tracesSampler
-  // for finer control
   tracesSampleRate: 1.0,
 });
 

@@ -38,7 +38,7 @@ export const canvasObjectToTextureCanvas = ({
         }
         resolve(canvas);
       } else {
-        setTimeout(waitForElement, 250);
+        setTimeout(waitForElement, 100);
       }
     }
     waitForElement();

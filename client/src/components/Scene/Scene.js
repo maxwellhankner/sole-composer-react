@@ -75,6 +75,8 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
       controls.minPolarAngle = Math.PI * (1 / 5);
       controls.maxPolarAngle = Math.PI * (6 / 7);
       controls.enablePan = false;
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.18;
       controls.update();
 
       //===================================================== loading mananger
