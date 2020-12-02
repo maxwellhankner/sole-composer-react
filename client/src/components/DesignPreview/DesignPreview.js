@@ -14,6 +14,7 @@ import {
   FaCamera,
   FaSquare,
 } from 'react-icons/fa';
+// import { response } from 'express';
 // import UserProvider from '../../context/UserProvider';
 
 function DesignPreview({
