@@ -66,27 +66,27 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
           // console.log(colorValues[0]);
           switch (colorValues[0]) {
             case 255:
-              console.log('Inner Heal');
+              console.log('outer Heal');
               break;
 
             case 220:
-              console.log('Inner Quarter');
+              console.log('outer Quarter');
               break;
 
             case 210:
-              console.log('Inner Swoosh');
+              console.log('outer Swoosh');
               break;
 
             case 200:
-              console.log('OuterHeel');
+              console.log('inner Heel');
               break;
 
             case 190:
-              console.log('Outer Quarter');
+              console.log('inner Quarter');
               break;
 
             case 180:
-              console.log('Outer swoosh');
+              console.log('inner swoosh');
               break;
 
             case 170:
