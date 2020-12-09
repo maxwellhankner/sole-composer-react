@@ -14,8 +14,10 @@ function Interface({
   camera,
   handleUpdateBaseColor,
   userData,
+  currentPart,
+  setCurrentPart,
 }) {
-  const [currentPart, setCurrentPart] = useState(0);
+  // const [currentPart, setCurrentPart] = useState(0);
   const [currentLayer, setCurrentLayer] = useState(0);
   const [view, setView] = useState('DesignPreview');
   const [canSave, setCanSave] = useState(false);

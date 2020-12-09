@@ -8,142 +8,18 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 const textureLoader = new THREE.TextureLoader();
 const raycaster = new THREE.Raycaster();
 
-const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
+const Scene = ({
+  design,
+  texture,
+  initialLoaded,
+  camera,
+  setCamera,
+  setCurrentPart,
+}) => {
   const threeCanvasRef = useRef(null);
   const [renderer, setRenderer] = useState(null);
   const [newMaterial, setNewMaterial] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  const setupRaycansting = (model) => {
-    // .addEventListener('mousedown', (event) => {
-    //   console.log('hi');
-    // });
-
-    textureLoader.load('/api/assets/images/colorUVsmall.png', (texture) => {
-      const mouse = new THREE.Vector2();
-      const img = texture.image;
-
-      // make canvas for later pixel value query
-
-      const textureCanvas = document.createElement('canvas');
-      textureCanvas.width = img.width;
-      textureCanvas.height = img.height;
-      textureCanvas
-        .getContext('2d')
-        .drawImage(img, 0, 0, img.width, img.height);
-
-      // add global listener for click event, will check intersection here
-
-      renderer.domElement.addEventListener('click', (event) => {
-        // check intersections with imported model
-        const box = renderer.domElement.getBoundingClientRect();
-
-        mouse.x = (event.clientX / box.width) * 2 - 1;
-        mouse.y = -(event.clientY / box.height) * 2 + 1;
-
-        // console.log(mouse.x, mouse.y);
-
-        raycaster.setFromCamera(mouse, camera);
-
-        const intersects = raycaster.intersectObject(model, true);
-
-        // if there is any intersection, continue
-
-        if (intersects.length) {
-          // get pixel coordinates on texture
-          // console.log(intersects);
-
-          const uv = intersects[0].uv2;
-          uv.x *= img.width;
-          uv.y *= img.height;
-
-          // get pixel value
-
-          const colorValues = textureCanvas
-            .getContext('2d')
-            .getImageData(uv.x, uv.y, 1, 1).data;
-
-          // console.log(colorValues[0]);
-          switch (colorValues[0]) {
-            case 255:
-              console.log('outer Heal');
-              break;
-
-            case 220:
-              console.log('outer Quarter');
-              break;
-
-            case 210:
-              console.log('outer Swoosh');
-              break;
-
-            case 200:
-              console.log('inner Heel');
-              break;
-
-            case 190:
-              console.log('inner Quarter');
-              break;
-
-            case 180:
-              console.log('inner swoosh');
-              break;
-
-            case 170:
-              console.log('heel tab');
-              break;
-
-            case 160:
-              console.log('heel wing');
-              break;
-
-            case 150:
-              console.log('tongue');
-              break;
-
-            case 140:
-              console.log('toe box');
-              break;
-
-            case 130:
-              console.log('lace lock');
-              break;
-
-            case 120:
-              console.log('lace');
-              break;
-
-            case 110:
-              console.log('lace cage');
-              break;
-
-            case 100:
-              console.log('sole');
-              break;
-
-            case 90:
-              console.log('toe cap');
-              break;
-
-            case 80:
-              console.log('inner sole');
-              break;
-
-            case 70:
-              console.log('outer Sole');
-              break;
-
-            case 60:
-              console.log('sock liner');
-              break;
-            default:
-              console.log('selection failed');
-              break;
-          }
-        }
-      });
-    });
-  };
 
   const createMaterial = (texture) => {
     return new Promise((resolve) => {
@@ -202,7 +78,7 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
       scene.add(light);
 
       //===================================================== orbit controls
-      const controls = new OrbitControls(camera, document.body);
+      const controls = new OrbitControls(camera, renderer.domElement);
       controls.maxDistance = 10;
       controls.minDistance = 4;
       controls.minPolarAngle = Math.PI * (1 / 5);
@@ -218,6 +94,141 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
         setIsLoading(false);
       };
 
+      //===================================================== raycasting
+      const setupRaycasting = (model) => {
+        textureLoader.load('/api/assets/images/colorUVsmall.png', (texture) => {
+          const mouse = new THREE.Vector2();
+          const img = texture.image;
+          const textureCanvas = document.createElement('canvas');
+          textureCanvas.width = img.width;
+          textureCanvas.height = img.height;
+          textureCanvas
+            .getContext('2d')
+            .drawImage(img, 0, 0, img.width, img.height);
+
+          let drag = false;
+
+          renderer.domElement.addEventListener('pointerdown', (event) => {
+            event.preventDefault();
+            drag = false;
+          });
+
+          renderer.domElement.addEventListener('pointermove', (event) => {
+            event.preventDefault();
+            drag = true;
+          });
+
+          renderer.domElement.addEventListener('pointerup', (event) => {
+            event.preventDefault();
+            if (!drag) {
+              // check intersections with imported model
+              const box = renderer.domElement.getBoundingClientRect();
+
+              mouse.x = (event.clientX / box.width) * 2 - 1;
+              mouse.y = -(event.clientY / box.height) * 2 + 1;
+
+              raycaster.setFromCamera(mouse, camera);
+
+              const intersects = raycaster.intersectObject(model, true);
+
+              // if there is any intersection, continue
+
+              if (intersects.length) {
+                // get pixel coordinates on texture
+                // console.log(intersects);
+
+                const uv = intersects[0].uv2;
+                uv.x *= img.width;
+                uv.y *= img.height;
+
+                // get pixel value
+
+                const colorValues = textureCanvas
+                  .getContext('2d')
+                  .getImageData(uv.x, uv.y, 1, 1).data;
+
+                // console.log(colorValues[0]);
+                switch (colorValues[0]) {
+                  case 255:
+                    setCurrentPart(4);
+                    break;
+
+                  case 220:
+                    setCurrentPart(2);
+                    break;
+
+                  case 210:
+                    setCurrentPart(0);
+                    break;
+
+                  case 200:
+                    setCurrentPart(5);
+                    break;
+
+                  case 190:
+                    setCurrentPart(3);
+                    break;
+
+                  case 180:
+                    setCurrentPart(1);
+                    break;
+
+                  case 170:
+                    setCurrentPart(16);
+                    break;
+
+                  case 160:
+                    setCurrentPart(15);
+                    break;
+
+                  case 150:
+                    setCurrentPart(14);
+                    break;
+
+                  case 140:
+                    setCurrentPart(9);
+                    break;
+
+                  case 130:
+                    setCurrentPart(13);
+                    break;
+
+                  case 120:
+                    setCurrentPart(11);
+                    break;
+
+                  case 110:
+                    setCurrentPart(12);
+                    break;
+
+                  case 100:
+                    setCurrentPart(8);
+                    break;
+
+                  case 90:
+                    setCurrentPart(10);
+                    break;
+
+                  case 80:
+                    setCurrentPart(7);
+                    break;
+
+                  case 70:
+                    setCurrentPart(6);
+                    break;
+
+                  case 60:
+                    setCurrentPart(17);
+                    break;
+                  default:
+                    break;
+                }
+              }
+            }
+          });
+        });
+      };
+
       //===================================================== model
       const loader = new GLTFLoader(manager);
       loader.load(`/api/assets/models/${design.configData.source}`, (gltf) => {
@@ -229,7 +240,7 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
         model.position.y = -1;
         model.rotation.y = -95 * (Math.PI / 180);
         scene.add(model);
-        setupRaycansting(model);
+        setupRaycasting(model);
       });
 
       //===================================================== animate
@@ -249,13 +260,7 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
 
       return cleanup;
     }
-  }, [
-    newMaterial,
-    renderer,
-    camera,
-    design.configData.source,
-    setupRaycansting,
-  ]);
+  }, [newMaterial, renderer, camera, design.configData.source, setCurrentPart]);
 
   return (
     <div
