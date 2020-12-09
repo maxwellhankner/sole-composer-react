@@ -109,7 +109,6 @@ const Scene = ({
           let drag = false;
 
           renderer.domElement.addEventListener('pointerdown', (event) => {
-            event.preventDefault();
             drag = false;
           });
 
