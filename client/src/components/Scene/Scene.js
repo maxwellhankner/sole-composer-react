@@ -5,7 +5,17 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
-const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
+const textureLoader = new THREE.TextureLoader();
+const raycaster = new THREE.Raycaster();
+
+const Scene = ({
+  design,
+  texture,
+  initialLoaded,
+  camera,
+  setCamera,
+  setCurrentPart,
+}) => {
   const threeCanvasRef = useRef(null);
   const [renderer, setRenderer] = useState(null);
   const [newMaterial, setNewMaterial] = useState(null);
@@ -62,7 +72,6 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
     if (renderer && newMaterial && camera) {
       //===================================================== scene
       const scene = new THREE.Scene();
-      // scene.background = new THREE.Color(0xf9f9f9);
 
       //===================================================== lights
       const light = new THREE.AmbientLight(0xffffff, 1);
@@ -85,6 +94,141 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
         setIsLoading(false);
       };
 
+      //===================================================== raycasting
+      const setupRaycasting = (model) => {
+        textureLoader.load('/api/assets/images/colorUVsmall.png', (texture) => {
+          const mouse = new THREE.Vector2();
+          const img = texture.image;
+          const textureCanvas = document.createElement('canvas');
+          textureCanvas.width = img.width;
+          textureCanvas.height = img.height;
+          textureCanvas
+            .getContext('2d')
+            .drawImage(img, 0, 0, img.width, img.height);
+
+          let drag = false;
+
+          renderer.domElement.addEventListener('pointerdown', (event) => {
+            event.preventDefault();
+            drag = false;
+          });
+
+          renderer.domElement.addEventListener('pointermove', (event) => {
+            event.preventDefault();
+            drag = true;
+          });
+
+          renderer.domElement.addEventListener('pointerup', (event) => {
+            event.preventDefault();
+            if (!drag) {
+              // check intersections with imported model
+              const box = renderer.domElement.getBoundingClientRect();
+
+              mouse.x = (event.clientX / box.width) * 2 - 1;
+              mouse.y = -(event.clientY / box.height) * 2 + 1;
+
+              raycaster.setFromCamera(mouse, camera);
+
+              const intersects = raycaster.intersectObject(model, true);
+
+              // if there is any intersection, continue
+
+              if (intersects.length) {
+                // get pixel coordinates on texture
+                // console.log(intersects);
+
+                const uv = intersects[0].uv2;
+                uv.x *= img.width;
+                uv.y *= img.height;
+
+                // get pixel value
+
+                const colorValues = textureCanvas
+                  .getContext('2d')
+                  .getImageData(uv.x, uv.y, 1, 1).data;
+
+                // console.log(colorValues[0]);
+                switch (colorValues[0]) {
+                  case 255:
+                    setCurrentPart(4);
+                    break;
+
+                  case 220:
+                    setCurrentPart(2);
+                    break;
+
+                  case 210:
+                    setCurrentPart(0);
+                    break;
+
+                  case 200:
+                    setCurrentPart(5);
+                    break;
+
+                  case 190:
+                    setCurrentPart(3);
+                    break;
+
+                  case 180:
+                    setCurrentPart(1);
+                    break;
+
+                  case 170:
+                    setCurrentPart(16);
+                    break;
+
+                  case 160:
+                    setCurrentPart(15);
+                    break;
+
+                  case 150:
+                    setCurrentPart(14);
+                    break;
+
+                  case 140:
+                    setCurrentPart(9);
+                    break;
+
+                  case 130:
+                    setCurrentPart(13);
+                    break;
+
+                  case 120:
+                    setCurrentPart(11);
+                    break;
+
+                  case 110:
+                    setCurrentPart(12);
+                    break;
+
+                  case 100:
+                    setCurrentPart(8);
+                    break;
+
+                  case 90:
+                    setCurrentPart(10);
+                    break;
+
+                  case 80:
+                    setCurrentPart(7);
+                    break;
+
+                  case 70:
+                    setCurrentPart(6);
+                    break;
+
+                  case 60:
+                    setCurrentPart(17);
+                    break;
+                  default:
+                    break;
+                }
+              }
+            }
+          });
+        });
+      };
+
       //===================================================== model
       const loader = new GLTFLoader(manager);
       loader.load(`/api/assets/models/${design.configData.source}`, (gltf) => {
@@ -96,6 +240,7 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
         model.position.y = -1;
         model.rotation.y = -95 * (Math.PI / 180);
         scene.add(model);
+        setupRaycasting(model);
       });
 
       //===================================================== animate
@@ -115,7 +260,7 @@ const Scene = ({ design, texture, initialLoaded, camera, setCamera }) => {
 
       return cleanup;
     }
-  }, [newMaterial, renderer, camera, design.configData.source]);
+  }, [newMaterial, renderer, camera, design.configData.source, setCurrentPart]);
 
   return (
     <div
