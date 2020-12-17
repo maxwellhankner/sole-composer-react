@@ -9,11 +9,18 @@ export const createMaskLayerCanvas = ({ design, layer }) => {
     const graphicImg = new Image();
     graphicImg.src = `/api/assets/images/${link}`;
     graphicImg.onload = () => {
-      layerCanvasCTX.drawImage(graphicImg, 0, 0, canvasSize, canvasSize);
-      layerCanvasCTX.globalCompositeOperation = 'source-in';
-      layerCanvasCTX.fillStyle = color;
-      layerCanvasCTX.fillRect(0, 0, canvasSize, canvasSize);
-      resolve(layerCanvas);
+      function waitForElement() {
+        if (typeof layerCanvasCTX !== 'undefined') {
+          layerCanvasCTX.drawImage(graphicImg, 0, 0, canvasSize, canvasSize);
+          layerCanvasCTX.globalCompositeOperation = 'source-in';
+          layerCanvasCTX.fillStyle = color;
+          layerCanvasCTX.fillRect(0, 0, canvasSize, canvasSize);
+          resolve(layerCanvas);
+        } else {
+          setTimeout(waitForElement, 100);
+        }
+      }
+      waitForElement();
     };
   });
 };
