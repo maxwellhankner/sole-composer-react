@@ -10,7 +10,7 @@ export const createMaskLayerCanvas = ({ design, layer }) => {
     graphicImg.src = `/api/assets/images/${link}`;
     graphicImg.onload = () => {
       function waitForElement() {
-        if (typeof layerCanvasCTX !== 'undefined') {
+        if (layerCanvasCTX !== null && typeof layerCanvas === 'object') {
           layerCanvasCTX.drawImage(graphicImg, 0, 0, canvasSize, canvasSize);
           layerCanvasCTX.globalCompositeOperation = 'source-in';
           layerCanvasCTX.fillStyle = color;

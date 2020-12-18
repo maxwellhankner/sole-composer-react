@@ -18,18 +18,25 @@ export const createOverlayLayerCanvas = ({
     const maskImg = new Image();
     maskImg.src = `/api/assets/images/${mask}`;
     maskImg.onload = () => {
-      layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
-      layerCanvasCTX.globalCompositeOperation = 'source-in';
-      layerCanvasCTX.translate(canvasSize * x, canvasSize * y);
-      layerCanvasCTX.rotate(rotation);
-      layerCanvasCTX.drawImage(
-        overlayCanvas,
-        0,
-        0,
-        canvasSize * scale,
-        canvasSize * scale
-      );
-      resolve(layerCanvas);
+      function waitForElement() {
+        if (layerCanvasCTX !== null && typeof layerCanvas === 'object') {
+          layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
+          layerCanvasCTX.globalCompositeOperation = 'source-in';
+          layerCanvasCTX.translate(canvasSize * x, canvasSize * y);
+          layerCanvasCTX.rotate(rotation);
+          layerCanvasCTX.drawImage(
+            overlayCanvas,
+            0,
+            0,
+            canvasSize * scale,
+            canvasSize * scale
+          );
+          resolve(layerCanvas);
+        } else {
+          setTimeout(waitForElement, 100);
+        }
+      }
+      waitForElement();
     };
   });
 };
