@@ -11,10 +11,7 @@ export const createColorLayerCanvas = ({ design, layer, partName }) => {
     maskImg.src = `/api/assets/images/${mask}`;
     maskImg.onload = () => {
       function waitForElement() {
-        if (
-          typeof layerCanvasCTX === 'object' &&
-          typeof layerCanvas === 'object'
-        ) {
+        if (layerCanvasCTX !== null && typeof layerCanvas === 'object') {
           console.log('context says', layerCanvasCTX);
           layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
           layerCanvasCTX.globalCompositeOperation = 'source-in';
