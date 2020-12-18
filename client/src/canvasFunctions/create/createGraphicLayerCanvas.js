@@ -23,39 +23,52 @@ export const createGraphicLayerCanvas = ({ design, layer, partName }) => {
       pythagoreanCanvas.width = graphicPythagorean;
       pythagoreanCanvas.height = graphicPythagorean;
       const pythagoreanCTX = pythagoreanCanvas.getContext('2d');
-      // Translate context to the center of the canvas
-      pythagoreanCTX.translate(
-        pythagoreanCanvas.width / 2,
-        pythagoreanCanvas.height / 2
-      );
-      // Rotate context
-      pythagoreanCTX.rotate((rotation * Math.PI) / 180);
-      pythagoreanCTX.drawImage(
-        graphicImg,
-        graphicImg.width / -2,
-        graphicImg.height / -2,
-        graphicImg.width,
-        graphicImg.height
-      );
-      const maskImg = new Image();
-      maskImg.src = `/api/assets/images/${mask}`;
-      maskImg.onload = function () {
-        layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
-        layerCanvasCTX.globalCompositeOperation = 'source-in';
-        // Calculate new position
-        const newX = x + (canvasSize - canvasSize * scale) / 2;
-        const newY = y + (canvasSize - canvasSize * scale) / 2;
-        const newScale = canvasSize * scale;
-        // Draw graphic on layerCanvas
-        layerCanvasCTX.drawImage(
-          pythagoreanCanvas,
-          newX,
-          newY,
-          newScale,
-          newScale
-        );
-        resolve(layerCanvas);
-      };
+
+      function waitForElement() {
+        if (
+          pythagoreanCTX !== null &&
+          typeof pythagoreanCanvas === 'object' &&
+          layerCanvasCTX !== null &&
+          typeof layerCanvas === 'object'
+        ) {
+          // Translate context to the center of the canvas
+          pythagoreanCTX.translate(
+            pythagoreanCanvas.width / 2,
+            pythagoreanCanvas.height / 2
+          );
+          // Rotate context
+          pythagoreanCTX.rotate((rotation * Math.PI) / 180);
+          pythagoreanCTX.drawImage(
+            graphicImg,
+            graphicImg.width / -2,
+            graphicImg.height / -2,
+            graphicImg.width,
+            graphicImg.height
+          );
+          const maskImg = new Image();
+          maskImg.src = `/api/assets/images/${mask}`;
+          maskImg.onload = function () {
+            layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
+            layerCanvasCTX.globalCompositeOperation = 'source-in';
+            // Calculate new position
+            const newX = x + (canvasSize - canvasSize * scale) / 2;
+            const newY = y + (canvasSize - canvasSize * scale) / 2;
+            const newScale = canvasSize * scale;
+            // Draw graphic on layerCanvas
+            layerCanvasCTX.drawImage(
+              pythagoreanCanvas,
+              newX,
+              newY,
+              newScale,
+              newScale
+            );
+            resolve(layerCanvas);
+          };
+        } else {
+          setTimeout(waitForElement, 100);
+        }
+      }
+      waitForElement();
     };
   });
 };
