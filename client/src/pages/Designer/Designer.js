@@ -22,30 +22,29 @@ function Designer() {
 
   const userData = useContext(UserProvider.context);
 
+  const setup = (data) => {
+    setDesignSpec(data);
+    setGraphicVisualCanvas(createGraphicVisualCanvas({ design: data }));
+    setInnerOverlayCanvas(createCanvas({ design: data }));
+    setOuterOverlayCanvas(createCanvas({ design: data }));
+    setTextureCanvas(createCanvas({ design: data }));
+  };
+
   useEffect(() => {
     if (id) {
       simpleFetch(`/api/outlines/${id}`, 'GET')
         .then((res) => res.json())
         .then((data) => {
-          setDesignSpec(data);
+          setup(data);
         });
     } else {
       simpleFetch('/api/outlines/newdesign', 'GET')
         .then((res) => res.json())
         .then((data) => {
-          setDesignSpec(data);
+          setup(data);
         });
     }
   }, [id]);
-
-  useEffect(() => {
-    if (designSpec) {
-      setGraphicVisualCanvas(createGraphicVisualCanvas({ design: designSpec }));
-      setInnerOverlayCanvas(createCanvas({ design: designSpec }));
-      setOuterOverlayCanvas(createCanvas({ design: designSpec }));
-      setTextureCanvas(createCanvas({ design: designSpec }));
-    }
-  }, [designSpec]);
 
   useEffect(() => {
     if (textureCanvas) {

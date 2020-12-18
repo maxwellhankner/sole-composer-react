@@ -134,19 +134,15 @@ const Scene = ({
 
               if (intersects.length) {
                 // get pixel coordinates on texture
-                // console.log(intersects);
-
                 const uv = intersects[0].uv2;
                 uv.x *= img.width;
                 uv.y *= img.height;
 
                 // get pixel value
-
                 const colorValues = textureCanvas
                   .getContext('2d')
                   .getImageData(uv.x, uv.y, 1, 1).data;
 
-                // console.log(colorValues[0]);
                 switch (colorValues[0]) {
                   case 255:
                     setCurrentPart(4);

@@ -157,7 +157,14 @@ function DesignerContainer({
       };
       buildTexture();
     }
-  });
+  }, [
+    design,
+    graphicVisualCanvas,
+    innerOverlayCanvas,
+    outerOverlayCanvas,
+    texture.needsUpdate,
+    textureCanvas,
+  ]);
 
   if (design && userData) {
     return (
