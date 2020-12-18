@@ -102,9 +102,19 @@ const Scene = ({
           const textureCanvas = document.createElement('canvas');
           textureCanvas.width = img.width;
           textureCanvas.height = img.height;
-          textureCanvas
-            .getContext('2d')
-            .drawImage(img, 0, 0, img.width, img.height);
+          const textureCanvasCTX = textureCanvas.getContext('2d');
+
+          function waitForElement() {
+            if (
+              textureCanvasCTX !== null &&
+              typeof textureCanvas === 'object'
+            ) {
+              textureCanvasCTX.drawImage(img, 0, 0, img.width, img.height);
+            } else {
+              setTimeout(waitForElement, 100);
+            }
+          }
+          waitForElement();
 
           let drag = false;
 

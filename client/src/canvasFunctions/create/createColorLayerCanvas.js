@@ -12,7 +12,6 @@ export const createColorLayerCanvas = ({ design, layer, partName }) => {
     maskImg.onload = () => {
       function waitForElement() {
         if (layerCanvasCTX !== null && typeof layerCanvas === 'object') {
-          console.log('context says', layerCanvasCTX);
           layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
           layerCanvasCTX.globalCompositeOperation = 'source-in';
           layerCanvasCTX.fillStyle = color;
