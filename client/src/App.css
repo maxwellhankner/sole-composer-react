@@ -23,3 +23,7 @@
   padding: 0px;
   text-align: center;
 }
+
+button:hover {
+  cursor: pointer;
+}
