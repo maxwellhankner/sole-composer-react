@@ -51,14 +51,19 @@ function Landing() {
               : null}
           </div>
         </div>
-        <NewDesignButton userData={userData} />
+
+        {userData ? (
+          <NewDesignButton userData={userData} />
+        ) : (
+          <Link to='/login'>
+            <div className='landing-button'>
+              <button>Get Started</button>
+            </div>
+          </Link>
+        )}
+
         {myDesigns && <MyDesignTiles myDesigns={myDesigns} />}
       </div>
-      {userData ? null : (
-        <div>
-          <p className='basic-paragraph'>Please Login</p>
-        </div>
-      )}
     </div>
   );
 }

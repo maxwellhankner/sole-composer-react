@@ -1,3 +1,25 @@
 .designer-root-container {
   height: 100vh;
 }
+
+/* Landing Button */
+.landing-button {
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-bottom: 10px;
+}
+
+.landing-button button {
+  height: 40px;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 8px;
+  width: 100%;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+
+.landing-button button:focus {
+  outline: none;
+}
