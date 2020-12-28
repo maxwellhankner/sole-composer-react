@@ -14,8 +14,6 @@ import {
   FaCamera,
   FaSquare,
 } from 'react-icons/fa';
-// import { response } from 'express';
-// import UserProvider from '../../context/UserProvider';
 
 function DesignPreview({
   handleViewChange,
@@ -25,7 +23,6 @@ function DesignPreview({
   setCanSave,
   userData,
 }) {
-  // const userData = useContext(UserProvider.context);
   const [loading, setLoading] = useState(false);
 
   const handleSaveDesign = async () => {
@@ -46,9 +43,7 @@ function DesignPreview({
         designFetch('/api/outlines', 'POST', body)
           .then((res) => res.json())
           .then((data) => {
-            // setTimeout(() => {
             window.location.href = `/designer/${data._id}`;
-            // }, 2000);
           });
       });
     }

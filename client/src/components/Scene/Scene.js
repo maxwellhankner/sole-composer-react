@@ -21,26 +21,25 @@ const Scene = ({
   const [newMaterial, setNewMaterial] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const createMaterial = (texture) => {
-    return new Promise((resolve) => {
-      const aoimg = new Image();
-      aoimg.src = '/api/assets/images/ao_diffuse_fixed.jpg';
-
-      aoimg.onload = () => {
-        const ao = new THREE.CanvasTexture(aoimg);
-        ao.flipY = false;
-        resolve(
-          new THREE.MeshStandardMaterial({
-            map: texture,
-            aoMap: ao,
-          })
-        );
-      };
-    });
-  };
-
-  // Initialize Renderer and newMaterial
   useEffect(() => {
+    const createMaterial = (texture) => {
+      return new Promise((resolve) => {
+        const aoimg = new Image();
+        aoimg.src = `/api/assets/images/${design.configData.map}`;
+
+        aoimg.onload = () => {
+          const ao = new THREE.CanvasTexture(aoimg);
+          ao.flipY = false;
+          resolve(
+            new THREE.MeshStandardMaterial({
+              map: texture,
+              aoMap: ao,
+            })
+          );
+        };
+      });
+    };
+
     setRenderer(
       new THREE.WebGLRenderer({
         antialias: true,
@@ -48,12 +47,13 @@ const Scene = ({
         alpha: true,
       })
     );
+
     async function createMat() {
       const mat = await createMaterial(texture);
       setNewMaterial(mat);
     }
     createMat();
-  }, [texture]);
+  }, [texture, design.configData.map]);
 
   useEffect(() => {
     //===================================================== camera
