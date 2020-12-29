@@ -7,10 +7,13 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const textureLoader = new THREE.TextureLoader();
 const raycaster = new THREE.Raycaster();
+raycaster.layers.enable(1);
+raycaster.layers.enable(2);
 
 const Scene = ({
   design,
   texture,
+  textureClone,
   initialLoaded,
   camera,
   setCamera,
@@ -19,6 +22,7 @@ const Scene = ({
   const threeCanvasRef = useRef(null);
   const [renderer, setRenderer] = useState(null);
   const [newMaterial, setNewMaterial] = useState(null);
+  const [newMaterialClone, setNewMaterialClone] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -53,7 +57,13 @@ const Scene = ({
       setNewMaterial(mat);
     }
     createMat();
-  }, [texture, design.configData.source.aoMapRight]);
+
+    async function createMatClone() {
+      const mat = await createMaterial(textureClone);
+      setNewMaterialClone(mat);
+    }
+    createMatClone();
+  }, [texture, design.configData.source.aoMapRight, textureClone]);
 
   useEffect(() => {
     //===================================================== camera
@@ -63,13 +73,16 @@ const Scene = ({
       const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
       camera.position.z = 7.5;
       camera.position.y = 0;
+      camera.layers.enable(1);
+      camera.layers.enable(2);
       setCamera(camera);
     }
   }, [renderer, newMaterial, setCamera]);
 
   // Build threeJS Scene
   useEffect(() => {
-    if (renderer && newMaterial && camera) {
+    if (renderer && newMaterial && newMaterialClone && camera) {
+      console.log('hey');
       //===================================================== scene
       const scene = new THREE.Scene();
 
@@ -95,7 +108,7 @@ const Scene = ({
       };
 
       //===================================================== raycasting
-      const setupRaycasting = (model) => {
+      const setupRaycasting = (model, modelClone) => {
         textureLoader.load(
           `/api/assets/images/${design.configData.source.redMapRight}`,
           (texture) => {
@@ -140,7 +153,10 @@ const Scene = ({
 
                 raycaster.setFromCamera(mouse, camera);
 
-                const intersects = raycaster.intersectObject(model, true);
+                const intersects = raycaster.intersectObjects(
+                  [model, modelClone],
+                  true
+                );
 
                 // if there is any intersection, continue
 
@@ -154,6 +170,8 @@ const Scene = ({
                   const colorValues = textureCanvas
                     .getContext('2d')
                     .getImageData(uv.x, uv.y, 1, 1).data;
+
+                  console.log(colorValues);
 
                   switch (colorValues[0]) {
                     case 255:
@@ -246,14 +264,35 @@ const Scene = ({
             if (node.isMesh) {
               node.material = newMaterial;
               node.material.side = THREE.DoubleSide;
+              node.layers.set(2);
             }
           });
           const model = gltf.scene;
+
           model.scale.set(0.35, 0.35, 0.35);
           model.position.y = -1;
+          model.position.z = 1.25;
           model.rotation.y = -95 * (Math.PI / 180);
           scene.add(model);
-          setupRaycasting(model);
+
+          const modelClone = gltf.scene.clone();
+
+          modelClone.scale.set(-0.35, 0.35, 0.35);
+          modelClone.position.y = -1;
+          modelClone.position.z = -1.25;
+          modelClone.rotation.y = -95 * (Math.PI / 180);
+          scene.add(modelClone);
+
+          modelClone.traverse((node) => {
+            if (node.isMesh) {
+              node.material = newMaterialClone;
+              node.material.side = THREE.DoubleSide;
+              node.layers.set(1);
+            }
+          });
+
+          setupRaycasting(model, modelClone);
+          // setupRaycasting(modelClone);
         }
       );
 
@@ -274,7 +313,14 @@ const Scene = ({
 
       return cleanup;
     }
-  }, [newMaterial, renderer, camera, design.configData.source, setCurrentPart]);
+  }, [
+    newMaterial,
+    renderer,
+    camera,
+    design.configData.source,
+    setCurrentPart,
+    newMaterialClone,
+  ]);
 
   return (
     <div

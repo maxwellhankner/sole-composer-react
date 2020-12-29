@@ -17,6 +17,8 @@ function Designer() {
   const [outerOverlayCanvas, setOuterOverlayCanvas] = useState(null);
   const [textureCanvas, setTextureCanvas] = useState(null);
   const [texture, setTexture] = useState(null);
+  const [textureCanvasClone, setTextureCanvasClone] = useState(null);
+  const [textureClone, setTextureClone] = useState(null);
 
   const { id } = useParams();
 
@@ -28,6 +30,7 @@ function Designer() {
     setInnerOverlayCanvas(createCanvas({ design: data }));
     setOuterOverlayCanvas(createCanvas({ design: data }));
     setTextureCanvas(createCanvas({ design: data }));
+    setTextureCanvasClone(createCanvas({ design: data }));
   };
 
   useEffect(() => {
@@ -47,10 +50,11 @@ function Designer() {
   }, [id]);
 
   useEffect(() => {
-    if (textureCanvas) {
+    if (textureCanvas && textureCanvasClone) {
       setTexture(createTexture(textureCanvas));
+      setTextureClone(createTexture(textureCanvasClone));
     }
-  }, [textureCanvas]);
+  }, [textureCanvas, textureCanvasClone]);
 
   const initialized =
     designSpec &&
@@ -59,6 +63,8 @@ function Designer() {
     outerOverlayCanvas &&
     textureCanvas &&
     texture &&
+    textureClone &&
+    textureCanvasClone &&
     userData;
 
   if (initialized) {
@@ -71,6 +77,8 @@ function Designer() {
           outerOverlayCanvas={outerOverlayCanvas}
           texture={texture}
           textureCanvas={textureCanvas}
+          textureClone={textureClone}
+          textureCanvasClone={textureCanvasClone}
           userData={userData}
         />
       </div>

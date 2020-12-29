@@ -18,6 +18,8 @@ function DesignerContainer({
   outerOverlayCanvas,
   texture,
   textureCanvas,
+  textureClone,
+  textureCanvasClone,
   userData,
 }) {
   const [design, setDesign] = useState(designSpec);
@@ -173,6 +175,8 @@ function DesignerContainer({
           design={design}
           texture={texture}
           textureCanvas={textureCanvas}
+          textureClone={textureClone}
+          textureCanvasClone={textureCanvasClone}
           initialLoaded={initialLoaded}
           camera={camera}
           setCamera={setCamera}

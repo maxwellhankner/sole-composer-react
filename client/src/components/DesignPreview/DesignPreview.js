@@ -102,6 +102,10 @@ function DesignPreview({
     camera.position.set(0, 0, 7.5);
   };
 
+  const handleHideShoe = () => {
+    camera.layers.toggle(1);
+  };
+
   if (loading) {
     return (
       <div className='design-preview-container'>
@@ -156,6 +160,17 @@ function DesignPreview({
               <FaCamera />
             </div>
             <button>Reset Camera</button>
+          </div>
+          <div
+            className='design-preview-button'
+            onClick={() => {
+              handleHideShoe();
+            }}
+          >
+            <div className='design-preview-button-icon'>
+              <FaCamera />
+            </div>
+            <button>Hide Shoe</button>
           </div>
           {canSave ? (
             <div
