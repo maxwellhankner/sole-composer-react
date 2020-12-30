@@ -29,7 +29,6 @@ function DesignPreview({
   const [loading, setLoading] = useState(false);
   const [leftVisible, setLeftVisible] = useState(true);
   const [rightVisible, setRightVisible] = useState(true);
-  console.log(camera);
 
   const handleSaveDesign = async () => {
     setCanSave(false);
