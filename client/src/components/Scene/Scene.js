@@ -71,7 +71,7 @@ const Scene = ({
       renderer.setSize(2048, 2048);
       threeCanvasRef.current.appendChild(renderer.domElement);
       const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
-      camera.position.z = 7.5;
+      camera.position.z = 8.5;
       camera.position.y = 0;
       camera.layers.enable(1);
       camera.layers.enable(2);
@@ -82,7 +82,6 @@ const Scene = ({
   // Build threeJS Scene
   useEffect(() => {
     if (renderer && newMaterial && newMaterialClone && camera) {
-      console.log('hey');
       //===================================================== scene
       const scene = new THREE.Scene();
 
@@ -158,8 +157,7 @@ const Scene = ({
                   true
                 );
 
-                // if there is any intersection, continue
-
+                // if there is any intersection, continues
                 if (intersects.length) {
                   // get pixel coordinates on texture
                   const uv = intersects[0].uv2;
@@ -170,8 +168,6 @@ const Scene = ({
                   const colorValues = textureCanvas
                     .getContext('2d')
                     .getImageData(uv.x, uv.y, 1, 1).data;
-
-                  console.log(colorValues);
 
                   switch (colorValues[0]) {
                     case 255:
@@ -264,7 +260,7 @@ const Scene = ({
             if (node.isMesh) {
               node.material = newMaterial;
               node.material.side = THREE.DoubleSide;
-              node.layers.set(2);
+              node.layers.set(1);
             }
           });
           const model = gltf.scene;
@@ -287,7 +283,7 @@ const Scene = ({
             if (node.isMesh) {
               node.material = newMaterialClone;
               node.material.side = THREE.DoubleSide;
-              node.layers.set(1);
+              node.layers.set(2);
             }
           });
 

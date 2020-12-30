@@ -16,6 +16,8 @@ function Interface({
   userData,
   currentPart,
   setCurrentPart,
+  currentShoe,
+  setCurrentShoe,
 }) {
   // const [currentPart, setCurrentPart] = useState(0);
   const [currentLayer, setCurrentLayer] = useState(0);
@@ -37,6 +39,8 @@ function Interface({
           canSave={canSave}
           setCanSave={setCanSave}
           userData={userData}
+          currentShoe={currentShoe}
+          setCurrentShoe={setCurrentShoe}
         />
       </div>
     );
