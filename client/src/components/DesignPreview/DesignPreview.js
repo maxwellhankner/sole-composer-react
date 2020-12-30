@@ -13,6 +13,7 @@ import {
   FaTimes,
   FaCamera,
   FaSquare,
+  FaEye,
 } from 'react-icons/fa';
 
 function DesignPreview({
@@ -22,8 +23,13 @@ function DesignPreview({
   canSave,
   setCanSave,
   userData,
+  currentShoe,
+  setCurrentShoe,
 }) {
   const [loading, setLoading] = useState(false);
+  const [leftVisible, setLeftVisible] = useState(true);
+  const [rightVisible, setRightVisible] = useState(true);
+  console.log(camera);
 
   const handleSaveDesign = async () => {
     setCanSave(false);
@@ -99,11 +105,83 @@ function DesignPreview({
   };
 
   const handleMoveCamera = () => {
-    camera.position.set(0, 0, 7.5);
+    camera.position.set(0, 0, 8.5);
   };
 
-  const handleHideShoe = () => {
-    camera.layers.toggle(1);
+  const handleCurrentShoe = (shoe) => {
+    // if right shoe
+    if (shoe === 0 && shoe !== currentShoe) {
+      if (rightVisible) {
+        setCurrentShoe(shoe);
+      } else {
+        camera.layers.toggle(1);
+        setRightVisible(true);
+        setCurrentShoe(shoe);
+      }
+    }
+    // if left shoe
+    else if (shoe === 1 && shoe !== currentShoe) {
+      if (leftVisible) {
+        setCurrentShoe(shoe);
+      } else {
+        camera.layers.toggle(2);
+        setCurrentShoe(shoe);
+        setLeftVisible(true);
+      }
+    }
+  };
+
+  const handleToggleShoeVisible = (index) => {
+    // if toggle right
+    if (index === 1) {
+      // if left is current - toggle right
+      if (currentShoe === 1) {
+        camera.layers.toggle(index);
+        setRightVisible(!rightVisible);
+      }
+      // if right is current, we know it's visible
+      else if (currentShoe === 0) {
+        // if left is visible - make left current, make right invisible
+        if (leftVisible) {
+          setCurrentShoe(1);
+          camera.layers.toggle(index);
+          setRightVisible(!rightVisible);
+        }
+        // if left is invisible - make left visible and current, make right invisible
+        else {
+          camera.layers.toggle(1);
+          camera.layers.toggle(2);
+          setRightVisible(!rightVisible);
+          setLeftVisible(!leftVisible);
+          setCurrentShoe(1);
+        }
+      }
+    }
+    // if toggle left
+    else if (index === 2) {
+      // if right is current - toggle left
+      if (currentShoe === 0) {
+        camera.layers.toggle(index);
+        setLeftVisible(!leftVisible);
+      }
+      // if left is current, we know it's visible
+      else if (currentShoe === 1) {
+        // if right is visible - make right current, make left invisible
+        if (rightVisible) {
+          setCurrentShoe(0);
+          camera.layers.toggle(index);
+          setLeftVisible(!leftVisible);
+        }
+        // if right is invisible - make right visible and current, make left invisible
+        else {
+          camera.layers.toggle(1);
+          camera.layers.toggle(2);
+          setRightVisible(!rightVisible);
+          setLeftVisible(!leftVisible);
+          setCurrentShoe(0);
+        }
+      }
+    }
   };
 
   if (loading) {
@@ -129,6 +207,53 @@ function DesignPreview({
           </div>
         </div>
         <div className='design-preview-buttons'>
+          <div className='design-preview-toggle-container'>
+            <div className='design-preview-toggle-left'>
+              <div
+                className={`design-preview-toggle-shoe ${
+                  currentShoe === 0 ? null : 'disabled-shoe'
+                }`}
+                onClick={() => {
+                  handleCurrentShoe(0);
+                }}
+              >
+                <p>Right</p>
+              </div>
+              <div
+                className={`design-preview-toggle-shoe ${
+                  currentShoe === 1 ? null : 'disabled-shoe'
+                }`}
+                onClick={() => {
+                  handleCurrentShoe(1);
+                }}
+              >
+                <p>Left</p>
+              </div>
+            </div>
+            <div className='design-preview-toggle-right'>
+              <div
+                className={`design-preview-toggle-visible ${
+                  rightVisible ? null : 'disabled-visibility'
+                }`}
+                onClick={() => {
+                  handleToggleShoeVisible(1);
+                }}
+              >
+                <FaEye />
+              </div>
+              <div
+                className={`design-preview-toggle-visible ${
+                  leftVisible ? null : 'disabled-visibility'
+                }`}
+                onClick={() => {
+                  handleToggleShoeVisible(2);
+                }}
+              >
+                <FaEye />
+              </div>
+            </div>
+          </div>
+
           <div
             className='design-preview-button'
             onClick={() => handleViewChange('ChangeBaseColor')}
@@ -160,17 +285,6 @@ function DesignPreview({
               <FaCamera />
             </div>
             <button>Reset Camera</button>
-          </div>
-          <div
-            className='design-preview-button'
-            onClick={() => {
-              handleHideShoe();
-            }}
-          >
-            <div className='design-preview-button-icon'>
-              <FaCamera />
-            </div>
-            <button>Hide Shoe</button>
           </div>
           {canSave ? (
             <div

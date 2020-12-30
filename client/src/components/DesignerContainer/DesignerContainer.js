@@ -25,6 +25,7 @@ function DesignerContainer({
   const [design, setDesign] = useState(designSpec);
   const [camera, setCamera] = useState(null);
   const [currentPart, setCurrentPart] = useState(0);
+  const [currentShoe, setCurrentShoe] = useState(0);
   const [initialLoaded, setInitialLoaded] = useState(false);
   const canvasObjectRef = useRef();
   const overlaysCanvasObjectRef = useRef();
@@ -194,6 +195,8 @@ function DesignerContainer({
           userData={userData}
           currentPart={currentPart}
           setCurrentPart={setCurrentPart}
+          currentShoe={currentShoe}
+          setCurrentShoe={setCurrentShoe}
         />
       </div>
     );

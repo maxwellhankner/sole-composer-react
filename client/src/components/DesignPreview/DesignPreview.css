@@ -51,8 +51,126 @@
 }
 
 .design-preview-buttons {
-  overflow: auto;
-  overflow-x: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 9px;
+  row-gap: 9px;
+  margin-left: 9px;
+  margin-right: 9px;
+  /* overflow: auto;
+  overflow-x: hidden; */
+}
+
+/* Design Preview Toggle Button */
+.design-preview-toggle-container {
+  background-color: #434343;
+  border-radius: 5px;
+  grid-column: 1;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+}
+
+.design-preview-toggle-left {
+  width: 100%;
+  background-color: #333333;
+  border-radius: 5px;
+  margin: 3px;
+  margin-right: 0px;
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.design-preview-toggle-shoe {
+  border-radius: 5px;
+  width: 100%;
+  height: 37px;
+  background-color: #434343;
+  color: #ffffff;
+  width: 100%;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.design-preview-toggle-shoe p {
+  margin: 0px;
+}
+
+.disabled-shoe {
+  background-color: #333333;
+  color: #999999;
+}
+
+.design-preview-toggle-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.design-preview-toggle-visible {
+  width: 40px;
+  height: 40px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.disabled-visibility {
+  color: #999999;
+}
+
+/* Design Preview Button */
+.design-preview-button {
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  background-color: #434343;
+}
+
+.design-preview-button-base-color {
+  width: 30px;
+}
+
+.design-preview-button-icon {
+  /* width: 30px; */
+  font-size: 16px;
+  margin-left: 12px;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: #ffffff;
+  line-height: 0px;
+}
+
+.design-preview-button button {
+  border-radius: 5px;
+  width: 100%;
+  height: 40px;
+  background-color: #434343;
+  color: #ffffff;
+  border: none;
+  padding: 0px;
+  width: 100%;
+  font-size: 13px;
+  font-family: 'Inter', 'Arial', 'Helvetica', 'sans-serif';
+}
+
+.design-preview-button button:focus {
+  outline: none;
+}
+
+.save-deactivated button {
+  color: #999999;
+}
+
+.save-deactivated svg {
+  color: #999999;
 }
 
 /* Standard Button */
@@ -75,49 +193,4 @@
 
 .standard-button button:focus {
   outline: none;
-}
-
-/* Design Preview Button */
-.design-preview-button {
-  margin-left: 16px;
-  margin-right: 16px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: row;
-}
-
-.design-preview-button-base-color {
-  width: 30px;
-}
-
-.design-preview-button-icon {
-  width: 30px;
-  font-size: 16px;
-  margin-top: auto;
-  margin-bottom: auto;
-  color: #ffffff;
-  line-height: 0px;
-}
-
-.design-preview-button button {
-  width: 100%;
-  height: 40px;
-  background-color: #434343;
-  color: #ffffff;
-  border: none;
-  padding-left: 12px;
-  width: 100%;
-  font-size: 13px;
-}
-
-.design-preview-button button:focus {
-  outline: none;
-}
-
-.save-deactivated button {
-  color: #999999;
-}
-
-.save-deactivated svg {
-  color: #999999;
 }
