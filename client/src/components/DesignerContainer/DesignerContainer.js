@@ -24,8 +24,13 @@ function DesignerContainer({
 }) {
   const [design, setDesign] = useState(designSpec);
   const [camera, setCamera] = useState(null);
+  const [orbitControls, setOrbitControls] = useState(null);
   const [currentPart, setCurrentPart] = useState(0);
   const [currentShoe, setCurrentShoe] = useState(0);
+  const [shoeVisibility, setShoeVisibility] = useState({
+    right: true,
+    left: true,
+  });
   const [initialLoaded, setInitialLoaded] = useState(false);
   const canvasObjectRef = useRef();
   const overlaysCanvasObjectRef = useRef();
@@ -181,6 +186,8 @@ function DesignerContainer({
           initialLoaded={initialLoaded}
           camera={camera}
           setCamera={setCamera}
+          orbitControls={orbitControls}
+          setOrbitControls={setOrbitControls}
           setCurrentPart={setCurrentPart}
         />
         <Interface
@@ -191,12 +198,15 @@ function DesignerContainer({
           handlePartChangeManager={handlePartChangeManager}
           setInitialLoaded={setInitialLoaded}
           camera={camera}
+          orbitControls={orbitControls}
           handleUpdateBaseColor={handleUpdateBaseColor}
           userData={userData}
           currentPart={currentPart}
           setCurrentPart={setCurrentPart}
           currentShoe={currentShoe}
           setCurrentShoe={setCurrentShoe}
+          shoeVisibility={shoeVisibility}
+          setShoeVisibility={setShoeVisibility}
         />
       </div>
     );

@@ -17,6 +17,8 @@ const Scene = ({
   initialLoaded,
   camera,
   setCamera,
+  orbitControls,
+  setOrbitControls,
   setCurrentPart,
 }) => {
   const threeCanvasRef = useRef(null);
@@ -79,16 +81,8 @@ const Scene = ({
     }
   }, [renderer, newMaterial, setCamera]);
 
-  // Build threeJS Scene
   useEffect(() => {
-    if (renderer && newMaterial && newMaterialClone && camera) {
-      //===================================================== scene
-      const scene = new THREE.Scene();
-
-      //===================================================== lights
-      const light = new THREE.AmbientLight(0xffffff, 1);
-      scene.add(light);
-
+    if (renderer && newMaterial && camera) {
       //===================================================== orbit controls
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.maxDistance = 10;
@@ -99,6 +93,25 @@ const Scene = ({
       controls.enableDamping = true;
       controls.dampingFactor = 0.18;
       controls.update();
+      setOrbitControls(controls);
+    }
+  }, [renderer, newMaterial, camera, setOrbitControls]);
+
+  // Build threeJS Scene
+  useEffect(() => {
+    if (
+      renderer &&
+      newMaterial &&
+      newMaterialClone &&
+      camera &&
+      orbitControls
+    ) {
+      //===================================================== scene
+      const scene = new THREE.Scene();
+
+      //===================================================== lights
+      const light = new THREE.AmbientLight(0xffffff, 1);
+      scene.add(light);
 
       //===================================================== loading mananger
       const manager = new THREE.LoadingManager();
@@ -296,7 +309,7 @@ const Scene = ({
       const render = () => {
         renderer.render(scene, camera);
         requestAnimationFrame(render);
-        controls.update();
+        orbitControls.update();
       };
 
       render();
@@ -304,7 +317,7 @@ const Scene = ({
       //===================================================== cleanup
       const cleanup = () => {
         cancelAnimationFrame(render);
-        controls.dispose();
+        orbitControls.dispose();
       };
 
       return cleanup;
@@ -316,6 +329,7 @@ const Scene = ({
     design.configData.source,
     setCurrentPart,
     newMaterialClone,
+    orbitControls,
   ]);
 
   return (

@@ -12,12 +12,15 @@ function Interface({
   handleUpdateGraphicVisualCanvas,
   handlePartChangeManager,
   camera,
+  orbitControls,
   handleUpdateBaseColor,
   userData,
   currentPart,
   setCurrentPart,
   currentShoe,
   setCurrentShoe,
+  shoeVisibility,
+  setShoeVisibility,
 }) {
   // const [currentPart, setCurrentPart] = useState(0);
   const [currentLayer, setCurrentLayer] = useState(0);
@@ -36,11 +39,14 @@ function Interface({
           design={design}
           setDesign={setDesign}
           camera={camera}
+          orbitControls={orbitControls}
           canSave={canSave}
           setCanSave={setCanSave}
           userData={userData}
           currentShoe={currentShoe}
           setCurrentShoe={setCurrentShoe}
+          shoeVisibility={shoeVisibility}
+          setShoeVisibility={setShoeVisibility}
         />
       </div>
     );
