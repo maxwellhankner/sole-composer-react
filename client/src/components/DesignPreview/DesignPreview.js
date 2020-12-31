@@ -104,7 +104,10 @@ function DesignPreview({
     }
   };
 
-  const handleMoveCamera = () => {
+  const handleResetCamera = () => {
+    camera.layers.enableAll();
+    orbitControls.target.set(0, 0, 0);
+    setShoeVisibility({ right: true, left: true });
     camera.position.set(0, 0, 8.5);
   };
 
@@ -394,7 +397,7 @@ function DesignPreview({
           <div
             className='design-preview-button'
             onClick={() => {
-              handleMoveCamera();
+              handleResetCamera();
             }}
           >
             <div className='design-preview-button-icon'>

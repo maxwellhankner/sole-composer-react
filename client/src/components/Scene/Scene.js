@@ -5,11 +5,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
-const textureLoader = new THREE.TextureLoader();
-const raycaster = new THREE.Raycaster();
-raycaster.layers.enable(1);
-raycaster.layers.enable(2);
-
 const Scene = ({
   design,
   texture,
@@ -21,6 +16,7 @@ const Scene = ({
   setOrbitControls,
   setCurrentPart,
 }) => {
+  // console.log('scene');
   const threeCanvasRef = useRef(null);
   const [renderer, setRenderer] = useState(null);
   const [newMaterial, setNewMaterial] = useState(null);
@@ -82,8 +78,8 @@ const Scene = ({
   }, [renderer, newMaterial, setCamera]);
 
   useEffect(() => {
+    //===================================================== orbit controls
     if (renderer && newMaterial && camera) {
-      //===================================================== orbit controls
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.maxDistance = 10;
       controls.minDistance = 4;
@@ -120,10 +116,16 @@ const Scene = ({
       };
 
       //===================================================== raycasting
+      const textureLoader = new THREE.TextureLoader();
+      const raycaster = new THREE.Raycaster();
+      raycaster.layers.enable(1);
+      raycaster.layers.enable(2);
+
       const setupRaycasting = (model, modelClone) => {
         textureLoader.load(
           `/api/assets/images/${design.configData.source.redMapRight}`,
           (texture) => {
+            console.log('ray');
             const mouse = new THREE.Vector2();
             const img = texture.image;
             const textureCanvas = document.createElement('canvas');
@@ -301,7 +303,6 @@ const Scene = ({
           });
 
           setupRaycasting(model, modelClone);
-          // setupRaycasting(modelClone);
         }
       );
 

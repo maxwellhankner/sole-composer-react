@@ -22,6 +22,7 @@ function DesignerContainer({
   textureCanvasClone,
   userData,
 }) {
+  console.log('designContainer');
   const [design, setDesign] = useState(designSpec);
   const [camera, setCamera] = useState(null);
   const [orbitControls, setOrbitControls] = useState(null);

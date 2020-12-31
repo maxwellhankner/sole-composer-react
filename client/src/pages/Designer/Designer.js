@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 import UserProvider from '../../context/UserProvider';
 
 function Designer() {
+  console.log('designer');
   const [designSpec, setDesignSpec] = useState(null);
   const [graphicVisualCanvas, setGraphicVisualCanvas] = useState(null);
   const [innerOverlayCanvas, setInnerOverlayCanvas] = useState(null);
