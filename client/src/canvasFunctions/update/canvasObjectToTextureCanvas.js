@@ -1,14 +1,13 @@
 // turn canvasObject into a finalTexture
 export const canvasObjectToTextureCanvas = ({
+  design,
   canvasObject,
   baseColorCanvasObject,
-  size,
-  design,
 }) => {
   return new Promise((resolve, reject) => {
     const canvas = document.createElement('canvas');
-    canvas.width = size;
-    canvas.height = size;
+    canvas.width = design.configData.canvasSize;
+    canvas.height = design.configData.canvasSize;
     const finalCanvasCTX = canvas.getContext('2d');
 
     function waitForElement() {

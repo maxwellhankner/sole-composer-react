@@ -3,27 +3,29 @@ import './DesignerContainer.css';
 import Scene from '../../components/Scene/Scene.js';
 import Interface from '../../components/Interface/Interface.js';
 import {
+  setup,
   designObjectToCanvasObject,
   updateGraphicVisualCanvas,
   partChangeManager,
-  overlayCanvasObjectToTextureCanvas,
+  canvasObjectToTextureCanvas,
   overlayChangeManager,
 } from '../../canvasFunctions';
-import { canvasObjectToTextureCanvas } from '../../canvasFunctions';
 
 function DesignerContainer({
+  userData,
   designSpec,
   graphicVisualCanvas,
-  innerOverlayCanvas,
-  outerOverlayCanvas,
-  texture,
-  textureCanvas,
-  textureClone,
-  textureCanvasClone,
-  userData,
+  rightInnerOverlayCanvas,
+  rightOuterOverlayCanvas,
+  rightTexture,
+  rightTextureCanvas,
+  leftInnerOverlayCanvas,
+  leftOuterOverlayCanvas,
+  leftTexture,
+  leftTextureCanvas,
 }) {
-  console.log('designContainer');
   const [design, setDesign] = useState(designSpec);
+  const [initialLoaded, setInitialLoaded] = useState(false);
   const [camera, setCamera] = useState(null);
   const [orbitControls, setOrbitControls] = useState(null);
   const [currentPart, setCurrentPart] = useState(0);
@@ -32,10 +34,12 @@ function DesignerContainer({
     right: true,
     left: true,
   });
-  const [initialLoaded, setInitialLoaded] = useState(false);
-  const canvasObjectRef = useRef();
-  const overlaysCanvasObjectRef = useRef();
+
   const baseColorCanvasObjectRef = useRef();
+  const rightCanvasObjectRef = useRef();
+  const rightOverlaysCanvasObjectRef = useRef();
+  const leftCanvasObjectRef = useRef();
+  const leftOverlaysCanvasObjectRef = useRef();
 
   const handleUpdateGraphicVisualCanvas = (partName) => {
     if (partName === 'outerOverlay' || partName === 'innerOverlay') {
@@ -43,7 +47,7 @@ function DesignerContainer({
         design,
         graphicVisualCanvas,
         partName,
-        canvasObject: overlaysCanvasObjectRef.current,
+        canvasObject: rightOverlaysCanvasObjectRef.current,
         baseColorCanvasObject: baseColorCanvasObjectRef.current,
       });
     } else {
@@ -51,7 +55,7 @@ function DesignerContainer({
         design,
         graphicVisualCanvas,
         partName,
-        canvasObject: canvasObjectRef.current,
+        canvasObject: rightCanvasObjectRef.current,
         baseColorCanvasObject: baseColorCanvasObjectRef.current,
       });
     }
@@ -64,12 +68,12 @@ function DesignerContainer({
         changeObject,
         design,
         setDesign,
-        texture,
-        textureCanvas,
+        texture: rightTexture,
+        textureCanvas: rightTextureCanvas,
         graphicVisualCanvas,
-        canvasObject: canvasObjectRef.current,
-        overlayCanvas: outerOverlayCanvas,
-        overlayCanvasObject: overlaysCanvasObjectRef.current,
+        canvasObject: rightCanvasObjectRef.current,
+        overlayCanvas: rightOuterOverlayCanvas,
+        overlayCanvasObject: rightOverlaysCanvasObjectRef.current,
         baseColorCanvasObject: baseColorCanvasObjectRef.current,
       });
     } else if (partName === 'innerOverlay') {
@@ -77,12 +81,12 @@ function DesignerContainer({
         changeObject,
         design,
         setDesign,
-        texture,
-        textureCanvas,
+        texture: rightTexture,
+        textureCanvas: rightTextureCanvas,
         graphicVisualCanvas,
-        canvasObject: canvasObjectRef.current,
-        overlayCanvas: innerOverlayCanvas,
-        overlayCanvasObject: overlaysCanvasObjectRef.current,
+        canvasObject: rightCanvasObjectRef.current,
+        overlayCanvas: rightInnerOverlayCanvas,
+        overlayCanvasObject: rightOverlaysCanvasObjectRef.current,
         baseColorCanvasObject: baseColorCanvasObjectRef.current,
       });
     } else {
@@ -90,10 +94,10 @@ function DesignerContainer({
         changeObject,
         design,
         setDesign,
-        texture,
-        textureCanvas,
+        texture: rightTexture,
+        textureCanvas: rightTextureCanvas,
         graphicVisualCanvas,
-        canvasObject: canvasObjectRef.current,
+        canvasObject: rightCanvasObjectRef.current,
         baseColorCanvasObject: baseColorCanvasObjectRef.current,
       });
     }
@@ -106,73 +110,55 @@ function DesignerContainer({
       type: 'baseColorCanvasObject',
     });
     // Canvas Object to Canvas
-    const newCanvas = await canvasObjectToTextureCanvas({
-      canvasObject: canvasObjectRef.current,
-      baseColorCanvasObject: baseColorCanvasObjectRef.current,
-      size: textureCanvas.height,
+    const rightCanvas = await canvasObjectToTextureCanvas({
       design,
+      canvasObject: rightCanvasObjectRef.current,
+      baseColorCanvasObject: baseColorCanvasObjectRef.current,
+    });
+    const leftCanvas = await canvasObjectToTextureCanvas({
+      design,
+      canvasObject: leftCanvasObjectRef.current,
+      baseColorCanvasObject: baseColorCanvasObjectRef.current,
     });
     // Canvas to Texture Canvas
-    textureCanvas.getContext('2d').drawImage(newCanvas, 0, 0);
-    texture.needsUpdate = true;
+    rightTextureCanvas.getContext('2d').drawImage(rightCanvas, 0, 0);
+    rightTexture.needsUpdate = true;
+    leftTextureCanvas.getContext('2d').drawImage(leftCanvas, 0, 0);
+    leftTexture.needsUpdate = true;
   };
 
   useEffect(() => {
-    if (!canvasObjectRef.current) {
-      const buildTexture = async () => {
-        // Overlay Canvas Object Created
-        overlaysCanvasObjectRef.current = await designObjectToCanvasObject({
-          design,
-          type: 'overlaysCanvasObject',
-        });
-        // Outer Overlay Canvas Object to Texture Canvas
-        overlayCanvasObjectToTextureCanvas({
-          design,
-          overlayCanvasObject: overlaysCanvasObjectRef.current,
-          overlayCanvas: outerOverlayCanvas,
-          partName: 'outerOverlay',
-          graphicVisualCanvas,
-        });
-        // Inner Overlay Canvas Object to Texture Canvas
-        overlayCanvasObjectToTextureCanvas({
-          design,
-          overlayCanvasObject: overlaysCanvasObjectRef.current,
-          overlayCanvas: innerOverlayCanvas,
-          partName: 'innerOverlay',
-          graphicVisualCanvas,
-        });
-        // Design Object to Canvas Object
-        canvasObjectRef.current = await designObjectToCanvasObject({
-          design,
-          type: 'partsCanvasObject',
-          overlays: [outerOverlayCanvas, innerOverlayCanvas],
-        });
-        // baseColor to baseColor Canvas Object
-        baseColorCanvasObjectRef.current = await designObjectToCanvasObject({
-          design,
-          type: 'baseColorCanvasObject',
-        });
-        // Canvas Object to Canvas
-        const newCanvas = await canvasObjectToTextureCanvas({
-          canvasObject: canvasObjectRef.current,
-          baseColorCanvasObject: baseColorCanvasObjectRef.current,
-          size: textureCanvas.height,
-          design,
-        });
-        // Canvas to Texture Canvas
-        textureCanvas.getContext('2d').drawImage(newCanvas, 0, 0);
-        texture.needsUpdate = true;
-        setInitialLoaded(true);
-      };
-      buildTexture();
+    if (!rightCanvasObjectRef.current || !leftCanvasObjectRef.current) {
+      setup({
+        setInitialLoaded,
+        design,
+        graphicVisualCanvas,
+        baseColorCanvasObjectRef,
+        rightInnerOverlayCanvas,
+        rightOuterOverlayCanvas,
+        rightTexture,
+        rightTextureCanvas,
+        rightCanvasObjectRef,
+        rightOverlaysCanvasObjectRef,
+        leftInnerOverlayCanvas,
+        leftOuterOverlayCanvas,
+        leftTexture,
+        leftTextureCanvas,
+        leftCanvasObjectRef,
+        leftOverlaysCanvasObjectRef,
+      });
     }
   }, [
     design,
     graphicVisualCanvas,
-    innerOverlayCanvas,
-    outerOverlayCanvas,
-    texture.needsUpdate,
-    textureCanvas,
+    rightInnerOverlayCanvas,
+    rightOuterOverlayCanvas,
+    rightTexture,
+    rightTextureCanvas,
+    leftInnerOverlayCanvas,
+    leftOuterOverlayCanvas,
+    leftTexture,
+    leftTextureCanvas,
   ]);
 
   if (design && userData) {
@@ -180,10 +166,8 @@ function DesignerContainer({
       <div className='designer-container'>
         <Scene
           design={design}
-          texture={texture}
-          textureCanvas={textureCanvas}
-          textureClone={textureClone}
-          textureCanvasClone={textureCanvasClone}
+          rightTexture={rightTexture}
+          leftTexture={leftTexture}
           initialLoaded={initialLoaded}
           camera={camera}
           setCamera={setCamera}

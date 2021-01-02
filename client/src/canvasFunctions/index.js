@@ -1,3 +1,5 @@
+import { setup } from './setup/setup';
+
 import {
   createTexture,
   createCanvas,
@@ -21,6 +23,7 @@ import { overlayChangeManager } from './update/overlayChangeManager';
 import { canvasObjectToTextureCanvas } from './update/canvasObjectToTextureCanvas';
 
 export {
+  setup,
   canvasObjectToTextureCanvas,
   createTexture,
   createCanvas,

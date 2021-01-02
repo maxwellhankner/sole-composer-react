@@ -7,8 +7,8 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const Scene = ({
   design,
-  texture,
-  textureClone,
+  rightTexture,
+  leftTexture,
   initialLoaded,
   camera,
   setCamera,
@@ -51,17 +51,17 @@ const Scene = ({
     );
 
     async function createMat() {
-      const mat = await createMaterial(texture);
+      const mat = await createMaterial(rightTexture);
       setNewMaterial(mat);
     }
     createMat();
 
     async function createMatClone() {
-      const mat = await createMaterial(textureClone);
+      const mat = await createMaterial(leftTexture);
       setNewMaterialClone(mat);
     }
     createMatClone();
-  }, [texture, design.configData.source.aoMapRight, textureClone]);
+  }, [rightTexture, leftTexture, design.configData.source.aoMapRight]);
 
   useEffect(() => {
     //===================================================== camera
@@ -121,11 +121,10 @@ const Scene = ({
       raycaster.layers.enable(1);
       raycaster.layers.enable(2);
 
-      const setupRaycasting = (model, modelClone) => {
+      const setupRaycasting = (rightModel, leftModel) => {
         textureLoader.load(
           `/api/assets/images/${design.configData.source.redMapRight}`,
           (texture) => {
-            console.log('ray');
             const mouse = new THREE.Vector2();
             const img = texture.image;
             const textureCanvas = document.createElement('canvas');
@@ -168,7 +167,7 @@ const Scene = ({
                 raycaster.setFromCamera(mouse, camera);
 
                 const intersects = raycaster.intersectObjects(
-                  [model, modelClone],
+                  [rightModel, leftModel],
                   true
                 );
 
@@ -278,23 +277,23 @@ const Scene = ({
               node.layers.set(1);
             }
           });
-          const model = gltf.scene;
+          const rightModel = gltf.scene;
 
-          model.scale.set(0.35, 0.35, 0.35);
-          model.position.y = -1;
-          model.position.z = 1.25;
-          model.rotation.y = -95 * (Math.PI / 180);
-          scene.add(model);
+          rightModel.scale.set(0.35, 0.35, 0.35);
+          rightModel.position.y = -1;
+          rightModel.position.z = 1.25;
+          rightModel.rotation.y = -95 * (Math.PI / 180);
+          scene.add(rightModel);
 
-          const modelClone = gltf.scene.clone();
+          const leftModel = gltf.scene.clone();
 
-          modelClone.scale.set(-0.35, 0.35, 0.35);
-          modelClone.position.y = -1;
-          modelClone.position.z = -1.25;
-          modelClone.rotation.y = -95 * (Math.PI / 180);
-          scene.add(modelClone);
+          leftModel.scale.set(-0.35, 0.35, 0.35);
+          leftModel.position.y = -1;
+          leftModel.position.z = -1.25;
+          leftModel.rotation.y = -95 * (Math.PI / 180);
+          scene.add(leftModel);
 
-          modelClone.traverse((node) => {
+          leftModel.traverse((node) => {
             if (node.isMesh) {
               node.material = newMaterialClone;
               node.material.side = THREE.DoubleSide;
@@ -302,7 +301,7 @@ const Scene = ({
             }
           });
 
-          setupRaycasting(model, modelClone);
+          setupRaycasting(rightModel, leftModel);
         }
       );
 

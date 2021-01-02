@@ -11,27 +11,32 @@ import { useParams } from 'react-router-dom';
 import UserProvider from '../../context/UserProvider';
 
 function Designer() {
-  console.log('designer');
+  const { id } = useParams();
+  const userData = useContext(UserProvider.context);
+
   const [designSpec, setDesignSpec] = useState(null);
   const [graphicVisualCanvas, setGraphicVisualCanvas] = useState(null);
-  const [innerOverlayCanvas, setInnerOverlayCanvas] = useState(null);
-  const [outerOverlayCanvas, setOuterOverlayCanvas] = useState(null);
-  const [textureCanvas, setTextureCanvas] = useState(null);
-  const [texture, setTexture] = useState(null);
-  const [textureCanvasClone, setTextureCanvasClone] = useState(null);
-  const [textureClone, setTextureClone] = useState(null);
 
-  const { id } = useParams();
+  const [rightInnerOverlayCanvas, setRightInnerOverlayCanvas] = useState(null);
+  const [rightOuterOverlayCanvas, setRightOuterOverlayCanvas] = useState(null);
+  const [rightTextureCanvas, setRightTextureCanvas] = useState(null);
+  const [rightTexture, setRightTexture] = useState(null);
 
-  const userData = useContext(UserProvider.context);
+  const [leftInnerOverlayCanvas, setLeftInnerOverlayCanvas] = useState(null);
+  const [leftOuterOverlayCanvas, setLeftOuterOverlayCanvas] = useState(null);
+  const [leftTextureCanvas, setLeftTextureCanvas] = useState(null);
+  const [leftTexture, setLeftTexture] = useState(null);
 
   const setup = (data) => {
     setDesignSpec(data);
     setGraphicVisualCanvas(createGraphicVisualCanvas({ design: data }));
-    setInnerOverlayCanvas(createCanvas({ design: data }));
-    setOuterOverlayCanvas(createCanvas({ design: data }));
-    setTextureCanvas(createCanvas({ design: data }));
-    setTextureCanvasClone(createCanvas({ design: data }));
+    setRightInnerOverlayCanvas(createCanvas({ design: data }));
+    setRightOuterOverlayCanvas(createCanvas({ design: data }));
+    setRightTextureCanvas(createCanvas({ design: data }));
+
+    setLeftInnerOverlayCanvas(createCanvas({ design: data }));
+    setLeftOuterOverlayCanvas(createCanvas({ design: data }));
+    setLeftTextureCanvas(createCanvas({ design: data }));
   };
 
   useEffect(() => {
@@ -51,36 +56,40 @@ function Designer() {
   }, [id]);
 
   useEffect(() => {
-    if (textureCanvas && textureCanvasClone) {
-      setTexture(createTexture(textureCanvas));
-      setTextureClone(createTexture(textureCanvasClone));
+    if (rightTextureCanvas && leftTextureCanvas) {
+      setRightTexture(createTexture(rightTextureCanvas));
+      setLeftTexture(createTexture(leftTextureCanvas));
     }
-  }, [textureCanvas, textureCanvasClone]);
+  }, [rightTextureCanvas, leftTextureCanvas]);
 
   const initialized =
+    userData &&
     designSpec &&
     graphicVisualCanvas &&
-    innerOverlayCanvas &&
-    outerOverlayCanvas &&
-    textureCanvas &&
-    texture &&
-    textureClone &&
-    textureCanvasClone &&
-    userData;
+    rightInnerOverlayCanvas &&
+    rightOuterOverlayCanvas &&
+    rightTextureCanvas &&
+    rightTexture &&
+    leftInnerOverlayCanvas &&
+    leftOuterOverlayCanvas &&
+    leftTextureCanvas &&
+    leftTexture;
 
   if (initialized) {
     return (
       <div className='designer-root-container'>
         <DesignerContainer
+          userData={userData}
           designSpec={designSpec}
           graphicVisualCanvas={graphicVisualCanvas}
-          innerOverlayCanvas={innerOverlayCanvas}
-          outerOverlayCanvas={outerOverlayCanvas}
-          texture={texture}
-          textureCanvas={textureCanvas}
-          textureClone={textureClone}
-          textureCanvasClone={textureCanvasClone}
-          userData={userData}
+          rightInnerOverlayCanvas={rightInnerOverlayCanvas}
+          rightOuterOverlayCanvas={rightOuterOverlayCanvas}
+          rightTexture={rightTexture}
+          rightTextureCanvas={rightTextureCanvas}
+          leftInnerOverlayCanvas={leftInnerOverlayCanvas}
+          leftOuterOverlayCanvas={leftOuterOverlayCanvas}
+          leftTexture={leftTexture}
+          leftTextureCanvas={leftTextureCanvas}
         />
       </div>
     );
