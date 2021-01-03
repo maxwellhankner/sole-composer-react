@@ -27,16 +27,22 @@ function Designer() {
   const [leftTextureCanvas, setLeftTextureCanvas] = useState(null);
   const [leftTexture, setLeftTexture] = useState(null);
 
-  const setup = (data) => {
+  const setup = async (data) => {
     setDesignSpec(data);
     setGraphicVisualCanvas(createGraphicVisualCanvas({ design: data }));
-    setRightInnerOverlayCanvas(createCanvas({ design: data }));
-    setRightOuterOverlayCanvas(createCanvas({ design: data }));
-    setRightTextureCanvas(createCanvas({ design: data }));
+    const canvasOne = await createCanvas({ design: data });
+    setRightInnerOverlayCanvas(canvasOne);
+    const canvasTwo = await createCanvas({ design: data });
+    setRightOuterOverlayCanvas(canvasTwo);
+    const canvasThree = await createCanvas({ design: data });
+    setRightTextureCanvas(canvasThree);
 
-    setLeftInnerOverlayCanvas(createCanvas({ design: data }));
-    setLeftOuterOverlayCanvas(createCanvas({ design: data }));
-    setLeftTextureCanvas(createCanvas({ design: data }));
+    const canvasFour = await createCanvas({ design: data });
+    setLeftInnerOverlayCanvas(canvasFour);
+    const canvasFive = await createCanvas({ design: data });
+    setLeftOuterOverlayCanvas(canvasFive);
+    const canvasSix = await createCanvas({ design: data });
+    setLeftTextureCanvas(canvasSix);
   };
 
   useEffect(() => {

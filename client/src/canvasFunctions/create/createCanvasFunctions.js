@@ -7,15 +7,24 @@ export const createTexture = (textureCanvas) => {
 };
 
 export const createCanvas = ({ design }) => {
-  const { canvasSize } = design.configData;
-  // const { baseColor } = design.outlineData;
-  const canvas = document.createElement('canvas');
-  canvas.width = canvasSize;
-  canvas.height = canvasSize;
-  const canvasCTX = canvas.getContext('2d');
-  canvasCTX.fillStyle = '#ffffff';
-  canvasCTX.fillRect(0, 0, canvasSize, canvasSize);
-  return canvas;
+  return new Promise((resolve) => {
+    const { canvasSize } = design.configData;
+    const canvas = document.createElement('canvas');
+    canvas.width = canvasSize;
+    canvas.height = canvasSize;
+    const canvasCTX = canvas.getContext('2d');
+
+    function waitForElement() {
+      if (canvasCTX !== null && typeof canvas === 'object') {
+        canvasCTX.fillStyle = '#ffffff';
+        canvasCTX.fillRect(0, 0, canvasSize, canvasSize);
+        resolve(canvas);
+      } else {
+        setTimeout(waitForElement, 100);
+      }
+    }
+    waitForElement();
+  });
 };
 
 export const createGraphicVisualCanvas = ({ design }) => {
