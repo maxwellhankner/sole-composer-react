@@ -16,11 +16,12 @@ const Scene = ({
   setOrbitControls,
   setCurrentPart,
 }) => {
-  const threeCanvasRef = useRef(null);
-  const [renderer, setRenderer] = useState(null);
-  const [newMaterial, setNewMaterial] = useState(null);
-  const [newMaterialClone, setNewMaterialClone] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [renderer, setRenderer] = useState(null);
+  const [rightMaterial, setRightMaterial] = useState(null);
+  const [leftMaterial, setLeftMaterial] = useState(null);
+
+  const threeCanvasRef = useRef(null);
 
   useEffect(() => {
     const createMaterial = (texture) => {
@@ -51,20 +52,20 @@ const Scene = ({
 
     async function createMat() {
       const mat = await createMaterial(rightTexture);
-      setNewMaterial(mat);
+      setRightMaterial(mat);
     }
     createMat();
 
     async function createMatClone() {
       const mat = await createMaterial(leftTexture);
-      setNewMaterialClone(mat);
+      setLeftMaterial(mat);
     }
     createMatClone();
   }, [rightTexture, leftTexture, design.configData.source.aoMapRight]);
 
   useEffect(() => {
     //===================================================== camera
-    if (renderer && newMaterial) {
+    if (renderer && rightMaterial && leftMaterial) {
       renderer.setSize(2048, 2048);
       threeCanvasRef.current.appendChild(renderer.domElement);
       const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
@@ -74,11 +75,11 @@ const Scene = ({
       camera.layers.enable(2);
       setCamera(camera);
     }
-  }, [renderer, newMaterial, setCamera]);
+  }, [renderer, rightMaterial, leftMaterial, setCamera]);
 
   useEffect(() => {
     //===================================================== orbit controls
-    if (renderer && newMaterial && camera) {
+    if (renderer && rightMaterial && leftMaterial && camera) {
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.maxDistance = 10;
       controls.minDistance = 4;
@@ -90,17 +91,11 @@ const Scene = ({
       controls.update();
       setOrbitControls(controls);
     }
-  }, [renderer, newMaterial, camera, setOrbitControls]);
+  }, [renderer, rightMaterial, leftMaterial, camera, setOrbitControls]);
 
   // Build threeJS Scene
   useEffect(() => {
-    if (
-      renderer &&
-      newMaterial &&
-      newMaterialClone &&
-      camera &&
-      orbitControls
-    ) {
+    if (renderer && rightMaterial && leftMaterial && camera && orbitControls) {
       //===================================================== scene
       const scene = new THREE.Scene();
 
@@ -269,28 +264,31 @@ const Scene = ({
       loader.load(
         `/api/assets/images/${design.configData.source.modelRight}`,
         (gltf) => {
+          gltf.scene.traverse((node) => {
+            if (node.isMesh) {
+              node.material = rightMaterial;
+              node.layers.set(1);
+            }
+          });
           const rightModel = gltf.scene;
+
           rightModel.scale.set(0.35, 0.35, 0.35);
           rightModel.position.y = -1;
           rightModel.position.z = 1.25;
           rightModel.rotation.y = -95 * (Math.PI / 180);
           scene.add(rightModel);
-          rightModel.traverse((node) => {
-            if (node.isMesh) {
-              node.material = newMaterialClone;
-              node.layers.set(1);
-            }
-          });
 
           const leftModel = gltf.scene.clone();
+
           leftModel.scale.set(-0.35, 0.35, 0.35);
           leftModel.position.y = -1;
           leftModel.position.z = -1.25;
           leftModel.rotation.y = -95 * (Math.PI / 180);
           scene.add(leftModel);
+
           leftModel.traverse((node) => {
             if (node.isMesh) {
-              node.material = newMaterialClone;
+              node.material = leftMaterial;
               node.layers.set(2);
             }
           });
@@ -317,12 +315,12 @@ const Scene = ({
       return cleanup;
     }
   }, [
-    newMaterial,
+    rightMaterial,
+    leftMaterial,
     renderer,
     camera,
     design.configData.source,
     setCurrentPart,
-    newMaterialClone,
     orbitControls,
   ]);
 
