@@ -16,7 +16,6 @@ const Scene = ({
   setOrbitControls,
   setCurrentPart,
 }) => {
-  // console.log('scene');
   const threeCanvasRef = useRef(null);
   const [renderer, setRenderer] = useState(null);
   const [newMaterial, setNewMaterial] = useState(null);
@@ -270,33 +269,28 @@ const Scene = ({
       loader.load(
         `/api/assets/images/${design.configData.source.modelRight}`,
         (gltf) => {
-          gltf.scene.traverse((node) => {
-            if (node.isMesh) {
-              node.material = newMaterial;
-              node.material.side = THREE.DoubleSide;
-              node.layers.set(1);
-            }
-          });
           const rightModel = gltf.scene;
-
           rightModel.scale.set(0.35, 0.35, 0.35);
           rightModel.position.y = -1;
           rightModel.position.z = 1.25;
           rightModel.rotation.y = -95 * (Math.PI / 180);
           scene.add(rightModel);
+          rightModel.traverse((node) => {
+            if (node.isMesh) {
+              node.material = newMaterialClone;
+              node.layers.set(1);
+            }
+          });
 
           const leftModel = gltf.scene.clone();
-
           leftModel.scale.set(-0.35, 0.35, 0.35);
           leftModel.position.y = -1;
           leftModel.position.z = -1.25;
           leftModel.rotation.y = -95 * (Math.PI / 180);
           scene.add(leftModel);
-
           leftModel.traverse((node) => {
             if (node.isMesh) {
               node.material = newMaterialClone;
-              node.material.side = THREE.DoubleSide;
               node.layers.set(2);
             }
           });
@@ -317,7 +311,7 @@ const Scene = ({
       //===================================================== cleanup
       const cleanup = () => {
         cancelAnimationFrame(render);
-        orbitControls.dispose();
+        // orbitControls.dispose();
       };
 
       return cleanup;
