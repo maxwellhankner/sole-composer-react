@@ -17,6 +17,7 @@ const Scene = ({
   setCurrentPart,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [sceneBuilt, setSceneBuilt] = useState(false);
   const [renderer, setRenderer] = useState(null);
   const [rightMaterial, setRightMaterial] = useState(null);
   const [leftMaterial, setLeftMaterial] = useState(null);
@@ -24,49 +25,52 @@ const Scene = ({
   const threeCanvasRef = useRef(null);
 
   useEffect(() => {
-    const createMaterial = (texture) => {
-      return new Promise((resolve) => {
-        const aoimg = new Image();
-        aoimg.src = `/api/assets/images/${design.configData.source.aoMapRight}`;
+    if (!sceneBuilt) {
+      const createMaterial = (texture, aoName) => {
+        return new Promise((resolve) => {
+          const aoimg = new Image();
+          aoimg.src = `/api/assets/images/${design.configData.source[aoName]}`;
 
-        aoimg.onload = () => {
-          const ao = new THREE.CanvasTexture(aoimg);
-          ao.flipY = false;
-          resolve(
-            new THREE.MeshStandardMaterial({
-              map: texture,
-              aoMap: ao,
-            })
-          );
-        };
-      });
-    };
+          aoimg.onload = () => {
+            const ao = new THREE.CanvasTexture(aoimg);
+            ao.flipY = false;
+            resolve(
+              new THREE.MeshStandardMaterial({
+                map: texture,
+                aoMap: ao,
+              })
+            );
+          };
+        });
+      };
 
-    setRenderer(
-      new THREE.WebGLRenderer({
-        antialias: true,
-        preserveDrawingBuffer: true,
-        alpha: true,
-      })
-    );
+      setRenderer(
+        new THREE.WebGLRenderer({
+          antialias: true,
+          preserveDrawingBuffer: true,
+          alpha: true,
+        })
+      );
 
-    async function createMat() {
-      const mat = await createMaterial(rightTexture);
-      setRightMaterial(mat);
+      async function createRightMaterial() {
+        const mat = await createMaterial(rightTexture, 'aoMapRight');
+        setRightMaterial(mat);
+      }
+      createRightMaterial();
+
+      async function createLeftMaterial() {
+        const mat = await createMaterial(leftTexture, 'aoMapLeft');
+        setLeftMaterial(mat);
+      }
+      createLeftMaterial();
     }
-    createMat();
-
-    async function createMatClone() {
-      const mat = await createMaterial(leftTexture);
-      setLeftMaterial(mat);
-    }
-    createMatClone();
-  }, [rightTexture, leftTexture, design.configData.source.aoMapRight]);
+  }, [sceneBuilt, rightTexture, leftTexture, design.configData.source]);
 
   useEffect(() => {
-    //===================================================== camera
-    if (renderer && rightMaterial && leftMaterial) {
+    if (renderer && rightMaterial && leftMaterial && !sceneBuilt) {
+      //===================================================== camera
       renderer.setSize(2048, 2048);
+      console.log('ran');
       threeCanvasRef.current.appendChild(renderer.domElement);
       const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
       camera.position.z = 8.5;
@@ -74,12 +78,8 @@ const Scene = ({
       camera.layers.enable(1);
       camera.layers.enable(2);
       setCamera(camera);
-    }
-  }, [renderer, rightMaterial, leftMaterial, setCamera]);
 
-  useEffect(() => {
-    //===================================================== orbit controls
-    if (renderer && rightMaterial && leftMaterial && camera) {
+      //===================================================== orbit controls
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.maxDistance = 10;
       controls.minDistance = 4;
@@ -91,11 +91,25 @@ const Scene = ({
       controls.update();
       setOrbitControls(controls);
     }
-  }, [renderer, rightMaterial, leftMaterial, camera, setOrbitControls]);
+  }, [
+    sceneBuilt,
+    renderer,
+    rightMaterial,
+    leftMaterial,
+    setCamera,
+    setOrbitControls,
+  ]);
 
   // Build threeJS Scene
   useEffect(() => {
-    if (renderer && rightMaterial && leftMaterial && camera && orbitControls) {
+    if (
+      renderer &&
+      rightMaterial &&
+      leftMaterial &&
+      camera &&
+      orbitControls &&
+      !sceneBuilt
+    ) {
       //===================================================== scene
       const scene = new THREE.Scene();
 
@@ -259,7 +273,7 @@ const Scene = ({
         );
       };
 
-      //===================================================== model
+      //===================================================== models
       const loader = new GLTFLoader(manager);
       loader.load(
         `/api/assets/images/${design.configData.source.modelRight}`,
@@ -306,6 +320,8 @@ const Scene = ({
 
       render();
 
+      setSceneBuilt(true);
+
       //===================================================== cleanup
       const cleanup = () => {
         cancelAnimationFrame(render);
@@ -315,6 +331,7 @@ const Scene = ({
       return cleanup;
     }
   }, [
+    sceneBuilt,
     rightMaterial,
     leftMaterial,
     renderer,
