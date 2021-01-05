@@ -1,6 +1,6 @@
 export const takeScreenshot = (camera, fileName) => {
   return new Promise((resolve) => {
-    camera.position.set(0, 0, 7.5);
+    camera.position.set(0, 0, 8.5);
     setTimeout(() => {
       const threeCanvas = document.getElementById('scene-container-id')
         .firstElementChild;
