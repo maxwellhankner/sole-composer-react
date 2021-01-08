@@ -13,6 +13,7 @@ function LayersView({
   setCurrentLayer,
   setCurrentPart,
   setCanSave,
+  currentShoe,
 }) {
   const [focusLayer, setFocusLayer] = useState();
   const [layersView, setLayersView] = useState('PartList');
@@ -28,11 +29,14 @@ function LayersView({
     currentPartName === 'outerOverlay' ||
     currentPartName === 'innerOverlay'
   ) {
-    numberOfLayers = design.outlineData.overlays[currentPartName].layers.length;
-    allLayers = design.outlineData.overlays[currentPartName].layers;
+    numberOfLayers =
+      design.outlineData.overlays[currentPartName][currentShoe].length;
+    allLayers = design.outlineData.overlays[currentPartName][currentShoe];
   } else {
-    numberOfLayers = design.outlineData.parts[currentPartName].layers.length;
-    allLayers = design.outlineData.parts[currentPartName].layers;
+    // console.log(design.outlineData.parts[currentPartName], currentShoe);
+    numberOfLayers =
+      design.outlineData.parts[currentPartName][currentShoe].length;
+    allLayers = design.outlineData.parts[currentPartName][currentShoe];
   }
 
   const handleAddLayer = (type, fileName) => {
@@ -88,6 +92,7 @@ function LayersView({
     setLayersView,
     numberOfLayers,
     setCanSave,
+    currentShoe,
   };
 
   return <Component props={propsToPassDown} />;

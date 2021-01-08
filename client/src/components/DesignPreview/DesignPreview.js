@@ -113,7 +113,7 @@ function DesignPreview({
 
   const handleCurrentShoe = (shoe) => {
     // if right shoe
-    if (shoe === 0 && shoe !== currentShoe) {
+    if (shoe === 'right' && shoe !== currentShoe) {
       if (shoeVisibility.right) {
         setCurrentShoe(shoe);
       } else {
@@ -136,7 +136,7 @@ function DesignPreview({
       }
     }
     // if left shoe
-    else if (shoe === 1 && shoe !== currentShoe) {
+    else if (shoe === 'left' && shoe !== currentShoe) {
       if (shoeVisibility.left) {
         setCurrentShoe(shoe);
       } else {
@@ -164,7 +164,7 @@ function DesignPreview({
     // if toggle right
     if (index === 1) {
       // if left is current - toggle right
-      if (currentShoe === 1) {
+      if (currentShoe === 'left') {
         if (shoeVisibility.right) {
           let cameraPosition = camera.position;
           orbitControls.target.set(0, 0, -1.25);
@@ -192,7 +192,7 @@ function DesignPreview({
         camera.layers.toggle(index);
       }
       // if right is current, we know it's visible
-      else if (currentShoe === 0) {
+      else if (currentShoe === 'right') {
         // if left is visible - make left current, make right invisible
         if (shoeVisibility.left) {
           let cameraPosition = camera.position;
@@ -207,7 +207,7 @@ function DesignPreview({
           visObj.right = false;
           setShoeVisibility(visObj);
 
-          setCurrentShoe(1);
+          setCurrentShoe('left');
           camera.layers.toggle(index);
         }
         // if left is invisible - make left visible and current, make right invisible
@@ -227,14 +227,14 @@ function DesignPreview({
 
           camera.layers.toggle(1);
           camera.layers.toggle(2);
-          setCurrentShoe(1);
+          setCurrentShoe('left');
         }
       }
     }
     // if toggle left
     else if (index === 2) {
       // if right is current - toggle left
-      if (currentShoe === 0) {
+      if (currentShoe === 'right') {
         if (shoeVisibility.left) {
           let cameraPosition = camera.position;
           orbitControls.target.set(0, 0, 1.25);
@@ -262,7 +262,7 @@ function DesignPreview({
         camera.layers.toggle(index);
       }
       // if left is current, we know it's visible
-      else if (currentShoe === 1) {
+      else if (currentShoe === 'left') {
         // if right is visible - make right current, make left invisible
         if (shoeVisibility.right) {
           let cameraPosition = camera.position;
@@ -277,7 +277,7 @@ function DesignPreview({
           visObj.left = false;
           setShoeVisibility(visObj);
 
-          setCurrentShoe(0);
+          setCurrentShoe('right');
           camera.layers.toggle(index);
         }
         // if right is invisible - make right visible and current, make left invisible
@@ -297,7 +297,7 @@ function DesignPreview({
 
           camera.layers.toggle(1);
           camera.layers.toggle(2);
-          setCurrentShoe(0);
+          setCurrentShoe('right');
         }
       }
     }
@@ -330,20 +330,20 @@ function DesignPreview({
             <div className='design-preview-toggle-left'>
               <div
                 className={`design-preview-toggle-shoe ${
-                  currentShoe === 0 ? null : 'disabled-shoe'
+                  currentShoe === 'right' ? null : 'disabled-shoe'
                 }`}
                 onClick={() => {
-                  handleCurrentShoe(0);
+                  handleCurrentShoe('right');
                 }}
               >
                 <p>Right</p>
               </div>
               <div
                 className={`design-preview-toggle-shoe ${
-                  currentShoe === 1 ? null : 'disabled-shoe'
+                  currentShoe === 'left' ? null : 'disabled-shoe'
                 }`}
                 onClick={() => {
-                  handleCurrentShoe(1);
+                  handleCurrentShoe('left');
                 }}
               >
                 <p>Left</p>

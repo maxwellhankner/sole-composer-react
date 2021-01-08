@@ -28,6 +28,7 @@ export const createCanvas = ({ design }) => {
 };
 
 export const createGraphicVisualCanvas = ({ design }) => {
+  // console.log('createGraphicVisualCanvas');
   const { canvasSize } = design.configData;
   const canvas = document.createElement('canvas');
   canvas.id = 'graphic-visual-canvas';

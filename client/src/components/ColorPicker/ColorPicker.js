@@ -12,6 +12,7 @@ function ColorPicker({ props }) {
     handlePartChangeManager,
     setLayersView,
     setCanSave,
+    currentShoe,
   } = props;
 
   const [currentColor, setCurrentColor] = useState('#ffffaa');
@@ -21,11 +22,12 @@ function ColorPicker({ props }) {
     const getDesignColors = () => {
       const colors = [];
       for (const property in design.outlineData.parts) {
-        for (const layer in design.outlineData.parts[property].layers) {
-          const type = design.outlineData.parts[property].layers[layer].type;
+        for (const layer in design.outlineData.parts[property][currentShoe]) {
+          const type =
+            design.outlineData.parts[property][currentShoe][layer].type;
           if (type === 'color' || type === 'mask') {
             const thisColor =
-              design.outlineData.parts[property].layers[layer].color;
+              design.outlineData.parts[property][currentShoe][layer].color;
             if (!colors.includes(thisColor)) {
               colors.push(thisColor);
             }
@@ -33,12 +35,15 @@ function ColorPicker({ props }) {
         }
       }
       for (const property in design.outlineData.overlays) {
-        for (const layer in design.outlineData.overlays[property].layers) {
+        for (const layer in design.outlineData.overlays[property][
+          currentShoe
+        ]) {
           if (
-            design.outlineData.overlays[property].layers[layer].type === 'color'
+            design.outlineData.overlays[property][currentShoe][layer].type ===
+            'color'
           ) {
             const thisColor =
-              design.outlineData.overlays[property].layers[layer].color;
+              design.outlineData.overlays[property][currentShoe][layer].color;
             if (!colors.includes(thisColor)) {
               colors.push(thisColor);
             }
@@ -62,14 +67,16 @@ function ColorPicker({ props }) {
       currentPartName === 'innerOverlay'
     ) {
       setCurrentColor(
-        design.outlineData.overlays[currentPartName].layers[currentLayer].color
+        design.outlineData.overlays[currentPartName][currentShoe][currentLayer]
+          .color
       );
     } else {
       setCurrentColor(
-        design.outlineData.parts[currentPartName].layers[currentLayer].color
+        design.outlineData.parts[currentPartName][currentShoe][currentLayer]
+          .color
       );
     }
-  }, [design, currentPartName, currentLayer, setColorsArray]);
+  }, [design, currentPartName, currentLayer, setColorsArray, currentShoe]);
 
   const handleColorChange = (color) => {
     setCanSave(true);

@@ -15,12 +15,15 @@ export const partChangeManager = ({
   graphicVisualCanvas,
   canvasObject,
   baseColorCanvasObject,
+  currentShoe,
 }) => {
+  // console.log(currentShoe);
   const { type, fileName } = changeObject;
   const tempDesign = cloneDeep(design);
   if (type === 'graphic-moved') {
     const { partName, layerIndex, direction, distance } = changeObject;
-    const thisLayer = tempDesign.outlineData.parts[partName].layers[layerIndex];
+    const thisLayer =
+      tempDesign.outlineData.parts[partName][currentShoe][layerIndex];
     if (direction === 'vert') {
       thisLayer.y += distance;
     } else if (direction === 'hor') {
@@ -54,7 +57,8 @@ export const partChangeManager = ({
     if (partName === 'outerOverlay' || partName === 'innerOverlay') {
       thisLayer = tempDesign.outlineData.overlays[partName].layers[layerIndex];
     } else {
-      thisLayer = tempDesign.outlineData.parts[partName].layers[layerIndex];
+      thisLayer =
+        tempDesign.outlineData.parts[partName][currentShoe][layerIndex];
     }
 
     thisLayer.color = newColor;
@@ -73,12 +77,12 @@ export const partChangeManager = ({
   } else if (type === 'layer-added') {
     const { partName, layerType } = changeObject;
     if (layerType === 'Color') {
-      tempDesign.outlineData.parts[partName].layers.push({
+      tempDesign.outlineData.parts[partName][currentShoe].push({
         type: 'color',
         color: '#777777',
       });
     } else if (layerType === 'Graphic') {
-      tempDesign.outlineData.parts[partName].layers.push({
+      tempDesign.outlineData.parts[partName][currentShoe].push({
         type: 'graphic',
         link: fileName,
         x: 0,
@@ -88,7 +92,7 @@ export const partChangeManager = ({
       });
     } else {
       const { maskLink } = changeObject;
-      tempDesign.outlineData.parts[partName].layers.push({
+      tempDesign.outlineData.parts[partName][currentShoe].push({
         type: 'mask',
         link: maskLink,
         color: '#000000',
@@ -96,9 +100,9 @@ export const partChangeManager = ({
     }
 
     setDesign(tempDesign);
-    const layerObject = tempDesign.outlineData.parts[partName].layers.slice(
-      -1
-    )[0];
+    const layerObject = tempDesign.outlineData.parts[partName][
+      currentShoe
+    ].slice(-1)[0];
     addLayerToCanvasObject({
       canvasObject,
       graphicVisualCanvas,
@@ -111,7 +115,7 @@ export const partChangeManager = ({
     });
   } else if (type === 'layer-moved') {
     const { partName, layerIndex, direction } = changeObject;
-    let array = tempDesign.outlineData.parts[partName].layers;
+    let array = tempDesign.outlineData.parts[partName][currentShoe];
     let tempElement = array[layerIndex];
     array[layerIndex] = array[layerIndex + direction];
     array[layerIndex + direction] = tempElement;
@@ -131,7 +135,7 @@ export const partChangeManager = ({
     });
   } else if (type === 'layer-deleted') {
     const { partName, layerIndex } = changeObject;
-    tempDesign.outlineData.parts[partName].layers.splice(layerIndex, 1);
+    tempDesign.outlineData.parts[partName][currentShoe].splice(layerIndex, 1);
 
     setDesign(tempDesign);
     deleteLayerFromCanvasObject({

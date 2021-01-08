@@ -20,6 +20,7 @@ function LayerOverview({ props }) {
     setFocusLayer,
     setLayersView,
     setCanSave,
+    currentShoe,
   } = props;
 
   const handleFocusLayer = (i) => {
@@ -55,9 +56,9 @@ function LayerOverview({ props }) {
       currentPartName === 'outerOverlay' ||
       currentPartName === 'innerOverlay'
     ) {
-      array = tempDesign.outlineData.overlays[currentPartName].layers;
+      array = tempDesign.outlineData.overlays[currentPartName][currentShoe];
     } else {
-      array = tempDesign.outlineData.parts[currentPartName].layers;
+      array = tempDesign.outlineData.parts[currentPartName][currentShoe];
     }
 
     if (layer === array.length - 1 && direction === 1) {
@@ -72,9 +73,9 @@ function LayerOverview({ props }) {
         currentPartName === 'outerOverlay' ||
         currentPartName === 'innerOverlay'
       ) {
-        tempDesign.outlineData.overlays[currentPartName].layers = array;
+        tempDesign.outlineData.overlays[currentPartName][currentShoe] = array;
       } else {
-        tempDesign.outlineData.parts[currentPartName].layers = array;
+        tempDesign.outlineData.parts[currentPartName][currentShoe] = array;
       }
       handlePartChangeManager({
         type: 'layer-moved',

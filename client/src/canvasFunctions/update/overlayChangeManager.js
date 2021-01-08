@@ -18,13 +18,14 @@ export const overlayChangeManager = ({
   overlayCanvas,
   overlayCanvasObject,
   baseColorCanvasObject,
+  currentShoe,
 }) => {
   const { type, fileName } = changeObject;
   const tempDesign = cloneDeep(design);
   if (type === 'graphic-moved') {
     const { partName, layerIndex, direction, distance } = changeObject;
     const thisLayer =
-      tempDesign.outlineData.overlays[partName].layers[layerIndex];
+      tempDesign.outlineData.overlays[partName][currentShoe][layerIndex];
     if (direction === 'vert') {
       thisLayer.y += distance;
     } else if (direction === 'hor') {
@@ -53,11 +54,12 @@ export const overlayChangeManager = ({
       canvasObject,
       textureCanvas,
       baseColorCanvasObject,
+      currentShoe,
     });
   } else if (type === 'color-changed') {
     const { partName, layerIndex, newColor } = changeObject;
     let thisLayer =
-      tempDesign.outlineData.overlays[partName].layers[layerIndex];
+      tempDesign.outlineData.overlays[partName][currentShoe][layerIndex];
     thisLayer.color = newColor;
 
     setDesign(tempDesign);
@@ -73,27 +75,28 @@ export const overlayChangeManager = ({
       canvasObject,
       textureCanvas,
       baseColorCanvasObject,
+      currentShoe,
     });
   } else if (type === 'layer-added') {
     const { partName, layerType } = changeObject;
     // add layers to design if this is the first overlay layer added
-    if (design.outlineData.overlays[partName].layers.length === 0) {
+    if (design.outlineData.overlays[partName][currentShoe].length === 0) {
       const effectedParts = design.configData.overlayParts[partName];
       for (let layer in effectedParts) {
         const currentPart = effectedParts[layer];
-        tempDesign.outlineData.parts[currentPart].layers.push({
+        tempDesign.outlineData.parts[currentPart][currentShoe].push({
           type: 'overlay',
           source: partName,
         });
       }
     }
     if (layerType === 'Color') {
-      tempDesign.outlineData.overlays[partName].layers.push({
+      tempDesign.outlineData.overlays[partName][currentShoe].push({
         type: 'color',
         color: '#777777',
       });
     } else {
-      tempDesign.outlineData.overlays[partName].layers.push({
+      tempDesign.outlineData.overlays[partName][currentShoe].push({
         type: 'graphic',
         link: fileName,
         x: 0,
@@ -107,7 +110,7 @@ export const overlayChangeManager = ({
     addLayerToOverlayCanvasObject({
       overlayCanvasObject,
       partName,
-      layerObject: tempDesign.outlineData.overlays[partName].layers.slice(
+      layerObject: tempDesign.outlineData.overlays[partName][currentShoe].slice(
         -1
       )[0],
       overlayCanvas,
@@ -118,6 +121,7 @@ export const overlayChangeManager = ({
       canvasObject,
       tempDesign,
       baseColorCanvasObject,
+      currentShoe,
     });
   } else if (type === 'layer-moved') {
     const { partName, layerIndex, direction } = changeObject;
@@ -143,27 +147,30 @@ export const overlayChangeManager = ({
     });
   } else if (type === 'layer-deleted') {
     const { partName, layerIndex } = changeObject;
-    tempDesign.outlineData.overlays[partName].layers.splice(layerIndex, 1);
-    if (tempDesign.outlineData.overlays[partName].layers.length === 0) {
+    tempDesign.outlineData.overlays[partName][currentShoe].splice(
+      layerIndex,
+      1
+    );
+    if (tempDesign.outlineData.overlays[partName][currentShoe].length === 0) {
       // remove layers from design if this is the last overlay layer deleted
       const effectedParts = design.configData.overlayParts[partName];
       for (let layer in effectedParts) {
         const currentPart = effectedParts[layer];
         for (
           let i = 0;
-          i < tempDesign.outlineData.parts[currentPart].layers.length;
+          i < tempDesign.outlineData.parts[currentPart][currentShoe].length;
           i++
         ) {
           const layerIndex = i;
           if (
-            tempDesign.outlineData.parts[currentPart].layers[i].type ===
+            tempDesign.outlineData.parts[currentPart][currentShoe][i].type ===
             'overlay'
           ) {
             if (
-              tempDesign.outlineData.parts[currentPart].layers[i].source ===
-              partName
+              tempDesign.outlineData.parts[currentPart][currentShoe][i]
+                .source === partName
             ) {
-              tempDesign.outlineData.parts[currentPart].layers.splice(
+              tempDesign.outlineData.parts[currentPart][currentShoe].splice(
                 layerIndex,
                 1
               );
@@ -187,6 +194,7 @@ export const overlayChangeManager = ({
       canvasObject,
       tempDesign,
       baseColorCanvasObject,
+      currentShoe,
     });
   }
 };
@@ -203,6 +211,7 @@ const updateOverlayLayer = async ({
   canvasObject,
   textureCanvas,
   baseColorCanvasObject,
+  currentShoe,
 }) => {
   const effectedParts = design.configData.overlayParts[partName];
   // update canvasObject layer
@@ -236,17 +245,20 @@ const updateOverlayLayer = async ({
     const currentPart = effectedParts[part];
     for (
       let i = 0;
-      i < design.outlineData.parts[currentPart].layers.length;
+      i < design.outlineData.parts[currentPart][currentShoe].length;
       i++
     ) {
       const layerIndex = i;
-      if (design.outlineData.parts[currentPart].layers[i].type === 'overlay') {
+      if (
+        design.outlineData.parts[currentPart][currentShoe][i].type === 'overlay'
+      ) {
         if (
-          design.outlineData.parts[currentPart].layers[i].source === partName
+          design.outlineData.parts[currentPart][currentShoe][i].source ===
+          partName
         ) {
           const layerCanvas = await createOverlayLayerCanvas({
             design,
-            layer: design.outlineData.parts[currentPart].layers[i],
+            layer: design.outlineData.parts[currentPart][currentShoe][i],
             partName: currentPart,
             overlayCanvas,
           });
@@ -278,6 +290,7 @@ const addLayerToOverlayCanvasObject = async ({
   canvasObject,
   tempDesign,
   baseColorCanvasObject,
+  currentShoe,
 }) => {
   if (layerObject.type === 'color') {
     const newLayerCanvas = await createColorLayerCanvas({
@@ -307,20 +320,21 @@ const addLayerToOverlayCanvasObject = async ({
     const currentPart = effectedParts[part];
     for (
       let i = 0;
-      i < tempDesign.outlineData.parts[currentPart].layers.length;
+      i < tempDesign.outlineData.parts[currentPart][currentShoe].length;
       i++
     ) {
       const layerIndex = i;
       if (
-        tempDesign.outlineData.parts[currentPart].layers[i].type === 'overlay'
+        tempDesign.outlineData.parts[currentPart][currentShoe][i].type ===
+        'overlay'
       ) {
         if (
-          tempDesign.outlineData.parts[currentPart].layers[i].source ===
+          tempDesign.outlineData.parts[currentPart][currentShoe][i].source ===
           partName
         ) {
           const layerCanvas = await createOverlayLayerCanvas({
             design,
-            layer: tempDesign.outlineData.parts[currentPart].layers[i],
+            layer: tempDesign.outlineData.parts[currentPart][currentShoe][i],
             partName: currentPart,
             overlayCanvas,
           });
@@ -413,6 +427,7 @@ const deleteLayerFromOverlayCanvasObject = async ({
   canvasObject,
   tempDesign,
   baseColorCanvasObject,
+  currentShoe,
 }) => {
   overlayCanvasObject[partName].layers.splice(layerIndex, 1);
   overlayCanvasObjectToTextureCanvas({
@@ -428,18 +443,19 @@ const deleteLayerFromOverlayCanvasObject = async ({
     const currentPart = effectedParts[part];
     for (
       let i = 0;
-      i < tempDesign.outlineData.parts[currentPart].layers.length;
+      i < tempDesign.outlineData.parts[currentPart][currentShoe].length;
       i++
     ) {
       const layerIndex = i;
       if (
-        tempDesign.outlineData.parts[currentPart].layers[i].type ===
+        tempDesign.outlineData.parts[currentPart][currentShoe][i].type ===
           'overlay' &&
-        tempDesign.outlineData.parts[currentPart].layers[i].source === partName
+        tempDesign.outlineData.parts[currentPart][currentShoe][i].source ===
+          partName
       ) {
         const layerCanvas = await createOverlayLayerCanvas({
           design,
-          layer: design.outlineData.parts[currentPart].layers[i],
+          layer: design.outlineData.parts[currentPart][currentShoe][i],
           partName: currentPart,
           overlayCanvas,
         });

@@ -14,7 +14,8 @@ function ChangeBaseColor({
 
   const updateBaseColor = () => {
     const tempDesign = cloneDeep(design);
-    tempDesign.outlineData.baseColor = baseColor;
+    tempDesign.outlineData.baseColors.right = baseColor;
+    tempDesign.outlineData.baseColors.left = baseColor;
     setCanSave(true);
     setDesign(tempDesign);
     handleUpdateBaseColor(tempDesign);

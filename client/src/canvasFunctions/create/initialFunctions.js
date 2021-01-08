@@ -13,10 +13,10 @@ const createCanvasObjectPart = async ({
   overlays,
 }) => {
   const canvasLayers = [];
-
   // For each layer in part of design object
   for (let layer in designLayers) {
     if (designLayers[layer].type === 'color') {
+      // console.log('found one');
       const thisLayer = await createColorLayerCanvas({
         design,
         layer: designLayers[layer],
@@ -62,17 +62,23 @@ const createCanvasObjectPart = async ({
 };
 
 // Create Base Color Canvas Object
-const createBaseColorCanvasObjectPart = async ({ design, partName }) => {
+const createBaseColorCanvasObjectPart = async ({ design, partName, shoe }) => {
+  // console.log(shoe);
   const canvas = await createColorLayerCanvas({
     design,
-    layer: { color: design.outlineData.baseColor },
+    layer: { color: design.outlineData.baseColors[shoe] },
     partName,
   });
   return canvas;
 };
 
 // turn designObject into canvasObject
-export const designObjectToCanvasObject = ({ design, type, overlays }) => {
+export const designObjectToCanvasObject = ({
+  design,
+  type,
+  overlays,
+  shoe,
+}) => {
   return new Promise((resolve, reject) => {
     const canvasObject = {};
     const createAllParts = async () => {
@@ -80,7 +86,7 @@ export const designObjectToCanvasObject = ({ design, type, overlays }) => {
         for (let partName in design.outlineData.parts) {
           canvasObject[partName] = await createCanvasObjectPart({
             design,
-            designLayers: design.outlineData.parts[partName].layers,
+            designLayers: design.outlineData.parts[partName][shoe],
             partName,
             overlays,
           });
@@ -89,7 +95,7 @@ export const designObjectToCanvasObject = ({ design, type, overlays }) => {
         for (let partName in design.outlineData.overlays) {
           canvasObject[partName] = await createCanvasObjectPart({
             design,
-            designLayers: design.outlineData.overlays[partName].layers,
+            designLayers: design.outlineData.overlays[partName][shoe],
             partName,
           });
         }
@@ -98,6 +104,7 @@ export const designObjectToCanvasObject = ({ design, type, overlays }) => {
           canvasObject[partName] = await createBaseColorCanvasObjectPart({
             design,
             partName,
+            shoe,
           });
         }
       }

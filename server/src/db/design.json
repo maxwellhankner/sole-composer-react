@@ -1,0 +1,34 @@
+{
+  "_id": { "$oid": "5fa4a692621b8c5620b39d4b" },
+  "author": "Sole Composer",
+  "title": "New Design",
+  "screenshot": "1604626065863.png",
+  "configId": { "$oid": "5f925589cc6d6c16e44d5dfd" },
+  "outlineData": {
+    "overlays": {
+      "outerOverlay": { "right": [], "left": [] },
+      "innerOverlay": { "right": [], "left": [] }
+    },
+    "parts": {
+      "outerSwoosh": { "right": [], "left": [] },
+      "innerSwoosh": { "right": [], "left": [] },
+      "outerQuarter": { "right": [], "left": [] },
+      "innerQuarter": { "right": [], "left": [] },
+      "outerHeel": { "right": [], "left": [] },
+      "innerHeel": { "right": [], "left": [] },
+      "outerSole": { "right": [], "left": [] },
+      "innerSole": { "right": [], "left": [] },
+      "sole": { "right": [], "left": [] },
+      "toeBox": { "right": [], "left": [] },
+      "toeCap": { "right": [], "left": [] },
+      "lace": { "right": [], "left": [] },
+      "laceCage": { "right": [], "left": [] },
+      "laceLock": { "right": [], "left": [] },
+      "tongue": { "right": [], "left": [] },
+      "heelWing": { "right": [], "left": [] },
+      "heelTab": { "right": [], "left": [] },
+      "sockLiner": { "right": [], "left": [] }
+    },
+    "baseColors": { "right": "#ffffff", "left": "#ffffff" }
+  }
+}

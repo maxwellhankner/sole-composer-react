@@ -57,6 +57,7 @@ function Interface({
           handleViewChange={handleViewChange}
           design={design}
           setDesign={setDesign}
+          currentShoe={currentShoe}
           currentPart={currentPart}
           setCurrentPart={setCurrentPart}
           currentLayer={currentLayer}

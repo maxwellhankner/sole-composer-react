@@ -29,15 +29,16 @@ function DesignerContainer({
   const [camera, setCamera] = useState(null);
   const [orbitControls, setOrbitControls] = useState(null);
   const [currentPart, setCurrentPart] = useState(0);
-  const [currentShoe, setCurrentShoe] = useState(0);
+  const [currentShoe, setCurrentShoe] = useState('right');
   const [shoeVisibility, setShoeVisibility] = useState({
     right: true,
     left: true,
   });
 
-  const baseColorCanvasObjectRef = useRef();
+  const rightBaseColorCanvasObjectRef = useRef();
   const rightCanvasObjectRef = useRef();
   const rightOverlaysCanvasObjectRef = useRef();
+  const leftBaseColorCanvasObjectRef = useRef();
   const leftCanvasObjectRef = useRef();
   const leftOverlaysCanvasObjectRef = useRef();
 
@@ -48,7 +49,7 @@ function DesignerContainer({
         graphicVisualCanvas,
         partName,
         canvasObject: rightOverlaysCanvasObjectRef.current,
-        baseColorCanvasObject: baseColorCanvasObjectRef.current,
+        baseColorCanvasObject: rightBaseColorCanvasObjectRef.current,
       });
     } else {
       updateGraphicVisualCanvas({
@@ -56,7 +57,7 @@ function DesignerContainer({
         graphicVisualCanvas,
         partName,
         canvasObject: rightCanvasObjectRef.current,
-        baseColorCanvasObject: baseColorCanvasObjectRef.current,
+        baseColorCanvasObject: rightBaseColorCanvasObjectRef.current,
       });
     }
   };
@@ -64,61 +65,104 @@ function DesignerContainer({
   const handlePartChangeManager = (changeObject) => {
     const { partName } = changeObject;
     if (partName === 'outerOverlay') {
+      console.log(currentShoe);
       overlayChangeManager({
         changeObject,
         design,
         setDesign,
-        texture: rightTexture,
-        textureCanvas: rightTextureCanvas,
+        texture: currentShoe === 'right' ? rightTexture : leftTexture,
+        textureCanvas:
+          currentShoe === 'right' ? rightTextureCanvas : leftTextureCanvas,
         graphicVisualCanvas,
-        canvasObject: rightCanvasObjectRef.current,
-        overlayCanvas: rightOuterOverlayCanvas,
-        overlayCanvasObject: rightOverlaysCanvasObjectRef.current,
-        baseColorCanvasObject: baseColorCanvasObjectRef.current,
+        canvasObject:
+          currentShoe === 'right'
+            ? rightCanvasObjectRef.current
+            : leftCanvasObjectRef.current,
+        overlayCanvas:
+          currentShoe === 'right'
+            ? rightOuterOverlayCanvas
+            : leftOuterOverlayCanvas,
+        overlayCanvasObject:
+          currentShoe === 'right'
+            ? rightOverlaysCanvasObjectRef.current
+            : leftOverlaysCanvasObjectRef.current,
+        baseColorCanvasObject:
+          currentShoe === 'right'
+            ? rightBaseColorCanvasObjectRef.current
+            : leftBaseColorCanvasObjectRef.current,
+        currentShoe,
       });
     } else if (partName === 'innerOverlay') {
       overlayChangeManager({
         changeObject,
         design,
         setDesign,
-        texture: rightTexture,
-        textureCanvas: rightTextureCanvas,
+        texture: currentShoe === 'right' ? rightTexture : leftTexture,
+        textureCanvas:
+          currentShoe === 'right' ? rightTextureCanvas : leftTextureCanvas,
         graphicVisualCanvas,
-        canvasObject: rightCanvasObjectRef.current,
-        overlayCanvas: rightInnerOverlayCanvas,
-        overlayCanvasObject: rightOverlaysCanvasObjectRef.current,
-        baseColorCanvasObject: baseColorCanvasObjectRef.current,
+        canvasObject:
+          currentShoe === 'right'
+            ? rightCanvasObjectRef.current
+            : leftCanvasObjectRef.current,
+        overlayCanvas:
+          currentShoe === 'right'
+            ? rightInnerOverlayCanvas
+            : leftInnerOverlayCanvas,
+        overlayCanvasObject:
+          currentShoe === 'right'
+            ? rightOverlaysCanvasObjectRef.current
+            : leftOverlaysCanvasObjectRef.current,
+        baseColorCanvasObject:
+          currentShoe === 'right'
+            ? rightBaseColorCanvasObjectRef.current
+            : leftBaseColorCanvasObjectRef.current,
+        currentShoe,
       });
     } else {
       partChangeManager({
         changeObject,
         design,
         setDesign,
-        texture: rightTexture,
-        textureCanvas: rightTextureCanvas,
+        texture: currentShoe === 'right' ? rightTexture : leftTexture,
+        textureCanvas:
+          currentShoe === 'right' ? rightTextureCanvas : leftTextureCanvas,
         graphicVisualCanvas,
-        canvasObject: rightCanvasObjectRef.current,
-        baseColorCanvasObject: baseColorCanvasObjectRef.current,
+        canvasObject:
+          currentShoe === 'right'
+            ? rightCanvasObjectRef.current
+            : leftCanvasObjectRef.current,
+        baseColorCanvasObject:
+          currentShoe === 'right'
+            ? rightBaseColorCanvasObjectRef.current
+            : leftBaseColorCanvasObjectRef.current,
+        currentShoe,
       });
     }
   };
 
   const handleUpdateBaseColor = async (tempDesign) => {
     // baseColor to baseColor Canvas Object
-    baseColorCanvasObjectRef.current = await designObjectToCanvasObject({
+    rightBaseColorCanvasObjectRef.current = await designObjectToCanvasObject({
       design: tempDesign,
       type: 'baseColorCanvasObject',
+      shoe: 'right',
+    });
+    leftBaseColorCanvasObjectRef.current = await designObjectToCanvasObject({
+      design: tempDesign,
+      type: 'baseColorCanvasObject',
+      shoe: 'left',
     });
     // Canvas Object to Canvas
     const rightCanvas = await canvasObjectToTextureCanvas({
       design,
       canvasObject: rightCanvasObjectRef.current,
-      baseColorCanvasObject: baseColorCanvasObjectRef.current,
+      baseColorCanvasObject: rightBaseColorCanvasObjectRef.current,
     });
     const leftCanvas = await canvasObjectToTextureCanvas({
       design,
       canvasObject: leftCanvasObjectRef.current,
-      baseColorCanvasObject: baseColorCanvasObjectRef.current,
+      baseColorCanvasObject: leftBaseColorCanvasObjectRef.current,
     });
     // Canvas to Texture Canvas
     rightTextureCanvas.getContext('2d').drawImage(rightCanvas, 0, 0);
@@ -133,13 +177,14 @@ function DesignerContainer({
         setInitialLoaded,
         design,
         graphicVisualCanvas,
-        baseColorCanvasObjectRef,
+        rightBaseColorCanvasObjectRef,
         rightInnerOverlayCanvas,
         rightOuterOverlayCanvas,
         rightTexture,
         rightTextureCanvas,
         rightCanvasObjectRef,
         rightOverlaysCanvasObjectRef,
+        leftBaseColorCanvasObjectRef,
         leftInnerOverlayCanvas,
         leftOuterOverlayCanvas,
         leftTexture,

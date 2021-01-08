@@ -70,7 +70,6 @@ const Scene = ({
     if (renderer && rightMaterial && leftMaterial && !sceneBuilt) {
       //===================================================== camera
       renderer.setSize(2048, 2048);
-      console.log('ran');
       threeCanvasRef.current.appendChild(renderer.domElement);
       const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
       camera.position.z = 8.5;
