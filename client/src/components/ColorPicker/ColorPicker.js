@@ -22,12 +22,21 @@ function ColorPicker({ props }) {
     const getDesignColors = () => {
       const colors = [];
       for (const property in design.outlineData.parts) {
-        for (const layer in design.outlineData.parts[property][currentShoe]) {
-          const type =
-            design.outlineData.parts[property][currentShoe][layer].type;
+        for (const layer in design.outlineData.parts[property].right) {
+          const type = design.outlineData.parts[property].right[layer].type;
           if (type === 'color' || type === 'mask') {
             const thisColor =
-              design.outlineData.parts[property][currentShoe][layer].color;
+              design.outlineData.parts[property].right[layer].color;
+            if (!colors.includes(thisColor)) {
+              colors.push(thisColor);
+            }
+          }
+        }
+        for (const layer in design.outlineData.parts[property].left) {
+          const type = design.outlineData.parts[property].left[layer].type;
+          if (type === 'color' || type === 'mask') {
+            const thisColor =
+              design.outlineData.parts[property].left[layer].color;
             if (!colors.includes(thisColor)) {
               colors.push(thisColor);
             }
@@ -35,15 +44,23 @@ function ColorPicker({ props }) {
         }
       }
       for (const property in design.outlineData.overlays) {
-        for (const layer in design.outlineData.overlays[property][
-          currentShoe
-        ]) {
+        for (const layer in design.outlineData.overlays[property].right) {
           if (
-            design.outlineData.overlays[property][currentShoe][layer].type ===
-            'color'
+            design.outlineData.overlays[property].right[layer].type === 'color'
           ) {
             const thisColor =
-              design.outlineData.overlays[property][currentShoe][layer].color;
+              design.outlineData.overlays[property].right[layer].color;
+            if (!colors.includes(thisColor)) {
+              colors.push(thisColor);
+            }
+          }
+        }
+        for (const layer in design.outlineData.overlays[property].left) {
+          if (
+            design.outlineData.overlays[property].left[layer].type === 'color'
+          ) {
+            const thisColor =
+              design.outlineData.overlays[property].left[layer].color;
             if (!colors.includes(thisColor)) {
               colors.push(thisColor);
             }
@@ -51,10 +68,14 @@ function ColorPicker({ props }) {
         }
       }
 
-      const baseColor = design.outlineData.baseColor;
+      const rightBaseColor = design.outlineData.baseColors.right;
+      if (!colors.includes(rightBaseColor)) {
+        colors.push(rightBaseColor);
+      }
 
-      if (!colors.includes(baseColor)) {
-        colors.push(baseColor);
+      const leftBaseColor = design.outlineData.baseColors.left;
+      if (!colors.includes(leftBaseColor)) {
+        colors.push(leftBaseColor);
       }
 
       return colors;
