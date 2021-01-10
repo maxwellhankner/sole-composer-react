@@ -13,36 +13,61 @@ function GraphicPicker({ props }) {
 
   useEffect(() => {
     const getGraphicsArray = () => {
-      const graphics = [];
+      //'1606804479019.png'
+      const graphics = ['1606804479019.png'];
 
+      // parts
       for (const property in design.outlineData.parts) {
-        for (const layer in design.outlineData.parts[property].layers) {
+        for (const layer in design.outlineData.parts[property].right) {
           if (
-            design.outlineData.parts[property].layers[layer].type === 'graphic'
+            design.outlineData.parts[property].right[layer].type === 'graphic'
           ) {
             const thisGraphic =
-              design.outlineData.parts[property].layers[layer].link;
+              design.outlineData.parts[property].right[layer].link;
+            if (!graphics.includes(thisGraphic)) {
+              graphics.push(thisGraphic);
+            }
+          }
+        }
+        for (const layer in design.outlineData.parts[property].left) {
+          if (
+            design.outlineData.parts[property].left[layer].type === 'graphic'
+          ) {
+            const thisGraphic =
+              design.outlineData.parts[property].left[layer].link;
             if (!graphics.includes(thisGraphic)) {
               graphics.push(thisGraphic);
             }
           }
         }
       }
+      // overlays
       for (const property in design.outlineData.overlays) {
-        for (const layer in design.outlineData.overlays[property].layers) {
+        for (const layer in design.outlineData.overlays[property].right) {
           if (
-            design.outlineData.overlays[property].layers[layer].type ===
+            design.outlineData.overlays[property].right[layer].type ===
             'graphic'
           ) {
             const thisGraphic =
-              design.outlineData.overlays[property].layers[layer].link;
+              design.outlineData.overlays[property].right[layer].link;
+            if (!graphics.includes(thisGraphic)) {
+              graphics.push(thisGraphic);
+            }
+          }
+        }
+        for (const layer in design.outlineData.overlays[property].left) {
+          if (
+            design.outlineData.overlays[property].left[layer].type === 'graphic'
+          ) {
+            const thisGraphic =
+              design.outlineData.overlays[property].left[layer].link;
             if (!graphics.includes(thisGraphic)) {
               graphics.push(thisGraphic);
             }
           }
         }
       }
-
+      // console.log(graphics);
       if (!graphics[0]) {
         return null;
       } else {
@@ -92,10 +117,6 @@ function GraphicPicker({ props }) {
           />
         </div>
       )}
-
-      {/* <div className='view-title'>
-        <p>Upload Image</p>
-      </div> */}
       <div className='upload-image-input'>
         <label htmlFor='image-input-id' className='upload-image-label'>
           <input

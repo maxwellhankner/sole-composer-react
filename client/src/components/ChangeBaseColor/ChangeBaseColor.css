@@ -1,21 +1,22 @@
 .base-color-selector {
-  margin-top: 16px;
+  margin-top: 9px;
 }
 
 .base-color-buttons {
-  display: flex;
-  flex-direction: row;
-  margin-left: 12px;
-  margin-right: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 9px;
+  row-gap: 9px;
+  margin-left: 9px;
+  margin-right: 9px;
 }
 
 .base-color-button {
   width: 100%;
-  margin-left: 4px;
-  margin-right: 4px;
 }
 
 .base-color-button button {
+  border-radius: 5px;
   height: 40px;
   background-color: #434343;
   color: #ffffff;
@@ -28,4 +29,38 @@
 
 .base-color-button button:focus {
   outline: none;
+}
+
+/* Radio Button */
+.base-color-radio {
+  background-color: #434343;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.radio-container {
+  background-color: #333333;
+  border-radius: 5px;
+  height: 34px;
+  display: flex;
+  flex-direction: row;
+}
+
+.radio-option {
+  /* background-color: #434343; */
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3px;
+}
+
+.radio-option p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.radio-active {
+  background-color: #434343;
 }

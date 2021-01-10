@@ -89,6 +89,8 @@ function Interface({
           setDesign={setDesign}
           setCanSave={setCanSave}
           handleUpdateBaseColor={handleUpdateBaseColor}
+          currentShoe={currentShoe}
+          setCurrentShoe={setCurrentShoe}
         />
       </div>
     );
