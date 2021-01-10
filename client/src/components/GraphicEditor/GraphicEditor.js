@@ -20,6 +20,7 @@ function GraphicEditor({ props }) {
     handleUpdateGraphicVisualCanvas,
     setLayersView,
     setCanSave,
+    currentShoe,
   } = props;
 
   const handleMoveGraphic = (direction, distance) => {
@@ -105,7 +106,10 @@ function GraphicEditor({ props }) {
             <FaUndoAlt />
           </button>
         </div>
-        <div id='graphic-visual-container'></div>
+        <div
+          id='graphic-visual-container'
+          className={currentShoe === 'left' ? 'mirror-graphic-visual' : null}
+        ></div>
       </div>
       <div className='graphic-editor-lower'>
         <div className='standard-button graphic-editor-lower-button'>

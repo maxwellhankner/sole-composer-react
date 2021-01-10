@@ -50,6 +50,7 @@ export const partChangeManager = ({
       graphicVisualCanvas,
       design,
       baseColorCanvasObject,
+      currentShoe,
     });
   } else if (type === 'color-changed') {
     const { partName, layerIndex, newColor } = changeObject;
@@ -73,6 +74,7 @@ export const partChangeManager = ({
       graphicVisualCanvas,
       design,
       baseColorCanvasObject,
+      currentShoe,
     });
   } else if (type === 'layer-added') {
     const { partName, layerType } = changeObject;
@@ -112,6 +114,7 @@ export const partChangeManager = ({
       textureCanvas,
       design,
       baseColorCanvasObject,
+      currentShoe,
     });
   } else if (type === 'layer-moved') {
     const { partName, layerIndex, direction } = changeObject;
@@ -132,6 +135,7 @@ export const partChangeManager = ({
       graphicVisualCanvas,
       design,
       baseColorCanvasObject,
+      currentShoe,
     });
   } else if (type === 'layer-deleted') {
     const { partName, layerIndex } = changeObject;
@@ -147,6 +151,7 @@ export const partChangeManager = ({
       graphicVisualCanvas,
       design,
       baseColorCanvasObject,
+      currentShoe,
     });
   }
 };
@@ -161,6 +166,7 @@ const updateLayer = async ({
   graphicVisualCanvas,
   design,
   baseColorCanvasObject,
+  currentShoe,
 }) => {
   // update canvasObject layer
   let layerCanvas;
@@ -175,6 +181,7 @@ const updateLayer = async ({
       design,
       layer: layerObject,
       partName: partName,
+      currentShoe,
     });
   } else {
     layerCanvas = await createMaskLayerCanvas({ design, layer: layerObject });
@@ -201,6 +208,7 @@ const addLayerToCanvasObject = async ({
   textureCanvas,
   design,
   baseColorCanvasObject,
+  currentShoe,
 }) => {
   if (layerObject.type === 'color') {
     const newLayerCanvas = await createColorLayerCanvas({
@@ -214,6 +222,7 @@ const addLayerToCanvasObject = async ({
       design,
       layer: layerObject,
       partName,
+      currentShoe,
     });
     canvasObject[partName].layers.push(newLayerCanvas);
   } else {

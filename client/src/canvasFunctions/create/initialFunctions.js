@@ -11,6 +11,7 @@ const createCanvasObjectPart = async ({
   designLayers,
   partName,
   overlays,
+  currentShoe,
 }) => {
   const canvasLayers = [];
   // For each layer in part of design object
@@ -29,6 +30,7 @@ const createCanvasObjectPart = async ({
           design,
           layer: designLayers[layer],
           partName,
+          currentShoe,
         })
       );
     } else if (designLayers[layer].type === 'mask') {
@@ -62,11 +64,15 @@ const createCanvasObjectPart = async ({
 };
 
 // Create Base Color Canvas Object
-const createBaseColorCanvasObjectPart = async ({ design, partName, shoe }) => {
+const createBaseColorCanvasObjectPart = async ({
+  design,
+  partName,
+  currentShoe,
+}) => {
   // console.log(shoe);
   const canvas = await createColorLayerCanvas({
     design,
-    layer: { color: design.outlineData.baseColors[shoe] },
+    layer: { color: design.outlineData.baseColors[currentShoe] },
     partName,
   });
   return canvas;
@@ -77,7 +83,7 @@ export const designObjectToCanvasObject = ({
   design,
   type,
   overlays,
-  shoe,
+  currentShoe,
 }) => {
   return new Promise((resolve, reject) => {
     const canvasObject = {};
@@ -86,17 +92,19 @@ export const designObjectToCanvasObject = ({
         for (let partName in design.outlineData.parts) {
           canvasObject[partName] = await createCanvasObjectPart({
             design,
-            designLayers: design.outlineData.parts[partName][shoe],
+            designLayers: design.outlineData.parts[partName][currentShoe],
             partName,
             overlays,
+            currentShoe,
           });
         }
       } else if (type === 'overlaysCanvasObject') {
         for (let partName in design.outlineData.overlays) {
           canvasObject[partName] = await createCanvasObjectPart({
             design,
-            designLayers: design.outlineData.overlays[partName][shoe],
+            designLayers: design.outlineData.overlays[partName][currentShoe],
             partName,
+            currentShoe,
           });
         }
       } else if (type === 'baseColorCanvasObject') {
@@ -104,7 +112,7 @@ export const designObjectToCanvasObject = ({
           canvasObject[partName] = await createBaseColorCanvasObjectPart({
             design,
             partName,
-            shoe,
+            currentShoe,
           });
         }
       }
@@ -148,7 +156,6 @@ export const updateGraphicVisualCanvas = ({
     const baseColorCanvas = baseColorCanvasObject[partName];
     graphicCTX.drawImage(baseColorCanvas, 0, 0, canvasSize, canvasSize);
   }
-
   for (let layer in canvasObject[partName].layers) {
     const layerCanvas = canvasObject[partName].layers[layer];
     graphicCTX.drawImage(layerCanvas, 0, 0, canvasSize, canvasSize);

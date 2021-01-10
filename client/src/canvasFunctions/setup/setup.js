@@ -27,12 +27,12 @@ export const setup = async ({
   rightOverlaysCanvasObjectRef.current = await designObjectToCanvasObject({
     design,
     type: 'overlaysCanvasObject',
-    shoe: 'right',
+    currentShoe: 'right',
   });
   leftOverlaysCanvasObjectRef.current = await designObjectToCanvasObject({
     design,
     type: 'overlaysCanvasObject',
-    shoe: 'left',
+    currentShoe: 'left',
   });
 
   // Outer Overlay Canvas Object to Texture Canvas
@@ -42,6 +42,7 @@ export const setup = async ({
     overlayCanvas: rightOuterOverlayCanvas,
     partName: 'outerOverlay',
     graphicVisualCanvas,
+    currentShoe: 'right',
   });
   overlayCanvasObjectToTextureCanvas({
     design,
@@ -49,6 +50,7 @@ export const setup = async ({
     overlayCanvas: leftOuterOverlayCanvas,
     partName: 'outerOverlay',
     graphicVisualCanvas,
+    currentShoe: 'left',
   });
 
   // Inner Overlay Canvas Object to Texture Canvas
@@ -58,6 +60,7 @@ export const setup = async ({
     overlayCanvas: rightInnerOverlayCanvas,
     partName: 'innerOverlay',
     graphicVisualCanvas,
+    currentShoe: 'right',
   });
   overlayCanvasObjectToTextureCanvas({
     design,
@@ -65,6 +68,7 @@ export const setup = async ({
     overlayCanvas: leftInnerOverlayCanvas,
     partName: 'innerOverlay',
     graphicVisualCanvas,
+    currentShoe: 'left',
   });
 
   // Design Object to Canvas Object
@@ -72,25 +76,25 @@ export const setup = async ({
     design,
     type: 'partsCanvasObject',
     overlays: [rightOuterOverlayCanvas, rightInnerOverlayCanvas],
-    shoe: 'right',
+    currentShoe: 'right',
   });
   leftCanvasObjectRef.current = await designObjectToCanvasObject({
     design,
     type: 'partsCanvasObject',
     overlays: [leftOuterOverlayCanvas, leftInnerOverlayCanvas],
-    shoe: 'left',
+    currentShoe: 'left',
   });
 
   // baseColor to baseColor Canvas Object
   rightBaseColorCanvasObjectRef.current = await designObjectToCanvasObject({
     design,
     type: 'baseColorCanvasObject',
-    shoe: 'right',
+    currentShoe: 'right',
   });
   leftBaseColorCanvasObjectRef.current = await designObjectToCanvasObject({
     design,
     type: 'baseColorCanvasObject',
-    shoe: 'left',
+    currentShoe: 'left',
   });
 
   // Canvas Object to Canvas

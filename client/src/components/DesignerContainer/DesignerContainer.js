@@ -44,28 +44,51 @@ function DesignerContainer({
 
   const handleUpdateGraphicVisualCanvas = (partName) => {
     if (partName === 'outerOverlay' || partName === 'innerOverlay') {
-      updateGraphicVisualCanvas({
-        design,
-        graphicVisualCanvas,
-        partName,
-        canvasObject: rightOverlaysCanvasObjectRef.current,
-        baseColorCanvasObject: rightBaseColorCanvasObjectRef.current,
-      });
+      if (currentShoe === 'right') {
+        updateGraphicVisualCanvas({
+          design,
+          graphicVisualCanvas,
+          partName,
+          canvasObject: rightOverlaysCanvasObjectRef.current,
+          baseColorCanvasObject: rightBaseColorCanvasObjectRef.current,
+          currentShoe,
+        });
+      } else {
+        updateGraphicVisualCanvas({
+          design,
+          graphicVisualCanvas,
+          partName,
+          canvasObject: leftOverlaysCanvasObjectRef.current,
+          baseColorCanvasObject: leftBaseColorCanvasObjectRef.current,
+          currentShoe,
+        });
+      }
     } else {
-      updateGraphicVisualCanvas({
-        design,
-        graphicVisualCanvas,
-        partName,
-        canvasObject: rightCanvasObjectRef.current,
-        baseColorCanvasObject: rightBaseColorCanvasObjectRef.current,
-      });
+      if (currentShoe === 'right') {
+        updateGraphicVisualCanvas({
+          design,
+          graphicVisualCanvas,
+          partName,
+          canvasObject: rightCanvasObjectRef.current,
+          baseColorCanvasObject: rightBaseColorCanvasObjectRef.current,
+          currentShoe,
+        });
+      } else {
+        updateGraphicVisualCanvas({
+          design,
+          graphicVisualCanvas,
+          partName,
+          canvasObject: leftCanvasObjectRef.current,
+          baseColorCanvasObject: leftBaseColorCanvasObjectRef.current,
+          currentShoe,
+        });
+      }
     }
   };
 
   const handlePartChangeManager = (changeObject) => {
     const { partName } = changeObject;
     if (partName === 'outerOverlay') {
-      console.log(currentShoe);
       overlayChangeManager({
         changeObject,
         design,
@@ -146,12 +169,12 @@ function DesignerContainer({
     rightBaseColorCanvasObjectRef.current = await designObjectToCanvasObject({
       design: tempDesign,
       type: 'baseColorCanvasObject',
-      shoe: 'right',
+      currentShoe: 'right',
     });
     leftBaseColorCanvasObjectRef.current = await designObjectToCanvasObject({
       design: tempDesign,
       type: 'baseColorCanvasObject',
-      shoe: 'left',
+      currentShoe: 'left',
     });
     // Canvas Object to Canvas
     const rightCanvas = await canvasObjectToTextureCanvas({

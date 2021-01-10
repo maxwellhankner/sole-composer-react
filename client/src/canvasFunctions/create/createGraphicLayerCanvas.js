@@ -1,7 +1,14 @@
-export const createGraphicLayerCanvas = ({ design, layer, partName }) => {
+export const createGraphicLayerCanvas = ({
+  design,
+  layer,
+  partName,
+  currentShoe,
+}) => {
+  console.log('createGraphicLayerCanvas', currentShoe);
+  console.log('layer', layer);
   return new Promise((resolve) => {
     const { mask } = design.configData.partsObject[partName];
-    const { link, x, y, scale, rotation } = layer;
+    let { link, x, y, scale, rotation } = layer;
     const { canvasSize } = design.configData;
     // Create layerCanvas to be returned
     const layerCanvas = document.createElement('canvas');
@@ -55,6 +62,10 @@ export const createGraphicLayerCanvas = ({ design, layer, partName }) => {
             const newY = y + (canvasSize - canvasSize * scale) / 2;
             const newScale = canvasSize * scale;
             // Draw graphic on layerCanvas
+            if (currentShoe === 'left') {
+              layerCanvasCTX.scale(-1, 1);
+              layerCanvasCTX.translate(-canvasSize, 0);
+            }
             layerCanvasCTX.drawImage(
               pythagoreanCanvas,
               newX,

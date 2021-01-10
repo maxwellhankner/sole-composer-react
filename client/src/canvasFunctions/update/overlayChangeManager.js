@@ -144,6 +144,7 @@ export const overlayChangeManager = ({
       textureCanvas,
       canvasObject,
       baseColorCanvasObject,
+      currentShoe,
     });
   } else if (type === 'layer-deleted') {
     const { partName, layerIndex } = changeObject;
@@ -227,6 +228,7 @@ const updateOverlayLayer = async ({
       design,
       layer: layerObject,
       partName,
+      currentShoe,
     });
   }
   overlayCanvasObject[partName].layers[layerIndex] = layerCanvas;
@@ -238,6 +240,7 @@ const updateOverlayLayer = async ({
     overlayCanvas,
     partName,
     graphicVisualCanvas,
+    currentShoe,
   });
 
   // update effected layers in canvas object
@@ -304,6 +307,7 @@ const addLayerToOverlayCanvasObject = async ({
       design,
       layer: layerObject,
       partName,
+      currentShoe,
     });
     overlayCanvasObject[partName].layers.push(newLayerCanvas);
   }
@@ -313,6 +317,7 @@ const addLayerToOverlayCanvasObject = async ({
     overlayCanvas,
     partName,
     graphicVisualCanvas,
+    currentShoe,
   });
   // update effected layers in canvas object
   const effectedParts = design.configData.overlayParts[partName];
@@ -366,6 +371,7 @@ const moveLayerInOverlayCanvasObject = async ({
   textureCanvas,
   canvasObject,
   baseColorCanvasObject,
+  currentShoe,
 }) => {
   let array = overlayCanvasObject[partName].layers;
   let tempElement = array[layerIndex];
@@ -378,6 +384,7 @@ const moveLayerInOverlayCanvasObject = async ({
     overlayCanvas,
     partName,
     graphicVisualCanvas,
+    currentShoe,
   });
 
   const effectedParts = design.configData.overlayParts[partName];
@@ -436,6 +443,7 @@ const deleteLayerFromOverlayCanvasObject = async ({
     overlayCanvas,
     partName,
     graphicVisualCanvas,
+    currentShoe,
   });
 
   const effectedParts = design.configData.overlayParts[partName];
