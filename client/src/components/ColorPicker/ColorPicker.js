@@ -3,6 +3,7 @@ import './ColorPicker.css';
 import { handleConvertPartName } from '../../helpers/convertPartNames';
 import CurrentColors from '../CurrentColors/CurrentColors';
 import CustomColor from '../CustomColor/CustomColor';
+// import { findValuesOfKey } from '../../helpers/findValuesOfKey';
 
 function ColorPicker({ props }) {
   const {
