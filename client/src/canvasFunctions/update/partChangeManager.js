@@ -184,7 +184,11 @@ const updateLayer = async ({
       currentShoe,
     });
   } else {
-    layerCanvas = await createMaskLayerCanvas({ design, layer: layerObject });
+    layerCanvas = await createMaskLayerCanvas({
+      design,
+      layer: layerObject,
+      currentShoe,
+    });
   }
   canvasObject[partName].layers[layerIndex] = layerCanvas;
   // redraw part
@@ -229,6 +233,7 @@ const addLayerToCanvasObject = async ({
     const newLayerCanvas = await createMaskLayerCanvas({
       design,
       layer: layerObject,
+      currentShoe,
     });
     canvasObject[partName].layers.push(newLayerCanvas);
   }

@@ -35,7 +35,11 @@ const createCanvasObjectPart = async ({
       );
     } else if (designLayers[layer].type === 'mask') {
       canvasLayers.push(
-        await createMaskLayerCanvas({ design, layer: designLayers[layer] })
+        await createMaskLayerCanvas({
+          design,
+          layer: designLayers[layer],
+          currentShoe,
+        })
       );
     } else if (designLayers[layer].type === 'overlay') {
       if (designLayers[layer].source === 'outerOverlay') {

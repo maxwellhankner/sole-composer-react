@@ -1,6 +1,7 @@
-export const createMaskLayerCanvas = ({ design, layer }) => {
+export const createMaskLayerCanvas = ({ design, layer, currentShoe }) => {
   return new Promise((resolve) => {
     const { link, color } = layer;
+    console.log(link);
     const { canvasSize } = design.configData;
     const layerCanvas = document.createElement('canvas');
     layerCanvas.width = canvasSize;
@@ -11,6 +12,10 @@ export const createMaskLayerCanvas = ({ design, layer }) => {
     graphicImg.onload = () => {
       function waitForElement() {
         if (layerCanvasCTX !== null && typeof layerCanvas === 'object') {
+          if (currentShoe === 'left' && link === 'heelWingLogoMask.png') {
+            layerCanvasCTX.scale(-1, 1);
+            layerCanvasCTX.translate(-canvasSize, 0);
+          }
           layerCanvasCTX.drawImage(graphicImg, 0, 0, canvasSize, canvasSize);
           layerCanvasCTX.globalCompositeOperation = 'source-in';
           layerCanvasCTX.fillStyle = color;
