@@ -17,7 +17,6 @@ const createCanvasObjectPart = async ({
   // For each layer in part of design object
   for (let layer in designLayers) {
     if (designLayers[layer].type === 'color') {
-      // console.log('found one');
       const thisLayer = await createColorLayerCanvas({
         design,
         layer: designLayers[layer],
@@ -73,7 +72,6 @@ const createBaseColorCanvasObjectPart = async ({
   partName,
   currentShoe,
 }) => {
-  // console.log(shoe);
   const canvas = await createColorLayerCanvas({
     design,
     layer: { color: design.outlineData.baseColors[currentShoe] },

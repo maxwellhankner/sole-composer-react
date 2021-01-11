@@ -67,7 +67,6 @@ function GraphicPicker({ props }) {
           }
         }
       }
-      // console.log(graphics);
       if (!graphics[0]) {
         return null;
       } else {

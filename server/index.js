@@ -75,8 +75,6 @@ const redirectUrl =
     ? process.env.URL
     : `http://localhost:3000/`;
 
-console.log('redirect', redirectUrl);
-
 app.get(
   '/auth/google/callback',
   passport.authenticate('google', {

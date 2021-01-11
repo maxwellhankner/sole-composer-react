@@ -4,8 +4,6 @@ export const createGraphicLayerCanvas = ({
   partName,
   currentShoe,
 }) => {
-  console.log('createGraphicLayerCanvas', currentShoe);
-  console.log('layer', layer);
   return new Promise((resolve) => {
     const { mask } = design.configData.partsObject[partName];
     let { link, x, y, scale, rotation } = layer;

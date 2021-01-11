@@ -17,7 +17,6 @@ export const partChangeManager = ({
   baseColorCanvasObject,
   currentShoe,
 }) => {
-  // console.log(currentShoe);
   const { type, fileName } = changeObject;
   const tempDesign = cloneDeep(design);
   if (type === 'graphic-moved') {

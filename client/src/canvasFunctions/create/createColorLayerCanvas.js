@@ -1,6 +1,4 @@
 export const createColorLayerCanvas = ({ design, layer, partName }) => {
-  // console.log('createColorLayerCanvas');
-  // console.log(layer);
   return new Promise((resolve) => {
     let { mask } = design.configData.partsObject[partName];
     const { color } = layer;

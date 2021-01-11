@@ -1,7 +1,6 @@
 export const createMaskLayerCanvas = ({ design, layer, currentShoe }) => {
   return new Promise((resolve) => {
     const { link, color } = layer;
-    console.log(link);
     const { canvasSize } = design.configData;
     const layerCanvas = document.createElement('canvas');
     layerCanvas.width = canvasSize;

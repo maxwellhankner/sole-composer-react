@@ -15,6 +15,10 @@ const Scene = ({
   orbitControls,
   setOrbitControls,
   setCurrentPart,
+  setCurrentShoe,
+  setView,
+  setLayersView,
+  setFocusLayer,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [sceneBuilt, setSceneBuilt] = useState(false);
@@ -180,6 +184,19 @@ const Scene = ({
 
                 // if there is any intersection, continues
                 if (intersects.length) {
+                  // setCurrentShoe
+                  if (intersects[0].object.parent.name === 'rightModel') {
+                    setFocusLayer(null);
+                    setLayersView('LayerOverview');
+                    setView('Layers');
+                    setCurrentShoe('right');
+                  } else {
+                    setFocusLayer(null);
+                    setLayersView('LayerOverview');
+                    setView('Layers');
+                    setCurrentShoe('left');
+                  }
+
                   // get pixel coordinates on texture
                   const uv = intersects[0].uv2;
                   uv.x *= img.width;
@@ -190,6 +207,7 @@ const Scene = ({
                     .getContext('2d')
                     .getImageData(uv.x, uv.y, 1, 1).data;
 
+                  // setCurrentPart
                   switch (colorValues[0]) {
                     case 255:
                       setCurrentPart(4);
@@ -289,6 +307,7 @@ const Scene = ({
           rightModel.position.y = -1;
           rightModel.position.z = 1.25;
           rightModel.rotation.y = -95 * (Math.PI / 180);
+          rightModel.name = 'rightModel';
           scene.add(rightModel);
 
           const leftModel = gltf.scene.clone();
@@ -297,6 +316,7 @@ const Scene = ({
           leftModel.position.y = -1;
           leftModel.position.z = -1.25;
           leftModel.rotation.y = -95 * (Math.PI / 180);
+          leftModel.name = 'leftModel';
           scene.add(leftModel);
 
           leftModel.traverse((node) => {
@@ -337,6 +357,10 @@ const Scene = ({
     camera,
     design.configData.source,
     setCurrentPart,
+    setCurrentShoe,
+    setView,
+    setLayersView,
+    setFocusLayer,
     orbitControls,
   ]);
 

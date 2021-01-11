@@ -35,6 +35,10 @@ function DesignerContainer({
     left: true,
   });
 
+  const [view, setView] = useState('DesignPreview');
+  const [layersView, setLayersView] = useState('LayerOverview');
+  const [focusLayer, setFocusLayer] = useState(null);
+
   const rightBaseColorCanvasObjectRef = useRef();
   const rightCanvasObjectRef = useRef();
   const rightOverlaysCanvasObjectRef = useRef();
@@ -234,6 +238,8 @@ function DesignerContainer({
       <div className='designer-container'>
         <Scene
           design={design}
+          setView={setView}
+          setLayersView={setLayersView}
           rightTexture={rightTexture}
           leftTexture={leftTexture}
           initialLoaded={initialLoaded}
@@ -242,10 +248,18 @@ function DesignerContainer({
           orbitControls={orbitControls}
           setOrbitControls={setOrbitControls}
           setCurrentPart={setCurrentPart}
+          setCurrentShoe={setCurrentShoe}
+          setFocusLayer={setFocusLayer}
         />
         <Interface
           design={design}
           setDesign={setDesign}
+          view={view}
+          setView={setView}
+          focusLayer={focusLayer}
+          setFocusLayer={setFocusLayer}
+          layersView={layersView}
+          setLayersView={setLayersView}
           graphicVisualCanvas={graphicVisualCanvas}
           handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
           handlePartChangeManager={handlePartChangeManager}

@@ -2,7 +2,7 @@ import React from 'react';
 import './PartList.css';
 
 function PartList({ props }) {
-  const { setCurrentPart, setLayersView, handleViewChange, design } = props;
+  const { setCurrentPart, setLayersView, design } = props;
 
   return (
     <div className='partlist-container'>
@@ -24,7 +24,7 @@ function PartList({ props }) {
         ))}
       </div>
       <div className='standard-button bottom-button'>
-        <button onClick={() => handleViewChange('DesignPreview')}>Back</button>
+        <button onClick={() => setLayersView('LayerOverview')}>Back</button>
       </div>
     </div>
   );
