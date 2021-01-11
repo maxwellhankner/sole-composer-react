@@ -11,30 +11,30 @@ import {
 export const CustomColor = ({ hex, hsl, hsv, onChange }) => {
   const styles = {
     hue: {
-      height: 15,
+      height: 18,
       position: 'relative',
-      marginBottom: 10,
+      marginBottom: 9,
       overflow: 'hidden',
     },
     saturation: {
       width: '100%',
       height: 120,
       position: 'relative',
-      marginBottom: 10,
+      marginBottom: 9,
       overflow: 'hidden',
     },
     input: {
-      width: '50%',
+      width: '47%',
       height: '30px',
       border: 'none',
       borderRadius: 'none',
       fontSize: '.7rem',
-      // border: `1px solid ${hex}`,
       WebkitAppearance: 'none',
       WebkitBorderRadius: 0,
-      paddingLeft: 10,
       boxShadow: 'none',
       display: 'block',
+      paddingLeft: '3%',
+      paddingRight: '0px',
     },
     swatch: {
       width: '100%',

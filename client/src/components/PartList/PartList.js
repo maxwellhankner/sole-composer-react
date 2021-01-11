@@ -11,7 +11,7 @@ function PartList({ props }) {
       </div>
       <div className='partlist-buttons'>
         {design.configData.partsArray.map((part, i) => (
-          <div className='standard-button' key={i}>
+          <div className='standard-button part-list-button' key={i}>
             <button
               onClick={() => {
                 setCurrentPart(i);

@@ -29,6 +29,7 @@ function DesignPreview({
   shoeVisibility,
   setShoeVisibility,
 }) {
+  // console.log('DP right', setRightShoeVisible);
   const [loading, setLoading] = useState(false);
 
   const handleSaveDesign = async () => {
@@ -379,7 +380,7 @@ function DesignPreview({
           >
             <div
               className='design-preview-button-icon'
-              style={{ color: design.outlineData.baseColor }}
+              style={{ color: design.outlineData.baseColors[currentShoe] }}
             >
               <FaSquare />
             </div>

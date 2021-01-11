@@ -34,6 +34,8 @@ function DesignerContainer({
     right: true,
     left: true,
   });
+  // const [rightShoeVisible, setRightShoeVisible] = useState(true);
+  // const [leftShoeVisible, setLeftShoeVisible] = useState(true);
 
   const [view, setView] = useState('DesignPreview');
   const [layersView, setLayersView] = useState('LayerOverview');
@@ -250,6 +252,7 @@ function DesignerContainer({
           setCurrentPart={setCurrentPart}
           setCurrentShoe={setCurrentShoe}
           setFocusLayer={setFocusLayer}
+          shoeVisibility={shoeVisibility}
         />
         <Interface
           design={design}

@@ -5,9 +5,20 @@
 }
 
 .partlist-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 9px;
+  row-gap: 9px;
+  margin-left: 9px;
+  margin-right: 9px;
+
   overflow: auto;
   overflow-x: hidden;
-  margin-bottom: 10px;
+  margin-bottom: 9px;
+}
+
+.part-list-button {
+  margin: 0;
 }
 
 .partlist-title {

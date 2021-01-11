@@ -19,6 +19,7 @@ const Scene = ({
   setView,
   setLayersView,
   setFocusLayer,
+  shoeVisibility,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [sceneBuilt, setSceneBuilt] = useState(false);
@@ -185,12 +186,20 @@ const Scene = ({
                 // if there is any intersection, continues
                 if (intersects.length) {
                   // setCurrentShoe
-                  if (intersects[0].object.parent.name === 'rightModel') {
+                  if (
+                    intersects[0].object.parent.name === 'rightModel' &&
+                    shoeVisibility.right === true
+                  ) {
+                    // runIt();
                     setFocusLayer(null);
                     setLayersView('LayerOverview');
                     setView('Layers');
                     setCurrentShoe('right');
-                  } else {
+                  } else if (
+                    intersects[0].object.parent.name === 'leftModel' &&
+                    shoeVisibility.left === true
+                  ) {
+                    // runIt();
                     setFocusLayer(null);
                     setLayersView('LayerOverview');
                     setView('Layers');
@@ -327,8 +336,12 @@ const Scene = ({
           });
 
           setupRaycasting(rightModel, leftModel);
+          // console.log(leftModel);
+          setSceneBuilt(true);
         }
       );
+
+      // console.log(scene);
 
       //===================================================== animate
       const render = () => {
@@ -338,8 +351,6 @@ const Scene = ({
       };
 
       render();
-
-      setSceneBuilt(true);
 
       //===================================================== cleanup
       const cleanup = () => {
@@ -361,6 +372,7 @@ const Scene = ({
     setView,
     setLayersView,
     setFocusLayer,
+    shoeVisibility,
     orbitControls,
   ]);
 
