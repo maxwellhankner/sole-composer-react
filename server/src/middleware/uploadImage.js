@@ -21,7 +21,7 @@ const upload = multer({
   storage: multerS3({
     acl: 'public-read',
     s3,
-    bucket: 'solecomposertesting',
+    bucket: 'sole-composer-user-assets',
     metadata: function (req, file, cb) {
       cb(null, { fieldName: 'TESTING_METADATA' });
     },

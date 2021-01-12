@@ -16,7 +16,7 @@ export const createOverlayLayerCanvas = ({
     layerCanvas.height = canvasSize;
     const layerCanvasCTX = layerCanvas.getContext('2d');
     const maskImg = new Image();
-    maskImg.src = `/api/assets/images/${mask}`;
+    maskImg.src = `/api/assets/designimages/${mask}`;
     maskImg.onload = () => {
       function waitForElement() {
         if (layerCanvasCTX !== null && typeof layerCanvas === 'object') {

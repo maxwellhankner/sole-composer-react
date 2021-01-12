@@ -34,7 +34,7 @@ const Scene = ({
       const createMaterial = (texture, aoName) => {
         return new Promise((resolve) => {
           const aoimg = new Image();
-          aoimg.src = `/api/assets/images/${design.configData.source[aoName]}`;
+          aoimg.src = `/api/assets/designimages/${design.configData.source[aoName]}`;
 
           aoimg.onload = () => {
             const ao = new THREE.CanvasTexture(aoimg);
@@ -135,7 +135,7 @@ const Scene = ({
 
       const setupRaycasting = (rightModel, leftModel) => {
         textureLoader.load(
-          `/api/assets/images/${design.configData.source.redMapRight}`,
+          `/api/assets/designimages/${design.configData.source.redMap}`,
           (texture) => {
             const mouse = new THREE.Vector2();
             const img = texture.image;
@@ -302,7 +302,7 @@ const Scene = ({
       //===================================================== models
       const loader = new GLTFLoader(manager);
       loader.load(
-        `/api/assets/images/${design.configData.source.modelRight}`,
+        `/api/assets/models/${design.configData.source.model}`,
         (gltf) => {
           gltf.scene.traverse((node) => {
             if (node.isMesh) {

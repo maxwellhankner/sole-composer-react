@@ -9,7 +9,7 @@ exports.getImage = async (req, res, next) => {
   try {
     request
       .get(
-        `https://solecomposertesting.s3.us-east-2.amazonaws.com/${req.params.id}`
+        `https://sole-composer-user-assets.s3.us-east-2.amazonaws.com/${req.params.id}`
       )
       .pipe(res);
   } catch (error) {
@@ -28,6 +28,20 @@ exports.uploadImage = (req, res, next) => {
       const image = req.file.location;
       return res.status(200).json({ image: image });
     });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+// Get Design Image
+// GET /api/assets/designimages/:id
+exports.getDesignImage = async (req, res, next) => {
+  try {
+    request
+      .get(
+        `https://sole-composer-design-assets.s3.us-east-2.amazonaws.com/${req.params.id}`
+      )
+      .pipe(res);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

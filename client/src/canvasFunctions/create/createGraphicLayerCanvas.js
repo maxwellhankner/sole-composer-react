@@ -51,7 +51,7 @@ export const createGraphicLayerCanvas = ({
             graphicImg.height
           );
           const maskImg = new Image();
-          maskImg.src = `/api/assets/images/${mask}`;
+          maskImg.src = `/api/assets/designimages/${mask}`;
           maskImg.onload = function () {
             layerCanvasCTX.drawImage(maskImg, 0, 0, canvasSize, canvasSize);
             layerCanvasCTX.globalCompositeOperation = 'source-in';

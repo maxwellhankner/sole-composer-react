@@ -7,7 +7,7 @@ exports.getModel = async (req, res, next) => {
   try {
     request
       .get(
-        `https://solecomposertesting.s3.us-east-2.amazonaws.com/${req.params.id}`
+        `https://sole-composer-design-assets.s3.us-east-2.amazonaws.com/${req.params.id}`
       )
       .pipe(res);
   } catch (error) {

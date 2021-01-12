@@ -7,7 +7,7 @@ export const createMaskLayerCanvas = ({ design, layer, currentShoe }) => {
     layerCanvas.height = canvasSize;
     const layerCanvasCTX = layerCanvas.getContext('2d');
     const graphicImg = new Image();
-    graphicImg.src = `/api/assets/images/${link}`;
+    graphicImg.src = `/api/assets/designimages/${link}`;
     graphicImg.onload = () => {
       function waitForElement() {
         if (layerCanvasCTX !== null && typeof layerCanvas === 'object') {

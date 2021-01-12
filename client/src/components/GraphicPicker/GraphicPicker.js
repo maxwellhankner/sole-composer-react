@@ -14,7 +14,7 @@ function GraphicPicker({ props }) {
   useEffect(() => {
     const getGraphicsArray = () => {
       //'1606804479019.png'
-      const graphics = ['1606804479019.png'];
+      const graphics = ['red-apple.png'];
 
       // parts
       for (const property in design.outlineData.parts) {
