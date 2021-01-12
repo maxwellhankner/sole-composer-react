@@ -191,7 +191,7 @@ const Scene = ({
                     shoeVisibility.right === true
                   ) {
                     // runIt();
-                    setCurrentLayer(null);
+                    setCurrentLayer(-1);
                     setLayersView('LayerOverview');
                     setView('Layers');
                     setCurrentShoe('right');
@@ -200,7 +200,7 @@ const Scene = ({
                     shoeVisibility.left === true
                   ) {
                     // runIt();
-                    setCurrentLayer(null);
+                    setCurrentLayer(-1);
                     setLayersView('LayerOverview');
                     setView('Layers');
                     setCurrentShoe('left');
@@ -336,12 +336,9 @@ const Scene = ({
           });
 
           setupRaycasting(rightModel, leftModel);
-          // console.log(leftModel);
           setSceneBuilt(true);
         }
       );
-
-      // console.log(scene);
 
       //===================================================== animate
       const render = () => {

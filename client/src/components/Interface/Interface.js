@@ -28,8 +28,6 @@ function Interface({
   currentLayer,
   setCurrentLayer,
 }) {
-  // const [currentPart, setCurrentPart] = useState(0);
-  // const [currentLayer, setCurrentLayer] = useState(0);
   const [canSave, setCanSave] = useState(false);
 
   const handleViewChange = (viewChange) => {

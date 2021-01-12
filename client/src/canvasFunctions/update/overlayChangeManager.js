@@ -125,11 +125,11 @@ export const overlayChangeManager = ({
     });
   } else if (type === 'layer-moved') {
     const { partName, layerIndex, direction } = changeObject;
-    let array = tempDesign.outlineData.overlays[partName].layers;
+    let array = tempDesign.outlineData.overlays[partName][currentShoe];
     let tempElement = array[layerIndex];
     array[layerIndex] = array[layerIndex + direction];
     array[layerIndex + direction] = tempElement;
-    tempDesign.outlineData.overlays[partName].layers = array;
+    tempDesign.outlineData.overlays[partName][currentShoe] = array;
 
     setDesign(tempDesign);
     moveLayerInOverlayCanvasObject({
@@ -392,17 +392,20 @@ const moveLayerInOverlayCanvasObject = async ({
     const currentPart = effectedParts[part];
     for (
       let i = 0;
-      i < design.outlineData.parts[currentPart].layers.length;
+      i < design.outlineData.parts[currentPart][currentShoe].length;
       i++
     ) {
       const layerIndex = i;
-      if (design.outlineData.parts[currentPart].layers[i].type === 'overlay') {
+      if (
+        design.outlineData.parts[currentPart][currentShoe][i].type === 'overlay'
+      ) {
         if (
-          design.outlineData.parts[currentPart].layers[i].source === partName
+          design.outlineData.parts[currentPart][currentShoe][i].source ===
+          partName
         ) {
           const layerCanvas = await createOverlayLayerCanvas({
             design,
-            layer: design.outlineData.parts[currentPart].layers[i],
+            layer: design.outlineData.parts[currentPart][currentShoe][i],
             partName: currentPart,
             overlayCanvas,
           });

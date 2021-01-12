@@ -29,7 +29,6 @@ function DesignPreview({
   shoeVisibility,
   setShoeVisibility,
 }) {
-  // console.log('DP right', setRightShoeVisible);
   const [loading, setLoading] = useState(false);
 
   const handleSaveDesign = async () => {

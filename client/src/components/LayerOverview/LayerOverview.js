@@ -22,18 +22,26 @@ function LayerOverview({ props }) {
     currentShoe,
   } = props;
 
-  const handleFocusLayer = (i) => {
-    setCurrentLayer(i);
-  };
-
   const handleClearFocusLayer = (aClass) => {
     if (aClass === 'layers-view-container') {
       setCurrentLayer(-1);
     }
   };
 
-  const handleCurrentLayer = (key) => {
-    setCurrentLayer(key);
+  const handleEditLayer = (i, layer) => {
+    if (layer.type === 'color') {
+      setCurrentLayer(i);
+      setLayersView('ColorPicker');
+    } else if (layer.type === 'graphic') {
+      setCurrentLayer(i);
+      setLayersView('GraphicEditor');
+    } else if (layer.type === 'mask') {
+      setCurrentLayer(i);
+      setLayersView('ColorPicker');
+    } else if (layer.type === 'overlay') {
+      setCurrentPart(design.configData.partsArray.indexOf(layer.source));
+      setCurrentLayer(-1);
+    }
   };
 
   const handleDeleteLayer = (layer) => {
@@ -132,7 +140,13 @@ function LayerOverview({ props }) {
             </div>
             <div
               className='layer-list-item-middle'
-              onClick={() => handleFocusLayer(i)}
+              onClick={() => {
+                if (i === currentLayer) {
+                  handleEditLayer(i, layer);
+                } else {
+                  setCurrentLayer(i);
+                }
+              }}
             >
               <div
                 className={`layer-list-item-left ${
@@ -196,53 +210,15 @@ function LayerOverview({ props }) {
                 currentLayer !== i ? 'hide-edit-buttons' : ''
               }`}
             >
-              {layer.type === 'color' ? (
-                <div className='edit-layer-button'>
-                  <button
-                    onClick={() => {
-                      handleCurrentLayer(i);
-                      setLayersView('ColorPicker');
-                    }}
-                  >
-                    <FaPen />
-                  </button>
-                </div>
-              ) : layer.type === 'graphic' ? (
-                <div className='edit-layer-button'>
-                  <button
-                    onClick={() => {
-                      handleCurrentLayer(i);
-                      setLayersView('GraphicEditor');
-                    }}
-                  >
-                    <FaPen />
-                  </button>
-                </div>
-              ) : layer.type === 'mask' ? (
-                <div className='edit-layer-button'>
-                  <button
-                    onClick={() => {
-                      handleCurrentLayer(i);
-                      setLayersView('ColorPicker');
-                    }}
-                  >
-                    <FaPen />
-                  </button>
-                </div>
-              ) : (
-                <div className='edit-layer-button'>
-                  <button
-                    onClick={() => {
-                      setCurrentPart(
-                        design.configData.partsArray.indexOf(layer.source)
-                      );
-                      setCurrentLayer(-1);
-                    }}
-                  >
-                    <FaPen />
-                  </button>
-                </div>
-              )}
+              <div className='edit-layer-button'>
+                <button
+                  onClick={() => {
+                    handleEditLayer(i, layer);
+                  }}
+                >
+                  <FaPen />
+                </button>
+              </div>
               {layer.type === 'overlay' ? (
                 <div className='edit-layer-button edit-layer-button-dead'>
                   <button>
@@ -262,7 +238,14 @@ function LayerOverview({ props }) {
       </div>
 
       <div className='standard-button layer-back-button'>
-        <button onClick={() => handleViewChange('DesignPreview')}>Back</button>
+        <button
+          onClick={() => {
+            setCurrentLayer(-1);
+            handleViewChange('DesignPreview');
+          }}
+        >
+          Back
+        </button>
       </div>
     </div>
   );

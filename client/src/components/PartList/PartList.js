@@ -14,7 +14,7 @@ function PartList({ props }) {
           <div className='standard-button part-list-button' key={i}>
             <button
               onClick={() => {
-                setCurrentLayer(null);
+                setCurrentLayer(-1);
                 setCurrentPart(i);
                 setLayersView('LayerOverview');
               }}
