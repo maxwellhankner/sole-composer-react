@@ -16,12 +16,10 @@ function LayersView({
   setCurrentPart,
   setCanSave,
   currentShoe,
-  focusLayer,
-  setFocusLayer,
 }) {
   useEffect(() => {
     setLayersView('LayerOverview');
-  }, [setLayersView, setFocusLayer]);
+  }, [setLayersView, setCurrentLayer]);
 
   const currentPartName = Object.keys(design.configData.partsObject)[
     currentPart
@@ -52,14 +50,14 @@ function LayersView({
         layerType: type,
         fileName: fileName,
       });
-      setFocusLayer(numberOfLayers);
+      setCurrentLayer(numberOfLayers);
     } else {
       handlePartChangeManager({
         type: 'layer-added',
         partName: currentPartName,
         layerType: type,
       });
-      setFocusLayer(numberOfLayers);
+      setCurrentLayer(numberOfLayers);
     }
   };
 
@@ -72,7 +70,7 @@ function LayersView({
       maskType,
       maskLink,
     });
-    setFocusLayer(numberOfLayers);
+    setCurrentLayer(numberOfLayers);
   };
 
   const Component = LayerDictionary[layersView];
@@ -83,7 +81,6 @@ function LayersView({
     currentLayer,
     currentPartName,
     design,
-    focusLayer,
     graphicVisualCanvas,
     handleAddLayer,
     handleAddMaskLayer,
@@ -92,7 +89,6 @@ function LayersView({
     handleViewChange,
     setCurrentLayer,
     setCurrentPart,
-    setFocusLayer,
     setLayersView,
     numberOfLayers,
     setCanSave,

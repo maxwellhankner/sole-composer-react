@@ -11,25 +11,24 @@ function LayerOverview({ props }) {
     currentPart,
     currentPartName,
     design,
-    focusLayer,
+    currentLayer,
     handlePartChangeManager,
     handleViewChange,
     numberOfLayers,
     setCurrentLayer,
     setCurrentPart,
-    setFocusLayer,
     setLayersView,
     setCanSave,
     currentShoe,
   } = props;
 
   const handleFocusLayer = (i) => {
-    setFocusLayer(i);
+    setCurrentLayer(i);
   };
 
   const handleClearFocusLayer = (aClass) => {
     if (aClass === 'layers-view-container') {
-      setFocusLayer(-1);
+      setCurrentLayer(-1);
     }
   };
 
@@ -44,7 +43,7 @@ function LayerOverview({ props }) {
       partName: currentPartName,
       layerIndex: layer,
     });
-    setFocusLayer(-1);
+    setCurrentLayer(-1);
   };
 
   const handleMoveLayer = (layer, direction) => {
@@ -83,7 +82,7 @@ function LayerOverview({ props }) {
         layerIndex: layer,
         direction,
       });
-      setFocusLayer(focusLayer + direction);
+      setCurrentLayer(currentLayer + direction);
     }
   };
 
@@ -96,7 +95,7 @@ function LayerOverview({ props }) {
         design={design}
         currentPart={currentPart}
         setCurrentPart={setCurrentPart}
-        setFocusLayer={setFocusLayer}
+        setCurrentLayer={setCurrentLayer}
         setLayersView={setLayersView}
       />
 
@@ -109,7 +108,7 @@ function LayerOverview({ props }) {
           <div key={i} className='layer-list-items'>
             <div
               className={`layer-list-item-end ${
-                focusLayer !== i ? 'hide-edit-buttons' : ''
+                currentLayer !== i ? 'hide-edit-buttons' : ''
               }`}
             >
               <div
@@ -137,7 +136,7 @@ function LayerOverview({ props }) {
             >
               <div
                 className={`layer-list-item-left ${
-                  focusLayer === i ? 'focus-layer-highlight' : ''
+                  currentLayer === i ? 'focus-layer-highlight' : ''
                 }`}
               >
                 <div className='layer-list-item-type'>
@@ -194,7 +193,7 @@ function LayerOverview({ props }) {
             </div>
             <div
               className={`layer-list-item-end ${
-                focusLayer !== i ? 'hide-edit-buttons' : ''
+                currentLayer !== i ? 'hide-edit-buttons' : ''
               }`}
             >
               {layer.type === 'color' ? (
@@ -237,7 +236,7 @@ function LayerOverview({ props }) {
                       setCurrentPart(
                         design.configData.partsArray.indexOf(layer.source)
                       );
-                      setFocusLayer(-1);
+                      setCurrentLayer(-1);
                     }}
                   >
                     <FaPen />
