@@ -351,6 +351,7 @@ const Scene = ({
 
       //===================================================== cleanup
       const cleanup = () => {
+        console.log('cleanup');
         cancelAnimationFrame(render);
         // orbitControls.dispose();
       };
