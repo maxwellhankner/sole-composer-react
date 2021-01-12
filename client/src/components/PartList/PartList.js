@@ -2,7 +2,7 @@ import React from 'react';
 import './PartList.css';
 
 function PartList({ props }) {
-  const { setCurrentPart, setLayersView, design } = props;
+  const { design, setCurrentPart, setLayersView, setFocusLayer } = props;
 
   return (
     <div className='partlist-container'>
@@ -14,6 +14,7 @@ function PartList({ props }) {
           <div className='standard-button part-list-button' key={i}>
             <button
               onClick={() => {
+                setFocusLayer(null);
                 setCurrentPart(i);
                 setLayersView('LayerOverview');
               }}
