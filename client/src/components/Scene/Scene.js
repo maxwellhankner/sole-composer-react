@@ -18,7 +18,7 @@ const Scene = ({
   setCurrentShoe,
   setView,
   setLayersView,
-  setFocusLayer,
+  setCurrentLayer,
   shoeVisibility,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -191,7 +191,7 @@ const Scene = ({
                     shoeVisibility.right === true
                   ) {
                     // runIt();
-                    setFocusLayer(null);
+                    setCurrentLayer(null);
                     setLayersView('LayerOverview');
                     setView('Layers');
                     setCurrentShoe('right');
@@ -200,7 +200,7 @@ const Scene = ({
                     shoeVisibility.left === true
                   ) {
                     // runIt();
-                    setFocusLayer(null);
+                    setCurrentLayer(null);
                     setLayersView('LayerOverview');
                     setView('Layers');
                     setCurrentShoe('left');
@@ -371,7 +371,7 @@ const Scene = ({
     setCurrentShoe,
     setView,
     setLayersView,
-    setFocusLayer,
+    setCurrentLayer,
     shoeVisibility,
     orbitControls,
   ]);

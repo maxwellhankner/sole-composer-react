@@ -30,16 +30,14 @@ function DesignerContainer({
   const [orbitControls, setOrbitControls] = useState(null);
   const [currentPart, setCurrentPart] = useState(0);
   const [currentShoe, setCurrentShoe] = useState('right');
+  const [currentLayer, setCurrentLayer] = useState(-1);
   const [shoeVisibility, setShoeVisibility] = useState({
     right: true,
     left: true,
   });
-  // const [rightShoeVisible, setRightShoeVisible] = useState(true);
-  // const [leftShoeVisible, setLeftShoeVisible] = useState(true);
 
   const [view, setView] = useState('DesignPreview');
   const [layersView, setLayersView] = useState('LayerOverview');
-  const [focusLayer, setFocusLayer] = useState(null);
 
   const rightBaseColorCanvasObjectRef = useRef();
   const rightCanvasObjectRef = useRef();
@@ -251,7 +249,7 @@ function DesignerContainer({
           setOrbitControls={setOrbitControls}
           setCurrentPart={setCurrentPart}
           setCurrentShoe={setCurrentShoe}
-          setFocusLayer={setFocusLayer}
+          setCurrentLayer={setCurrentLayer}
           shoeVisibility={shoeVisibility}
         />
         <Interface
@@ -259,8 +257,8 @@ function DesignerContainer({
           setDesign={setDesign}
           view={view}
           setView={setView}
-          focusLayer={focusLayer}
-          setFocusLayer={setFocusLayer}
+          currentLayer={currentLayer}
+          setCurrentLayer={setCurrentLayer}
           layersView={layersView}
           setLayersView={setLayersView}
           graphicVisualCanvas={graphicVisualCanvas}

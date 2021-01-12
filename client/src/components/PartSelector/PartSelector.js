@@ -7,7 +7,7 @@ function PartSelector({
   design,
   currentPart,
   setCurrentPart,
-  setFocusLayer,
+  setCurrentLayer,
   setLayersView,
 }) {
   const numberOfParts = design.configData.partsArray.length;
@@ -30,7 +30,7 @@ function PartSelector({
           className='change-part-button'
           onClick={() => {
             handlePartChange(-1);
-            setFocusLayer(-1);
+            setCurrentLayer(-1);
           }}
         >
           <FaChevronLeft />
@@ -47,7 +47,7 @@ function PartSelector({
           className='change-part-button'
           onClick={() => {
             handlePartChange(1);
-            setFocusLayer(-1);
+            setCurrentLayer(-1);
           }}
         >
           <FaChevronRight />
