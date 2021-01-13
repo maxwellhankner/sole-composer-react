@@ -101,6 +101,7 @@ function ColorPicker({ props }) {
   }, [design, currentPartName, currentLayer, setColorsArray, currentShoe]);
 
   const handleColorChange = (color) => {
+    console.log(color);
     setCanSave(true);
     const newColor = color.hex || color;
     setCurrentColor(color);
@@ -121,7 +122,10 @@ function ColorPicker({ props }) {
         <button
           onClick={() =>
             handleColorChange(
-              '#' + Math.floor(Math.random() * 16777215).toString(16)
+              '#' +
+                (
+                  '00000' + ((Math.random() * (1 << 24)) | 0).toString(16)
+                ).slice(-6)
             )
           }
         >
