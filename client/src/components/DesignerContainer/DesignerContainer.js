@@ -90,7 +90,7 @@ function DesignerContainer({
     }
   };
 
-  const handlePartChangeManager = (changeObject) => {
+  const handleChangeManager = (changeObject) => {
     const { partName } = changeObject;
     if (partName === 'outerOverlay') {
       overlayChangeManager({
@@ -263,7 +263,7 @@ function DesignerContainer({
           setLayersView={setLayersView}
           graphicVisualCanvas={graphicVisualCanvas}
           handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
-          handlePartChangeManager={handlePartChangeManager}
+          handleChangeManager={handleChangeManager}
           setInitialLoaded={setInitialLoaded}
           camera={camera}
           orbitControls={orbitControls}

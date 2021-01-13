@@ -10,7 +10,7 @@ function Interface({
   setDesign,
   graphicVisualCanvas,
   handleUpdateGraphicVisualCanvas,
-  handlePartChangeManager,
+  handleChangeManager,
   camera,
   orbitControls,
   handleUpdateBaseColor,
@@ -69,7 +69,7 @@ function Interface({
           setCurrentLayer={setCurrentLayer}
           graphicVisualCanvas={graphicVisualCanvas}
           handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
-          handlePartChangeManager={handlePartChangeManager}
+          handleChangeManager={handleChangeManager}
           setCanSave={setCanSave}
         />
       </div>

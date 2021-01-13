@@ -1,5 +1,4 @@
 import React from 'react';
-import { cloneDeep } from 'lodash';
 import './LayerOverview.css';
 import { handleConvertPartName } from '../../helpers/convertPartNames';
 import { FaChevronUp, FaChevronDown, FaPen, FaTimes } from 'react-icons/fa';
@@ -9,88 +8,21 @@ function LayerOverview({ props }) {
   const {
     allLayers,
     currentPart,
-    currentPartName,
     design,
     currentLayer,
-    handlePartChangeManager,
     handleViewChange,
     numberOfLayers,
     setCurrentLayer,
     setCurrentPart,
     setLayersView,
-    setCanSave,
-    currentShoe,
+    handleDeleteLayer,
+    handleEditLayer,
+    handleMoveLayer,
   } = props;
 
   const handleClearFocusLayer = (aClass) => {
     if (aClass === 'layers-view-container') {
       setCurrentLayer(-1);
-    }
-  };
-
-  const handleEditLayer = (i, layer) => {
-    if (layer.type === 'color') {
-      setCurrentLayer(i);
-      setLayersView('ColorPicker');
-    } else if (layer.type === 'graphic') {
-      setCurrentLayer(i);
-      setLayersView('GraphicEditor');
-    } else if (layer.type === 'mask') {
-      setCurrentLayer(i);
-      setLayersView('ColorPicker');
-    } else if (layer.type === 'overlay') {
-      setCurrentPart(design.configData.partsArray.indexOf(layer.source));
-      setCurrentLayer(-1);
-    }
-  };
-
-  const handleDeleteLayer = (layer) => {
-    setCanSave(true);
-    handlePartChangeManager({
-      type: 'layer-deleted',
-      partName: currentPartName,
-      layerIndex: layer,
-    });
-    setCurrentLayer(-1);
-  };
-
-  const handleMoveLayer = (layer, direction) => {
-    setCanSave(true);
-    const tempDesign = cloneDeep(design);
-    let array;
-
-    if (
-      currentPartName === 'outerOverlay' ||
-      currentPartName === 'innerOverlay'
-    ) {
-      array = tempDesign.outlineData.overlays[currentPartName][currentShoe];
-    } else {
-      array = tempDesign.outlineData.parts[currentPartName][currentShoe];
-    }
-
-    if (layer === array.length - 1 && direction === 1) {
-      return;
-    } else if (layer === 0 && direction === -1) {
-      return;
-    } else {
-      let tempElement = array[layer];
-      array[layer] = array[layer + direction];
-      array[layer + direction] = tempElement;
-      if (
-        currentPartName === 'outerOverlay' ||
-        currentPartName === 'innerOverlay'
-      ) {
-        tempDesign.outlineData.overlays[currentPartName][currentShoe] = array;
-      } else {
-        tempDesign.outlineData.parts[currentPartName][currentShoe] = array;
-      }
-      handlePartChangeManager({
-        type: 'layer-moved',
-        partName: currentPartName,
-        layerIndex: layer,
-        direction,
-      });
-      setCurrentLayer(currentLayer + direction);
     }
   };
 
@@ -124,7 +56,13 @@ function LayerOverview({ props }) {
                   i === numberOfLayers - 1 ? 'edit-layer-button-dead' : ''
                 }`}
               >
-                <button onClick={() => handleMoveLayer(i, 1)}>
+                <button
+                  onClick={
+                    i === numberOfLayers - 1
+                      ? null
+                      : () => handleMoveLayer(i, 1)
+                  }
+                >
                   <FaChevronUp />
                 </button>
               </div>
@@ -133,7 +71,7 @@ function LayerOverview({ props }) {
                   i === 0 ? 'edit-layer-button-dead' : ''
                 }`}
               >
-                <button onClick={() => handleMoveLayer(i, -1)}>
+                <button onClick={i === 0 ? null : () => handleMoveLayer(i, -1)}>
                   <FaChevronDown />
                 </button>
               </div>

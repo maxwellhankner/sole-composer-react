@@ -16,7 +16,7 @@ function GraphicEditor({ props }) {
     currentLayer,
     currentPartName,
     graphicVisualCanvas,
-    handlePartChangeManager,
+    handleChangeManager,
     handleUpdateGraphicVisualCanvas,
     setLayersView,
     setCanSave,
@@ -25,7 +25,7 @@ function GraphicEditor({ props }) {
 
   const handleMoveGraphic = (direction, distance) => {
     setCanSave(true);
-    handlePartChangeManager({
+    handleChangeManager({
       type: 'graphic-moved',
       partName: currentPartName,
       layerIndex: currentLayer,

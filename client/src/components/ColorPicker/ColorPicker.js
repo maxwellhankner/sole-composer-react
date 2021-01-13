@@ -10,7 +10,7 @@ function ColorPicker({ props }) {
     currentLayer,
     currentPartName,
     design,
-    handlePartChangeManager,
+    handleChangeManager,
     setLayersView,
     setCanSave,
     currentShoe,
@@ -104,7 +104,7 @@ function ColorPicker({ props }) {
     setCanSave(true);
     const newColor = color.hex || color;
     setCurrentColor(color);
-    handlePartChangeManager({
+    handleChangeManager({
       type: 'color-changed',
       partName: currentPartName,
       layerIndex: currentLayer,

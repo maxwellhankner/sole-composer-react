@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import LayerDictionary from './Constants';
 import './Layers.css';
 
@@ -9,7 +9,7 @@ function LayersView({
   currentPart,
   design,
   graphicVisualCanvas,
-  handlePartChangeManager,
+  handleChangeManager,
   handleUpdateGraphicVisualCanvas,
   handleViewChange,
   setCurrentLayer,
@@ -17,53 +17,35 @@ function LayersView({
   setCanSave,
   currentShoe,
 }) {
-  useEffect(() => {
-    setLayersView('LayerOverview');
-  }, [setLayersView, setCurrentLayer]);
-
   const currentPartName = Object.keys(design.configData.partsObject)[
     currentPart
   ];
 
-  let numberOfLayers;
-  let allLayers;
-
+  let partType = 'parts';
   if (
     currentPartName === 'outerOverlay' ||
     currentPartName === 'innerOverlay'
   ) {
-    numberOfLayers =
-      design.outlineData.overlays[currentPartName][currentShoe].length;
-    allLayers = design.outlineData.overlays[currentPartName][currentShoe];
-  } else {
-    numberOfLayers =
-      design.outlineData.parts[currentPartName][currentShoe].length;
-    allLayers = design.outlineData.parts[currentPartName][currentShoe];
+    partType = 'overlays';
   }
+  const numberOfLayers =
+    design.outlineData[partType][currentPartName][currentShoe].length;
+  const allLayers = design.outlineData[partType][currentPartName][currentShoe];
 
   const handleAddLayer = (type, fileName) => {
     setCanSave(true);
-    if (fileName) {
-      handlePartChangeManager({
-        type: 'layer-added',
-        partName: currentPartName,
-        layerType: type,
-        fileName: fileName,
-      });
-      setCurrentLayer(numberOfLayers);
-    } else {
-      handlePartChangeManager({
-        type: 'layer-added',
-        partName: currentPartName,
-        layerType: type,
-      });
-      setCurrentLayer(numberOfLayers);
-    }
+    handleChangeManager({
+      type: 'layer-added',
+      partName: currentPartName,
+      layerType: type,
+      ...(fileName && { fileName: fileName }),
+    });
+    setCurrentLayer(numberOfLayers);
   };
 
   const handleAddMaskLayer = (maskType, maskLink) => {
     setCanSave(true);
-    handlePartChangeManager({
+    handleChangeManager({
       type: 'layer-added',
       partName: currentPartName,
       layerType: 'Mask',
@@ -71,6 +53,43 @@ function LayersView({
       maskLink,
     });
     setCurrentLayer(numberOfLayers);
+  };
+
+  const handleEditLayer = (i, layer) => {
+    if (layer.type === 'color') {
+      setCurrentLayer(i);
+      setLayersView('ColorPicker');
+    } else if (layer.type === 'graphic') {
+      setCurrentLayer(i);
+      setLayersView('GraphicEditor');
+    } else if (layer.type === 'mask') {
+      setCurrentLayer(i);
+      setLayersView('ColorPicker');
+    } else if (layer.type === 'overlay') {
+      setCurrentPart(design.configData.partsArray.indexOf(layer.source));
+      setCurrentLayer(-1);
+    }
+  };
+
+  const handleDeleteLayer = (layer) => {
+    setCanSave(true);
+    handleChangeManager({
+      type: 'layer-deleted',
+      partName: currentPartName,
+      layerIndex: layer,
+    });
+    setCurrentLayer(-1);
+  };
+
+  const handleMoveLayer = (layer, direction) => {
+    setCanSave(true);
+    handleChangeManager({
+      type: 'layer-moved',
+      partName: currentPartName,
+      layerIndex: layer,
+      direction,
+    });
+    setCurrentLayer(currentLayer + direction);
   };
 
   const Component = LayerDictionary[layersView];
@@ -84,7 +103,10 @@ function LayersView({
     graphicVisualCanvas,
     handleAddLayer,
     handleAddMaskLayer,
-    handlePartChangeManager,
+    handleMoveLayer,
+    handleEditLayer,
+    handleDeleteLayer,
+    handleChangeManager,
     handleUpdateGraphicVisualCanvas,
     handleViewChange,
     setCurrentLayer,
