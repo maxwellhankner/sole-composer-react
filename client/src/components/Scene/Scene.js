@@ -190,18 +190,16 @@ const Scene = ({
                     intersects[0].object.parent.name === 'rightModel' &&
                     shoeVisibility.right === true
                   ) {
-                    // runIt();
-                    setCurrentLayer(-1);
                     setLayersView('LayerOverview');
+                    setCurrentLayer(-1);
                     setView('Layers');
                     setCurrentShoe('right');
                   } else if (
                     intersects[0].object.parent.name === 'leftModel' &&
                     shoeVisibility.left === true
                   ) {
-                    // runIt();
-                    setCurrentLayer(-1);
                     setLayersView('LayerOverview');
+                    setCurrentLayer(-1);
                     setView('Layers');
                     setCurrentShoe('left');
                   }
@@ -351,7 +349,6 @@ const Scene = ({
 
       //===================================================== cleanup
       const cleanup = () => {
-        console.log('cleanup');
         cancelAnimationFrame(render);
         // orbitControls.dispose();
       };
