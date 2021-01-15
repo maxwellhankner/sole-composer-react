@@ -21,6 +21,7 @@ const Scene = ({
   setCurrentLayer,
   shoeVisibility,
 }) => {
+  console.log('scene');
   const [isLoading, setIsLoading] = useState(true);
   const [sceneBuilt, setSceneBuilt] = useState(false);
   const [renderer, setRenderer] = useState(null);
