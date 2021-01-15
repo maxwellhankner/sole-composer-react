@@ -10,6 +10,7 @@
 }
 
 .landing-button button {
+  border-radius: 5px;
   height: 40px;
   background-color: #000000;
   color: #ffffff;
