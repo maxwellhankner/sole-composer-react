@@ -3,19 +3,11 @@
 }
 
 .featureddesigncard-container {
-  width: 200px;
   margin-left: 8px;
   margin-right: 8px;
   margin-top: 0px;
   flex: 0 0 auto;
   font-family: 'Mavin Pro', 'Arial Narrow', Arial, sans-serif;
-}
-
-.featureddesigncard-container:first-child {
-  padding-left: 8px;
-}
-.featureddesigncard-container:last-child {
-  padding-right: 16px;
 }
 
 .featureddesigncard-image {
@@ -50,4 +42,11 @@
   margin-top: 6px;
   margin-bottom: 0px;
   margin-left: 5px;
+}
+
+/* Mobile */
+@media screen and (max-width: 700px) {
+  .alice-carousel__stage:first-child {
+    padding-left: 8px;
+  }
 }

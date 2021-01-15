@@ -18,8 +18,8 @@
   width: 100%;
 }
 
-/* Mobile and Desktop Landscape */
-@media only screen and (orientation: landscape) {
+/* Desktop */
+@media screen and (min-width: 700px) {
   .my-designs-grid {
     grid-template-columns: 1fr 1fr 1fr;
     margin: 16px;

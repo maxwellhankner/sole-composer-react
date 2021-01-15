@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './Landing.css';
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
 import NewDesignButton from '../../components/NewDesignButton/NewDesignButton';
 import FeaturedDesignCard from '../../components/FeaturedDesignCard/FeaturedDesignCard';
 import MyDesignTiles from '../../components/MyDesignTiles/MyDesignTiles';
@@ -24,6 +26,17 @@ function Landing() {
     }
   }, [userData]);
 
+  let items = featured
+    ? featured.featured.map((design, key) => (
+        <FeaturedDesignCard props={design} userData={userData} key={key} />
+      ))
+    : null;
+
+  const responsive = {
+    0: { items: 1.7 },
+    700: { items: 3 },
+  };
+
   return (
     <div className='landing-container'>
       <div className='landing-header'>
@@ -39,17 +52,9 @@ function Landing() {
       <div className='landing-content'>
         <div className='featured-designs-container'>
           <p className='landing-section-label'>FEATURED</p>
-          <div className='feature-designs'>
-            {featured
-              ? featured.featured.map((design, key) => (
-                  <FeaturedDesignCard
-                    props={design}
-                    userData={userData}
-                    key={key}
-                  />
-                ))
-              : null}
-          </div>
+          {featured ? (
+            <AliceCarousel responsive={responsive} items={items} />
+          ) : null}
         </div>
 
         {userData ? (
