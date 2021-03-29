@@ -3,7 +3,6 @@ import './ColorPicker.css';
 import { handleConvertPartName } from '../../helpers/convertPartNames';
 import CurrentColors from '../CurrentColors/CurrentColors';
 import CustomColor from '../CustomColor/CustomColor';
-// import { findValuesOfKey } from '../../helpers/findValuesOfKey';
 
 function ColorPicker({ props }) {
   const {
@@ -101,7 +100,6 @@ function ColorPicker({ props }) {
   }, [design, currentPartName, currentLayer, setColorsArray, currentShoe]);
 
   const handleColorChange = (color) => {
-    console.log(color);
     setCanSave(true);
     const newColor = color.hex || color;
     setCurrentColor(color);
@@ -114,11 +112,11 @@ function ColorPicker({ props }) {
   };
 
   return (
-    <div className='color-picker-container'>
-      <div className='view-title'>
+    <div className="color-picker-container">
+      <div className="view-title">
         <p>{handleConvertPartName(currentPartName)}</p>
       </div>
-      <div className='standard-button'>
+      <div className="standard-button">
         <button
           onClick={() =>
             handleColorChange(
@@ -144,7 +142,7 @@ function ColorPicker({ props }) {
           onChangeComplete={handleColorChange}
         />
       </div>
-      <div className='standard-button'>
+      <div className="standard-button">
         <button onClick={() => setLayersView('LayerOverview')}>Back</button>
       </div>
     </div>

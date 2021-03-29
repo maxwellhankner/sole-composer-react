@@ -11,8 +11,6 @@ function Interface({
   graphicVisualCanvas,
   handleUpdateGraphicVisualCanvas,
   handleChangeManager,
-  camera,
-  orbitControls,
   handleUpdateBaseColor,
   userData,
   currentPart,
@@ -36,13 +34,11 @@ function Interface({
 
   if (view === 'DesignPreview') {
     return (
-      <div className='interface-container'>
+      <div className="interface-container">
         <DesignPreview
           handleViewChange={handleViewChange}
           design={design}
           setDesign={setDesign}
-          camera={camera}
-          orbitControls={orbitControls}
           canSave={canSave}
           setCanSave={setCanSave}
           userData={userData}
@@ -55,7 +51,7 @@ function Interface({
     );
   } else if (view === 'Layers') {
     return (
-      <div className='interface-container'>
+      <div className="interface-container">
         <Layers
           layersView={layersView}
           setLayersView={setLayersView}
@@ -76,7 +72,7 @@ function Interface({
     );
   } else if (view === 'ChangeDesignName') {
     return (
-      <div className='interface-container'>
+      <div className="interface-container">
         <ChangeDesignName
           handleViewChange={handleViewChange}
           design={design}
@@ -87,7 +83,7 @@ function Interface({
     );
   } else if (view === 'ChangeBaseColor') {
     return (
-      <div className='interface-container'>
+      <div className="interface-container">
         <ChangeBaseColor
           handleViewChange={handleViewChange}
           design={design}
