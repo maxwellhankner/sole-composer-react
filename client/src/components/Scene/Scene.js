@@ -1,384 +1,159 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './Scene.css';
+import React, { useRef, Suspense } from 'react';
+import { Canvas, useLoader } from 'react-three-fiber';
+import { useGLTF, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import { partLookup } from './partLookup';
+import './Scene.css';
+
+function Shoe({
+  design,
+  texture,
+  right,
+  setCurrentPart,
+  setCurrentShoe,
+  alone,
+  setLayersView,
+  setCurrentLayer,
+  setView,
+}) {
+  const group = useRef();
+  const { nodes } = useGLTF(
+    `/api/assets/models/${design.configData.source.model}`
+  );
+  const aoMap = useLoader(
+    THREE.TextureLoader,
+    `/api/assets/designimages/${design.configData.source['aoMapRight']}`
+  );
+  aoMap.flipY = false;
+
+  const textureCanvas = document.createElement('canvas');
+  textureCanvas.width = 1000;
+  textureCanvas.height = 1000;
+  const textureCanvasCTX = textureCanvas.getContext('2d');
+  const img = new Image();
+  img.src = `/api/assets/designimages/${design.configData.source.redMap}`;
+  img.onload = () => {
+    textureCanvasCTX.drawImage(img, 0, 0, 1000, 1000);
+  };
+
+  let x;
+  let y;
+  const pointerDown = (e) => {
+    e.stopPropagation();
+    x = e.clientX;
+    y = e.clientY;
+  };
+
+  const pointerUp = (e) => {
+    e.stopPropagation();
+    if (
+      e.clientX > x - 5 &&
+      e.clientX < x + 5 &&
+      e.clientY > y - 5 &&
+      e.clientY < y + 5
+    ) {
+      clickShoe(e);
+    }
+  };
+
+  const clickShoe = (e) => {
+    if (e.delta < 10) {
+      const x = Math.floor(e.uv.x * 1000);
+      const y = Math.floor(e.uv.y * 1000);
+      const colorValues = textureCanvas
+        .getContext('2d')
+        .getImageData(x, y, 1, 1).data;
+      const part = partLookup(colorValues[0]);
+      if (part || part === 0) {
+        setLayersView('LayerOverview');
+        setCurrentLayer(-1);
+        setView('Layers');
+        setCurrentPart(part);
+        setCurrentShoe(right ? 'right' : 'left');
+      }
+    }
+  };
+
+  return (
+    <group
+      ref={group}
+      dispose={null}
+      onPointerDown={(e) => pointerDown(e)}
+      onPointerUp={(e) => pointerUp(e)}
+    >
+      <mesh
+        geometry={nodes.af1.geometry}
+        rotation={[Math.PI / 2, 0, Math.PI / 2]}
+        position={[0, -1, alone ? 0 : right ? 1.3 : -1.3]}
+        scale={[right ? 0.35 : -0.35, 0.35, 0.35]}
+      >
+        <meshStandardMaterial aoMap={aoMap} map={texture} />
+      </mesh>
+    </group>
+  );
+}
 
 const Scene = ({
   design,
   rightTexture,
   leftTexture,
-  initialLoaded,
-  camera,
-  setCamera,
-  orbitControls,
-  setOrbitControls,
   setCurrentPart,
   setCurrentShoe,
-  setView,
+  shoeVisibility,
+  initialLoaded,
   setLayersView,
   setCurrentLayer,
-  shoeVisibility,
+  setView,
 }) => {
-  console.log('scene');
-  const [isLoading, setIsLoading] = useState(true);
-  const [sceneBuilt, setSceneBuilt] = useState(false);
-  const [renderer, setRenderer] = useState(null);
-  const [rightMaterial, setRightMaterial] = useState(null);
-  const [leftMaterial, setLeftMaterial] = useState(null);
-
-  const threeCanvasRef = useRef(null);
-
-  useEffect(() => {
-    if (!sceneBuilt) {
-      const createMaterial = (texture, aoName) => {
-        return new Promise((resolve) => {
-          const aoimg = new Image();
-          aoimg.src = `/api/assets/designimages/${design.configData.source[aoName]}`;
-
-          aoimg.onload = () => {
-            const ao = new THREE.CanvasTexture(aoimg);
-            ao.flipY = false;
-            resolve(
-              new THREE.MeshStandardMaterial({
-                map: texture,
-                aoMap: ao,
-              })
-            );
-          };
-        });
-      };
-
-      setRenderer(
-        new THREE.WebGLRenderer({
-          antialias: true,
-          preserveDrawingBuffer: true,
-          alpha: true,
-        })
-      );
-
-      async function createRightMaterial() {
-        const mat = await createMaterial(rightTexture, 'aoMapRight');
-        setRightMaterial(mat);
-      }
-      createRightMaterial();
-
-      async function createLeftMaterial() {
-        const mat = await createMaterial(leftTexture, 'aoMapLeft');
-        setLeftMaterial(mat);
-      }
-      createLeftMaterial();
-    }
-  }, [sceneBuilt, rightTexture, leftTexture, design.configData.source]);
-
-  useEffect(() => {
-    if (renderer && rightMaterial && leftMaterial && !sceneBuilt) {
-      //===================================================== camera
-      renderer.setSize(2048, 2048);
-      threeCanvasRef.current.appendChild(renderer.domElement);
-      const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
-      camera.position.z = 8.5;
-      camera.position.y = 0;
-      camera.layers.enable(1);
-      camera.layers.enable(2);
-      setCamera(camera);
-
-      //===================================================== orbit controls
-      const controls = new OrbitControls(camera, renderer.domElement);
-      controls.maxDistance = 10;
-      controls.minDistance = 4;
-      controls.minPolarAngle = Math.PI * (1 / 5);
-      controls.maxPolarAngle = Math.PI * (6 / 7);
-      controls.enablePan = false;
-      controls.enableDamping = true;
-      controls.dampingFactor = 0.18;
-      controls.update();
-      setOrbitControls(controls);
-    }
-  }, [
-    sceneBuilt,
-    renderer,
-    rightMaterial,
-    leftMaterial,
-    setCamera,
-    setOrbitControls,
-  ]);
-
-  // Build threeJS Scene
-  useEffect(() => {
-    if (
-      renderer &&
-      rightMaterial &&
-      leftMaterial &&
-      camera &&
-      orbitControls &&
-      !sceneBuilt
-    ) {
-      //===================================================== scene
-      const scene = new THREE.Scene();
-
-      //===================================================== lights
-      const light = new THREE.AmbientLight(0xffffff, 1);
-      scene.add(light);
-
-      //===================================================== loading mananger
-      const manager = new THREE.LoadingManager();
-      manager.onLoad = () => {
-        setIsLoading(false);
-      };
-
-      //===================================================== raycasting
-      const textureLoader = new THREE.TextureLoader();
-      const raycaster = new THREE.Raycaster();
-      raycaster.layers.enable(1);
-      raycaster.layers.enable(2);
-
-      const setupRaycasting = (rightModel, leftModel) => {
-        textureLoader.load(
-          `/api/assets/designimages/${design.configData.source.redMap}`,
-          (texture) => {
-            const mouse = new THREE.Vector2();
-            const img = texture.image;
-            const textureCanvas = document.createElement('canvas');
-            textureCanvas.width = img.width;
-            textureCanvas.height = img.height;
-            const textureCanvasCTX = textureCanvas.getContext('2d');
-
-            function waitForElement() {
-              if (
-                textureCanvasCTX !== null &&
-                typeof textureCanvas === 'object'
-              ) {
-                textureCanvasCTX.drawImage(img, 0, 0, img.width, img.height);
-              } else {
-                setTimeout(waitForElement, 100);
-              }
-            }
-            waitForElement();
-
-            let drag = false;
-
-            renderer.domElement.addEventListener('pointerdown', (event) => {
-              drag = false;
-            });
-
-            renderer.domElement.addEventListener('pointermove', (event) => {
-              event.preventDefault();
-              drag = true;
-            });
-
-            renderer.domElement.addEventListener('pointerup', (event) => {
-              event.preventDefault();
-              if (!drag) {
-                // check intersections with imported model
-                const box = renderer.domElement.getBoundingClientRect();
-
-                mouse.x = (event.clientX / box.width) * 2 - 1;
-                mouse.y = -(event.clientY / box.height) * 2 + 1;
-
-                raycaster.setFromCamera(mouse, camera);
-
-                const intersects = raycaster.intersectObjects(
-                  [rightModel, leftModel],
-                  true
-                );
-
-                // if there is any intersection, continues
-                if (intersects.length) {
-                  // setCurrentShoe
-                  if (
-                    intersects[0].object.parent.name === 'rightModel' &&
-                    shoeVisibility.right === true
-                  ) {
-                    setLayersView('LayerOverview');
-                    setCurrentLayer(-1);
-                    setView('Layers');
-                    setCurrentShoe('right');
-                  } else if (
-                    intersects[0].object.parent.name === 'leftModel' &&
-                    shoeVisibility.left === true
-                  ) {
-                    setLayersView('LayerOverview');
-                    setCurrentLayer(-1);
-                    setView('Layers');
-                    setCurrentShoe('left');
-                  }
-
-                  // get pixel coordinates on texture
-                  const uv = intersects[0].uv2;
-                  uv.x *= img.width;
-                  uv.y *= img.height;
-
-                  // get pixel value
-                  const colorValues = textureCanvas
-                    .getContext('2d')
-                    .getImageData(uv.x, uv.y, 1, 1).data;
-
-                  // setCurrentPart
-                  switch (colorValues[0]) {
-                    case 255:
-                      setCurrentPart(4);
-                      break;
-
-                    case 220:
-                      setCurrentPart(2);
-                      break;
-
-                    case 210:
-                      setCurrentPart(0);
-                      break;
-
-                    case 200:
-                      setCurrentPart(5);
-                      break;
-
-                    case 190:
-                      setCurrentPart(3);
-                      break;
-
-                    case 180:
-                      setCurrentPart(1);
-                      break;
-
-                    case 170:
-                      setCurrentPart(16);
-                      break;
-
-                    case 160:
-                      setCurrentPart(15);
-                      break;
-
-                    case 150:
-                      setCurrentPart(14);
-                      break;
-
-                    case 140:
-                      setCurrentPart(9);
-                      break;
-
-                    case 130:
-                      setCurrentPart(13);
-                      break;
-
-                    case 120:
-                      setCurrentPart(11);
-                      break;
-
-                    case 110:
-                      setCurrentPart(12);
-                      break;
-
-                    case 100:
-                      setCurrentPart(8);
-                      break;
-
-                    case 90:
-                      setCurrentPart(10);
-                      break;
-
-                    case 80:
-                      setCurrentPart(7);
-                      break;
-
-                    case 70:
-                      setCurrentPart(6);
-                      break;
-
-                    case 60:
-                      setCurrentPart(17);
-                      break;
-                    default:
-                      break;
-                  }
-                }
-              }
-            });
-          }
-        );
-      };
-
-      //===================================================== models
-      const loader = new GLTFLoader(manager);
-      loader.load(
-        `/api/assets/models/${design.configData.source.model}`,
-        (gltf) => {
-          gltf.scene.traverse((node) => {
-            if (node.isMesh) {
-              node.material = rightMaterial;
-              node.layers.set(1);
-            }
-          });
-          const rightModel = gltf.scene;
-
-          rightModel.scale.set(0.35, 0.35, 0.35);
-          rightModel.position.y = -1;
-          rightModel.position.z = 1.25;
-          rightModel.rotation.y = -95 * (Math.PI / 180);
-          rightModel.name = 'rightModel';
-          scene.add(rightModel);
-
-          const leftModel = gltf.scene.clone();
-
-          leftModel.scale.set(-0.35, 0.35, 0.35);
-          leftModel.position.y = -1;
-          leftModel.position.z = -1.25;
-          leftModel.rotation.y = -95 * (Math.PI / 180);
-          leftModel.name = 'leftModel';
-          scene.add(leftModel);
-
-          leftModel.traverse((node) => {
-            if (node.isMesh) {
-              node.material = leftMaterial;
-              node.layers.set(2);
-            }
-          });
-
-          setupRaycasting(rightModel, leftModel);
-          setSceneBuilt(true);
-        }
-      );
-
-      //===================================================== animate
-      const render = () => {
-        renderer.render(scene, camera);
-        requestAnimationFrame(render);
-        orbitControls.update();
-      };
-
-      render();
-
-      //===================================================== cleanup
-      const cleanup = () => {
-        cancelAnimationFrame(render);
-        // orbitControls.dispose();
-      };
-
-      return cleanup;
-    }
-  }, [
-    sceneBuilt,
-    rightMaterial,
-    leftMaterial,
-    renderer,
-    camera,
-    design.configData.source,
-    setCurrentPart,
-    setCurrentShoe,
-    setView,
-    setLayersView,
-    setCurrentLayer,
-    shoeVisibility,
-    orbitControls,
-  ]);
-
   return (
-    <div
-      className='scene-container'
-      id='scene-container-id'
-      ref={threeCanvasRef}
-    >
-      {!isLoading && initialLoaded ? null : <LoadingSpinner />}
+    <div className="scene-container" id="scene-container-id">
+      {initialLoaded ? (
+        <Canvas
+          camera={{ position: [0, 0, 9], fov: 45 }}
+          colorManagement={false}
+          pixelRatio={3}
+          gl={{ preserveDrawingBuffer: true }}
+        >
+          <ambientLight />
+          <Suspense fallback={null}>
+            {shoeVisibility.right && (
+              <Shoe
+                right
+                design={design}
+                texture={rightTexture}
+                setCurrentPart={setCurrentPart}
+                setCurrentShoe={setCurrentShoe}
+                alone={!shoeVisibility.left}
+                setLayersView={setLayersView}
+                setCurrentLayer={setCurrentLayer}
+                setView={setView}
+              />
+            )}
+            {shoeVisibility.left && (
+              <Shoe
+                design={design}
+                texture={leftTexture}
+                setCurrentPart={setCurrentPart}
+                setCurrentShoe={setCurrentShoe}
+                alone={!shoeVisibility.right}
+                setLayersView={setLayersView}
+                setCurrentLayer={setCurrentLayer}
+                setView={setView}
+              />
+            )}
+          </Suspense>
+          <OrbitControls
+            minPolarAngle={Math.PI / 4}
+            maxPolarAngle={(Math.PI * 3) / 4}
+            minDistance={4}
+            maxDistance={12}
+            enablePan={false}
+          />
+        </Canvas>
+      ) : (
+        <LoadingSpinner />
+      )}
     </div>
   );
 };

@@ -1,9 +1,8 @@
-export const takeScreenshot = (camera, fileName) => {
+export const takeScreenshot = (fileName) => {
   return new Promise((resolve) => {
-    camera.position.set(0, 0, 8.5);
     setTimeout(() => {
       const threeCanvas = document.getElementById('scene-container-id')
-        .firstElementChild;
+        .firstElementChild.firstElementChild;
       const newCanvas = document.createElement('canvas');
       newCanvas.width = 1024;
       newCanvas.height = 1024;

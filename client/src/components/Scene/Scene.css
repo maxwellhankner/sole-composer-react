@@ -2,16 +2,6 @@
   width: 100%;
   background-color: #f9f9f9;
   color: #000;
-  /* ------------------------------------------------ */
   height: 100vw;
-  /* height: 375px; */
-  /* height: 50%; */
   flex: 0 0 auto;
-  /* flex-shrink: 0; */
-}
-
-.scene-container canvas {
-  width: 100% !important;
-  height: 100% !important;
-  outline: none;
 }
