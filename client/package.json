@@ -4,19 +4,21 @@
   "private": true,
   "proxy": "http://localhost:8000",
   "dependencies": {
-    "@sentry/react": "^5.27.6",
-    "@sentry/tracing": "^5.27.6",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "react": "^16.13.1",
+    "@react-three/drei": "^3.11.2",
+    "@sentry/react": "^6.2.3",
+    "@sentry/tracing": "^6.2.3",
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^13.0.16",
+    "react": "^17.0.2",
     "react-alice-carousel": "^2.2.0",
-    "react-color": "^2.18.1",
-    "react-dom": "^16.13.1",
-    "react-icons": "^3.10.0",
+    "react-color": "^2.19.3",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "three": "^0.116.1",
+    "react-scripts": "^4.0.3",
+    "react-three-fiber": "^5.3.22",
+    "three": "^0.126.1",
     "three-gltf-loader": "^1.111.0"
   },
   "scripts": {
@@ -36,6 +38,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {}
+  }
 }

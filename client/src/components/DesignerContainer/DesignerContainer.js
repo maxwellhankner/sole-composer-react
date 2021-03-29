@@ -26,8 +26,6 @@ function DesignerContainer({
 }) {
   const [design, setDesign] = useState(designSpec);
   const [initialLoaded, setInitialLoaded] = useState(false);
-  const [camera, setCamera] = useState(null);
-  const [orbitControls, setOrbitControls] = useState(null);
   const [currentPart, setCurrentPart] = useState(0);
   const [currentShoe, setCurrentShoe] = useState('right');
   const [currentLayer, setCurrentLayer] = useState(-1);
@@ -235,7 +233,7 @@ function DesignerContainer({
 
   if (design && userData) {
     return (
-      <div className='designer-container'>
+      <div className="designer-container">
         <Scene
           design={design}
           setView={setView}
@@ -243,10 +241,6 @@ function DesignerContainer({
           rightTexture={rightTexture}
           leftTexture={leftTexture}
           initialLoaded={initialLoaded}
-          camera={camera}
-          setCamera={setCamera}
-          orbitControls={orbitControls}
-          setOrbitControls={setOrbitControls}
           setCurrentPart={setCurrentPart}
           setCurrentShoe={setCurrentShoe}
           setCurrentLayer={setCurrentLayer}
@@ -265,8 +259,6 @@ function DesignerContainer({
           handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
           handleChangeManager={handleChangeManager}
           setInitialLoaded={setInitialLoaded}
-          camera={camera}
-          orbitControls={orbitControls}
           handleUpdateBaseColor={handleUpdateBaseColor}
           userData={userData}
           currentPart={currentPart}
