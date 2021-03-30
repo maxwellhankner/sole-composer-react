@@ -16,6 +16,7 @@ function Shoe({
   setLayersView,
   setCurrentLayer,
   setView,
+  redMapCanvas,
 }) {
   const group = useRef();
   const { nodes } = useGLTF(
@@ -26,16 +27,6 @@ function Shoe({
     `/api/assets/designimages/${design.configData.source['aoMapRight']}`
   );
   aoMap.flipY = false;
-
-  const textureCanvas = document.createElement('canvas');
-  textureCanvas.width = 1000;
-  textureCanvas.height = 1000;
-  const textureCanvasCTX = textureCanvas.getContext('2d');
-  const img = new Image();
-  img.src = `/api/assets/designimages/${design.configData.source.redMap}`;
-  img.onload = () => {
-    textureCanvasCTX.drawImage(img, 0, 0, 1000, 1000);
-  };
 
   let x;
   let y;
@@ -61,9 +52,8 @@ function Shoe({
     if (e.delta < 10) {
       const x = Math.floor(e.uv.x * 1000);
       const y = Math.floor(e.uv.y * 1000);
-      const colorValues = textureCanvas
-        .getContext('2d')
-        .getImageData(x, y, 1, 1).data;
+      const colorValues = redMapCanvas.getContext('2d').getImageData(x, y, 1, 1)
+        .data;
       const part = partLookup(colorValues[0]);
       if (part || part === 0) {
         setLayersView('LayerOverview');
@@ -98,17 +88,18 @@ const Scene = ({
   design,
   rightTexture,
   leftTexture,
+  texturesLoaded,
   setCurrentPart,
   setCurrentShoe,
   shoeVisibility,
-  initialLoaded,
   setLayersView,
   setCurrentLayer,
   setView,
+  redMapCanvas,
 }) => {
   return (
     <div className="scene-container" id="scene-container-id">
-      {initialLoaded ? (
+      {texturesLoaded ? (
         <Canvas
           camera={{ position: [0, 0, 9], fov: 45 }}
           linear
@@ -128,6 +119,7 @@ const Scene = ({
                 setLayersView={setLayersView}
                 setCurrentLayer={setCurrentLayer}
                 setView={setView}
+                redMapCanvas={redMapCanvas}
               />
             )}
             {shoeVisibility.left && (
@@ -140,6 +132,7 @@ const Scene = ({
                 setLayersView={setLayersView}
                 setCurrentLayer={setCurrentLayer}
                 setView={setView}
+                redMapCanvas={redMapCanvas}
               />
             )}
           </Suspense>

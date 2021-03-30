@@ -23,9 +23,10 @@ function DesignerContainer({
   leftOuterOverlayCanvas,
   leftTexture,
   leftTextureCanvas,
+  redMapCanvas,
 }) {
   const [design, setDesign] = useState(designSpec);
-  const [initialLoaded, setInitialLoaded] = useState(false);
+  const [texturesLoaded, setTexturesLoaded] = useState(false);
   const [currentPart, setCurrentPart] = useState(0);
   const [currentShoe, setCurrentShoe] = useState('right');
   const [currentLayer, setCurrentLayer] = useState(-1);
@@ -199,7 +200,7 @@ function DesignerContainer({
   useEffect(() => {
     if (!rightCanvasObjectRef.current || !leftCanvasObjectRef.current) {
       setup({
-        setInitialLoaded,
+        setTexturesLoaded,
         design,
         graphicVisualCanvas,
         rightBaseColorCanvasObjectRef,
@@ -240,11 +241,12 @@ function DesignerContainer({
           setLayersView={setLayersView}
           rightTexture={rightTexture}
           leftTexture={leftTexture}
-          initialLoaded={initialLoaded}
+          texturesLoaded={texturesLoaded}
           setCurrentPart={setCurrentPart}
           setCurrentShoe={setCurrentShoe}
           setCurrentLayer={setCurrentLayer}
           shoeVisibility={shoeVisibility}
+          redMapCanvas={redMapCanvas}
         />
         <Interface
           design={design}
@@ -258,7 +260,6 @@ function DesignerContainer({
           graphicVisualCanvas={graphicVisualCanvas}
           handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
           handleChangeManager={handleChangeManager}
-          setInitialLoaded={setInitialLoaded}
           handleUpdateBaseColor={handleUpdateBaseColor}
           userData={userData}
           currentPart={currentPart}

@@ -27,6 +27,30 @@ export const createCanvas = ({ design }) => {
   });
 };
 
+export const createRedMapCanvas = ({ design }) => {
+  return new Promise((resolve) => {
+    const { canvasSize } = design.configData;
+    const canvas = document.createElement('canvas');
+    canvas.width = canvasSize;
+    canvas.height = canvasSize;
+    const canvasCTX = canvas.getContext('2d');
+
+    const img = new Image();
+    img.src = `/api/assets/designimages/${design.configData.source.redMap}`;
+    img.onload = () => {
+      function waitForElement() {
+        if (canvasCTX !== null && typeof canvas === 'object') {
+          canvasCTX.drawImage(img, 0, 0, 1000, 1000);
+          resolve(canvas);
+        } else {
+          setTimeout(waitForElement, 100);
+        }
+      }
+      waitForElement();
+    };
+  });
+};
+
 export const createGraphicVisualCanvas = ({ design }) => {
   const { canvasSize } = design.configData;
   const canvas = document.createElement('canvas');

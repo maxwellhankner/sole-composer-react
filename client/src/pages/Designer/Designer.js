@@ -4,6 +4,7 @@ import DesignerContainer from '../../components/DesignerContainer/DesignerContai
 import {
   createTexture,
   createCanvas,
+  createRedMapCanvas,
   createGraphicVisualCanvas,
 } from '../../canvasFunctions';
 import { simpleFetch } from '../../helpers/fetchHelpers';
@@ -27,6 +28,8 @@ function Designer() {
   const [leftTextureCanvas, setLeftTextureCanvas] = useState(null);
   const [leftTexture, setLeftTexture] = useState(null);
 
+  const [redMapCanvas, setRedMapCanvas] = useState(null);
+
   const setup = async (data) => {
     setDesignSpec(data);
     setGraphicVisualCanvas(createGraphicVisualCanvas({ design: data }));
@@ -43,6 +46,9 @@ function Designer() {
     setLeftOuterOverlayCanvas(canvasFive);
     const canvasSix = await createCanvas({ design: data });
     setLeftTextureCanvas(canvasSix);
+
+    const canvasSeven = await createRedMapCanvas({ design: data });
+    setRedMapCanvas(canvasSeven);
   };
 
   useEffect(() => {
@@ -79,11 +85,12 @@ function Designer() {
     leftInnerOverlayCanvas &&
     leftOuterOverlayCanvas &&
     leftTextureCanvas &&
-    leftTexture;
+    leftTexture &&
+    redMapCanvas;
 
   if (initialized) {
     return (
-      <div className='designer-root-container'>
+      <div className="designer-root-container">
         <DesignerContainer
           userData={userData}
           designSpec={designSpec}
@@ -96,6 +103,7 @@ function Designer() {
           leftOuterOverlayCanvas={leftOuterOverlayCanvas}
           leftTexture={leftTexture}
           leftTextureCanvas={leftTextureCanvas}
+          redMapCanvas={redMapCanvas}
         />
       </div>
     );

@@ -3,6 +3,7 @@ import { setup } from './setup/setup';
 import {
   createTexture,
   createCanvas,
+  createRedMapCanvas,
   createGraphicVisualCanvas,
 } from './create/createCanvasFunctions';
 
@@ -27,6 +28,7 @@ export {
   canvasObjectToTextureCanvas,
   createTexture,
   createCanvas,
+  createRedMapCanvas,
   createGraphicVisualCanvas,
   createColorLayerCanvas,
   createGraphicLayerCanvas,

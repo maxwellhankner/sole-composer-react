@@ -5,7 +5,7 @@ import {
 } from '../index';
 
 export const setup = async ({
-  setInitialLoaded,
+  setTexturesLoaded,
   design,
   graphicVisualCanvas,
   rightInnerOverlayCanvas,
@@ -114,5 +114,5 @@ export const setup = async ({
   rightTexture.needsUpdate = true;
   leftTextureCanvas.getContext('2d').drawImage(leftCanvas, 0, 0);
   leftTexture.needsUpdate = true;
-  setInitialLoaded(true);
+  setTexturesLoaded(true);
 };
