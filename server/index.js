@@ -15,7 +15,7 @@ const app = express();
 
 // for those extra large requests
 app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 app.use(passport.initialize());
 app.use(passport.session());
