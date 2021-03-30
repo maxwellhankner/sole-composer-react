@@ -1,5 +1,5 @@
 import React, { useRef, Suspense } from 'react';
-import { Canvas, useLoader } from 'react-three-fiber';
+import { Canvas, useLoader } from '@react-three/fiber';
 import { useGLTF, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
@@ -111,8 +111,8 @@ const Scene = ({
       {initialLoaded ? (
         <Canvas
           camera={{ position: [0, 0, 9], fov: 45 }}
-          colorManagement={false}
-          pixelRatio={3}
+          linear
+          dpr={3}
           gl={{ preserveDrawingBuffer: true }}
         >
           <ambientLight />
@@ -149,6 +149,7 @@ const Scene = ({
             minDistance={4}
             maxDistance={12}
             enablePan={false}
+            enableDamping={true}
           />
         </Canvas>
       ) : (
