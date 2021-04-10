@@ -232,7 +232,7 @@ function DesignerContainer({
     leftTextureCanvas,
   ]);
 
-  if (design && userData) {
+  if (design) {
     return (
       <div className="designer-container">
         <Scene

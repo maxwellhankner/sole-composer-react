@@ -38,31 +38,30 @@ function Landing() {
   };
 
   return (
-    <div className='landing-container'>
-      <div className='landing-header'>
+    <div className="landing-container">
+      <div className="landing-header">
         <p>
           <strong>Sole</strong> Composer
         </p>
         {userData ? (
-          <Link to='/profile'>{userData.firstName}</Link>
+          <Link to="/profile">{userData.firstName}</Link>
         ) : (
-          <Link to='/login'>Login</Link>
+          <Link to="/login">Login</Link>
         )}
       </div>
-      <div className='landing-content'>
-        <div className='featured-designs-container'>
-          <p className='landing-section-label'>FEATURED</p>
+      <div className="landing-content">
+        <div className="featured-designs-container">
+          <p className="landing-section-label">FEATURED</p>
           {featured ? (
             <AliceCarousel responsive={responsive} items={items} />
           ) : null}
         </div>
+        <NewDesignButton />
 
-        {userData ? (
-          <NewDesignButton userData={userData} />
-        ) : (
-          <Link to='/login'>
-            <div className='landing-button'>
-              <button>Get Started</button>
+        {!userData && (
+          <Link to="/login">
+            <div className="landing-button">
+              <button>create an account</button>
             </div>
           </Link>
         )}
