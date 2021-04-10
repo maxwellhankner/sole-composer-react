@@ -11,7 +11,6 @@ import {
   FaTrashAlt,
   FaSave,
   FaTimes,
-  // FaCamera,
   FaSquare,
 } from 'react-icons/fa';
 import Toggle from '../Toggle';
@@ -28,77 +27,85 @@ function DesignPreview({
   setShoeVisibility,
 }) {
   const [loading, setLoading] = useState(false);
+  let userId;
+  if (typeof userData === 'object' && '_id' in userData) {
+    userId = userData._id;
+  }
 
   const handleSaveDesign = async () => {
-    setCanSave(false);
-    // if new design
-    if (!design.author) {
-      setLoading(true);
-      const file = await takeScreenshot('newImage');
-      uploadImage(file, true).then((data) => {
-        const imageName = convertAwsLink(data.image);
-        const body = {
-          author: userData._id,
-          title: design.title,
-          screenshot: imageName,
-          configId: '5f925589cc6d6c16e44d5dfd',
-          outlineData: design.outlineData,
-        };
-        designFetch('/api/outlines', 'POST', body)
-          .then((res) => res.json())
-          .then((data) => {
-            window.location.href = `/designer/${data._id}`;
-          });
-      });
-    }
-    // if design is mine
-    else if (design.author === userData._id) {
-      setLoading(true);
-      const file = await takeScreenshot(design.screenshot);
-      uploadImage(file, false).then((data) => {
-        const imageName = convertAwsLink(data.image);
-        const body = {
-          author: design.author,
-          title: design.title,
-          screenshot: imageName,
-          configId: '5f925589cc6d6c16e44d5dfd',
-          outlineData: design.outlineData,
-        };
-        designFetch(`/api/outlines/${design._id}`, 'PUT', body);
-        setLoading(false);
-      });
-    }
-    // if design is not mine
-    else {
-      setLoading(true);
-      const file = await takeScreenshot(design.screenshot);
-      uploadImage(file, true).then((data) => {
-        const imageName = convertAwsLink(data.image);
-        const body = {
-          author: userData._id,
-          title: design.title,
-          screenshot: imageName,
-          configId: '5f925589cc6d6c16e44d5dfd',
-          outlineData: design.outlineData,
-        };
-        designFetch(`/api/outlines/`, 'POST', body)
-          .then((res) => res.json())
-          .then((data) => {
-            window.location.href = `/designer/${data._id}`;
-          });
-      });
+    if (userData) {
+      setCanSave(false);
+      // if new design
+      if (!design.author) {
+        setLoading(true);
+        const file = await takeScreenshot('newImage');
+        uploadImage(file, true).then((data) => {
+          const imageName = convertAwsLink(data.image);
+          const body = {
+            author: userData._id,
+            title: design.title,
+            screenshot: imageName,
+            configId: '5f925589cc6d6c16e44d5dfd',
+            outlineData: design.outlineData,
+          };
+          designFetch('/api/outlines', 'POST', body)
+            .then((res) => res.json())
+            .then((data) => {
+              window.location.href = `/designer/${data._id}`;
+            });
+        });
+      }
+      // if design is mine
+      else if (design.author === userData._id) {
+        setLoading(true);
+        const file = await takeScreenshot(design.screenshot);
+        uploadImage(file, false).then((data) => {
+          const imageName = convertAwsLink(data.image);
+          const body = {
+            author: design.author,
+            title: design.title,
+            screenshot: imageName,
+            configId: '5f925589cc6d6c16e44d5dfd',
+            outlineData: design.outlineData,
+          };
+          designFetch(`/api/outlines/${design._id}`, 'PUT', body);
+          setLoading(false);
+        });
+      }
+      // if design is not mine
+      else {
+        setLoading(true);
+        const file = await takeScreenshot(design.screenshot);
+        uploadImage(file, true).then((data) => {
+          const imageName = convertAwsLink(data.image);
+          const body = {
+            author: userData._id,
+            title: design.title,
+            screenshot: imageName,
+            configId: '5f925589cc6d6c16e44d5dfd',
+            outlineData: design.outlineData,
+          };
+          designFetch(`/api/outlines/`, 'POST', body)
+            .then((res) => res.json())
+            .then((data) => {
+              window.location.href = `/designer/${data._id}`;
+            });
+        });
+      }
     }
   };
 
   const handleDeleteDesign = () => {
-    if (userData._id === design.author) {
-      fetch(`/api/outlines/${design._id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      window.location.href = '/';
+    if (userData) {
+      if (userData._id === design.author) {
+        fetch(`/api/outlines/${design._id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        window.location.href = '/';
+      }
     }
   };
 
@@ -110,7 +117,8 @@ function DesignPreview({
         </div>
       </div>
     );
-  } else if (userData) {
+    // } else if (userData) {
+  } else {
     return (
       <div className="design-preview-container">
         <div className="design-preview-info">
@@ -152,18 +160,7 @@ function DesignPreview({
             </div>
             <button>Layers</button>
           </div>
-          {/* <div
-            className="design-preview-button"
-            onClick={() => {
-              handleResetCamera();
-            }}
-          >
-            <div className="design-preview-button-icon">
-              <FaCamera />
-            </div>
-            <button>Reset Camera</button>
-          </div> */}
-          {canSave ? (
+          {canSave && userData ? (
             <div
               className="design-preview-button"
               onClick={() => {
@@ -183,13 +180,20 @@ function DesignPreview({
               <button>Save</button>
             </div>
           )}
-          {design.author === userData._id && (
+          {userData && design.author === userId ? (
             <div
               className="design-preview-button"
               onClick={() => {
                 handleDeleteDesign();
               }}
             >
+              <div className="design-preview-button-icon">
+                <FaTrashAlt />
+              </div>
+              <button>Delete</button>
+            </div>
+          ) : (
+            <div className="design-preview-button save-deactivated">
               <div className="design-preview-button-icon">
                 <FaTrashAlt />
               </div>
@@ -207,8 +211,6 @@ function DesignPreview({
         </div>
       </div>
     );
-  } else {
-    return <div>no data</div>;
   }
 }
 

@@ -75,7 +75,7 @@ function Designer() {
   }, [rightTextureCanvas, leftTextureCanvas]);
 
   const initialized =
-    userData &&
+    // userData &&
     designSpec &&
     graphicVisualCanvas &&
     rightInnerOverlayCanvas &&
