@@ -22,11 +22,8 @@
     "request": "^2.88.2"
   },
   "scripts": {
-    "client-install": "cd client && npm install",
-    "start": "cd server && node index.js",
     "server": "cd server && nodemon index.js",
-    "client": "npm start --prefix client",
-    "client2": "cd client && npm start",
+    "client": "cd client && npm run start",
     "build": "cd client && npm run build",
     "dev": "concurrently -n 'server,client' -c '#3c863a,#61dbfb' \"npm run server\" \"npm run client\""
   },
