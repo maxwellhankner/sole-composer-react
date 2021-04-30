@@ -28,7 +28,7 @@
     "client": "npm start --prefix client",
     "client2": "cd client && npm start",
     "build": "cd client && npm run build",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently -n 'server,client' -c '#3c863a,#61dbfb' \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC"
