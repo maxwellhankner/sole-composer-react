@@ -101,7 +101,7 @@ const Scene = ({
     <div className="scene-container" id="scene-container-id">
       {texturesLoaded ? (
         <Canvas
-          camera={{ position: [0, 0, 9], fov: 45 }}
+          camera={{ position: [5.5, 1.5, 5.5], fov: 45 }}
           linear
           dpr={3}
           gl={{ preserveDrawingBuffer: true }}
