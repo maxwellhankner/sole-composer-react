@@ -10,7 +10,9 @@
 .splash-left {
   height: 100%;
   width: 100%;
-  padding-right: 30px;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
 }
 
 .splash-header {
@@ -31,7 +33,7 @@
 .splash-right {
   height: 100%;
   width: 100%;
-  padding-left: 30px;
+  margin-right: 5%;
 }
 
 .splash-image {
@@ -49,6 +51,7 @@
     margin-top: 0px;
     margin-bottom: 20px;
     padding-right: 0px;
+
     text-align: center;
   }
   .splash-header {
