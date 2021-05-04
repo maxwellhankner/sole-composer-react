@@ -63,7 +63,7 @@ function Landing() {
         {!userData && (
           <Link to="/login">
             <div className="landing-button">
-              <button>create an account</button>
+              <button>Sign Up</button>
             </div>
             <div className="landing-bottom-spacing"></div>
           </Link>
