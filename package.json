@@ -16,6 +16,7 @@
     "mongoose": "^5.12.7",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
+    "parse": "^3.2.0",
     "passport": "^0.4.1",
     "passport-google-oauth": "^2.0.0",
     "path": "^0.12.7",
@@ -25,8 +26,8 @@
     "client-install": "cd client && npm install",
     "start": "cd server && node index.js",
     "server": "cd server && nodemon index.js",
-    "client2": "npm start --prefix client",
-    "client": "cd client && npm start",
+    "client": "npm start --prefix client",
+    "client2": "cd client && npm start",
     "build": "cd client && npm run build",
     "dev": "concurrently -n 'server,client' -c '#3c863a,#61dbfb' \"npm run server\" \"npm run client\""
   },
