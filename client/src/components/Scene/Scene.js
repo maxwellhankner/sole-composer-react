@@ -24,7 +24,9 @@ function Shoe({
   );
   const aoMap = useLoader(
     THREE.TextureLoader,
-    `/api/assets/designimages/${design.configData.source['aoMapRight']}`
+    `/api/assets/designimages/${
+      design.configData.source[right ? 'aoMapRight' : 'aoMapLeft']
+    }`
   );
   aoMap.flipY = false;
 
