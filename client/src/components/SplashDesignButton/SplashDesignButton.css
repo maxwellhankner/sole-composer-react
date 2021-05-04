@@ -1,0 +1,17 @@
+.splash-design-button {
+  margin: 0 !important;
+}
+
+.splash-design-button button {
+  background-color: #000000 !important;
+  height: 50px !important;
+  font-size: 16px !important;
+  width: unset !important;
+  padding-left: 23px !important;
+  padding-right: 23px !important;
+}
+
+.splash-design-button a {
+  text-decoration: none;
+  width: 100%;
+}

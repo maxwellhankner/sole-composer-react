@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import './Landing.css';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
+import LandingSplash from '../../components/LandingSplash/LandingSplash';
 import NewDesignButton from '../../components/NewDesignButton/NewDesignButton';
 import FeaturedDesignCard from '../../components/FeaturedDesignCard/FeaturedDesignCard';
 import MyDesignTiles from '../../components/MyDesignTiles/MyDesignTiles';
@@ -49,6 +50,7 @@ function Landing() {
           <Link to="/login">Login</Link>
         )}
       </div>
+      {!userData && <LandingSplash />}
       <div className="landing-content">
         <div className="featured-designs-container">
           <p className="landing-section-label">FEATURED</p>
@@ -56,13 +58,14 @@ function Landing() {
             <AliceCarousel responsive={responsive} items={items} />
           ) : null}
         </div>
-        <NewDesignButton />
+        {userData && <NewDesignButton />}
 
         {!userData && (
           <Link to="/login">
             <div className="landing-button">
               <button>create an account</button>
             </div>
+            <div className="landing-bottom-spacing"></div>
           </Link>
         )}
 

@@ -76,6 +76,10 @@
   display: none !important;
 }
 
+.landing-bottom-spacing {
+  height: 100px;
+}
+
 /* Mobile */
 @media screen and (max-width: 700px) {
   .feature-designs::-webkit-scrollbar {
