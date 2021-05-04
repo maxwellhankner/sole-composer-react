@@ -6,10 +6,10 @@ function LandingSplash() {
   return (
     <div className="landing-splash-container">
       <div className="splash-left">
-        <p className="splash-header">Create something new</p>
+        <p className="splash-header">Create Something New</p>
         <p className="splash-para">
-          Sole Composer gives you the ability to fully design and visualize
-          one-of-a-kind sneakers.
+          Sole Composer gives you the ability to design and visualize
+          one&#8209;of&#8209;a&#8209;kind sneakers.
         </p>
         <SplashDesignButton />
       </div>
