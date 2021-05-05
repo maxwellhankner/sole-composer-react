@@ -40,6 +40,7 @@ function DesignPreview({
       // if new design
       if (!design.author) {
         setLoading(true);
+        setCameraReset(true);
         const file = await takeScreenshot('newImage');
         uploadImage(file, true).then((data) => {
           const imageName = convertAwsLink(data.image);
@@ -60,6 +61,7 @@ function DesignPreview({
       // if design is mine
       else if (design.author === userData._id) {
         setLoading(true);
+        setCameraReset(true);
         const file = await takeScreenshot(design.screenshot);
         uploadImage(file, false).then((data) => {
           const imageName = convertAwsLink(data.image);
@@ -77,6 +79,7 @@ function DesignPreview({
       // if design is not mine
       else {
         setLoading(true);
+        setCameraReset(true);
         const file = await takeScreenshot(design.screenshot);
         uploadImage(file, true).then((data) => {
           const imageName = convertAwsLink(data.image);
