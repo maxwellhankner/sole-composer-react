@@ -6,8 +6,8 @@ import LandingSplash from '../../components/LandingSplash/LandingSplash';
 import NewDesignButton from '../../components/NewDesignButton/NewDesignButton';
 import FeaturedDesignCard from '../../components/FeaturedDesignCard/FeaturedDesignCard';
 import MyDesignTiles from '../../components/MyDesignTiles/MyDesignTiles';
-import UserProvider from '../../context/UserProvider';
-import { simpleFetch } from '../../helpers/fetchHelpers';
+import UserProvider from '../../UserProvider';
+import { simpleFetch } from '../../utils/fetchHelpers';
 import { Link } from 'react-router-dom';
 
 function Landing() {

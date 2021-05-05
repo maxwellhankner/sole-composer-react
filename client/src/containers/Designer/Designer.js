@@ -6,10 +6,10 @@ import {
   createCanvas,
   createRedMapCanvas,
   createGraphicVisualCanvas,
-} from '../../canvasFunctions';
-import { simpleFetch } from '../../helpers/fetchHelpers';
+} from '../../utils/canvasFunctions';
+import { simpleFetch } from '../../utils/fetchHelpers';
 import { useParams } from 'react-router-dom';
-import UserProvider from '../../context/UserProvider';
+import UserProvider from '../../UserProvider';
 
 function Designer() {
   const { id } = useParams();

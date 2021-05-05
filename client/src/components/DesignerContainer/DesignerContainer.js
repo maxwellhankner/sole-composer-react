@@ -9,7 +9,7 @@ import {
   partChangeManager,
   canvasObjectToTextureCanvas,
   overlayChangeManager,
-} from '../../canvasFunctions';
+} from '../../utils/canvasFunctions';
 
 function DesignerContainer({
   userData,
