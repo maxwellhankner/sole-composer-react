@@ -12,6 +12,7 @@ import {
   FaSave,
   FaTimes,
   FaSquare,
+  FaCamera,
 } from 'react-icons/fa';
 import Toggle from '../Toggle';
 
@@ -25,6 +26,7 @@ function DesignPreview({
   setCurrentShoe,
   shoeVisibility,
   setShoeVisibility,
+  setCameraReset,
 }) {
   const [loading, setLoading] = useState(false);
   let userId;
@@ -159,6 +161,15 @@ function DesignPreview({
               <FaLayerGroup />
             </div>
             <button>Layers</button>
+          </div>
+          <div
+            className="design-preview-button"
+            onClick={() => setCameraReset(true)}
+          >
+            <div className="design-preview-button-icon">
+              <FaCamera />
+            </div>
+            <button>Reset Camera</button>
           </div>
           {canSave && userData ? (
             <div

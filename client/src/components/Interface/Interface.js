@@ -25,6 +25,7 @@ function Interface({
   setLayersView,
   currentLayer,
   setCurrentLayer,
+  setCameraReset,
 }) {
   const [canSave, setCanSave] = useState(false);
 
@@ -46,6 +47,7 @@ function Interface({
           setCurrentShoe={setCurrentShoe}
           shoeVisibility={shoeVisibility}
           setShoeVisibility={setShoeVisibility}
+          setCameraReset={setCameraReset}
         />
       </div>
     );
