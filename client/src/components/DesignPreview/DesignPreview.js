@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './DesignPreview.css';
 import { Link } from 'react-router-dom';
-import { uploadImage } from '../../helpers/uploadImage';
-import { takeScreenshot } from '../../helpers/takeScreenshot';
-import { convertAwsLink } from '../../helpers/convertAwsLink';
-import { designFetch } from '../../helpers/fetchHelpers';
+import { uploadImage } from '../../utils/uploadImage';
+import { takeScreenshot } from '../../utils/takeScreenshot';
+import { convertAwsLink } from '../../utils/convertAwsLink';
+import { designFetch } from '../../utils/fetchHelpers';
 import {
   FaPen,
   FaLayerGroup,
@@ -122,7 +122,6 @@ function DesignPreview({
         </div>
       </div>
     );
-    // } else if (userData) {
   } else {
     return (
       <div className="design-preview-container">

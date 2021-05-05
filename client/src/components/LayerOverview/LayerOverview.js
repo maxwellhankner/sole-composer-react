@@ -1,6 +1,6 @@
 import React from 'react';
 import './LayerOverview.css';
-import { handleConvertPartName } from '../../helpers/convertPartNames';
+import { handleConvertPartName } from '../../utils/convertPartNames';
 import { FaChevronUp, FaChevronDown, FaPen, FaTimes } from 'react-icons/fa';
 import PartSelector from '../PartSelector/PartSelector';
 
@@ -28,7 +28,7 @@ function LayerOverview({ props }) {
 
   return (
     <div
-      className='layers-view-container'
+      className="layers-view-container"
       onClick={(e) => handleClearFocusLayer(e.target.className)}
     >
       <PartSelector
@@ -39,13 +39,13 @@ function LayerOverview({ props }) {
         setLayersView={setLayersView}
       />
 
-      <div className='add-layer-button'>
+      <div className="add-layer-button">
         <button onClick={() => setLayersView('AddLayerType')}>Add Layer</button>
       </div>
 
-      <div className='layers-box-container'>
+      <div className="layers-box-container">
         {allLayers.map((layer, i) => (
-          <div key={i} className='layer-list-items'>
+          <div key={i} className="layer-list-items">
             <div
               className={`layer-list-item-end ${
                 currentLayer !== i ? 'hide-edit-buttons' : ''
@@ -77,7 +77,7 @@ function LayerOverview({ props }) {
               </div>
             </div>
             <div
-              className='layer-list-item-middle'
+              className="layer-list-item-middle"
               onClick={() => {
                 if (i === currentLayer) {
                   handleEditLayer(i, layer);
@@ -91,7 +91,7 @@ function LayerOverview({ props }) {
                   currentLayer === i ? 'focus-layer-highlight' : ''
                 }`}
               >
-                <div className='layer-list-item-type'>
+                <div className="layer-list-item-type">
                   {layer.type === 'overlay'
                     ? handleConvertPartName(layer.source).toLowerCase()
                     : layer.type}
@@ -100,13 +100,13 @@ function LayerOverview({ props }) {
 
               {layer.type === 'color' ? (
                 <div
-                  className='layer-list-item-right'
+                  className="layer-list-item-right"
                   style={{
                     backgroundColor: layer.color,
                   }}
                 ></div>
               ) : layer.type === 'graphic' ? (
-                <div className='layer-list-item-right'>
+                <div className="layer-list-item-right">
                   <img
                     src={`/api/assets/images/${layer.link}`}
                     style={{
@@ -114,11 +114,11 @@ function LayerOverview({ props }) {
                       height: '100%',
                       objectFit: 'cover',
                     }}
-                    alt='design-graphic'
+                    alt="design-graphic"
                   />
                 </div>
               ) : layer.type === 'mask' ? (
-                <div className='layer-list-item-right'>
+                <div className="layer-list-item-right">
                   <img
                     src={`/api/assets/designimages/${layer.link}`}
                     style={{
@@ -126,11 +126,11 @@ function LayerOverview({ props }) {
                       height: '100%',
                       objectFit: 'cover',
                     }}
-                    alt='design-graphic'
+                    alt="design-graphic"
                   />
                 </div>
               ) : (
-                <div className='layer-list-item-right'>
+                <div className="layer-list-item-right">
                   <img
                     src={`/api/assets/designimages/${layer.source}Mask.png`}
                     style={{
@@ -138,7 +138,7 @@ function LayerOverview({ props }) {
                       height: '100%',
                       objectFit: 'cover',
                     }}
-                    alt='design-graphic'
+                    alt="design-graphic"
                   />
                 </div>
               )}
@@ -148,7 +148,7 @@ function LayerOverview({ props }) {
                 currentLayer !== i ? 'hide-edit-buttons' : ''
               }`}
             >
-              <div className='edit-layer-button'>
+              <div className="edit-layer-button">
                 <button
                   onClick={() => {
                     handleEditLayer(i, layer);
@@ -158,13 +158,13 @@ function LayerOverview({ props }) {
                 </button>
               </div>
               {layer.type === 'overlay' ? (
-                <div className='edit-layer-button edit-layer-button-dead'>
+                <div className="edit-layer-button edit-layer-button-dead">
                   <button>
                     <FaTimes />
                   </button>
                 </div>
               ) : (
-                <div className='edit-layer-button'>
+                <div className="edit-layer-button">
                   <button onClick={() => handleDeleteLayer(i)}>
                     <FaTimes />
                   </button>
@@ -175,7 +175,7 @@ function LayerOverview({ props }) {
         ))}
       </div>
 
-      <div className='standard-button layer-back-button'>
+      <div className="standard-button layer-back-button">
         <button
           onClick={() => {
             setCurrentLayer(-1);
