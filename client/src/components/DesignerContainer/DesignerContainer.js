@@ -45,6 +45,8 @@ function DesignerContainer({
   const leftCanvasObjectRef = useRef();
   const leftOverlaysCanvasObjectRef = useRef();
 
+  const [cameraReset, setCameraReset] = useState(true);
+
   const handleUpdateGraphicVisualCanvas = (partName) => {
     if (partName === 'outerOverlay' || partName === 'innerOverlay') {
       if (currentShoe === 'right') {
@@ -247,6 +249,8 @@ function DesignerContainer({
           setCurrentLayer={setCurrentLayer}
           shoeVisibility={shoeVisibility}
           redMapCanvas={redMapCanvas}
+          cameraReset={cameraReset}
+          setCameraReset={setCameraReset}
         />
         <Interface
           design={design}
@@ -268,6 +272,7 @@ function DesignerContainer({
           setCurrentShoe={setCurrentShoe}
           shoeVisibility={shoeVisibility}
           setShoeVisibility={setShoeVisibility}
+          setCameraReset={setCameraReset}
         />
       </div>
     );

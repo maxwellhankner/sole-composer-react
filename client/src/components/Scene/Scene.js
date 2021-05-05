@@ -1,5 +1,5 @@
 import React, { useRef, Suspense } from 'react';
-import { Canvas, useLoader } from '@react-three/fiber';
+import { Canvas, useLoader, useThree } from '@react-three/fiber';
 import { useGLTF, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
@@ -98,16 +98,28 @@ const Scene = ({
   setCurrentLayer,
   setView,
   redMapCanvas,
+  cameraReset,
+  setCameraReset,
 }) => {
+  function CameraRig({ reset }) {
+    if (reset) {
+      const state = useThree();
+      state.camera.position.set(5.5, 1.5, 5.5);
+      setCameraReset(false);
+    }
+    return null;
+  }
+
   return (
     <div className="scene-container" id="scene-container-id">
       {texturesLoaded ? (
         <Canvas
-          camera={{ position: [5.5, 1.5, 5.5], fov: 45 }}
+          camera={{ fov: 45 }}
           linear
           dpr={3}
           gl={{ preserveDrawingBuffer: true }}
         >
+          <CameraRig reset={cameraReset} />
           <ambientLight />
           <Suspense fallback={null}>
             {shoeVisibility.right && (
