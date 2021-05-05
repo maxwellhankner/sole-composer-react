@@ -1,4 +1,4 @@
-import React, { useRef, Suspense } from 'react';
+import React, { useRef, Suspense, useEffect } from 'react';
 import { Canvas, useLoader, useThree } from '@react-three/fiber';
 import { useGLTF, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
@@ -101,6 +101,10 @@ const Scene = ({
   cameraReset,
   setCameraReset,
 }) => {
+  useEffect(() => {
+    console.log('hey', texturesLoaded);
+  }, [texturesLoaded]);
+
   function CameraRig({ reset }) {
     if (reset) {
       const state = useThree();
@@ -112,56 +116,53 @@ const Scene = ({
 
   return (
     <div className="scene-container" id="scene-container-id">
-      {texturesLoaded ? (
-        <Canvas
-          camera={{ fov: 45 }}
-          linear
-          dpr={3}
-          gl={{ preserveDrawingBuffer: true }}
-        >
-          <CameraRig reset={cameraReset} />
-          <ambientLight />
-          <Suspense fallback={null}>
-            {shoeVisibility.right && (
-              <Shoe
-                right
-                design={design}
-                texture={rightTexture}
-                setCurrentPart={setCurrentPart}
-                setCurrentShoe={setCurrentShoe}
-                alone={!shoeVisibility.left}
-                setLayersView={setLayersView}
-                setCurrentLayer={setCurrentLayer}
-                setView={setView}
-                redMapCanvas={redMapCanvas}
-              />
-            )}
-            {shoeVisibility.left && (
-              <Shoe
-                design={design}
-                texture={leftTexture}
-                setCurrentPart={setCurrentPart}
-                setCurrentShoe={setCurrentShoe}
-                alone={!shoeVisibility.right}
-                setLayersView={setLayersView}
-                setCurrentLayer={setCurrentLayer}
-                setView={setView}
-                redMapCanvas={redMapCanvas}
-              />
-            )}
-          </Suspense>
-          <OrbitControls
-            minPolarAngle={Math.PI / 4}
-            maxPolarAngle={(Math.PI * 3) / 4}
-            minDistance={4}
-            maxDistance={12}
-            enablePan={false}
-            enableDamping={true}
-          />
-        </Canvas>
-      ) : (
-        <LoadingSpinner />
-      )}
+      <Canvas
+        camera={{ fov: 45 }}
+        linear
+        dpr={3}
+        gl={{ preserveDrawingBuffer: true }}
+      >
+        <CameraRig reset={cameraReset} />
+        <ambientLight />
+        <Suspense fallback={null}>
+          {shoeVisibility.right && (
+            <Shoe
+              right
+              design={design}
+              texture={rightTexture}
+              setCurrentPart={setCurrentPart}
+              setCurrentShoe={setCurrentShoe}
+              alone={!shoeVisibility.left}
+              setLayersView={setLayersView}
+              setCurrentLayer={setCurrentLayer}
+              setView={setView}
+              redMapCanvas={redMapCanvas}
+            />
+          )}
+          {shoeVisibility.left && (
+            <Shoe
+              design={design}
+              texture={leftTexture}
+              setCurrentPart={setCurrentPart}
+              setCurrentShoe={setCurrentShoe}
+              alone={!shoeVisibility.right}
+              setLayersView={setLayersView}
+              setCurrentLayer={setCurrentLayer}
+              setView={setView}
+              redMapCanvas={redMapCanvas}
+            />
+          )}
+        </Suspense>
+        <OrbitControls
+          minPolarAngle={Math.PI / 4}
+          maxPolarAngle={(Math.PI * 3) / 4}
+          minDistance={4}
+          maxDistance={12}
+          enablePan={false}
+          enableDamping={true}
+        />
+      </Canvas>
+      {!texturesLoaded && <LoadingSpinner />}
     </div>
   );
 };
