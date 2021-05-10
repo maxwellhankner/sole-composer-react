@@ -1,3 +1,4 @@
+import AliceCarousel from 'react-alice-carousel';
 import styled from 'styled-components';
 
 export const LandingContainer = styled.div`

@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import './Landing.css';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
+import './Carousel.css';
 import LandingSplash from '../../components/LandingSplash/LandingSplash';
-import NewDesignButton from '../../components/NewDesignButton/NewDesignButton';
 import FeaturedDesignCard from '../../components/FeaturedDesignCard/FeaturedDesignCard';
 import MyDesignTiles from '../../components/MyDesignTiles/MyDesignTiles';
 import UserProvider from '../../UserProvider';
@@ -18,6 +17,7 @@ import {
   LandingHeaderTitle,
   LandingSectionLabel,
 } from './styledComponents';
+import { NewDesignButton } from '../../components/baseui/Buttons';
 import { LandingSignUpButton } from '../../components/baseui/Buttons';
 
 function Landing() {
@@ -65,10 +65,12 @@ function Landing() {
       {!userData && <LandingSplash />}
 
       <LandingContent>
-        <FeaturedDesignsContainer>
-          <LandingSectionLabel>FEATURED</LandingSectionLabel>
-          {featured && <AliceCarousel responsive={responsive} items={items} />}
-        </FeaturedDesignsContainer>
+        {featured && (
+          <FeaturedDesignsContainer>
+            <LandingSectionLabel>FEATURED</LandingSectionLabel>
+            <AliceCarousel responsive={responsive} items={items} />
+          </FeaturedDesignsContainer>
+        )}
 
         {userData && <NewDesignButton />}
 

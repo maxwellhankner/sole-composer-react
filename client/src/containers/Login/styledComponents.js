@@ -7,4 +7,5 @@ export const LoginContainer = styled.div`
   flex-direction: column;
   height: 100vh;
   justify-content: center;
+  padding: 16px;
 `;
