@@ -4,21 +4,18 @@ import { Link } from 'react-router-dom';
 
 function MyDesignTiles({ myDesigns }) {
   return (
-    <div className='mydesigntiles-container'>
-      <div>
-        <p className='landing-section-label'>MY DESIGNS</p>
-      </div>
-      <div className='my-designs-grid'>
+    <div className="mydesigntiles-container">
+      <div className="my-designs-grid">
         {myDesigns.map((design, key) => (
           <Link
             key={key}
             to={`/designer/${design._id}`}
-            className='link-to-designer'
+            className="link-to-designer"
           >
-            <div className='my-design-tile'>
+            <div className="my-design-tile">
               <img
                 src={`/api/assets/images/${design.screenshot}`}
-                alt='my-design-preview'
+                alt="my-design-preview"
               />
             </div>
           </Link>

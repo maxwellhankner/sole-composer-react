@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import './Landing.css';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
@@ -8,7 +9,16 @@ import FeaturedDesignCard from '../../components/FeaturedDesignCard/FeaturedDesi
 import MyDesignTiles from '../../components/MyDesignTiles/MyDesignTiles';
 import UserProvider from '../../UserProvider';
 import { simpleFetch } from '../../utils/fetchHelpers';
-import { Link } from 'react-router-dom';
+import {
+  LandingContainer,
+  LandingContent,
+  LandingHeader,
+  FeaturedDesignsContainer,
+  LandingSignUpContainer,
+  LandingHeaderTitle,
+  LandingSectionLabel,
+} from './styledComponents';
+import { LandingSignUpButton } from '../../components/baseui/Buttons';
 
 function Landing() {
   const userData = useContext(UserProvider.context);
@@ -39,39 +49,41 @@ function Landing() {
   };
 
   return (
-    <div className="landing-container">
-      <div className="landing-header">
-        <p>
+    <LandingContainer>
+      <LandingHeader>
+        <LandingHeaderTitle>
           <strong>Sole</strong> Composer
-        </p>
+        </LandingHeaderTitle>
+
         {userData ? (
           <Link to="/profile">{userData.firstName}</Link>
         ) : (
           <Link to="/login">Login</Link>
         )}
-      </div>
+      </LandingHeader>
+
       {!userData && <LandingSplash />}
-      <div className="landing-content">
-        <div className="featured-designs-container">
-          <p className="landing-section-label">FEATURED</p>
-          {featured ? (
-            <AliceCarousel responsive={responsive} items={items} />
-          ) : null}
-        </div>
+
+      <LandingContent>
+        <FeaturedDesignsContainer>
+          <LandingSectionLabel>FEATURED</LandingSectionLabel>
+          {featured && <AliceCarousel responsive={responsive} items={items} />}
+        </FeaturedDesignsContainer>
+
         {userData && <NewDesignButton />}
 
         {!userData && (
-          <Link to="/login">
-            <div className="landing-button">
-              <button>Sign Up</button>
-            </div>
-            <div className="landing-bottom-spacing"></div>
-          </Link>
+          <LandingSignUpContainer>
+            <Link to="/login">
+              <LandingSignUpButton>sign up</LandingSignUpButton>
+            </Link>
+          </LandingSignUpContainer>
         )}
 
+        {myDesigns && <LandingSectionLabel>MY DESIGNS</LandingSectionLabel>}
         {myDesigns && <MyDesignTiles myDesigns={myDesigns} />}
-      </div>
-    </div>
+      </LandingContent>
+    </LandingContainer>
   );
 }
 

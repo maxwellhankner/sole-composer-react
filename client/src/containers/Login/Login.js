@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LoginContainer } from './styledComponents';
-import BasicButton from '../../components/baseui/BasicButton';
+import { MenuButton } from '../../components/baseui/Buttons';
 
 function Login() {
   const loginWithGoogle = () => {
@@ -14,11 +14,11 @@ function Login() {
 
   return (
     <LoginContainer>
-      <BasicButton google onClick={() => loginWithGoogle()}>
+      <MenuButton google onClick={() => loginWithGoogle()}>
         Login With Google
-      </BasicButton>
+      </MenuButton>
       <Link to="/">
-        <BasicButton>Back</BasicButton>
+        <MenuButton>Back</MenuButton>
       </Link>
     </LoginContainer>
   );

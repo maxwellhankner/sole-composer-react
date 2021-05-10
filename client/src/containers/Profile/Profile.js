@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import UserProvider from '../../UserProvider';
 import { Link } from 'react-router-dom';
 import { ProfileContainer } from './styledComponents';
-import BasicButton from '../../components/baseui/BasicButton';
-import BasicPara from '../../components/baseui/BasicPara';
+import { MenuButton } from '../../components/baseui/Buttons';
+import { BasicPara } from '../../components/baseui/Text';
 
 function Profile() {
   const userData = useContext(UserProvider.context);
@@ -20,9 +20,9 @@ function Profile() {
     <ProfileContainer>
       <BasicPara>{userData.firstName}</BasicPara>
       <BasicPara>{userData.email}</BasicPara>
-      <BasicButton onClick={() => handleLogout()}>Log Out</BasicButton>
+      <MenuButton onClick={() => handleLogout()}>Log Out</MenuButton>
       <Link to="/">
-        <BasicButton>Back</BasicButton>
+        <MenuButton>Back</MenuButton>
       </Link>
     </ProfileContainer>
   );
