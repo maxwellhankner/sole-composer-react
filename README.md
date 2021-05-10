@@ -1,1 +1,1 @@
-# Sole Composer React
+# Sole Composer
