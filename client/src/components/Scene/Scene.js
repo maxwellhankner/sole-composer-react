@@ -106,6 +106,7 @@ const Scene = ({
       const state = useThree();
       state.camera.position.set(5.5, 1.5, 5.5);
       setCameraReset(false);
+      console.log('camera reset');
     }
     return null;
   }
