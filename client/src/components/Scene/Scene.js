@@ -101,10 +101,6 @@ const Scene = ({
   cameraReset,
   setCameraReset,
 }) => {
-  useEffect(() => {
-    console.log('hey', texturesLoaded);
-  }, [texturesLoaded]);
-
   function CameraRig({ reset }) {
     if (reset) {
       const state = useThree();
