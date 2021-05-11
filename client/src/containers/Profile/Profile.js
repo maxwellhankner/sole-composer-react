@@ -3,7 +3,7 @@ import UserProvider from '../../UserProvider';
 import { Link } from 'react-router-dom';
 import { ProfileContainer } from './styledComponents';
 import { MenuButton } from '../../components/baseui/Buttons';
-import { BasicPara } from '../../components/baseui/Text';
+import { MenuPara } from '../../components/baseui/Text';
 
 function Profile() {
   const userData = useContext(UserProvider.context);
@@ -18,8 +18,8 @@ function Profile() {
 
   return (
     <ProfileContainer>
-      <BasicPara>{userData.firstName}</BasicPara>
-      <BasicPara>{userData.email}</BasicPara>
+      <MenuPara>{userData.firstName}</MenuPara>
+      <MenuPara>{userData.email}</MenuPara>
       <MenuButton onClick={() => handleLogout()}>Log Out</MenuButton>
       <Link to="/">
         <MenuButton>Back</MenuButton>

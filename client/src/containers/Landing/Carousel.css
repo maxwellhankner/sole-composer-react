@@ -30,4 +30,7 @@
   .alice-carousel__next-btn {
     display: none !important;
   }
+  .alice-carousel__stage:first-child {
+    padding-left: 8px;
+  }
 }

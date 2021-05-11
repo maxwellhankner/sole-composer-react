@@ -1,3 +1,3 @@
-import { BasicPara } from './styledComponents';
+import { MenuPara } from './styledComponents';
 
-export default BasicPara;
+export default MenuPara;

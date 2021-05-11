@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import './Carousel.css';
-import LandingSplash from '../../components/LandingSplash/LandingSplash';
-import FeaturedDesignCard from '../../components/FeaturedDesignCard/FeaturedDesignCard';
-import MyDesignTiles from '../../components/MyDesignTiles/MyDesignTiles';
 import UserProvider from '../../UserProvider';
 import { simpleFetch } from '../../utils/fetchHelpers';
 import {
@@ -19,6 +16,9 @@ import {
 } from './styledComponents';
 import { NewDesignButton } from '../../components/baseui/Buttons';
 import { LandingSignUpButton } from '../../components/baseui/Buttons';
+import { FeaturedDesignCard } from '../../components/baseui/Cards';
+import LandingSplash from '../../components/LandingSplash';
+import MyDesigns from '../../components/MyDesigns';
 
 function Landing() {
   const userData = useContext(UserProvider.context);
@@ -83,7 +83,7 @@ function Landing() {
         )}
 
         {myDesigns && <LandingSectionLabel>MY DESIGNS</LandingSectionLabel>}
-        {myDesigns && <MyDesignTiles myDesigns={myDesigns} />}
+        {myDesigns && <MyDesigns myDesigns={myDesigns} />}
       </LandingContent>
     </LandingContainer>
   );
