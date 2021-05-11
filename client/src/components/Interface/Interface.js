@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import './Interface.css';
-import ChangeDesignName from '../ChangeDesignName/ChangeDesignName';
 import {
   InterfaceContainer,
   InterfaceLeft,
-  InterfaceLeftContainer,
   InterfaceRight,
 } from './styledComponents';
 import DesignerNav from './Nav';
 import DesignInfo from './DesignInfo';
 import DesignMenu from './DesignMenu';
-import DesignVisibility from './DesignVisibility';
+import Visibility from './Visibility';
 import BaseColor from './BaseColor';
 import Layers from './Layers';
+import EditName from './EditName';
 
 function Interface({
   design,
@@ -43,7 +41,6 @@ function Interface({
   };
 
   let ComponenetToRender;
-  console.log(view);
 
   if (view === 'DesignMenu') {
     ComponenetToRender = (
@@ -82,7 +79,7 @@ function Interface({
     );
   } else if (view === 'ChangeDesignName') {
     ComponenetToRender = (
-      <ChangeDesignName
+      <EditName
         handleViewChange={handleViewChange}
         design={design}
         setDesign={setDesign}
@@ -105,7 +102,7 @@ function Interface({
     ComponenetToRender = <DesignInfo design={design} />;
   } else if (view === 'DesignVisibility') {
     ComponenetToRender = (
-      <DesignVisibility
+      <Visibility
         currentShoe={currentShoe}
         setCurrentShoe={setCurrentShoe}
         shoeVisibility={shoeVisibility}
@@ -116,14 +113,9 @@ function Interface({
 
   return (
     <InterfaceContainer>
-      <InterfaceLeft>
-        <InterfaceLeftContainer>{ComponenetToRender}</InterfaceLeftContainer>
-      </InterfaceLeft>
+      <InterfaceLeft>{ComponenetToRender}</InterfaceLeft>
       <InterfaceRight>
-        <DesignerNav
-          handleViewChange={handleViewChange}
-          view={view}
-        ></DesignerNav>
+        <DesignerNav handleViewChange={handleViewChange} view={view} />
       </InterfaceRight>
     </InterfaceContainer>
   );

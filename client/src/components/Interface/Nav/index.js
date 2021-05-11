@@ -3,7 +3,6 @@ import { FaLayerGroup, FaBars, FaEye, FaPaintRoller } from 'react-icons/fa';
 import { NavContainer, NavOption } from './styledComponents';
 
 function Nav({ handleViewChange, view }) {
-  console.log(view);
   const viewManager = (viewName) => {
     if (view === viewName) {
       handleViewChange('DesignInfo');

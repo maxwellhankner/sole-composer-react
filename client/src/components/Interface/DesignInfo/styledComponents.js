@@ -1,16 +1,18 @@
 import styled from 'styled-components';
-// import { mediaQueriesByDevice } from '../../utils/css/breakpoints';
-// const { mobile } = mediaQueriesByDevice;
 
-export const InfoContainer = styled.div``;
+export const InfoContainer = styled.div`
+  padding-bottom: 10px;
+  padding-left: 10px;
+`;
 
 export const InfoTitle = styled.p`
   margin: 5px;
-  font-size: 20px;
-  color: #ffffff;
+  font-size: 26px;
+  color: #212121;
 `;
 
 export const InfoModel = styled.p`
   margin: 5px;
-  color: #ffffff;
+  font-size: 16px;
+  color: #212121;
 `;

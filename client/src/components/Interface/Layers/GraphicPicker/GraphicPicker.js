@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './GraphicPicker.css';
-import { uploadImage } from '../../utils/uploadImage';
-import { convertAwsLink } from '../../utils/convertAwsLink';
-import CurrentGraphics from '../CurrentGraphics/CurrentGraphics';
+import { uploadImage } from '../../../../utils/uploadImage';
+import { convertAwsLink } from '../../../../utils/convertAwsLink';
+import CurrentGraphics from '../../../CurrentGraphics/CurrentGraphics';
 
 function GraphicPicker({ props }) {
   const { setLayersView, handleAddLayer, design } = props;

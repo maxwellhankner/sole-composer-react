@@ -1,6 +1,7 @@
 import React from 'react';
 import LayerDictionary from './Constants';
 import './Layers.css';
+import { LeftInterfaceContainer } from '../../designerui';
 
 function LayersView({
   layersView,
@@ -118,7 +119,11 @@ function LayersView({
     layersView,
   };
 
-  return <Component props={propsToPassDown} />;
+  return (
+    <LeftInterfaceContainer>
+      <Component props={propsToPassDown} />
+    </LeftInterfaceContainer>
+  );
 }
 
 export default LayersView;

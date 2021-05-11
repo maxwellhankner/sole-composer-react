@@ -1,8 +1,8 @@
 import React from 'react';
 import './LayerOverview.css';
-import { handleConvertPartName } from '../../utils/convertPartNames';
+import { handleConvertPartName } from '../../../../utils/convertPartNames';
 import { FaChevronUp, FaChevronDown, FaPen, FaTimes } from 'react-icons/fa';
-import PartSelector from '../PartSelector/PartSelector';
+import PartSelector from '../../../PartSelector/PartSelector';
 
 function LayerOverview({ props }) {
   const {

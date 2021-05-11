@@ -1,7 +1,7 @@
 .designer-container {
   height: 100%;
   width: 100%;
-  background-color: #ddd;
+  /* background-color: #ddd; */
   display: flex;
   flex-direction: column;
   flex-grow: 0;

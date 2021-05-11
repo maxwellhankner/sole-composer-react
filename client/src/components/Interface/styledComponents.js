@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-// import { mediaQueriesByDevice } from '../../utils/css/breakpoints';
-// const { mobile } = mediaQueriesByDevice;
 
 export const InterfaceContainer = styled.div`
   position: fixed;
@@ -16,13 +14,7 @@ export const InterfaceLeft = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-`;
-
-export const InterfaceLeftContainer = styled.div`
-  background-color: #212121;
-  margin-left: 16px;
-  /* padding: 6px; */
-  /* border-radius: 9px; */
+  padding-left: 16px;
 `;
 
 export const InterfaceRight = styled.div`

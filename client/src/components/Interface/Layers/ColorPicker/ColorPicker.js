@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './ColorPicker.css';
-import { handleConvertPartName } from '../../utils/convertPartNames';
-import CurrentColors from '../CurrentColors/CurrentColors';
-import CustomColor from '../CustomColor/CustomColor';
+import { handleConvertPartName } from '../../../../utils/convertPartNames';
+import CurrentColors from '../../../CurrentColors/CurrentColors';
+import CustomColor from '../../../CustomColor/CustomColor';
 
 function ColorPicker({ props }) {
   const {

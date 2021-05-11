@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import './ChangeBaseColor.css';
 import { cloneDeep } from 'lodash';
 import CustomColor from '../../CustomColor/CustomColor';
+import {
+  LeftInterfaceContainer,
+  InterfaceButtons,
+  InterfaceButtonBox,
+  InterfaceButton,
+} from '../../designerui';
+import { BaseColorRadioBox, BaseColorOption } from './styledComponents';
 
 function ChangeBaseColor({
   handleViewChange,
@@ -56,47 +62,37 @@ function ChangeBaseColor({
   };
 
   return (
-    <div className="change-base-color-container">
-      <div className="base-color-selector">
-        <CustomColor color={baseColor} onChangeComplete={handleColorChange} />
-      </div>
-      <div className="base-color-buttons">
-        <div className="base-color-radio">
-          <div className="radio-container">
-            <div
-              className={`radio-option ${
-                radioOption === 'left' ? 'radio-active' : null
-              }`}
-              onClick={() => {
-                handleRadioOption('left');
-              }}
-            >
-              <p>Left</p>
-            </div>
-            <div
-              className={`radio-option ${
-                radioOption === 'both' ? 'radio-active' : null
-              }`}
-              onClick={() => {
-                handleRadioOption('both');
-              }}
-            >
-              <p>Both</p>
-            </div>
-            <div
-              className={`radio-option ${
-                radioOption === 'right' ? 'radio-active' : null
-              }`}
-              onClick={() => {
-                handleRadioOption('right');
-              }}
-            >
-              <p>Right</p>
-            </div>
-          </div>
-        </div>
-        <div className="base-color-button">
-          <button
+    <LeftInterfaceContainer>
+      <BaseColorRadioBox>
+        <BaseColorOption
+          active={radioOption === 'left'}
+          onClick={() => {
+            handleRadioOption('left');
+          }}
+        >
+          Left
+        </BaseColorOption>
+        <BaseColorOption
+          active={radioOption === 'both'}
+          onClick={() => {
+            handleRadioOption('both');
+          }}
+        >
+          Both
+        </BaseColorOption>
+        <BaseColorOption
+          active={radioOption === 'right'}
+          onClick={() => {
+            handleRadioOption('right');
+          }}
+        >
+          Right
+        </BaseColorOption>
+      </BaseColorRadioBox>
+      <CustomColor color={baseColor} onChangeComplete={handleColorChange} />
+      <InterfaceButtons>
+        <InterfaceButtonBox>
+          <InterfaceButton
             onClick={() =>
               handleColorChange(
                 '#' +
@@ -107,16 +103,20 @@ function ChangeBaseColor({
             }
           >
             Random
-          </button>
-        </div>
-        <div className="base-color-button">
-          <button onClick={() => updateBaseColor()}>Apply</button>
-        </div>
-        <div className="base-color-button">
-          <button onClick={() => handleViewChange('DesignInfo')}>Done</button>
-        </div>
-      </div>
-    </div>
+          </InterfaceButton>
+        </InterfaceButtonBox>
+        <InterfaceButtonBox>
+          <InterfaceButton onClick={() => updateBaseColor()}>
+            Apply
+          </InterfaceButton>
+        </InterfaceButtonBox>
+        <InterfaceButtonBox>
+          <InterfaceButton onClick={() => handleViewChange('DesignInfo')}>
+            Done
+          </InterfaceButton>
+        </InterfaceButtonBox>
+      </InterfaceButtons>
+    </LeftInterfaceContainer>
   );
 }
 

@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
-// import { InfoContainer, InfoTitle, InfoModel } from './styledComponents';
+import {
+  LeftInterfaceContainer,
+  InterfaceButtons,
+  InterfaceButtonBox,
+  InterfaceButton,
+} from '../../designerui';
+import {
+  MenuDesignNameContainer,
+  MenuDesignName,
+  MenuEditNameButton,
+} from './styledComponents';
 import './DesignPreview.css';
 import { Link } from 'react-router-dom';
 import { uploadImage } from '../../../utils/uploadImage';
 import { takeScreenshot } from '../../../utils/takeScreenshot';
 import { convertAwsLink } from '../../../utils/convertAwsLink';
 import { designFetch } from '../../../utils/fetchHelpers';
-import {
-  FaPen,
-  FaLayerGroup,
-  FaTrashAlt,
-  FaSave,
-  FaTimes,
-  FaSquare,
-  FaCamera,
-} from 'react-icons/fa';
-import Toggle from '../../Toggle';
+import { FaPen } from 'react-icons/fa';
 
 function DesignMenu({
   handleViewChange,
@@ -23,10 +24,6 @@ function DesignMenu({
   canSave,
   setCanSave,
   userData,
-  currentShoe,
-  setCurrentShoe,
-  shoeVisibility,
-  setShoeVisibility,
   setCameraReset,
 }) {
   const [loading, setLoading] = useState(false);
@@ -125,105 +122,52 @@ function DesignMenu({
     );
   } else {
     return (
-      <div className="design-preview-container">
-        <div className="design-preview-info">
-          <div className="design-title-container">
-            <p className="design-title">{design.title}</p>
-            <button
-              className="edit-design-title-button"
-              onClick={() => handleViewChange('ChangeDesignName')}
-            >
-              <FaPen />
-            </button>
-          </div>
-        </div>
-        <div className="design-preview-buttons">
-          {/* <Toggle
-            currentShoe={currentShoe}
-            setCurrentShoe={setCurrentShoe}
-            visibility={shoeVisibility}
-            setVisibility={setShoeVisibility}
-          /> */}
-          {/* <div
-            className="design-preview-button"
-            onClick={() => handleViewChange('ChangeBaseColor')}
+      <LeftInterfaceContainer>
+        <MenuDesignNameContainer>
+          <MenuDesignName>{design.title}</MenuDesignName>
+          <MenuEditNameButton
+            onClick={() => handleViewChange('ChangeDesignName')}
           >
-            <div
-              className="design-preview-button-icon"
-              style={{ color: design.outlineData.baseColors[currentShoe] }}
-            >
-              <FaSquare />
-            </div>
-            <button>Base Color</button>
-          </div> */}
-          {/* <div
-            className="design-preview-button"
-            onClick={() => handleViewChange('Layers')}
-          >
-            <div className="design-preview-button-icon">
-              <FaLayerGroup />
-            </div>
-            <button>Layers</button>
-          </div> */}
-          <div
-            className="design-preview-button"
-            onClick={() => setCameraReset(true)}
-          >
-            <div className="design-preview-button-icon">
-              <FaCamera />
-            </div>
-            <button>Reset Camera</button>
-          </div>
+            <FaPen />
+          </MenuEditNameButton>
+        </MenuDesignNameContainer>
+        <InterfaceButtons>
+          <InterfaceButtonBox onClick={() => setCameraReset(true)}>
+            <InterfaceButton active>Reset Camera</InterfaceButton>
+          </InterfaceButtonBox>
           {canSave && userData ? (
-            <div
-              className="design-preview-button"
+            <InterfaceButtonBox
               onClick={() => {
                 handleSaveDesign();
               }}
             >
-              <div className="design-preview-button-icon">
-                <FaSave />
-              </div>
-              <button>Save</button>
-            </div>
+              <InterfaceButton active>Save</InterfaceButton>
+            </InterfaceButtonBox>
           ) : (
-            <div className="design-preview-button save-deactivated">
-              <div className="design-preview-button-icon">
-                <FaSave />
-              </div>
-              <button>Save</button>
-            </div>
+            <InterfaceButtonBox>
+              <InterfaceButton>Save</InterfaceButton>
+            </InterfaceButtonBox>
           )}
           {userData && design.author === userId ? (
-            <div
-              className="design-preview-button"
+            <InterfaceButtonBox
               onClick={() => {
                 handleDeleteDesign();
               }}
             >
-              <div className="design-preview-button-icon">
-                <FaTrashAlt />
-              </div>
-              <button>Delete</button>
-            </div>
+              <InterfaceButton active>Delete</InterfaceButton>
+            </InterfaceButtonBox>
           ) : (
-            <div className="design-preview-button save-deactivated">
-              <div className="design-preview-button-icon">
-                <FaTrashAlt />
-              </div>
-              <button>Delete</button>
-            </div>
+            <InterfaceButtonBox>
+              <InterfaceButton>Delete</InterfaceButton>
+            </InterfaceButtonBox>
           )}
           <Link to="/">
-            <div className="design-preview-button">
-              <div className="design-preview-button-icon">
-                <FaTimes />
-              </div>
-              <button>Exit</button>
-            </div>
+            <InterfaceButtonBox>
+              <InterfaceButton active>Exit</InterfaceButton>
+            </InterfaceButtonBox>
           </Link>
-        </div>
-      </div>
+        </InterfaceButtons>
+      </LeftInterfaceContainer>
     );
   }
 }

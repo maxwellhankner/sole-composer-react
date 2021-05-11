@@ -1,8 +1,8 @@
 import React from 'react';
 import { VisibilityContainer } from './styledComponents';
-import Toggle from '../../Toggle';
+import Toggle from './Toggle';
 
-function DesignVisibility({
+function Visibility({
   currentShoe,
   setCurrentShoe,
   shoeVisibility,
@@ -20,4 +20,4 @@ function DesignVisibility({
   );
 }
 
-export default DesignVisibility;
+export default Visibility;
