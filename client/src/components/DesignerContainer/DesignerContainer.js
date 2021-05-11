@@ -35,7 +35,7 @@ function DesignerContainer({
     left: true,
   });
 
-  const [view, setView] = useState('DesignPreview');
+  const [view, setView] = useState('DesignMenu');
   const [layersView, setLayersView] = useState('LayerOverview');
 
   const rightBaseColorCanvasObjectRef = useRef();

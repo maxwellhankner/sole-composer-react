@@ -179,7 +179,7 @@ function LayerOverview({ props }) {
         <button
           onClick={() => {
             setCurrentLayer(-1);
-            handleViewChange('DesignPreview');
+            handleViewChange('DesignInfo');
           }}
         >
           Back

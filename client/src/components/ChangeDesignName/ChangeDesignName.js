@@ -11,23 +11,23 @@ function ChangeDesignName({ handleViewChange, design, setDesign, setCanSave }) {
     tempDesign.title = newTitle;
     setCanSave(true);
     setDesign(tempDesign);
-    handleViewChange('DesignPreview');
+    handleViewChange('DesignMenu');
   };
 
   return (
-    <div className='changedesignname-container'>
-      <div className='view-title'>
+    <div className="changedesignname-container">
+      <div className="view-title">
         <p>Change Design Name</p>
       </div>
-      <div className='designer-input-div'>
+      <div className="designer-input-div">
         <input
-          type='text'
-          id='design-name-input'
-          className='designer-input'
+          type="text"
+          id="design-name-input"
+          className="designer-input"
           defaultValue={design.title}
         ></input>
       </div>
-      <div className='standard-button'>
+      <div className="standard-button">
         <button onClick={() => handleUpdateDesignName()}>Done</button>
       </div>
     </div>

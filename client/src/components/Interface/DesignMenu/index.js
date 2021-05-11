@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+// import { InfoContainer, InfoTitle, InfoModel } from './styledComponents';
 import './DesignPreview.css';
 import { Link } from 'react-router-dom';
-import { uploadImage } from '../../utils/uploadImage';
-import { takeScreenshot } from '../../utils/takeScreenshot';
-import { convertAwsLink } from '../../utils/convertAwsLink';
-import { designFetch } from '../../utils/fetchHelpers';
+import { uploadImage } from '../../../utils/uploadImage';
+import { takeScreenshot } from '../../../utils/takeScreenshot';
+import { convertAwsLink } from '../../../utils/convertAwsLink';
+import { designFetch } from '../../../utils/fetchHelpers';
 import {
   FaPen,
   FaLayerGroup,
@@ -14,9 +15,9 @@ import {
   FaSquare,
   FaCamera,
 } from 'react-icons/fa';
-import Toggle from '../Toggle';
+import Toggle from '../../Toggle';
 
-function DesignPreview({
+function DesignMenu({
   handleViewChange,
   design,
   canSave,
@@ -137,13 +138,13 @@ function DesignPreview({
           </div>
         </div>
         <div className="design-preview-buttons">
-          <Toggle
+          {/* <Toggle
             currentShoe={currentShoe}
             setCurrentShoe={setCurrentShoe}
             visibility={shoeVisibility}
             setVisibility={setShoeVisibility}
-          />
-          <div
+          /> */}
+          {/* <div
             className="design-preview-button"
             onClick={() => handleViewChange('ChangeBaseColor')}
           >
@@ -154,8 +155,8 @@ function DesignPreview({
               <FaSquare />
             </div>
             <button>Base Color</button>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className="design-preview-button"
             onClick={() => handleViewChange('Layers')}
           >
@@ -163,7 +164,7 @@ function DesignPreview({
               <FaLayerGroup />
             </div>
             <button>Layers</button>
-          </div>
+          </div> */}
           <div
             className="design-preview-button"
             onClick={() => setCameraReset(true)}
@@ -227,4 +228,4 @@ function DesignPreview({
   }
 }
 
-export default DesignPreview;
+export default DesignMenu;

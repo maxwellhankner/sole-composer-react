@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import './Interface.css';
-import DesignPreview from '../DesignPreview/DesignPreview';
-import Layers from '../Layers/Layers';
 import ChangeDesignName from '../ChangeDesignName/ChangeDesignName';
-import ChangeBaseColor from '../ChangeBaseColor/ChangeBaseColor';
+import {
+  InterfaceContainer,
+  InterfaceLeft,
+  InterfaceLeftContainer,
+  InterfaceRight,
+} from './styledComponents';
+import DesignerNav from './Nav';
+import DesignInfo from './DesignInfo';
+import DesignMenu from './DesignMenu';
+import DesignVisibility from './DesignVisibility';
+import BaseColor from './BaseColor';
+import Layers from './Layers';
 
 function Interface({
   design,
@@ -33,71 +42,91 @@ function Interface({
     setView(viewChange);
   };
 
-  if (view === 'DesignPreview') {
-    return (
-      <div className="interface-container">
-        <DesignPreview
-          handleViewChange={handleViewChange}
-          design={design}
-          setDesign={setDesign}
-          canSave={canSave}
-          setCanSave={setCanSave}
-          userData={userData}
-          currentShoe={currentShoe}
-          setCurrentShoe={setCurrentShoe}
-          shoeVisibility={shoeVisibility}
-          setShoeVisibility={setShoeVisibility}
-          setCameraReset={setCameraReset}
-        />
-      </div>
+  let ComponenetToRender;
+  console.log(view);
+
+  if (view === 'DesignMenu') {
+    ComponenetToRender = (
+      <DesignMenu
+        handleViewChange={handleViewChange}
+        design={design}
+        setDesign={setDesign}
+        canSave={canSave}
+        setCanSave={setCanSave}
+        userData={userData}
+        currentShoe={currentShoe}
+        setCurrentShoe={setCurrentShoe}
+        shoeVisibility={shoeVisibility}
+        setShoeVisibility={setShoeVisibility}
+        setCameraReset={setCameraReset}
+      />
     );
   } else if (view === 'Layers') {
-    return (
-      <div className="interface-container">
-        <Layers
-          layersView={layersView}
-          setLayersView={setLayersView}
-          handleViewChange={handleViewChange}
-          design={design}
-          setDesign={setDesign}
-          currentShoe={currentShoe}
-          currentPart={currentPart}
-          setCurrentPart={setCurrentPart}
-          currentLayer={currentLayer}
-          setCurrentLayer={setCurrentLayer}
-          graphicVisualCanvas={graphicVisualCanvas}
-          handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
-          handleChangeManager={handleChangeManager}
-          setCanSave={setCanSave}
-        />
-      </div>
+    ComponenetToRender = (
+      <Layers
+        layersView={layersView}
+        setLayersView={setLayersView}
+        handleViewChange={handleViewChange}
+        design={design}
+        setDesign={setDesign}
+        currentShoe={currentShoe}
+        currentPart={currentPart}
+        setCurrentPart={setCurrentPart}
+        currentLayer={currentLayer}
+        setCurrentLayer={setCurrentLayer}
+        graphicVisualCanvas={graphicVisualCanvas}
+        handleUpdateGraphicVisualCanvas={handleUpdateGraphicVisualCanvas}
+        handleChangeManager={handleChangeManager}
+        setCanSave={setCanSave}
+      />
     );
   } else if (view === 'ChangeDesignName') {
-    return (
-      <div className="interface-container">
-        <ChangeDesignName
-          handleViewChange={handleViewChange}
-          design={design}
-          setDesign={setDesign}
-          setCanSave={setCanSave}
-        />
-      </div>
+    ComponenetToRender = (
+      <ChangeDesignName
+        handleViewChange={handleViewChange}
+        design={design}
+        setDesign={setDesign}
+        setCanSave={setCanSave}
+      />
     );
   } else if (view === 'ChangeBaseColor') {
-    return (
-      <div className="interface-container">
-        <ChangeBaseColor
-          handleViewChange={handleViewChange}
-          design={design}
-          setDesign={setDesign}
-          setCanSave={setCanSave}
-          handleUpdateBaseColor={handleUpdateBaseColor}
-          currentShoe={currentShoe}
-          setCurrentShoe={setCurrentShoe}
-        />
-      </div>
+    ComponenetToRender = (
+      <BaseColor
+        handleViewChange={handleViewChange}
+        design={design}
+        setDesign={setDesign}
+        setCanSave={setCanSave}
+        handleUpdateBaseColor={handleUpdateBaseColor}
+        currentShoe={currentShoe}
+        setCurrentShoe={setCurrentShoe}
+      />
+    );
+  } else if (view === 'DesignInfo') {
+    ComponenetToRender = <DesignInfo design={design} />;
+  } else if (view === 'DesignVisibility') {
+    ComponenetToRender = (
+      <DesignVisibility
+        currentShoe={currentShoe}
+        setCurrentShoe={setCurrentShoe}
+        shoeVisibility={shoeVisibility}
+        setShoeVisibility={setShoeVisibility}
+      />
     );
   }
+
+  return (
+    <InterfaceContainer>
+      <InterfaceLeft>
+        <InterfaceLeftContainer>{ComponenetToRender}</InterfaceLeftContainer>
+      </InterfaceLeft>
+      <InterfaceRight>
+        <DesignerNav
+          handleViewChange={handleViewChange}
+          view={view}
+        ></DesignerNav>
+      </InterfaceRight>
+    </InterfaceContainer>
+  );
 }
 
 export default Interface;

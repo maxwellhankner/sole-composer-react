@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ChangeBaseColor.css';
 import { cloneDeep } from 'lodash';
-import CustomColor from '../CustomColor/CustomColor';
+import CustomColor from '../../CustomColor/CustomColor';
 
 function ChangeBaseColor({
   handleViewChange,
@@ -56,13 +56,13 @@ function ChangeBaseColor({
   };
 
   return (
-    <div className='change-base-color-container'>
-      <div className='base-color-selector'>
+    <div className="change-base-color-container">
+      <div className="base-color-selector">
         <CustomColor color={baseColor} onChangeComplete={handleColorChange} />
       </div>
-      <div className='base-color-buttons'>
-        <div className='base-color-radio'>
-          <div className='radio-container'>
+      <div className="base-color-buttons">
+        <div className="base-color-radio">
+          <div className="radio-container">
             <div
               className={`radio-option ${
                 radioOption === 'left' ? 'radio-active' : null
@@ -95,7 +95,7 @@ function ChangeBaseColor({
             </div>
           </div>
         </div>
-        <div className='base-color-button'>
+        <div className="base-color-button">
           <button
             onClick={() =>
               handleColorChange(
@@ -109,13 +109,11 @@ function ChangeBaseColor({
             Random
           </button>
         </div>
-        <div className='base-color-button'>
+        <div className="base-color-button">
           <button onClick={() => updateBaseColor()}>Apply</button>
         </div>
-        <div className='base-color-button'>
-          <button onClick={() => handleViewChange('DesignPreview')}>
-            Done
-          </button>
+        <div className="base-color-button">
+          <button onClick={() => handleViewChange('DesignInfo')}>Done</button>
         </div>
       </div>
     </div>
