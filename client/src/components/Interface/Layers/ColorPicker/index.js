@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import './ColorPicker.css';
 import { handleConvertPartName } from '../../../../utils/convertPartNames';
 import CurrentColors from '../../../CurrentColors/CurrentColors';
 import CustomColor from '../../../CustomColor/CustomColor';
+import {
+  LeftInterfaceContainer,
+  InterfaceTitle,
+  InterfaceSingleButtons,
+  InterfaceButtonBox,
+  InterfaceButton,
+} from '../../../designerui';
 
 function ColorPicker({ props }) {
   const {
@@ -112,40 +118,41 @@ function ColorPicker({ props }) {
   };
 
   return (
-    <div className="color-picker-container">
-      <div className="view-title">
-        <p>{handleConvertPartName(currentPartName)}</p>
-      </div>
-      <div className="standard-button">
-        <button
-          onClick={() =>
-            handleColorChange(
-              '#' +
-                (
-                  '00000' + ((Math.random() * (1 << 24)) | 0).toString(16)
-                ).slice(-6)
-            )
-          }
-        >
-          Random Color
-        </button>
-      </div>
-      <div>
-        <CurrentColors
-          colorsArray={colorsArray}
-          handleColorChange={handleColorChange}
-        />
-      </div>
-      <div>
-        <CustomColor
-          color={currentColor}
-          onChangeComplete={handleColorChange}
-        />
-      </div>
-      <div className="standard-button">
-        <button onClick={() => setLayersView('LayerOverview')}>Back</button>
-      </div>
-    </div>
+    <LeftInterfaceContainer>
+      <InterfaceTitle>{handleConvertPartName(currentPartName)}</InterfaceTitle>
+      <InterfaceSingleButtons>
+        <InterfaceButtonBox>
+          <InterfaceButton
+            active
+            onClick={() =>
+              handleColorChange(
+                '#' +
+                  (
+                    '00000' + ((Math.random() * (1 << 24)) | 0).toString(16)
+                  ).slice(-6)
+              )
+            }
+          >
+            Random Color
+          </InterfaceButton>
+        </InterfaceButtonBox>
+      </InterfaceSingleButtons>
+
+      <CurrentColors
+        colorsArray={colorsArray}
+        handleColorChange={handleColorChange}
+      />
+
+      <CustomColor color={currentColor} onChangeComplete={handleColorChange} />
+
+      <InterfaceSingleButtons>
+        <InterfaceButtonBox>
+          <InterfaceButton active onClick={() => setLayersView('LayersMain')}>
+            Back
+          </InterfaceButton>
+        </InterfaceButtonBox>
+      </InterfaceSingleButtons>
+    </LeftInterfaceContainer>
   );
 }
 

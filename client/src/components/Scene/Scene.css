@@ -4,4 +4,5 @@
   color: #000;
   height: 100vw;
   flex: 0 0 auto;
+  overflow: hidden;
 }

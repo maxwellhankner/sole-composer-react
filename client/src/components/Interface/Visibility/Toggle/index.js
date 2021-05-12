@@ -1,10 +1,7 @@
 import React from 'react';
 // import { FaEye } from 'react-icons/fa';
-import {
-  ToggleContainer,
-  ToggleOptionBox,
-  ToggleOptionButton,
-} from './styledComponents';
+import { ToggleOptionBox, ToggleOptionButton } from './styledComponents';
+import { InterfaceSingleButtons } from '../../../designerui';
 
 function Toggle({ setCurrentShoe, visibility, setVisibility }) {
   const hanleShoeVisibility = (shoe) => {
@@ -48,7 +45,7 @@ function Toggle({ setCurrentShoe, visibility, setVisibility }) {
   };
 
   return (
-    <ToggleContainer>
+    <InterfaceSingleButtons>
       <ToggleOptionBox>
         <ToggleOptionButton
           active={visibility.left}
@@ -69,7 +66,7 @@ function Toggle({ setCurrentShoe, visibility, setVisibility }) {
           Right
         </ToggleOptionButton>
       </ToggleOptionBox>
-    </ToggleContainer>
+    </InterfaceSingleButtons>
   );
 }
 

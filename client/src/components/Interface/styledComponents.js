@@ -6,7 +6,7 @@ export const InterfaceContainer = styled.div`
   width: 100%;
   touch-action: none;
   display: flex;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 `;
 
 export const InterfaceLeft = styled.div`

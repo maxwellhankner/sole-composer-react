@@ -1,6 +1,7 @@
 import React from 'react';
 import { VisibilityContainer } from './styledComponents';
 import Toggle from './Toggle';
+import { LeftInterfaceContainer } from '../../designerui';
 
 function Visibility({
   currentShoe,
@@ -10,12 +11,14 @@ function Visibility({
 }) {
   return (
     <VisibilityContainer>
-      <Toggle
-        currentShoe={currentShoe}
-        setCurrentShoe={setCurrentShoe}
-        visibility={shoeVisibility}
-        setVisibility={setShoeVisibility}
-      />
+      <LeftInterfaceContainer>
+        <Toggle
+          currentShoe={currentShoe}
+          setCurrentShoe={setCurrentShoe}
+          visibility={shoeVisibility}
+          setVisibility={setShoeVisibility}
+        />
+      </LeftInterfaceContainer>
     </VisibilityContainer>
   );
 }

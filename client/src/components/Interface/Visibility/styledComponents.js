@@ -5,5 +5,4 @@ export const VisibilityContainer = styled.div`
   margin-left: auto;
   background-color: #212121;
   border-radius: 9px;
-  padding: 6px;
 `;

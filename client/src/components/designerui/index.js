@@ -1,13 +1,21 @@
 import {
   LeftInterfaceContainer,
-  InterfaceButtons,
+  InterfaceTitle,
+  InterfaceDoubleButtons,
+  InterfaceSingleButtons,
   InterfaceButtonBox,
   InterfaceButton,
+  InterfaceIconButtonBox,
+  InterfaceIconButton,
 } from './styledComponents';
 
 export {
   LeftInterfaceContainer,
-  InterfaceButtons,
+  InterfaceTitle,
+  InterfaceDoubleButtons,
+  InterfaceSingleButtons,
   InterfaceButtonBox,
   InterfaceButton,
+  InterfaceIconButtonBox,
+  InterfaceIconButton,
 };

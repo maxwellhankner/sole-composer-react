@@ -1,16 +1,19 @@
 .splash-design-button {
-  margin: 0 !important;
+  margin: 0;
 }
 
 .splash-design-button button {
-  background-color: #000000 !important;
-  height: 44px !important;
-  font-size: 16px !important;
-  width: unset !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  padding-left: 23px !important;
-  padding-right: 23px !important;
+  border: none;
+  color: #ffffff;
+  border-radius: 5px;
+  background-color: #000000;
+  height: 44px;
+  font-size: 16px;
+  width: unset;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .splash-design-button a {

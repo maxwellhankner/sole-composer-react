@@ -1,22 +1,25 @@
 import styled from 'styled-components';
 
 export const BaseColorRadioBox = styled.div`
+  box-sizing: border-box;
   background-color: #000000;
-  border-radius: 5px;
+  border-radius: 6px;
   border: 1px solid #343434;
-  height: 40px;
   display: flex;
   flex-direction: row;
   padding: 3px;
-  margin-bottom: 6px;
 `;
 
 export const BaseColorOption = styled.button`
+  box-sizing: border-box;
+  font-size: 16px;
   color: ${(props) => (props.active ? '#ffffff' : '#999999')};
   background-color: ${(props) => (props.active ? '#212121' : '#000000')};
-  border: ${(props) => (props.active ? '1px solid #343434' : 'none')};
-  border-radius: ${(props) => (props.active ? '5px' : 'unset')};
+  border: 1px solid;
+  border-radius: 3px;
+  border-color: ${(props) => (props.active ? '#343434' : '#000000')};
   width: 100%;
+  height: 38px;
   display: flex;
   justify-content: center;
   align-items: center;

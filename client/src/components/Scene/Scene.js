@@ -54,11 +54,12 @@ function Shoe({
     if (e.delta < 10) {
       const x = Math.floor(e.uv.x * 1000);
       const y = Math.floor(e.uv.y * 1000);
-      const colorValues = redMapCanvas.getContext('2d').getImageData(x, y, 1, 1)
-        .data;
+      const colorValues = redMapCanvas
+        .getContext('2d')
+        .getImageData(x, y, 1, 1).data;
       const part = partLookup(colorValues[0]);
       if (part || part === 0) {
-        setLayersView('LayerOverview');
+        setLayersView('LayersMain');
         setCurrentLayer(-1);
         setView('Layers');
         setCurrentPart(part);

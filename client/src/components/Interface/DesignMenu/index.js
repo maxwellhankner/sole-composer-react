@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   LeftInterfaceContainer,
-  InterfaceButtons,
+  InterfaceDoubleButtons,
   InterfaceButtonBox,
   InterfaceButton,
 } from '../../designerui';
@@ -10,7 +10,6 @@ import {
   MenuDesignName,
   MenuEditNameButton,
 } from './styledComponents';
-import './DesignPreview.css';
 import { Link } from 'react-router-dom';
 import { uploadImage } from '../../../utils/uploadImage';
 import { takeScreenshot } from '../../../utils/takeScreenshot';
@@ -131,7 +130,7 @@ function DesignMenu({
             <FaPen />
           </MenuEditNameButton>
         </MenuDesignNameContainer>
-        <InterfaceButtons>
+        <InterfaceDoubleButtons>
           <InterfaceButtonBox onClick={() => setCameraReset(true)}>
             <InterfaceButton active>Reset Camera</InterfaceButton>
           </InterfaceButtonBox>
@@ -161,12 +160,13 @@ function DesignMenu({
               <InterfaceButton>Delete</InterfaceButton>
             </InterfaceButtonBox>
           )}
-          <Link to="/">
-            <InterfaceButtonBox>
+
+          <InterfaceButtonBox>
+            <Link to="/">
               <InterfaceButton active>Exit</InterfaceButton>
-            </InterfaceButtonBox>
-          </Link>
-        </InterfaceButtons>
+            </Link>
+          </InterfaceButtonBox>
+        </InterfaceDoubleButtons>
       </LeftInterfaceContainer>
     );
   }

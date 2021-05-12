@@ -3,7 +3,8 @@ import { cloneDeep } from 'lodash';
 import CustomColor from '../../CustomColor/CustomColor';
 import {
   LeftInterfaceContainer,
-  InterfaceButtons,
+  InterfaceDoubleButtons,
+  InterfaceSingleButtons,
   InterfaceButtonBox,
   InterfaceButton,
 } from '../../designerui';
@@ -63,36 +64,40 @@ function ChangeBaseColor({
 
   return (
     <LeftInterfaceContainer>
-      <BaseColorRadioBox>
-        <BaseColorOption
-          active={radioOption === 'left'}
-          onClick={() => {
-            handleRadioOption('left');
-          }}
-        >
-          Left
-        </BaseColorOption>
-        <BaseColorOption
-          active={radioOption === 'both'}
-          onClick={() => {
-            handleRadioOption('both');
-          }}
-        >
-          Both
-        </BaseColorOption>
-        <BaseColorOption
-          active={radioOption === 'right'}
-          onClick={() => {
-            handleRadioOption('right');
-          }}
-        >
-          Right
-        </BaseColorOption>
-      </BaseColorRadioBox>
+      <InterfaceSingleButtons>
+        <BaseColorRadioBox>
+          <BaseColorOption
+            active={radioOption === 'left'}
+            onClick={() => {
+              handleRadioOption('left');
+            }}
+          >
+            Left
+          </BaseColorOption>
+          <BaseColorOption
+            active={radioOption === 'both'}
+            onClick={() => {
+              handleRadioOption('both');
+            }}
+          >
+            Both
+          </BaseColorOption>
+          <BaseColorOption
+            active={radioOption === 'right'}
+            onClick={() => {
+              handleRadioOption('right');
+            }}
+          >
+            Right
+          </BaseColorOption>
+        </BaseColorRadioBox>
+      </InterfaceSingleButtons>
+
       <CustomColor color={baseColor} onChangeComplete={handleColorChange} />
-      <InterfaceButtons>
+      <InterfaceDoubleButtons>
         <InterfaceButtonBox>
           <InterfaceButton
+            active
             onClick={() =>
               handleColorChange(
                 '#' +
@@ -106,16 +111,19 @@ function ChangeBaseColor({
           </InterfaceButton>
         </InterfaceButtonBox>
         <InterfaceButtonBox>
-          <InterfaceButton onClick={() => updateBaseColor()}>
+          <InterfaceButton active onClick={() => updateBaseColor()}>
             Apply
           </InterfaceButton>
         </InterfaceButtonBox>
         <InterfaceButtonBox>
-          <InterfaceButton onClick={() => handleViewChange('DesignInfo')}>
+          <InterfaceButton
+            active
+            onClick={() => handleViewChange('DesignInfo')}
+          >
             Done
           </InterfaceButton>
         </InterfaceButtonBox>
-      </InterfaceButtons>
+      </InterfaceDoubleButtons>
     </LeftInterfaceContainer>
   );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { cloneDeep, startCase } from 'lodash';
 import {
   LeftInterfaceContainer,
+  InterfaceSingleButtons,
   InterfaceButtonBox,
   InterfaceButton,
 } from '../../designerui';
@@ -22,18 +23,20 @@ function EditName({ handleViewChange, design, setDesign, setCanSave }) {
   return (
     <LeftInterfaceContainer>
       <EditNameTitle>Design Name</EditNameTitle>
-      <InterfaceButtonBox>
-        <EditNameInput
-          type="text"
-          id="design-name-input"
-          defaultValue={design.title}
-        ></EditNameInput>
-      </InterfaceButtonBox>
-      <InterfaceButtonBox>
-        <InterfaceButton onClick={() => handleUpdateDesignName()}>
-          Done
-        </InterfaceButton>
-      </InterfaceButtonBox>
+      <InterfaceSingleButtons>
+        <InterfaceButtonBox>
+          <EditNameInput
+            type="text"
+            id="design-name-input"
+            defaultValue={design.title}
+          ></EditNameInput>
+        </InterfaceButtonBox>
+        <InterfaceButtonBox>
+          <InterfaceButton active onClick={() => handleUpdateDesignName()}>
+            Done
+          </InterfaceButton>
+        </InterfaceButtonBox>
+      </InterfaceSingleButtons>
     </LeftInterfaceContainer>
   );
 }

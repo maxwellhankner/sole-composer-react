@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const InfoContainer = styled.div`
   padding-bottom: 10px;
-  padding-left: 10px;
+  padding-left: 20px;
 `;
 
 export const InfoTitle = styled.p`

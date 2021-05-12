@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-// import { mediaQueriesByDevice } from '../../utils/css/breakpoints';
-// const { mobile } = mediaQueriesByDevice;
 
 export const NavContainer = styled.div`
   display: flex;
@@ -13,6 +11,8 @@ export const NavOption = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   svg {
     font-size: 26px;

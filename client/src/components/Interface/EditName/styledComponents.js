@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const EditNameTitle = styled.p`
   color: #ffffff;
-  margin: 10px;
+  margin: 16px;
 `;
 
 export const EditNameInput = styled.input`
@@ -14,8 +14,7 @@ export const EditNameInput = styled.input`
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   border: none;
-  /* border: 1px solid pink; */
-  border-radius: 4px;
-  height: 40px;
+  border-radius: 3px;
+  height: 38px;
   padding-left: 10px;
 `;

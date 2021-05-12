@@ -1,7 +1,7 @@
 import React from 'react';
 import './CustomColor.css';
 import { CustomPicker } from 'react-color';
-import CustomPointer from '../CustomPointer/CustomPointer';
+import CustomPointer from './CustomPointer/CustomPointer';
 import {
   EditableInput,
   Hue,
@@ -46,7 +46,7 @@ export const CustomColor = ({ hex, hsl, hsv, onChange }) => {
     },
   };
   return (
-    <div className='custom-color'>
+    <div className="custom-color">
       <div style={styles.hue}>
         <Hue hsl={hsl} onChange={onChange} pointer={CustomPointer} />
       </div>
@@ -60,10 +60,10 @@ export const CustomColor = ({ hex, hsl, hsv, onChange }) => {
         />
       </div>
 
-      <div className='color-input' style={styles.inputContainer}>
+      <div className="color-input" style={styles.inputContainer}>
         <EditableInput
           style={{ input: styles.input }}
-          className='custom-color-input'
+          className="custom-color-input"
           value={hex}
           onChange={onChange}
         />

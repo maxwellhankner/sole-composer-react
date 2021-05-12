@@ -3,6 +3,13 @@ import './GraphicPicker.css';
 import { uploadImage } from '../../../../utils/uploadImage';
 import { convertAwsLink } from '../../../../utils/convertAwsLink';
 import CurrentGraphics from '../../../CurrentGraphics/CurrentGraphics';
+import {
+  LeftInterfaceContainer,
+  InterfaceTitle,
+  InterfaceSingleButtons,
+  InterfaceButtonBox,
+  InterfaceButton,
+} from '../../../designerui';
 
 function GraphicPicker({ props }) {
   const { setLayersView, handleAddLayer, design } = props;
@@ -93,7 +100,7 @@ function GraphicPicker({ props }) {
 
   const handleAddGraphicLayer = (fileName) => {
     handleAddLayer('Graphic', fileName);
-    setLayersView('LayerOverview');
+    setLayersView('LayersMain');
   };
 
   if (isLoading) {
@@ -107,7 +114,8 @@ function GraphicPicker({ props }) {
   }
 
   return (
-    <div className="upload-image-container">
+    <LeftInterfaceContainer>
+      <InterfaceTitle>Graphics</InterfaceTitle>
       {graphicsArray && (
         <div className="used-graphics">
           <CurrentGraphics
@@ -135,10 +143,14 @@ function GraphicPicker({ props }) {
         </div>
       )}
 
-      <div className="standard-button">
-        <button onClick={() => setLayersView('LayerOverview')}>Cancel</button>
-      </div>
-    </div>
+      <InterfaceSingleButtons>
+        <InterfaceButtonBox>
+          <InterfaceButton active onClick={() => setLayersView('LayersMain')}>
+            Cancel
+          </InterfaceButton>
+        </InterfaceButtonBox>
+      </InterfaceSingleButtons>
+    </LeftInterfaceContainer>
   );
 }
 

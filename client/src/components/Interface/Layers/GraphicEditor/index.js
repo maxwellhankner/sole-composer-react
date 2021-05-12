@@ -10,6 +10,18 @@ import {
   FaUndoAlt,
 } from 'react-icons/fa';
 import './GraphicEditor.css';
+import {
+  LeftInterfaceContainer,
+  InterfaceButtonBox,
+  InterfaceButton,
+  InterfaceDoubleButtons,
+} from '../../../designerui';
+import {
+  GraphicEditorUpper,
+  GraphicEditorVisualContainer,
+  GraphicEditorButtons,
+  GraphicEditorButton,
+} from './styledComponents';
 
 function GraphicEditor({ props }) {
   const {
@@ -46,80 +58,76 @@ function GraphicEditor({ props }) {
   }, []);
 
   return (
-    <div className='graphic-editor-container'>
-      <div className='graphic-editor-upper'>
-        <div className='graphic-editor-buttons' id='edit-buttons-div'>
-          <button
-            className='graphic-edit-button'
-            id='up-button'
+    <LeftInterfaceContainer>
+      <GraphicEditorUpper>
+        <GraphicEditorButtons>
+          <GraphicEditorButton
+            id="up-button"
             onClick={() => handleMoveGraphic('vert', -30)}
           >
             <FaArrowUp />
-          </button>
-          <button
-            className='graphic-edit-button'
-            id='down-button'
+          </GraphicEditorButton>
+          <GraphicEditorButton
+            id="down-button"
             onClick={() => handleMoveGraphic('vert', 30)}
           >
             <FaArrowDown />
-          </button>
-          <button
-            className='graphic-edit-button'
-            id='left-button'
+          </GraphicEditorButton>
+          <GraphicEditorButton
+            id="left-button"
             onClick={() => handleMoveGraphic('hor', -30)}
           >
             <FaArrowLeft />
-          </button>
-          <button
-            className='graphic-edit-button'
-            id='right-button'
+          </GraphicEditorButton>
+          <GraphicEditorButton
+            id="right-button"
             onClick={() => handleMoveGraphic('hor', 30)}
           >
             <FaArrowRight />
-          </button>
-          <button
-            className='graphic-edit-button'
-            id='scale-up-button'
+          </GraphicEditorButton>
+          <GraphicEditorButton
+            id="scale-up-button"
             onClick={() => handleMoveGraphic('scale', 1.1)}
           >
             <FaArrowsAlt />
-          </button>
-          <button
-            className='graphic-edit-button'
-            id='scale-down-button'
+          </GraphicEditorButton>
+          <GraphicEditorButton
+            id="scale-down-button"
             onClick={() => handleMoveGraphic('scale', 0.9)}
           >
             <FaCompressArrowsAlt />
-          </button>
-          <button
-            className='graphic-edit-button'
-            id='clockwise-button'
+          </GraphicEditorButton>
+          <GraphicEditorButton
+            id="clockwise-button"
             onClick={() => handleMoveGraphic('rotate', 5)}
           >
             <FaRedoAlt />
-          </button>
-          <button
-            className='graphic-edit-button'
-            id='counterclockwise-button'
+          </GraphicEditorButton>
+          <GraphicEditorButton
+            id="counterclockwise-button"
             onClick={() => handleMoveGraphic('rotate', -5)}
           >
             <FaUndoAlt />
-          </button>
-        </div>
-        <div
-          id='graphic-visual-container'
-          className={currentShoe === 'left' ? 'mirror-graphic-visual' : null}
-        ></div>
-      </div>
-      <div className='graphic-editor-lower'>
-        <div className='standard-button graphic-editor-lower-button'>
-          <button onClick={() => handleMoveGraphic('reset', 0)}>Reset</button>
-        </div>
-        <div className='standard-button graphic-editor-lower-button'>
-          <button onClick={() => setLayersView('LayerOverview')}>Back</button>
-        </div>
-      </div>
-    </div>
+          </GraphicEditorButton>
+        </GraphicEditorButtons>
+        <GraphicEditorVisualContainer
+          id="graphic-visual-container"
+          mirror={currentShoe === 'left'}
+        ></GraphicEditorVisualContainer>
+      </GraphicEditorUpper>
+      <InterfaceDoubleButtons>
+        <InterfaceButtonBox>
+          <InterfaceButton onClick={() => handleMoveGraphic('reset', 0)}>
+            Reset
+          </InterfaceButton>
+        </InterfaceButtonBox>
+        <InterfaceButtonBox>
+          <InterfaceButton onClick={() => setLayersView('LayersMain')}>
+            Back
+          </InterfaceButton>
+        </InterfaceButtonBox>
+      </InterfaceDoubleButtons>
+    </LeftInterfaceContainer>
   );
 }
 
