@@ -15,11 +15,11 @@ import {
   LandingSectionLabel,
   LandingSpacing,
 } from './styledComponents';
-import { NewDesignButton } from '../../components/baseui/Buttons';
-import { LandingSignUpButton } from '../../components/baseui/Buttons';
-import { FeaturedDesignCard } from '../../components/baseui/Cards';
-import LandingSplash from '../../components/LandingSplash';
-import MyDesigns from '../../components/MyDesigns';
+import { NewDesignButton } from '../../components/landingui/Buttons';
+import { LandingSignUpButton } from '../../components/landingui/Buttons';
+import { FeaturedDesignCard } from '../../components/landingui/Cards';
+import LandingSplash from '../../components/landingui/LandingSplash';
+import MyDesigns from '../../components/landingui/MyDesigns';
 
 function Landing() {
   const userData = useContext(UserProvider.context);

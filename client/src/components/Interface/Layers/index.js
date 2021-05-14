@@ -1,6 +1,5 @@
 import React from 'react';
 import LayerDictionary from './Constants';
-import './Layers.css';
 import { LeftInterfaceContainer } from '../../designerui';
 
 function LayersView({
@@ -59,13 +58,13 @@ function LayersView({
   const handleEditLayer = (i, layer) => {
     if (layer.type === 'color') {
       setCurrentLayer(i);
-      setLayersView('ColorPicker');
+      setLayersView('ColorEditor');
     } else if (layer.type === 'graphic') {
       setCurrentLayer(i);
       setLayersView('GraphicEditor');
     } else if (layer.type === 'mask') {
       setCurrentLayer(i);
-      setLayersView('ColorPicker');
+      setLayersView('ColorEditor');
     } else if (layer.type === 'overlay') {
       setCurrentPart(design.configData.partsArray.indexOf(layer.source));
       setCurrentLayer(-1);

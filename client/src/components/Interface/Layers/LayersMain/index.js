@@ -1,7 +1,7 @@
 import React from 'react';
 import { handleConvertPartName } from '../../../../utils/convertPartNames';
 import { FaChevronUp, FaChevronDown, FaPlus, FaTrash } from 'react-icons/fa';
-import PartSelector from '../../../PartSelector/PartSelector';
+import PartSelector from './PartSelector';
 import {
   LayersMainContainer,
   LayersMainDivider,
@@ -21,7 +21,6 @@ import {
   InterfaceIconButtonBox,
   InterfaceIconButton,
 } from '../../../designerui';
-import { set } from 'mongoose';
 
 function LayersMain({ props }) {
   const {

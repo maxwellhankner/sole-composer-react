@@ -1,18 +1,18 @@
-import AddLayerType from './AddLayerType';
-import ColorPicker from './ColorPicker';
-import GraphicEditor from './GraphicEditor';
 import LayersMain from './LayersMain';
-import MaskTypes from './MaskTypes';
 import PartList from './PartList';
-import GraphicPicker from './GraphicPicker/GraphicPicker';
+import AddLayerType from './AddLayerType';
+import MaskTypes from './MaskTypes';
+import ColorEditor from './ColorEditor';
+import GraphicEditor from './GraphicEditor';
+import GraphicPicker from './GraphicPicker';
 
 const LayerDictionary = {
-  AddLayerType: AddLayerType,
-  ColorPicker: ColorPicker,
-  GraphicEditor: GraphicEditor,
   LayersMain: LayersMain,
-  MaskTypes: MaskTypes,
   PartList: PartList,
+  AddLayerType: AddLayerType,
+  MaskTypes: MaskTypes,
+  ColorEditor: ColorEditor,
+  GraphicEditor: GraphicEditor,
   GraphicPicker: GraphicPicker,
 };
 

@@ -3,7 +3,7 @@ import { mediaQueriesByDevice } from '../../utils/css/breakpoints';
 const { desktop } = mediaQueriesByDevice;
 
 export const LandingContainer = styled.div`
-  background-color: #f9f9f9;
+  font-family: 'Roboto';
   height: 100%;
 `;
 

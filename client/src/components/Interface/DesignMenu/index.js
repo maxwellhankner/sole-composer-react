@@ -16,6 +16,7 @@ import { takeScreenshot } from '../../../utils/takeScreenshot';
 import { convertAwsLink } from '../../../utils/convertAwsLink';
 import { designFetch } from '../../../utils/fetchHelpers';
 import { FaPen } from 'react-icons/fa';
+import { LoadingSpinner } from '../../designerui';
 
 function DesignMenu({
   handleViewChange,
@@ -113,11 +114,9 @@ function DesignMenu({
 
   if (loading) {
     return (
-      <div className="design-preview-container">
-        <div id="loading-small">
-          <div id="loader"></div>
-        </div>
-      </div>
+      <LeftInterfaceContainer>
+        <LoadingSpinner />
+      </LeftInterfaceContainer>
     );
   } else {
     return (

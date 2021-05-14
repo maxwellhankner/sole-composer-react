@@ -5,7 +5,6 @@ const { desktop } = mediaQueriesByDevice;
 export const SceneContainer = styled.div`
   width: 100vw;
   height: 100vw;
-  background-color: #f9f9f9;
   color: #000;
   flex: 0 0 auto;
   overflow: hidden;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { cloneDeep } from 'lodash';
-import CustomColor from '../../CustomColor';
+import { ColorPicker } from '../../designerui';
 import {
   LeftInterfaceContainer,
   InterfaceSingleButtons,
@@ -173,7 +173,7 @@ function ChangeBaseColor({
         </BaseColorRadioBox>
       </InterfaceSingleButtons>
 
-      <CustomColor
+      <ColorPicker
         colorsArray={colorsArray}
         color={baseColor}
         onChangeComplete={handleColorChange}

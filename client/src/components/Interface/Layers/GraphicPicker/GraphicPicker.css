@@ -29,11 +29,6 @@
   color: #ff5555;
 }
 
-#loading-small {
-  width: 100%;
-  height: calc(100vh - 100vw);
-}
-
 .used-graphics {
   width: 100%;
   /* margin-top: 16px; */
@@ -42,8 +37,8 @@
 
 /* Mobile and Desktop Landscape */
 @media only screen and (orientation: landscape) {
-  #loading-small {
+  /* #loading-small {
     width: 100%;
     height: 100vh;
-  }
+  } */
 }

@@ -2,7 +2,7 @@ import React, { useRef, Suspense } from 'react';
 import { Canvas, useLoader, useThree } from '@react-three/fiber';
 import { useGLTF, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import { LoadingSpinner } from '../designerui';
 import { partLookup } from './partLookup';
 import { SceneContainer } from './styledComponents';
 

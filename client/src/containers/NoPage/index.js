@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { NoPageContainer } from './styledComponents';
-import { MenuButton } from '../../components/baseui/Buttons';
-import { MenuPara } from '../../components/baseui/Text';
+import { MenuButton } from '../../components/landingui/Buttons';
+import { MenuPara } from '../../components/landingui/Text';
 
 function NoPage() {
   return (

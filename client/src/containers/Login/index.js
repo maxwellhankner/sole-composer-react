@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LoginContainer } from './styledComponents';
-import { MenuButton } from '../../components/baseui/Buttons';
+import { MenuButton } from '../../components/landingui/Buttons';
 
 function Login() {
   const loginWithGoogle = () => {

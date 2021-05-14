@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import DesignerContainer from '../../components/DesignerContainer/DesignerContainer';
+import DesignerContainer from '../../components/DesignerContainer';
 import {
   createTexture,
   createCanvas,
