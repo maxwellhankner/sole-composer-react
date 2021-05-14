@@ -12,7 +12,7 @@ export const MenuButton = styled(BaseButton)`
       ? googleLoginButtonBackgroundColor
       : defaultButtonBackgroundColor};
   padding: 8px;
-  font-size: 13px;
+  font-size: 16px;
   text-transform: capitalize;
   margin-top: 15px;
 `;

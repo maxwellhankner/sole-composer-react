@@ -1,3 +1,3 @@
-import MenuPara from './BasicPara';
+import MenuPara from './MenuPara';
 
 export { MenuPara };

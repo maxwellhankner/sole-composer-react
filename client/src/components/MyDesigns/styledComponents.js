@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { mediaQueriesByDevice } from '../../utils/css/breakpoints';
-const { mobile } = mediaQueriesByDevice;
+const { desktop } = mediaQueriesByDevice;
 
 export const MyDesignsContainer = styled.div`
   width: 100%;
@@ -9,13 +9,13 @@ export const MyDesignsContainer = styled.div`
 
 export const MyDesignsGrid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 3px;
-  margin: 16px;
+  margin: 3px;
 
-  ${mobile} {
-    grid-template-columns: 1fr 1fr;
-    margin: 3px;
+  ${desktop} {
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 16px;
   }
 `;
 

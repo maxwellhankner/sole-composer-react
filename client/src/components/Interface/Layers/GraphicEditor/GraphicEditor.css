@@ -1,0 +1,42 @@
+#left-button {
+  grid-area: left;
+}
+#right-button {
+  grid-area: right;
+}
+#up-button {
+  grid-area: up;
+}
+#down-button {
+  grid-area: down;
+}
+#counterclockwise-button {
+  grid-area: counter;
+}
+#clockwise-button {
+  grid-area: clock;
+}
+#scale-up-button {
+  grid-area: expand;
+}
+#scale-down-button {
+  grid-area: compress;
+}
+
+#graphic-visual-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#graphic-visual-canvas {
+  width: 80%;
+  padding-left: 10%;
+  padding-right: 10%;
+}

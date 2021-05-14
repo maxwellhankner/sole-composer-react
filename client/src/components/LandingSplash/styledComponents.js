@@ -1,47 +1,52 @@
 import styled from 'styled-components';
 import { mediaQueriesByDevice } from '../../utils/css/breakpoints';
-const { mobile } = mediaQueriesByDevice;
+const { desktop } = mediaQueriesByDevice;
 
 export const LandingSplashContainer = styled.div`
-  height: 65vh;
-  margin-top: 15vh;
   display: flex;
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
+  flex-direction: column-reverse;
+  height: unset;
+  margin-bottom: 35px;
 
-  ${mobile} {
-    flex-direction: column-reverse;
-    height: unset;
-    margin-top: 0px;
+  ${desktop} {
+    height: 65vh;
+    margin-top: 15vh;
+    flex-direction: unset;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 
 export const SplashLeft = styled.div`
-  height: 100%;
-  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  padding-right: 0px;
+  text-align: center;
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
+  height: 100%;
 
-  ${mobile} {
-    margin-top: 0px;
-    margin-bottom: 20px;
-    padding-right: 0px;
-    text-align: center;
+  ${desktop} {
+    margin-top: unset;
+    margin-bottom: unset;
+    padding-right: unset;
+    text-align: unset;
+    width: 100%;
   }
 `;
 
 export const SplashHeader = styled.p`
-  font-size: 40px;
+  font-size: 30px;
+  margin-top: 30px;
   font-weight: bold;
   margin: 0;
-  margin-top: 70px;
   margin-bottom: 25px;
 
-  ${mobile} {
-    font-size: 30px;
-    margin-top: 30px;
+  ${desktop} {
+    font-size: 40px;
+    margin-top: 70px;
   }
 `;
 
@@ -53,16 +58,18 @@ export const SplashPara = styled.p`
 `;
 
 export const SplashRight = styled.div`
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 90px;
+  margin-bottom: 30px;
+  padding-left: 1px;
   height: 100%;
-  width: 100%;
-  margin-right: 5%;
 
-  ${mobile} {
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    padding-left: 1px;
-    margin-top: 90px;
+  ${desktop} {
+    width: 100%;
+    margin: unset;
+    margin-right: 5%;
   }
 `;
 

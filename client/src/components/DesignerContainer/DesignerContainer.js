@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './DesignerContainer.css';
-import Scene from '../../components/Scene/Scene.js';
+import Scene from '../Scene';
 import Interface from '../../components/Interface/Interface.js';
 import {
   setup,
@@ -35,8 +35,8 @@ function DesignerContainer({
     left: true,
   });
 
-  const [view, setView] = useState('DesignPreview');
-  const [layersView, setLayersView] = useState('LayerOverview');
+  const [view, setView] = useState('DesignInfo');
+  const [layersView, setLayersView] = useState('LayersMain');
 
   const rightBaseColorCanvasObjectRef = useRef();
   const rightCanvasObjectRef = useRef();
