@@ -123,7 +123,7 @@ function GraphicEditor({ props }) {
         </InterfaceButtonBox>
         <InterfaceButtonBox>
           <InterfaceButton onClick={() => setLayersView('LayersMain')}>
-            Back
+            Done
           </InterfaceButton>
         </InterfaceButtonBox>
       </InterfaceDoubleButtons>

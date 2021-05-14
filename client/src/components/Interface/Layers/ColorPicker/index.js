@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { handleConvertPartName } from '../../../../utils/convertPartNames';
-import CurrentColors from '../../../CurrentColors/CurrentColors';
-import CustomColor from '../../../CustomColor/CustomColor';
+import CustomColor from '../../../CustomColor';
 import {
   LeftInterfaceContainer,
+  InterfaceIconButtonBox,
+  InterfaceIconButton,
+  InterfaceTitleAndIcon,
+  InterfaceTitleBox,
   InterfaceTitle,
-  InterfaceSingleButtons,
-  InterfaceButtonBox,
-  InterfaceButton,
 } from '../../../designerui';
+import { FaCheck } from 'react-icons/fa';
 
 function ColorPicker({ props }) {
   const {
@@ -119,39 +120,28 @@ function ColorPicker({ props }) {
 
   return (
     <LeftInterfaceContainer>
-      <InterfaceTitle>{handleConvertPartName(currentPartName)}</InterfaceTitle>
-      <InterfaceSingleButtons>
-        <InterfaceButtonBox>
-          <InterfaceButton
+      <InterfaceTitleAndIcon>
+        <InterfaceTitleBox>
+          <InterfaceTitle>
+            {handleConvertPartName(currentPartName)}
+          </InterfaceTitle>
+        </InterfaceTitleBox>
+        <InterfaceIconButtonBox>
+          <InterfaceIconButton
             active
-            onClick={() =>
-              handleColorChange(
-                '#' +
-                  (
-                    '00000' + ((Math.random() * (1 << 24)) | 0).toString(16)
-                  ).slice(-6)
-              )
-            }
+            onClick={() => setLayersView('LayersMain')}
           >
-            Random Color
-          </InterfaceButton>
-        </InterfaceButtonBox>
-      </InterfaceSingleButtons>
+            <FaCheck />
+          </InterfaceIconButton>
+        </InterfaceIconButtonBox>
+      </InterfaceTitleAndIcon>
 
-      <CurrentColors
+      <CustomColor
+        color={currentColor}
         colorsArray={colorsArray}
+        onChangeComplete={handleColorChange}
         handleColorChange={handleColorChange}
       />
-
-      <CustomColor color={currentColor} onChangeComplete={handleColorChange} />
-
-      <InterfaceSingleButtons>
-        <InterfaceButtonBox>
-          <InterfaceButton active onClick={() => setLayersView('LayersMain')}>
-            Back
-          </InterfaceButton>
-        </InterfaceButtonBox>
-      </InterfaceSingleButtons>
     </LeftInterfaceContainer>
   );
 }

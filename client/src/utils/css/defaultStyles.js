@@ -5,6 +5,8 @@ export const defaultButtonTextColor = '#ffffff';
 export const defaultButtonBackgroundColor = '#000000';
 export const googleLoginButtonBackgroundColor = '#4285f4';
 
+// Designer Colors
+
 // Font Family
 export const defaultFontFamily = `'Helvetica Neue', Helvetica, Arial, sans-serif`;
 

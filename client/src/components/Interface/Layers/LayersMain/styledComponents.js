@@ -73,11 +73,10 @@ export const LayerItem = styled.div`
   overflow: hidden;
 `;
 
-export const LayerItemLeft = styled.div`
+export const LayerItemRight = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  margin-right: 3px;
   background-color: ${(props) => (props.active ? '#EEEEEE' : '#212121')};
   color: ${(props) => (props.active ? '#000000' : '#EEEEEE')};
   justify-content: center;
@@ -86,13 +85,14 @@ export const LayerItemLeft = styled.div`
   border-radius: 4px;
 `;
 
-export const LayerItemLeftTitle = styled.p`
+export const LayerItemRightTitle = styled.p`
   margin: 0px;
   padding-left: 10px;
 `;
 
-export const LayerItemRight = styled.div`
+export const LayerItemLeft = styled.div`
   width: 40px;
+  margin-right: 3px;
   display: flex;
   flex-direction: column;
   border-radius: 4px;

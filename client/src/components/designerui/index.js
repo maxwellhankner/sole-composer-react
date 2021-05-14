@@ -3,10 +3,12 @@ import {
   InterfaceTitle,
   InterfaceDoubleButtons,
   InterfaceSingleButtons,
+  InterfaceTitleAndIcon,
   InterfaceButtonBox,
   InterfaceButton,
   InterfaceIconButtonBox,
   InterfaceIconButton,
+  InterfaceTitleBox,
 } from './styledComponents';
 
 export {
@@ -14,8 +16,10 @@ export {
   InterfaceTitle,
   InterfaceDoubleButtons,
   InterfaceSingleButtons,
+  InterfaceTitleAndIcon,
   InterfaceButtonBox,
   InterfaceButton,
   InterfaceIconButtonBox,
   InterfaceIconButton,
+  InterfaceTitleBox,
 };

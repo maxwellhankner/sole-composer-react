@@ -1,5 +1,6 @@
-import AliceCarousel from 'react-alice-carousel';
 import styled from 'styled-components';
+import { mediaQueriesByDevice } from '../../utils/css/breakpoints';
+const { desktop } = mediaQueriesByDevice;
 
 export const LandingContainer = styled.div`
   background-color: #f9f9f9;
@@ -30,15 +31,23 @@ export const LandingHeaderTitle = styled.p`
   margin: 0;
 `;
 
+export const LandingSpacing = styled.div`
+  width: 100%;
+  height: 42px;
+`;
+
 export const LandingContent = styled.div`
   width: 100%;
   max-width: 700px;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 16px;
+
+  ${desktop} {
+    margin-bottom: 0;
+  }
 `;
 
 export const FeaturedDesignsContainer = styled.div`
-  margin-top: 8px;
   margin-bottom: 32px;
   width: 100%;
 `;

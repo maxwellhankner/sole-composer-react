@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './DesignerContainer.css';
-import Scene from '../../components/Scene/Scene.js';
+import Scene from '../Scene';
 import Interface from '../../components/Interface/Interface.js';
 import {
   setup,

@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import UserProvider from '../../UserProvider';
-import Landing from '../../containers/Landing/Landing';
-import Designer from '../../containers/Designer/Designer';
-import Login from '../Login/Login';
-import Profile from '../Profile/Profile';
-import NoPage from '../../components/NoPage/NoPage';
+import Landing from '../Landing';
+import Designer from '../Designer';
+import Login from '../Login';
+import Profile from '../Profile';
+import NoPage from '../NoPage';
 import { AppContainer } from './styledComponents';
 
 function App() {

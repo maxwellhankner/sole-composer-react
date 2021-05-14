@@ -6,7 +6,7 @@ export const LeftInterfaceContainer = styled.div`
 `;
 
 export const InterfaceTitle = styled.p`
-  font-size: 16px;
+  font-size: 18px;
   margin: 10px 14px;
   color: #ffffff;
 `;
@@ -24,6 +24,19 @@ export const InterfaceSingleButtons = styled.div`
   grid-template-columns: 1fr;
   row-gap: 6px;
   margin: 6px;
+`;
+
+export const InterfaceTitleAndIcon = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 6px;
+`;
+
+export const InterfaceTitleBox = styled.div`
+  height: 46px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const InterfaceButtonBox = styled.div`

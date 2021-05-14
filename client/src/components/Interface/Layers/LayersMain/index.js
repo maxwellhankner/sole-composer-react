@@ -14,13 +14,14 @@ import {
   AnotherScrollBox,
   LayerItem,
   LayerItemLeft,
-  LayerItemLeftTitle,
   LayerItemRight,
+  LayerItemRightTitle,
 } from './styledComponents';
 import {
   InterfaceIconButtonBox,
   InterfaceIconButton,
 } from '../../../designerui';
+import { set } from 'mongoose';
 
 function LayersMain({ props }) {
   const {
@@ -58,6 +59,13 @@ function LayersMain({ props }) {
           handleMoveLayer(index, direction);
         }
       }
+    }
+  };
+
+  const setNoCurrentLayer = (e) => {
+    e.preventDefault();
+    if (e.target.id === 'layers-box') {
+      setCurrentLayer(-1);
     }
   };
 
@@ -118,7 +126,7 @@ function LayersMain({ props }) {
         </LayersMainControlsRight>
       </LayersMainControlsContainer>
 
-      <LayersBox>
+      <LayersBox id="layers-box" onClick={(e) => setNoCurrentLayer(e)}>
         <AnotherScrollBox>
           <LayersScrollBox>
             {allLayers.map((layer, i) => (
@@ -132,22 +140,14 @@ function LayersMain({ props }) {
                   }
                 }}
               >
-                <LayerItemLeft active={i === currentLayer}>
-                  <LayerItemLeftTitle>
-                    {layer.type === 'overlay'
-                      ? handleConvertPartName(layer.source).toLowerCase()
-                      : layer.type}
-                  </LayerItemLeftTitle>
-                </LayerItemLeft>
-
                 {layer.type === 'color' ? (
-                  <LayerItemRight
+                  <LayerItemLeft
                     style={{
                       backgroundColor: layer.color,
                     }}
-                  ></LayerItemRight>
+                  ></LayerItemLeft>
                 ) : layer.type === 'graphic' ? (
-                  <LayerItemRight>
+                  <LayerItemLeft>
                     <img
                       src={`/api/assets/images/${layer.link}`}
                       style={{
@@ -157,9 +157,9 @@ function LayersMain({ props }) {
                       }}
                       alt="design-graphic"
                     />
-                  </LayerItemRight>
+                  </LayerItemLeft>
                 ) : layer.type === 'mask' ? (
-                  <LayerItemRight>
+                  <LayerItemLeft>
                     <img
                       src={`/api/assets/designimages/${layer.link}`}
                       style={{
@@ -169,9 +169,9 @@ function LayersMain({ props }) {
                       }}
                       alt="design-graphic"
                     />
-                  </LayerItemRight>
+                  </LayerItemLeft>
                 ) : (
-                  <LayerItemRight>
+                  <LayerItemLeft>
                     <img
                       src={`/api/assets/designimages/${layer.source}Mask.png`}
                       style={{
@@ -181,8 +181,15 @@ function LayersMain({ props }) {
                       }}
                       alt="design-graphic"
                     />
-                  </LayerItemRight>
+                  </LayerItemLeft>
                 )}
+                <LayerItemRight active={i === currentLayer}>
+                  <LayerItemRightTitle>
+                    {layer.type === 'overlay'
+                      ? handleConvertPartName(layer.source).toLowerCase()
+                      : layer.type}
+                  </LayerItemRightTitle>
+                </LayerItemRight>
               </LayerItem>
             ))}
           </LayersScrollBox>
