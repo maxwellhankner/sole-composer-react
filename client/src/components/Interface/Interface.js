@@ -67,6 +67,7 @@ function Interface({
         design={design}
         setDesign={setDesign}
         currentShoe={currentShoe}
+        setCurrentShoe={setCurrentShoe}
         currentPart={currentPart}
         setCurrentPart={setCurrentPart}
         currentLayer={currentLayer}

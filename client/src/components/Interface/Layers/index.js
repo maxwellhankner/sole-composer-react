@@ -16,6 +16,7 @@ function LayersView({
   setCurrentPart,
   setCanSave,
   currentShoe,
+  setCurrentShoe,
 }) {
   const currentPartName = Object.keys(design.configData.partsObject)[
     currentPart
@@ -115,6 +116,7 @@ function LayersView({
     numberOfLayers,
     setCanSave,
     currentShoe,
+    setCurrentShoe,
     layersView,
   };
 

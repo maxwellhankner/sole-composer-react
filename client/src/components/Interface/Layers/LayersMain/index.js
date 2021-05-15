@@ -35,6 +35,8 @@ function LayersMain({ props }) {
     handleDeleteLayer,
     handleEditLayer,
     handleMoveLayer,
+    currentShoe,
+    setCurrentShoe,
   } = props;
 
   // These two functions just double check
@@ -76,6 +78,8 @@ function LayersMain({ props }) {
         setCurrentPart={setCurrentPart}
         setCurrentLayer={setCurrentLayer}
         setLayersView={setLayersView}
+        currentShoe={currentShoe}
+        setCurrentShoe={setCurrentShoe}
       />
 
       <LayersMainDivider />
