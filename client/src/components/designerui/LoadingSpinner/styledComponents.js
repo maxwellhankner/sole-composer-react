@@ -1,19 +1,16 @@
 import styled from 'styled-components';
 
 export const LoadingSpinnerContainer = styled.div`
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100%;
-  width: 100%;
   z-index: 1;
 `;
 
 export const LoadingSpinnerIcon = styled.div`
-  display: block;
   position: relative;
   left: 50%;
   top: 50%;
@@ -23,8 +20,6 @@ export const LoadingSpinnerIcon = styled.div`
   border: 16px solid #e9e9e9;
   border-top: 16px solid #333;
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
   animation: spin 2s linear infinite;
 
   @keyframes spin {

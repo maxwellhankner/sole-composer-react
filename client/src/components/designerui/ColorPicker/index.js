@@ -35,22 +35,26 @@ export const CustomColor = ({
   return (
     <CustomColorContainer>
       <InterfaceSingleButtons>
-        <HueContainer>
-          <Hue
-            hsl={hsl}
-            onChange={onChange}
-            pointer={CustomColorPointerOffset}
-          />
-        </HueContainer>
+        <InterfaceButtonBox>
+          <HueContainer>
+            <Hue
+              hsl={hsl}
+              onChange={onChange}
+              pointer={CustomColorPointerOffset}
+            />
+          </HueContainer>
+        </InterfaceButtonBox>
 
-        <SaturationContainer>
-          <Saturation
-            hsl={hsl}
-            hsv={hsv}
-            onChange={onChange}
-            pointer={CustomColorPointer}
-          />
-        </SaturationContainer>
+        <InterfaceButtonBox>
+          <SaturationContainer>
+            <Saturation
+              hsl={hsl}
+              hsv={hsv}
+              onChange={onChange}
+              pointer={CustomColorPointer}
+            />
+          </SaturationContainer>
+        </InterfaceButtonBox>
 
         <CurrentColors
           colorsArray={colorsArray}
@@ -77,7 +81,11 @@ export const CustomColor = ({
 
         <InterfaceButtonBox>
           <CustomColorInputContainer>
-            <EditableInput value={hex} onChange={onChange} />
+            <EditableInput
+              className="editable-input"
+              value={hex}
+              onChange={onChange}
+            />
             <CustomColorInputSwatch color={hex}></CustomColorInputSwatch>
           </CustomColorInputContainer>
         </InterfaceButtonBox>

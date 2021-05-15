@@ -3,9 +3,11 @@ import styled from 'styled-components';
 export const CustomColorContainer = styled.div``;
 
 export const HueContainer = styled.div`
-  height: 18px;
+  height: 20px;
   position: relative;
   overflow: hidden;
+  border: 1px solid #343434;
+  border-radius: 4px;
 `;
 
 export const SaturationContainer = styled.div`
@@ -13,6 +15,8 @@ export const SaturationContainer = styled.div`
   height: 120px;
   position: relative;
   overflow: hidden;
+  border: 1px solid #343434;
+  border-radius: 4px;
 `;
 
 export const CustomColorInputContainer = styled.div`
@@ -20,10 +24,10 @@ export const CustomColorInputContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  min-width: 0;
 
   input {
-    box-sizing: border-box;
-    width: 86px;
+    width: 100%;
     height: 38px;
     margin-right: 3px;
     border: 1px solid #ffffff;
@@ -38,9 +42,10 @@ export const CustomColorInputContainer = styled.div`
 `;
 
 export const CustomColorInputSwatch = styled.div`
+  flex: 0 0 auto;
   width: 38px;
   height: 38px;
-  box-sizing: border-box;
+  margin-left: 3px;
   border-radius: 4px;
   background-color: ${(props) => props.color};
 `;

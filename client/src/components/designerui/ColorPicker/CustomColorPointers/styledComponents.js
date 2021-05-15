@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const CustomColorPointer = styled.div`
-  box-sizing: border-box;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -10,7 +9,6 @@ export const CustomColorPointer = styled.div`
 `;
 
 export const CustomColorPointerOffset = styled.div`
-  box-sizing: border-box;
   width: 18px;
   height: 18px;
   border-radius: 50%;

@@ -13,10 +13,10 @@ export const LandingHeader = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  height: 22px;
+  height: 46px;
   color: #f9f9f9;
   background-color: #000000;
-  padding: 10px;
+  /* padding: 10px; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -24,16 +24,23 @@ export const LandingHeader = styled.div`
   a {
     color: #ffffff;
     text-decoration: none;
+    margin: auto 15px;
   }
 `;
 
 export const LandingHeaderTitle = styled.p`
-  margin: 0;
+  margin: auto 15px;
+`;
+
+export const HeaderSpacing = styled.div`
+  width: 100%;
+  height: 45px;
+  background-color: pink;
 `;
 
 export const LandingSpacing = styled.div`
   width: 100%;
-  height: 42px;
+  height: 46px;
 `;
 
 export const LandingContent = styled.div`

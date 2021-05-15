@@ -5,8 +5,11 @@ import {
   InterfaceSingleButtons,
   InterfaceButtonBox,
   InterfaceButton,
+  InterfaceTitleAndIcon,
+  InterfaceTitleBox,
+  InterfaceTitle,
 } from '../../designerui';
-import { EditNameTitle, EditNameInput } from './styledComponents';
+import { EditNameInput } from './styledComponents';
 
 function EditName({ handleViewChange, design, setDesign, setCanSave }) {
   const handleUpdateDesignName = () => {
@@ -22,7 +25,11 @@ function EditName({ handleViewChange, design, setDesign, setCanSave }) {
 
   return (
     <LeftInterfaceContainer>
-      <EditNameTitle>Design Name</EditNameTitle>
+      <InterfaceTitleAndIcon>
+        <InterfaceTitleBox>
+          <InterfaceTitle>Design Name</InterfaceTitle>
+        </InterfaceTitleBox>
+      </InterfaceTitleAndIcon>
       <InterfaceSingleButtons>
         <InterfaceButtonBox>
           <EditNameInput

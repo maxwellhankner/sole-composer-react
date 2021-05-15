@@ -7,6 +7,7 @@ import Login from '../Login';
 import Profile from '../Profile';
 import NoPage from '../NoPage';
 import { AppContainer } from './styledComponents';
+import 'sanitize.css';
 
 function App() {
   return (

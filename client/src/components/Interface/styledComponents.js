@@ -17,6 +17,7 @@ export const InterfaceContainer = styled.div`
 `;
 
 export const InterfaceLeft = styled.div`
+  width: 0px;
   flex: 1 0 auto;
   display: flex;
   flex-direction: column;

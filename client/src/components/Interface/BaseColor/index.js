@@ -134,16 +134,6 @@ function ChangeBaseColor({
 
   return (
     <LeftInterfaceContainer>
-      <InterfaceTitleAndIcon>
-        <InterfaceTitleBox>
-          <InterfaceTitle>Base Color</InterfaceTitle>
-        </InterfaceTitleBox>
-        <InterfaceIconButtonBox>
-          <InterfaceIconButton active onClick={() => updateBaseColor()}>
-            <FaCheck />
-          </InterfaceIconButton>
-        </InterfaceIconButtonBox>
-      </InterfaceTitleAndIcon>
       <InterfaceSingleButtons>
         <BaseColorRadioBox>
           <BaseColorOption
@@ -179,6 +169,17 @@ function ChangeBaseColor({
         onChangeComplete={handleColorChange}
         handleColorChange={handleColorChange}
       />
+
+      <InterfaceTitleAndIcon>
+        <InterfaceTitleBox>
+          <InterfaceTitle>Base Color</InterfaceTitle>
+        </InterfaceTitleBox>
+        <InterfaceIconButtonBox>
+          <InterfaceIconButton active onClick={() => updateBaseColor()}>
+            <FaCheck />
+          </InterfaceIconButton>
+        </InterfaceIconButtonBox>
+      </InterfaceTitleAndIcon>
     </LeftInterfaceContainer>
   );
 }

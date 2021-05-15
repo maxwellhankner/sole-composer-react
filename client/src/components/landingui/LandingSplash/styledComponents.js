@@ -10,7 +10,7 @@ export const LandingSplashContainer = styled.div`
 
   ${desktop} {
     height: 65vh;
-    margin-top: 15vh;
+    margin-top: 12vh;
     flex-direction: unset;
     max-width: 1100px;
     margin-left: auto;
@@ -61,8 +61,8 @@ export const SplashRight = styled.div`
   width: 80%;
   margin-left: 10%;
   margin-right: 10%;
-  margin-top: 90px;
-  margin-bottom: 30px;
+  margin-top: 70px;
+  margin-bottom: 60px;
   padding-left: 1px;
   height: 100%;
 

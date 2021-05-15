@@ -120,6 +120,13 @@ function ColorEditor({ props }) {
 
   return (
     <LeftInterfaceContainer>
+      <ColorPicker
+        color={currentColor}
+        colorsArray={colorsArray}
+        onChangeComplete={handleColorChange}
+        handleColorChange={handleColorChange}
+      />
+
       <InterfaceTitleAndIcon>
         <InterfaceTitleBox>
           <InterfaceTitle>
@@ -135,13 +142,6 @@ function ColorEditor({ props }) {
           </InterfaceIconButton>
         </InterfaceIconButtonBox>
       </InterfaceTitleAndIcon>
-
-      <ColorPicker
-        color={currentColor}
-        colorsArray={colorsArray}
-        onChangeComplete={handleColorChange}
-        handleColorChange={handleColorChange}
-      />
     </LeftInterfaceContainer>
   );
 }

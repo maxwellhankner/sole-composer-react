@@ -117,12 +117,12 @@ function GraphicEditor({ props }) {
       </GraphicEditorUpper>
       <InterfaceDoubleButtons>
         <InterfaceButtonBox>
-          <InterfaceButton onClick={() => handleMoveGraphic('reset', 0)}>
+          <InterfaceButton active onClick={() => handleMoveGraphic('reset', 0)}>
             Reset
           </InterfaceButton>
         </InterfaceButtonBox>
         <InterfaceButtonBox>
-          <InterfaceButton onClick={() => setLayersView('LayersMain')}>
+          <InterfaceButton active onClick={() => setLayersView('LayersMain')}>
             Done
           </InterfaceButton>
         </InterfaceButtonBox>

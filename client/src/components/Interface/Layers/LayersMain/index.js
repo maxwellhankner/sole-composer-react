@@ -11,7 +11,6 @@ import {
   LayersMainControlsRight,
   LayersBox,
   LayersScrollBox,
-  AnotherScrollBox,
   LayerItem,
   LayerItemLeft,
   LayerItemRight,
@@ -126,73 +125,71 @@ function LayersMain({ props }) {
       </LayersMainControlsContainer>
 
       <LayersBox id="layers-box" onClick={(e) => setNoCurrentLayer(e)}>
-        <AnotherScrollBox>
-          <LayersScrollBox>
-            {allLayers.map((layer, i) => (
-              <LayerItem
-                key={i}
-                onClick={() => {
-                  if (i === currentLayer) {
-                    handleEditLayer(i, layer);
-                  } else {
-                    setCurrentLayer(i);
-                  }
-                }}
-              >
-                {layer.type === 'color' ? (
-                  <LayerItemLeft
+        <LayersScrollBox>
+          {allLayers.map((layer, i) => (
+            <LayerItem
+              key={i}
+              onClick={() => {
+                if (i === currentLayer) {
+                  handleEditLayer(i, layer);
+                } else {
+                  setCurrentLayer(i);
+                }
+              }}
+            >
+              {layer.type === 'color' ? (
+                <LayerItemLeft
+                  style={{
+                    backgroundColor: layer.color,
+                  }}
+                ></LayerItemLeft>
+              ) : layer.type === 'graphic' ? (
+                <LayerItemLeft>
+                  <img
+                    src={`/api/assets/images/${layer.link}`}
                     style={{
-                      backgroundColor: layer.color,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
                     }}
-                  ></LayerItemLeft>
-                ) : layer.type === 'graphic' ? (
-                  <LayerItemLeft>
-                    <img
-                      src={`/api/assets/images/${layer.link}`}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                      alt="design-graphic"
-                    />
-                  </LayerItemLeft>
-                ) : layer.type === 'mask' ? (
-                  <LayerItemLeft>
-                    <img
-                      src={`/api/assets/designimages/${layer.link}`}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                      alt="design-graphic"
-                    />
-                  </LayerItemLeft>
-                ) : (
-                  <LayerItemLeft>
-                    <img
-                      src={`/api/assets/designimages/${layer.source}Mask.png`}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                      alt="design-graphic"
-                    />
-                  </LayerItemLeft>
-                )}
-                <LayerItemRight active={i === currentLayer}>
-                  <LayerItemRightTitle>
-                    {layer.type === 'overlay'
-                      ? handleConvertPartName(layer.source).toLowerCase()
-                      : layer.type}
-                  </LayerItemRightTitle>
-                </LayerItemRight>
-              </LayerItem>
-            ))}
-          </LayersScrollBox>
-        </AnotherScrollBox>
+                    alt="design-graphic"
+                  />
+                </LayerItemLeft>
+              ) : layer.type === 'mask' ? (
+                <LayerItemLeft>
+                  <img
+                    src={`/api/assets/designimages/${layer.link}`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                    alt="design-graphic"
+                  />
+                </LayerItemLeft>
+              ) : (
+                <LayerItemLeft>
+                  <img
+                    src={`/api/assets/designimages/${layer.source}Mask.png`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                    alt="design-graphic"
+                  />
+                </LayerItemLeft>
+              )}
+              <LayerItemRight active={i === currentLayer}>
+                <LayerItemRightTitle>
+                  {layer.type === 'overlay'
+                    ? handleConvertPartName(layer.source).toLowerCase()
+                    : layer.type}
+                </LayerItemRightTitle>
+              </LayerItemRight>
+            </LayerItem>
+          ))}
+        </LayersScrollBox>
       </LayersBox>
     </LayersMainContainer>
   );

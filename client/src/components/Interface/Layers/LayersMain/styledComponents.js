@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LayersMainContainer = styled.div``;
 
 export const LayersMainDivider = styled.div`
-  height: 3px;
+  height: 5px;
   background-color: #000000;
   border-top: 1px solid #343434;
   border-bottom: 1px solid #343434;
@@ -55,22 +55,23 @@ export const LayersBox = styled.div`
 export const LayersScrollBox = styled.div`
   display: flex;
   flex-direction: column-reverse;
-`;
-
-export const AnotherScrollBox = styled.div`
-  display: flex;
-  flex-direction: column;
   overflow: auto;
+  border-radius: 4px;
 `;
 
 export const LayerItem = styled.div`
   height: 40px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: row;
   margin-bottom: 3px;
   font-size: 16px;
   text-transform: capitalize;
   overflow: hidden;
+
+  &:first-of-type {
+    margin-bottom: 0;
+  }
 `;
 
 export const LayerItemRight = styled.div`

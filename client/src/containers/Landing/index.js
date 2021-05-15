@@ -14,6 +14,7 @@ import {
   LandingHeaderTitle,
   LandingSectionLabel,
   LandingSpacing,
+  HeaderSpacing,
 } from './styledComponents';
 import { NewDesignButton } from '../../components/landingui/Buttons';
 import { LandingSignUpButton } from '../../components/landingui/Buttons';
@@ -63,9 +64,9 @@ function Landing() {
         )}
       </LandingHeader>
 
-      {!userData && <LandingSplash />}
+      <HeaderSpacing />
 
-      {userData && <LandingSpacing />}
+      {!userData && <LandingSplash />}
 
       <LandingContent>
         {featured && (

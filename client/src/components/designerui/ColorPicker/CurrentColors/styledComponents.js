@@ -1,15 +1,12 @@
 import styled from 'styled-components';
 
-export const CurrentColorsAnotherScroll = styled.div`
-  display: flex;
-  width: 260px;
-`;
-
 export const CurrentColorsScroll = styled.div`
   width: 100%;
+  min-width: 0;
   display: flex;
   flex: 0 1 auto;
   overflow: auto;
+  border-radius: 4px;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 

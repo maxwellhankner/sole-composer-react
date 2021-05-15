@@ -40,6 +40,8 @@ export const InterfaceTitleBox = styled.div`
 `;
 
 export const InterfaceButtonBox = styled.div`
+  width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   border: 1px solid #343434;
   border-radius: 6px;

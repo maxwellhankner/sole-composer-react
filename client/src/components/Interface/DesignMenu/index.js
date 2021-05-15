@@ -4,12 +4,12 @@ import {
   InterfaceDoubleButtons,
   InterfaceButtonBox,
   InterfaceButton,
+  InterfaceTitleAndIcon,
+  InterfaceIconButtonBox,
+  InterfaceIconButton,
+  InterfaceTitleBox,
+  InterfaceTitle,
 } from '../../designerui';
-import {
-  MenuDesignNameContainer,
-  MenuDesignName,
-  MenuEditNameButton,
-} from './styledComponents';
 import { Link } from 'react-router-dom';
 import { uploadImage } from '../../../utils/uploadImage';
 import { takeScreenshot } from '../../../utils/takeScreenshot';
@@ -121,14 +121,20 @@ function DesignMenu({
   } else {
     return (
       <LeftInterfaceContainer>
-        <MenuDesignNameContainer>
-          <MenuDesignName>{design.title}</MenuDesignName>
-          <MenuEditNameButton
-            onClick={() => handleViewChange('ChangeDesignName')}
-          >
-            <FaPen />
-          </MenuEditNameButton>
-        </MenuDesignNameContainer>
+        <InterfaceTitleAndIcon>
+          <InterfaceTitleBox>
+            <InterfaceTitle>{design.title}</InterfaceTitle>
+          </InterfaceTitleBox>
+          <InterfaceIconButtonBox>
+            <InterfaceIconButton
+              active
+              onClick={() => handleViewChange('ChangeDesignName')}
+            >
+              <FaPen />
+            </InterfaceIconButton>
+          </InterfaceIconButtonBox>
+        </InterfaceTitleAndIcon>
+
         <InterfaceDoubleButtons>
           <InterfaceButtonBox onClick={() => setCameraReset(true)}>
             <InterfaceButton active>Reset Camera</InterfaceButton>
