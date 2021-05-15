@@ -16,7 +16,6 @@ export const LandingHeader = styled.div`
   height: 46px;
   color: #f9f9f9;
   background-color: #000000;
-  /* padding: 10px; */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -35,7 +34,6 @@ export const LandingHeaderTitle = styled.p`
 export const HeaderSpacing = styled.div`
   width: 100%;
   height: 45px;
-  background-color: pink;
 `;
 
 export const LandingSpacing = styled.div`

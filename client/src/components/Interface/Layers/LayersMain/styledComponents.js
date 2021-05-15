@@ -44,7 +44,7 @@ export const LayersBox = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  height: 140px;
+  height: 150px;
   margin: 6px;
   border: 1px solid #343434;
   border-radius: 6px;
@@ -55,8 +55,14 @@ export const LayersBox = styled.div`
 export const LayersScrollBox = styled.div`
   display: flex;
   flex-direction: column-reverse;
-  overflow: auto;
+  justify-content: flex-end;
   border-radius: 4px;
+`;
+
+export const AnotherScrollBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
 `;
 
 export const LayerItem = styled.div`

@@ -4,7 +4,7 @@ const { desktop } = mediaQueriesByDevice;
 
 export const MyDesignsContainer = styled.div`
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 `;
 
 export const MyDesignsGrid = styled.div`
